@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrAiseoCtiPodleUdaju:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrAiseoCtiPodleUdaju:v1"
+	xmlns:e160="urn:cz:isvs:iszr:schemas:IszrAiseoCtiPodleUdaju:v1"
+	xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:x12="urn:cz:isvs:aiseo:schemas:AiseoCtiPodleUdaju:v1"
+	xmlns:rob="urn:cz:isvs:rob:schemas:RobTypy:v1"
+	xmlns:rod="urn:cz:isvs:rob:schemas:RobDotazyData:v1"
+	xmlns:isdd="urn:cz:isvs:iszr:schemas:IszrDotazyData:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.5.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E160 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	
+	<!-- Vývojová verze 0.1.0, 23.05.2012, Aleš Teplý -->
+	<!-- Vývojová verze 0.1.1, 01.06.2012, Aleš Teplý, doplněn IszrStatus na hlášení problémů s konverzí AIFO EO-ROB -->
+	<!-- Katalog.7.2 verze 1.1.1, 28.06.2012 Aleš Teplý -->
+	<!-- Verze po revizi 1.1.2, 27.07.2012, Aleš Teplý, přejmenování typů (v AIS EO), přidání IszrStatusDataResponseType -->
+	<!-- Katalog.7.3 verze 1.3.0, 29.08.2012 Aleš Teplý -->
+	<!-- Verze po revizi 1.3.1, 18.09.2012, Aleš Teplý, přidání typPorovnani do Request -->
+	<!-- Katalog.7.4 verze 1.4.0, 29.10.2012 Aleš Teplý -->
+	<!-- Verze po revizi 1.5.0, 13.8.2021, Aleš Teplý, rozšíření struktury Response ROB v2.0.0, aplikačně zatím omezeno na kompatibilitu s ROB v1.0.9 -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstractOrg.xsd"/>
+	<xs:import namespace="urn:cz:isvs:aiseo:schemas:AiseoCtiPodleUdaju:v1" schemaLocation="../../aiseo/xsd/AiseoCtiPodleUdaju.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rob:schemas:RobTypy:v1" schemaLocation="../../rob/xsd/RobTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rob:schemas:RobDotazyData:v1" schemaLocation="../../rob/xsd/RobDotazyData.xsd"/>	
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrDotazyData:v1" schemaLocation="../../iszr/xsd/IszrDotazyData.xsd"/>
+
+	<xs:element name="AiseoCtiPodleUdaju" type="AiseoCtiPodleUdajuType"/>
+	<xs:element name="AiseoCtiPodleUdajuResponse" type="AiseoCtiPodleUdajuResponseType"/>
+
+	<xs:complexType name="AiseoCtiPodleUdajuType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E160 externího rozhraní - typ pro žádost. Služba umožňuje provést hledání v AIS EO podle jména, příjmení, rodného příjmení, data narození a rodného čísla. Služba vrací AIFO a příznak, zda bylo AIFO ověřeno v ROB (služba AIS EO X12).</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="AiseoCtiPodleUdajuData">
+									<xs:complexType>
+										<xs:complexContent>
+											<xs:extension base="x12:AiseoCtiPodleUdajuDataType">
+												<xs:attribute name="typPorovnani" type="rob:TypPorovnaniType"/>
+											</xs:extension>
+										</xs:complexContent>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="AiseoCtiPodleUdajuResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E160 externího rozhraní - typ pro odpověď. Služba umožňuje provést hledání v AIS EO podle jména, příjmení, rodného příjmení, data narození a rodného čísla. Služba vrací AIFO a příznak, zda bylo AIFO ověřeno v ROB (služba AIS EO X12).</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAifoStAbstractType">
+				<xs:sequence>
+					<xs:element name="AiseoOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="AiseoCtiPodleUdajuDataResponse" type="x12:AiseoSyncCtiPodleUdajuDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="RobOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RobCtiHromadneAifoDataResponse" type="rod:RobCtiHromadneAifoDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="IszrOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IszrStatusDataResponse" type="IszrStatusDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="IszrStatusDataResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Hlášení problémů ISZR (např. s konverzí AIFO EO-ROB).</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="isdd:IszrDotazyDataResponseType">
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

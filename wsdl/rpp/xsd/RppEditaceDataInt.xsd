@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:rpp:schemas:RppEditaceDataInt:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:rpp="urn:cz:isvs:rpp:schemas:RppTypy:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:edi="urn:cz:isvs:rpp:schemas:RppEditaceTypy:v1" xmlns:edid="urn:cz:isvs:rpp:schemas:RppEditaceData:v1" targetNamespace="urn:cz:isvs:rpp:schemas:RppEditaceDataInt:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi dotazovacích datových prvků IS RPP.
+          Toto schéma obsahuje definice datových prvků vstupu a výstupu druhé verze jednotlivých dotazovacích služeb
+          registru práv a povinností (RPP).
+        </xs:documentation>
+	</xs:annotation>
+	<!-- Verze 1.0.0, 23.9.2019 pridani nove sluzby RppEditaceCiselniku-->
+	<xs:import namespace="urn:cz:isvs:rpp:schemas:RppTypy:v1" schemaLocation="RppTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rpp:schemas:RppEditaceTypy:v1" schemaLocation="RppEditaceTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rpp:schemas:RppEditaceData:v1" schemaLocation="RppEditaceData.xsd"/>
+	<xs:element name="RppEditaceCiselnikuData" type="RppEditaceCiselnikuDataType"/>
+	<xs:element name="RppEditaceCiselnikuDataResponse" type="RppEditaceCiselnikuDataResponseType"/>
+	<xs:complexType name="RppEditaceCiselnikuDataType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">
+              Služba P517, vstup služby pro aktualizaci interních číselníků RPP.
+            </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="SeznamOperaci" type="edi:SeznamOperaciType">
+				<xs:annotation>
+					<xs:documentation>Seznam akcí pro záznamy v číselníku.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RppEditaceCiselnikuDataResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">
+              Služba P517, odpověď.
+            </xs:documentation>
+			<xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                OBECNA CHYBA SLUZBY
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+                PRAZDNY SEZNAM
+                NEPOVOLENY KOD CISELNIKU
+            </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="edid:RppEditaceDataResponseAbstractType"/>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

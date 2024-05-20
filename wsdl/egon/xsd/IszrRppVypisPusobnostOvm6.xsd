@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRppVypisPusobnostOvm6:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRppVypisPusobnostOvm6:v1"
+	xmlns:e297="urn:cz:isvs:iszr:schemas:IszrRppVypisPusobnostOvm6:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:pdo="urn:cz:isvs:rpp:schemas:RppDotazyData:v1"
+	xmlns:crob2="urn:cz:isvs:ruian:schemas:CtiProRob:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.2.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E297 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Výchozí verze 1.0.0, 13.12.2012, Aleš Teplý -->
+	<!-- Verze po revizi 1.0.1, 16.3.2022, Aleš Teplý, RPP verze 1.11.5 -->
+	<!-- Verze po revizi 1.1.0, 12.4.2022, Aleš Teplý, RPP verze 1.11.8, použití odpovědí registrů v2 -->
+	<!-- Verze po revizi 1.2.0, 25.5.2022, Aleš Teplý, Response - AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rpp:schemas:RppDotazyData:v1" schemaLocation="../../rpp/xsd/RppDotazyData.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiProRob:v2" schemaLocation="ref/RuianCtiProRob2n.xsd"/>
+
+	<xs:element name="RppVypisPusobnostOvm6" type="RppVypisPusobnostOvm6Type"/>
+	<xs:element name="RppVypisPusobnostOvm6Response" type="RppVypisPusobnostOvm6ResponseType"/>
+	<xs:complexType name="RppVypisPusobnostOvm6Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E297 externího rozhraní - typ pro žádost. Poskytnutí detailních informací o působnosti OVM v Agendě definovaných v katalogu působností na základě vstupních parametrů (Agenda, OVM). RPP služba P96.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RppVypisPusobnostOvm6Data" type="pdo:RppVypisPusobnostOvm6DataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RppVypisPusobnostOvm6ResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E297 externího rozhraní - typ pro odpověď. Poskytnutí detailních informací o působnosti OVM v Agendě definovaných v katalogu působností na základě vstupních parametrů (Agenda, OVM). RPP služba P96.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedIdAdrAbstractType">
+				<xs:sequence>
+					<xs:element name="RppOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RppVypisPusobnostOvm6DataResponse" type="pdo:RppVypisPusobnostOvm6DataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="RuianOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianCtiProRob2DataResponse" type="crob2:RuianCtiProRobV2DataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

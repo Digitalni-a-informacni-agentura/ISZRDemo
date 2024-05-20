@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekOrp2:v1" 
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekOrp2:v1" 
+	xmlns:e250j="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekOrp2:v1" 
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:ctiOp="urn:cz:isvs:ruian:schemas:CtiOrp:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified" 
+	version="2.0.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E250j externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	
+	<!-- Výchozí verze 2.0.0, 6.10.2020 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiOrp:v2" schemaLocation="../../ruian/xsd/ext/v2/cti/CtiOrp.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiOrp:v2" schemaLocation="ref/RuianCtiPrvekOrp2.xsd"/>
+
+	<xs:element name="RuianCtiPrvekOrp2" type="RuianCtiPrvekOrp2Type"/>
+	<xs:element name="RuianCtiPrvekOrp2Response" type="RuianCtiPrvekOrp2ResponseType"/>
+	
+	<xs:complexType name="RuianCtiPrvekOrp2Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E250j externího rozhraní - žádost. Načtení ORP z RUIAN. RUIAN služba, operace ctiOrp.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+		 						<xs:element name="RuianCtiPrvekOrp2Data" type="ctiOp:CtiOrpDotazType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="RuianCtiPrvekOrp2ResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E250j externího rozhraní - odpověď. Načtení ORP z RUIAN. RUIAN služba, operace ctiOrp.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="RuianOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianCtiPrvekOrp2DataResponse">
+									<xs:complexType>
+										<xs:sequence>
+										  <xs:element ref="ctiOp:Orp"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

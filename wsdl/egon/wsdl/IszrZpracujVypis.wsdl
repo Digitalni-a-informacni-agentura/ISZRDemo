@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrZpracujVypis:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrZpracujVypis:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrZpracujVypis:v1"
+	xmlns:e151="urn:cz:isvs:iszr:schemas:IszrZpracujVypis:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrZpracujVypis">
+
+	<wsdl:documentation>Služba E151 externího rozhraní, interní služba ISZR I16. Umožňuje přijmout definovanou žádost na vytvoření výpisu ve formě XML a vytvořit výpis vhodný pro technické zpracování a odpovídající PDF.</wsdl:documentation>
+
+	<!-- Vývojová verze 0.0.1, 09.03.2012 Aleš Teplý, výchozí verze -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+  <!-- Verze pro revizi 1.1.1, 19.06.2012, Aleš Teplý, Zadatel nepovinný -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrZpracujVypis:v1" schemaLocation="../xsd/IszrZpracujVypis.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrZpracujVypis">
+		<wsdl:part name="parametry" element="e151:IszrZpracujVypis"/>
+	</wsdl:message>
+	<wsdl:message name="IszrZpracujVypisResponse">
+		<wsdl:part name="vysledek" element="e151:IszrZpracujVypisResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrZpracujVypisPortType">
+		<wsdl:operation name="IszrZpracujVypis">
+			<wsdl:input message="tns:IszrZpracujVypis"/>
+			<wsdl:output message="tns:IszrZpracujVypisResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrZpracujVypisBinding" type="tns:IszrZpracujVypisPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrZpracujVypis">
+			<soap:operation soapAction="IszrZpracujVypis"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrZpracujVypisService">
+		<wsdl:port name="IszrZpracujVypisPortService" binding="tns:IszrZpracujVypisBinding">
+			<soap:address location="IszrZpracujVypis"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

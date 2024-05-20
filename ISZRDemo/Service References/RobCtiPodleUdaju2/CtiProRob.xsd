@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:ctiAdresa="urn:cz:isvs:ruian:schemas:CtiAdresa:v2" xmlns:crob="urn:cz:isvs:ruian:schemas:CtiProRob:v2" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns="urn:cz:isvs:ruian:schemas:CtiProRob:v2" elementFormDefault="qualified" targetNamespace="urn:cz:isvs:ruian:schemas:CtiProRob:v2" version="2.0.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="../../../typy/BaseTypy.xsd" namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" />
+  <xs:import schemaLocation="../cti/CtiAdresa.xsd" namespace="urn:cz:isvs:ruian:schemas:CtiAdresa:v2" />
+  <xs:import schemaLocation="../../../../../RegTypy.xsd" namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" />
+  <xs:element name="CtiProRobResponse" type="crob:CtiProRobResponseType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Odpověď na dotaz pro ověření nebo získání údajů potřebných k doplnění údajů o fyzické osobě z ROB.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CtiProRobRequest" type="crob:CtiProRobRequestType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Dotaz pro ověření nebo získání údajů potřebných k doplnění údajů o fyzické osobě z ROB.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="CtiProRobDotazType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Seznam adres pro ověření nebo načtení.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="SeznamIdAdres" type="reg:SeznamIdAdresType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CtiProRobOdpovedType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Seznam adres pro ověření nebo načtení.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="SeznamAdres" type="crob:SeznamAdresType" />
+      <xs:element minOccurs="1" maxOccurs="1" name="SeznamIdAdres" type="reg:SeznamIdAdresType" />
+      <xs:element minOccurs="1" maxOccurs="1" name="SeznamLokalit" type="crob:SeznamLokalitType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SeznamAdresType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Seznam položkových adres.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PolozkovaAdresa" type="ctiAdresa:AdresaPolozkovaType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SeznamLokalitType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Seznam lokalit - místo narození nebo úmrtí.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Lokalita" type="crob:LokalitaType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CtiProRobResponseType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Dotaz pro získání údajů potřebných k doplnění údajů o fyzické osobě z ROB.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="OdpovedInfo" type="reg:OdpovedInfoType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Odpoved" type="crob:CtiProRobOdpovedType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CtiProRobRequestType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Dotaz pro získání údajů potřebných k doplnění údajů o fyzické osobě z ROB.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="ZadostInfo" type="reg:ZadostInfoType" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Dotaz" type="crob:CtiProRobDotazType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="LokalitaType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Místo narození narození nebo úmrtí.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Kod" type="reg:AdresniLokalitaType" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Nazev" type="base:Nazev48Type" />
+    </xs:sequence>
+    <xs:attribute default="OB" name="TypPrvku" type="reg:TypAdresniLokalityType" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="cs">Informace o výsledku načtení v RUIAN, pokud se nepodařilo načíst.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+</xs:schema>

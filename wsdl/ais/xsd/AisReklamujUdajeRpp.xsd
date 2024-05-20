@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:ais:schemas:AisReklamujUdajeRpp:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:aabs="urn:cz:isvs:ais:schemas:AisTypy:v1" xmlns:i03="urn:cz:isvs:iszr:schemas:IszrDataReklamujUdajeRpp:v1" xmlns:rpt="urn:cz:isvs:rpp:schemas:RppDotazyTypy:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:cz:isvs:ais:schemas:AisReklamujUdajeRpp:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.1.1">
+    <xs:annotation>
+        <xs:documentation xml:lang="cs">Avízo o nesprávném údaji v registru RPP příslušnému editorovi údaje.</xs:documentation>
+    </xs:annotation>
+    <!-- Vývojová verze 0.1.0, 27.12.2016, Petr Roušar -->
+    <!-- Vývojová verze 0.1.1, 20.06.2017, Zrušení násobnosti pro NavrhovaneHodnoty -->
+    <xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+    <xs:import namespace="urn:cz:isvs:ais:schemas:AisTypy:v1" schemaLocation="AisTypy.xsd"/>
+    <xs:import namespace="urn:cz:isvs:iszr:schemas:IszrDataReklamujUdajeRpp:v1" schemaLocation="../../iszr/xsd/IszrDataReklamujUdajeRpp.xsd"/>
+    <xs:import namespace="urn:cz:isvs:rpp:schemas:RppDotazyTypy:v1" schemaLocation="../../rpp/xsd/RppDotazyTypy.xsd"/>
+    <xs:element name="AisReklamujUdajeRpp" type="AisReklamujUdajeRppType"/>
+    <xs:element name="AisReklamujUdajeRppResponse" type="AisReklamujUdajeRppResponseType"/>
+    <xs:complexType name="AisReklamujUdajeRppType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Avízo o nesprávném údaji v registru RPP příslušnému editorovi údaje.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="aabs:AisZadostAbstractType">
+                <xs:sequence>
+                    <xs:element name="Zadost">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="AisReklamujUdajeRppData" type="AisReklamujUdajeRppDataType"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="AisReklamujUdajeRppDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Avízo o nesprávném údaji v registru RPP příslušnému editorovi údaje.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="i03:IszrReklamujUdajeRppDataType">
+                <xs:sequence>
+		                <xs:element name="NavrhovaneHodnoty" type="rpt:NavrhovanaHodnotaType" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Reklamované údaje.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <!--  
+                    <xs:element name="SeznamNavrhovanychHodnot" type="rpt:SeznamNavrhovanychHodnotType" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Seznam reklamovaných údajů.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    -->
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="AisReklamujUdajeRppResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Avízo o nesprávném údaji v registru RPP příslušnému editorovi údaje, odpověď.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="aabs:AisOdpovedAbstractType">
+                <xs:sequence>
+                    <xs:element name="AisOdpoved" minOccurs="0">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="AisReklamujUdajeRppDataResponse" type="AisReklamujUdajeRppDataResponseType"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="AisReklamujUdajeRppDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na reklamaci.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="aabs:AisDotazyDataResponseType">
+                <xs:sequence>
+                    <xs:element name="IdentifikatorReklamace" type="reg:NonEmptyStringType" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation xml:lang="cs">Přidělený identifikátor reklamace</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>

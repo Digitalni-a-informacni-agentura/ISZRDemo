@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRobVymazObyvatele:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRobVymazObyvatele:v1"
+	xmlns:e06="urn:cz:isvs:iszr:schemas:IszrRobVymazObyvatele:v1"
+	xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:roe="urn:cz:isvs:rob:schemas:RobEditaceData:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.1.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E06 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vývojová verze 0.0.1, 30.09.2011, Pavel Kirchner -->
+	<!-- Vývojová verze 0.0.2, 12.10.2011, Aleš Teplý, formální úpravy -->
+	<!-- Fixovaná verze 1.0.0, 25.10.2011, Aleš Teplý -->
+	<!-- Verze po revizi 1.0.1, 14.02.2012 Aleš Teplý, doplnění MapaAifo a OrgStatus do Response -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstractOrg.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rob:schemas:RobEditaceData:v1" schemaLocation="../../rob/xsd/RobEditaceData.xsd"/>
+
+	<xs:element name="RobVymazObyvatele" type="RobVymazObyvateleType"/>
+	<xs:element name="RobVymazObyvateleResponse" type="RobVymazObyvateleResponseType"/>
+
+	<xs:complexType name="RobVymazObyvateleType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E06 externího rozhraní - typ pro žádost. Služba zprostředkuje zrušení záznamu v ROB - služba ROB O06. Vstupní parametr AIFO.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostRAifoAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RobVymazObyvateleData" type="roe:RobVymazObyvateleDataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="RobVymazObyvateleResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E06 externího rozhraní - typ pro žádost. Služba zprostředkuje zrušení záznamu v ROB - služba ROB O06. Výstupní parametr - status.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAifoStAbstractType">
+				<xs:sequence>
+					<xs:element name="RobOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RobVymazObyvateleDataResponse" type="roe:RobVymazObyvateleDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

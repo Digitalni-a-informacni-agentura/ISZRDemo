@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns="urn:cz:isvs:iszr:services:IszrOrgZjistiAis:v1" xmlns:tns="urn:cz:isvs:iszr:services:IszrOrgZjistiAis:v1" xmlns:e80="urn:cz:isvs:iszr:schemas:IszrOrgZjistiAis:v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" name="IszrOrgZjistiAis" targetNamespace="urn:cz:isvs:iszr:services:IszrOrgZjistiAis:v1">
+	<wsdl:documentation>Služba E199 externího rozhraní.</wsdl:documentation>
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrOrgZjistiAis:v1" schemaLocation="../xsd/IszrOrgZjistiAis.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrOrgZjistiAis">
+		<wsdl:part name="parametry" element="e80:OrgZjistiAis"/>
+	</wsdl:message>
+	<wsdl:message name="IszrOrgZjistiAisResponse">
+		<wsdl:part name="vysledek" element="e80:OrgZjistiAisResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrOrgZjistiAisPortType">
+		<wsdl:operation name="IszrOrgZjistiAis">
+			<wsdl:input message="IszrOrgZjistiAis"/>
+			<wsdl:output message="IszrOrgZjistiAisResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrOrgZjistiAisBinding" type="tns:IszrOrgZjistiAisPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrOrgZjistiAis">
+			<soap:operation soapAction="IszrOrgZjistiAis"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrOrgZjistiAisService">
+		<wsdl:port name="IIszrOrgZjistiAisPortService" binding="tns:IszrOrgZjistiAisBinding">
+			<soap:address location="IszrOrgZjistiAis"/>
+		</wsdl:port>
+	</wsdl:service>
+	<!-- Verze 1.0.0, 14.07.2015 Pavel Odstrčil -->
+	<!-- AutoCont CZ a.s. -->
+</wsdl:definitions>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRppVypisUdajAgendy:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRppVypisUdajAgendy:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRppVypisUdajAgendy:v1"
+	xmlns:e302="urn:cz:isvs:iszr:schemas:IszrRppVypisUdajAgendy:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	xmlns:ns="http://www.w3.org/2004/08/xop/include"
+	xmlns:ns1="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:ns2="urn:cz:isvs:reg:schemas:RegTypy:v1"
+	xmlns:ns3="urn:cz:isvs:rpp:schemas:RppDotazyData:v1"
+	xmlns:ns4="urn:cz:isvs:rpp:schemas:RppDotazyTypy:v1"
+	xmlns:ns5="urn:cz:isvs:rpp:schemas:RppEditaceTypy:v1"
+	xmlns:ns6="urn:cz:isvs:rpp:schemas:RppTypy:v1"
+	name="IszrRppVypisUdajAgendy">
+
+	<wsdl:documentation>Služba E302 externího rozhraní - Služba vypíše detailní informace o agendě ve struktuře po novele zákona 111/2009 - RPP služba P103.</wsdl:documentation>
+
+	<!-- Výchozí verze 1.0.0, 13.12.2012, Aleš Teplý -->
+	<!-- Verze po revizi 1.0.1, 17.3.2022, Aleš Teplý, RPP verze 1.11.7 -->
+	<!-- Verze po revizi 1.1.0, 25.5.2022, Aleš Teplý, Response - AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRppVypisUdajAgendy:v1" schemaLocation="../xsd/IszrRppVypisUdajAgendy.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrRppVypisUdajAgendy">
+		<wsdl:part name="parametry" element="e302:RppVypisUdajAgendy"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRppVypisUdajAgendyResponse">
+		<wsdl:part name="vysledek" element="e302:RppVypisUdajAgendyResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRppVypisUdajAgendyPortType">
+		<wsdl:operation name="IszrRppVypisUdajAgendy">
+			<wsdl:input message="IszrRppVypisUdajAgendy"/>
+			<wsdl:output message="IszrRppVypisUdajAgendyResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRppVypisUdajAgendyBinding" type="tns:IszrRppVypisUdajAgendyPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRppVypisUdajAgendy">
+			<soap:operation soapAction="IszrRppVypisUdajAgendy"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRppVypisUdajAgendyService">
+		<wsdl:port name="IszrRppVypisUdajAgendyPortService" binding="tns:IszrRppVypisUdajAgendyBinding">
+			<soap:address location="IszrRppVypisUdajAgendy"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRosCtiSeznamIco2:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRosCtiSeznamIco2:v1"
+	xmlns:e258="urn:cz:isvs:iszr:schemas:IszrRosCtiSeznamIco2:v1"
+	xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:sdo="urn:cz:isvs:ros:schemas:RosDotazyData:v2"
+	xmlns:rod="urn:cz:isvs:rob:schemas:RobDotazyData:v1"
+	xmlns:crob2="urn:cz:isvs:ruian:schemas:CtiProRob:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="2.2.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E258 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vývojová verze 2.0.0, 21.9.2020, Aleš Teplý -->
+	<!-- Vývojová verze 2.0.1, 8.10.2020, Aleš Teplý, změna elementu ProvozniUdaje v StatOrganZastupceResponseType na nepovinný -->
+	<!-- Verze po revizi 2.0.1, 14.10.2020, Aleš Teplý, RuianCtiProRobDataResponse v1 i v2 -->
+	<!-- Verze po revizi 2.1.1, 5.8.2021, Aleš Teplý, rozšíření Response o nepovinné KontaktniUdaje -->
+	<!-- Verze po revizi 2.2.0, 13.8.2021, Aleš Teplý, rozšíření struktury Response ROB v2.0.0, aplikačně zatím omezeno na kompatibilitu s ROB v1.0.9 -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstractOrg.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ros:schemas:RosDotazyData:v2" schemaLocation="../../ros/xsd/RosDotazyData.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rob:schemas:RobDotazyData:v1" schemaLocation="../../rob/xsd/RobDotazyData.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiProRob:v2" schemaLocation="ref/RuianCtiProRob2.xsd"/>
+
+	<xs:element name="RosCtiSeznamIco2" type="RosCtiSeznamIco2Type"/>
+	<xs:element name="RosCtiSeznamIco2Response" type="RosCtiSeznamIco2ResponseType"/>
+	<xs:complexType name="RosCtiSeznamIco2Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E258 externího rozhraní - typ pro žádost.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RosCtiSeznamIco2Data" type="sdo:RosCtiSeznamIco2DataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RosCtiSeznamIco2ResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E258 externího rozhraní - typ pro odpověď.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAifoStIdAdrAbstractType">
+				<xs:sequence>
+					<xs:element name="RosOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RosCtiSeznamIco2DataResponse" type="sdo:RosCtiSeznamIco2DataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="RobOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RobCtiHromadneAifoDataResponse" type="rod:RobCtiHromadneAifoDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="RuianOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianCtiProRobDataResponse" type="crob2:RuianCtiProRobDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

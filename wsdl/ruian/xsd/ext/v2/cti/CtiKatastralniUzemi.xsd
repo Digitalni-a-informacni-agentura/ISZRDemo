@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:CtiKatastralniUzemi:v2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:CtiKatastralniUzemi:v2" xmlns:ctiKu="urn:cz:isvs:ruian:schemas:CtiKatastralniUzemi:v2" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:kuPol="urn:cz:isvs:ruian:schemas:KatastralniUzemiPolozky:v2" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:kuGml="urn:cz:isvs:ruian:schemas:KatastralniUzemiGML:v2" elementFormDefault="qualified" version="2.0.0">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:KatastralniUzemiGML:v2" schemaLocation="../prvky/KatastralniUzemiGML.xsd"/>
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:KatastralniUzemiPolozky:v2" schemaLocation="KatastralniUzemiPolozky.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../typy/BaseTypy.xsd"/>
+	<xs:complexType name="CtiKatastralniUzemiDotazType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Parametry dotazu na informace o katastrálním území.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod6Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód katastrálního území.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PozadovaneUdaje" type="kuPol:KatastralniUzemiPolozkyType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Seznam požadovaných údajů.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="CtiKatastralniUzemiRequest" type="ctiKu:CtiKatastralniUzemiRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na načtení informací o katastrálním území.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="CtiKatastralniUzemiRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na načtení informací o katastrálním území.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Standardní hlavička dotazu.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Dotaz" type="CtiKatastralniUzemiDotazType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Parametry dotazu.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="CtiKatastralniUzemiResponse" type="ctiKu:CtiKatastralniUzemiResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved na nacteni katastralniho uzemi</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="CtiKatastralniUzemiResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved na nacteni katastralniho uzemi</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="KatastralniUzemi" type="kuGml:KatastralniUzemiGMLType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

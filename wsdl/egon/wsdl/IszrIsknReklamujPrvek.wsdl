@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns="urn:cz:isvs:iszr:services:IszrIsknReklamujPrvek:v1" xmlns:tns="urn:cz:isvs:iszr:services:IszrIsknReklamujPrvek:v1" xmlns:e94="urn:cz:isvs:iszr:schemas:IszrIsknReklamujPrvek:v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" name="IszrIsknReklamujPrvek" targetNamespace="urn:cz:isvs:iszr:services:IszrIsknReklamujPrvek:v1">
+	<wsdl:documentation>Služba E94 externího rozhraní.</wsdl:documentation>
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrIsknReklamujPrvek:v1" schemaLocation="../xsd/IszrIsknReklamujPrvek.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrIsknReklamujPrvek">
+		<wsdl:part name="parametry" element="e94:IsknReklamujPrvek"/>
+	</wsdl:message>
+	<wsdl:message name="IszrIsknReklamujPrvekResponse">
+		<wsdl:part name="vysledek" element="e94:IsknReklamujPrvekResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrIsknReklamujPrvekPortType">
+		<wsdl:operation name="IszrIsknReklamujPrvek">
+			<wsdl:input message="IszrIsknReklamujPrvek"/>
+			<wsdl:output message="IszrIsknReklamujPrvekResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrIsknReklamujPrvekBinding" type="tns:IszrIsknReklamujPrvekPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrIsknReklamujPrvek">
+			<soap:operation soapAction="IszrIsknReklamujPrvek"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrIsknReklamujPrvekService">
+		<wsdl:port name="IszrIsknReklamujPrvekPortService" binding="tns:IszrIsknReklamujPrvekBinding">
+			<soap:address location="IszrIsknReklamujPrvek"/>
+		</wsdl:port>
+	</wsdl:service>
+	<!-- Vývojová verze 1.0.0, 26.10.2017 -->
+	<!-- AutoCont CZ a.s. -->
+</wsdl:definitions>

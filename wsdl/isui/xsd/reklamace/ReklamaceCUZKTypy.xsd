@@ -1,0 +1,683 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:isui:schemas:ReklamaceCUZKTypy:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:isui:schemas:ReklamaceCUZKTypy:v1" xmlns:rekcuzk="urn:cz:isvs:isui:schemas:ReklamaceCUZKTypy:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:zt="urn:cz:isvs:ruian:schemas:ZmenaTypy:v1" xmlns:rcom="urn:cz:isvs:isui:schemas:ReklamaceCommon:v1" xmlns:rek="urn:cz:isvs:isui:schemas:ReklamaceTypy:v1" xmlns:eex="urn:cz:isvs:isui:schemas:EditaceExtTypy:v1" xmlns:osx="urn:cz:isvs:isui:schemas:ObecStuExtTypy:v1" elementFormDefault="qualified" version="1.2.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Typy používané ve webové službě IsuiReklamujPrvekCUZK.</xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="urn:cz:isvs:isui:schemas:ObecStuExtTypy:v1" schemaLocation="../../../isui/xsd/externi_nz/ObecStuExtTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:isui:schemas:EditaceExtTypy:v1" schemaLocation="../externi_nz/EditaceExtTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:isui:schemas:ReklamaceTypy:v1" schemaLocation="ReklamaceTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:isui:schemas:ReklamaceCommon:v1" schemaLocation="ReklamaceCommon.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenaTypy:v1" schemaLocation="../../../ruian/xsd/typy/ZmenaTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../ruian/xsd/typy/CommonTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:complexType name="UdajeStavObjDoplneniCUZKType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">choice</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="StavebniObjektKod" type="base:Kod9Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="StavebniObjekt" type="StavebniObjektReklCUZKType" minOccurs="0" maxOccurs="1"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="ReklamaceCUZKOdpovedType">
+		<xs:sequence>
+			<xs:element name="IdReklamace" type="base:Id18Type" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OdpovedInfoCUZKType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Společná hlavička všech odpovědí (webových služeb).</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CasOdpovedi" type="reg:CasovaZnackaType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Status" type="reg:StatusType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="AgendaZadostId" type="reg:AgendaZadostIdType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="ZadostId" type="reg:IszrZadostIdType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ReklamaceNestrukturovanaType">
+		<xs:sequence>
+			<xs:element name="RUP" type="RUPType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RUPType">
+		<xs:sequence>
+			<xs:element name="TypPrvku" type="com:TypPrvkuType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Kod" type="base:Kod9Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Popis" type="base:Text2000Type" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="IsuiReklamujPrvekCUZKResponse" type="rekcuzk:IsuiReklPrvekCUZKResponseType"/>
+	<xs:complexType name="IsuiReklPrvekCUZKResponseType">
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="OdpovedInfoCUZKType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Odpoved" type="ReklamaceCUZKOdpovedType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DADType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Data reklamace typu DAD - Doplnění adresy.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AdresniMisto" type="UdajeAdresaDoplneniCUZKType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="StavebniObjekt" type="UdajeStavObjDoplneniCUZKType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Popis" type="base:Text2000Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Slovní popis reklamace.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="IsuiReklamujPrvekCUZKRequest" type="rekcuzk:IsuiReklPrvekCUZKRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na interní reklamaci</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="ReklamaceCUZKType">
+		<xs:sequence>
+			<xs:element name="Hlavicka" type="HlavickaReklamaceCUZKType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Prvek" type="TeloReklamaceCUZKType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="IsuiReklPrvekCUZKRequestType">
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="ZadostInfoCUZKType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Dotaz" type="ReklamaceCUZKType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ZadostInfoCUZKType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Společná hlavička všech žádostí nebo dotazů (webových služeb).</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostId" type="reg:AgendaZadostIdType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Libovolné unikátní UUID.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Ais" type="reg:KodAisType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Identifikace systémů/počítače ze kterého byla reklamace odeslána.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Uzivatel" type="reg:UzivatelType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Identifikace konkrétního uživatele zasílající reklamaci.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="HlavickaReklamaceCUZKType">
+		<xs:sequence>
+			<xs:element name="nzIdGlobalni" type="zt:IdNavrhuZmenyZmenaType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Upřesnění reklamované verze.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="externiID" type="base:Text65Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Typ reklamace ČÚZK</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="url" type="base:Text2000Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Odkaz na zdrojovou aplikaci.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="poznamka" type="base:Text2000Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Libovolný text pro upřesnění strukturované reklamace.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TeloReklamaceCUZKType">
+		<xs:choice>
+			<xs:element name="ReklamaceStrukturovana" type="ReklamaceStrukturovanaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ReklamaceNestrukturovana" type="ReklamaceNestrukturovanaType" minOccurs="0" maxOccurs="1"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="DULType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Data reklamace typu DUL - Doplnění ulice.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Nazev" type="base:Nazev48Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Název ulice k doplnění.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ObecKod" type="base:Kod6Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód obce.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Popis" type="base:Text2000Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Slovní popis reklamace.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OADType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Data reklamace typu OAD - Oprava adresy.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod9Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód adresy.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CisloDomovni" type="CisloDomovniZmenaCUZKType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="CisloOrientacni" type="CisloOrientacniZmenaCUZKType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="CisloOrientacniPismeno" type="CisloOrientPZmenaCUZKType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="UliceKod" type="Kod7ZmenaCUZKType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="DefinicniBod" type="DefinicniBodType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Popis" type="base:Text2000Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Slovní popis reklamace.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ReklamaceStrukturovanaType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">choice</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="DUL" type="DULType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Data reklamace typu DUL - Doplnění ulice</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OUL" type="OULType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Data reklamace typu OUP - Oprava ulice</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ZUL" type="ZULType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Data reklamace typu ZUP - Zrušení ulice</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DAD" type="DADType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Data reklamace typu DAD - Doplnění adresy</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OAD" type="OADType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Data reklamace typu OAD - Oprava adresy</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ZAD" type="ZADType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Data reklamace typu ZAD - Zrušení adresy</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DSO" type="DSOType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Data reklamace typu DSO - Doplnění stavebního objektu</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OSO" type="OSOType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Data reklamace typu OSO - Oprava stavebního objektu</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ZSO" type="ZSOType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Data reklamace typu ZSO - Zrušení stavebního objektu</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DUP" type="rcom:DUPRekType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Data reklamace typu DUP - Doplnění účelového prvku</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OUP" type="rcom:OUPRekType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Data reklamace typu OUP - Oprava účelového prvku</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ZUP" type="rcom:ZUPRekType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Data reklamace typu ZUP - Zrušení účelového prvku</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DVUP" type="rcom:DVUPRekType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Data reklamace typu DVUP - Doplnění vazby účelového prvku</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ZVUP" type="rcom:ZVUPRekType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Data reklamace typu ZVUP - Zrušení vazby účelového prvku</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="ZSOType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Data reklamace typu ZSO - Zrušení stavebního objektu.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod9Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Popis" type="base:Text2000Type" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OULType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Data reklamace typu OUL - Oprava ulice.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod7Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód ulice.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Nazev" type="base:Nazev48Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Název ulice.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ObecKod" type="base:Kod6Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód obce.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Popis" type="base:Text2000Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Slovní popis reklamace.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ZADType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Data reklamace typu ZAD - Zrušení adresy.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod9Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Popis" type="base:Text2000Type" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DSOType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Data reklamace typu DSO - Doplnění stavebního objektu.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="TypStavebnihoObjektuKod" type="com:TypSTOKodType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód typu stavebního objektu.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CisloDomovni" type="com:CisloDomovniType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Číslo domovní.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CastObceKod" type="base:Kod6Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód části obce.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MomcKod" type="base:Kod6Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód městského obvoudu nebo městské části územně členěného statutárního města.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ParcelaId" type="base:Id18Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Identifikátor parcely.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DefinicniBod" type="rek:GeometrieType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Definiční bod stavebního objektu.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Dokonceni" type="base:DatumCasType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Datum dokončení stavebního objektu</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ZastavenaPlocha" type="com:ZastavenaPlochaType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Zastavěná plocha</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PodlahovaPlocha" type="com:PodlahovaPlochaType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Podlahová plocha</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ObestavenyProstor" type="com:ObestavenyProstorType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Obestavěný prostor</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PocetPodlazi" type="com:PocetPodlaziType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Počet podlaží</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PocetBytu" type="com:PocetBytuType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Počet bytů</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="JeVytahKod" type="base:Kod4Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód vybavení výtahem</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DruhKonstrukceKod" type="base:Kod4Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód druhu konstrukce</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ZpusobVytapeniKod" type="base:Kod4Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód způsobu vytápění</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PripojeniVodovodKod" type="base:Kod4Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód připojení vodovodu</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PripojeniKanalizaceKod" type="base:Kod4Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód připojení kanalizace</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PripojeniPlynKod" type="base:Kod4Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód připojení plynu</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Popis" type="base:Text2000Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Slovní popis reklamace.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OSOType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Data reklamace typu OSO - Oprava stavebního objektu.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="StavebniObjektKod" type="base:Kod9Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="TypStavebnihoObjektuKod" type="com:TypSTOKodType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="CisloDomovni" type="CisloDomovniZmenaCUZKType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="CastObceKod" type="Kod6ZmenaCUZKType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="MomcKod" type="Kod6ZmenaCUZKType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ParcelaId" type="Id18ZmenaCUZKType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="DefinicniBod" type="rek:GeometrieType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ZpusobVyuziti" type="base:Kod4Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Způsob využití</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Dokonceni" type="eex:DatumCasZmenaExType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Datum dokončení stavebního objektu</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ZastavenaPlocha" type="osx:ZastavenaPlochaZmenaExType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Zastavěná plocha</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PodlahovaPlocha" type="osx:PodlahovaPlochaZmenaExType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Podlahová plocha</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ObestavenyProstor" type="osx:ObestavenyProstorZmenaExType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Obestavěný prostor</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PocetPodlazi" type="osx:PocetPodlaziZmenaExType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Počet podlaží</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PocetBytu" type="osx:PocetBytuZmenaExType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Počet bytů</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="JeVytahKod" type="eex:Kod4ZmenaExType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód vybavení výtahem</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DruhKonstrukceKod" type="eex:Kod4ZmenaExType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód druhu konstrukce</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ZpusobVytapeniKod" type="eex:Kod4ZmenaExType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód způsobu vytápění</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PripojeniVodovodKod" type="eex:Kod4ZmenaExType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód připojení vodovodu</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PripojeniKanalizaceKod" type="eex:Kod4ZmenaExType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód připojení kanalizace</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PripojeniPlynKod" type="eex:Kod4ZmenaExType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód připojení plynu</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Popis" type="base:Text2000Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Slovní popis reklamace.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ZULType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Data reklamace typu ZUL - Zrušení ulice.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod7Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód rušené ulice.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Popis" type="base:Text2000Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Popis reklamace na zrušení ulice.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DefinicniBodType">
+		<xs:sequence>
+			<xs:element name="DefinicniBodZakladni" type="rek:GeometrieType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="DefinicniBodZachranka" type="rek:GeometrieType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="DefinicniBodHasici" type="rek:GeometrieType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="UdajeAdresaDoplneniCUZKType">
+		<xs:sequence>
+			<xs:element name="CisloDomovni" type="com:CisloDomovniType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="CisloOrientacni" type="com:CisloOrientacniType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Číslo orientační.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CisloOrientacniPismeno" type="com:CisloOrientacniPismenoType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Písmeno čísla orientačního.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UliceKod" type="base:Kod7Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód ulice.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DefinicniBod" type="DefinicniBodType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Definiční bod adresního místa.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="StavebniObjektReklCUZKType">
+		<xs:sequence>
+			<xs:element name="TypStavebnihoObjektuKod" type="com:TypSTOKodType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód typu stavebního objektu.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CisloDomovni" type="com:CisloDomovniType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Číslo domovní.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CastObceKod" type="base:Kod6Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód části obce.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MomcKod" type="base:Kod6Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód městského obvoudu nebo městské části územně členěného statutárního města.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ParcelaId" type="base:Id18Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Identifikátor parcely.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DefinicniBod" type="rek:GeometrieType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Definiční bod stavebního objektu.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CisloOrientacniZmenaCUZKType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Změna čísla orientačního.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="Hodnota" type="com:CisloOrientacniType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Nová hodnota čísla orientačního.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NullovatHodnotu" type="com:NullovatHodnotuType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Požadováno zrušení hodnoty.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="CisloOrientPZmenaCUZKType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Změna písmene čísla orientačního.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="Hodnota" type="com:CisloOrientacniPismenoType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Nová hodnota písmene čísla orientačního.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NullovatHodnotu" type="com:NullovatHodnotuType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Požadováno zrušení hodnoty.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="Kod7ZmenaCUZKType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Změna kódu o délce 7 znaků.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="Hodnota" type="base:Kod7Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Nová hodnota kódu.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NullovatHodnotu" type="com:NullovatHodnotuType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Požadováno zrušení hodnoty.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="Kod6ZmenaCUZKType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Změna kódu o délce 6 znaků.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="Hodnota" type="base:Kod6Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Nová hodnota kódu.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NullovatHodnotu" type="com:NullovatHodnotuType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Požadováno zrušení hodnoty.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="Id18ZmenaCUZKType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Změna identifikátoru o délce 18 znaků.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="Hodnota" type="base:Id18Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Nová hodnota identifikátoru.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NullovatHodnotu" type="com:NullovatHodnotuType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Požadováno zrušení hodnoty.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="CisloDomovniZmenaCUZKType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Změna čísla domovního.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="HodnotaReklamovana" type="com:CisloDomovniType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Původní hodnota čísla domovního.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="HodnotaPozadovana" type="com:CisloDomovniType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Nová hodnota čísla domovního.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NullovatHodnotu" type="com:NullovatHodnotuType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Požadováno zrušení hodnoty.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

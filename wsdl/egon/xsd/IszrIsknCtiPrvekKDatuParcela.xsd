@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrIsknCtiPrvekKDatuParcela:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrIsknCtiPrvekKDatuParcela:v1"
+	xmlns:e242k="urn:cz:isvs:iszr:schemas:IszrIsknCtiPrvekKDatuParcela:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:ctiPaKD="urn:cz:isvs:iskn:schemas:CtiParcelaKDatu:v1"
+	xmlns:ctiPa="urn:cz:isvs:ruian:schemas:CtiParcela:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.0.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Služba E242k externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Výchozí verze 1.0.0, 2.9.2019 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iskn:schemas:CtiParcelaKDatu:v1" schemaLocation="../../iskn/xsd/cti_historii/CtiParcelaKDatu.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiParcela:v1" schemaLocation="ref/RuianCtiPrvekParcela.xsd"/>
+
+
+	<xs:element name="IsknCtiPrvekKDatuParcela" type="IsknCtiPrvekKDatuParcelaType"/>
+	<xs:element name="IsknCtiPrvekKDatuParcelaResponse" type="IsknCtiPrvekKDatuParcelaResponseType"/>
+
+	<xs:complexType name="IsknCtiPrvekKDatuParcelaType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E242k externího rozhraní - žádost. Služba která vrátí požadované atributy prvku RUIAN editovaného v ISKN k požadovanému datu. ISKN služba A11, operace ctiParcelaKDatu.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IsknCtiPrvekKDatuParcelaData" type="ctiPaKD:CtiParcelaKDatuDotazType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="IsknCtiPrvekKDatuParcelaResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E242k externího rozhraní - odpověď. Služba která vrátí požadované atributy prvku RUIAN editovaného v ISKN k požadovanému datu. ISKN služba A11, operace ctiParcelaKDatu.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="IsknOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IsknCtiPrvekKDatuParcelaDataResponse">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element ref="ctiPa:Parcela"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

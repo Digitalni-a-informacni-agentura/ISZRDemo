@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:iszr:schemas:IszrDataReklamujUdajeRos:v1" xmlns:i03="urn:cz:isvs:iszr:schemas:IszrDataReklamujUdajeRos:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:iszr="urn:cz:isvs:iszr:schemas:IszrTypy:v1" xmlns:iszd="urn:cz:isvs:iszr:schemas:IszrDotazyData:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" targetNamespace="urn:cz:isvs:iszr:schemas:IszrDataReklamujUdajeRos:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.1.1">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">XML schéma s definicemi dat pro služby ISZR</xs:documentation>
+	</xs:annotation>
+	<!-- Vývojová verze 0.1.0, 14.10.2011, Pavel Odstrčil -->
+	<!-- Vývojová verze 0.1.1, 26.10.2011 Aleš Teplý, formální úpravy -->
+	<!-- Vývojová verze 0.1.2, 06.06.2012, Pavel Odstrčil, úpravy pro proces reklamace-->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- Verze pro revizi 1.1.1, 22.05.2012, ales.teply@autocont.cz, Zduvodneni nepovinné, odpoved nepovinne -->
+	<!-- AutoCont CZ a.s. -->
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrTypy:v1" schemaLocation="IszrTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrDotazyData:v1" schemaLocation="IszrDotazyData.xsd"/>
+	<xs:element name="IszrReklamujUdajeRosData" type="IszrReklamujUdajeRosDataType"/>
+	<xs:element name="IszrReklamujUdajeRosDataResponse" type="IszrReklamujUdajeRosDataResponseType"/>
+	<xs:complexType name="ReklamaceUdajeRos">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Struktura pro reklamaci údaje v ROS.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="IdentifikaceReferencnihoUdaje" type="reg:RosUdajType"/>
+			<xs:element name="NavrhovanaHodnota" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="IszrReklamujUdajeRosDataType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Avízo o nesprávném údaji v registru ROS příslušnému editorovi údaje.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AgendaEditora" type="reg:KodAgendyType" minOccurs="0"/>
+			<xs:element name="OvmEditora" type="reg:KodOvmType" minOccurs="0"/>
+			<xs:element name="Ico" type="reg:IcoType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Pokud není vyplněno, předává se k ručnímu zpracování</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PopisReklamace" type="xs:string">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Textový popis reklamace, pokud nelze specifikovat na úrovni subjektu nebo položek. Například neexistence subjektu.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ReklamaceUdaje" type="ReklamaceUdajeRos" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Seznam reklamovanýcgh údajů</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Zduvodneni" type="reg:NonEmptyStringType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="IszrReklamujUdajeRosDataResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Avízo o nesprávném údaji v registru ROS příslušnému editorovi údaje, odpověď.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="iszd:IszrDotazyDataResponseType">
+				<xs:sequence>
+					<xs:element name="IdentifikatorReklamace" type="reg:NonEmptyStringType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">Přidělený identifikátor reklamace</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AgendaEditora" type="reg:KodAgendyType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">Pokud byla agenda a OVM editora zjištěno nebo  vyplněno, je předáno na výstup.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="OvmEditora" type="reg:KodOvmType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">Pokud byla agenda a OVM editora zjištěno nebo  vyplněno, je předáno na výstup.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

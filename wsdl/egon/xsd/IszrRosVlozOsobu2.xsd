@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRosVlozOsobu2:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRosVlozOsobu2:v1"
+	xmlns:e253="urn:cz:isvs:iszr:schemas:IszrRosVlozOsobu2:v1"
+	xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:sed="urn:cz:isvs:ros:schemas:RosEditaceData:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.9.5">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E253 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vývojová verze 2.0.0, 21.9.2020, Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstractOrg.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ros:schemas:RosEditaceData:v2" schemaLocation="../../ros/xsd/RosEditaceData.xsd"/>
+
+	<xs:element name="RosVlozOsobu2" type="RosVlozOsobu2Type"/>
+	<xs:element name="RosVlozOsobu2Response" type="RosVlozOsobu2ResponseType"/>
+
+	<xs:complexType name="RosVlozOsobu2Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E253 externího rozhraní - typ pro žádost. Služba zakládá nový záznam osoby v registru - služba ROS S03. Vstupní údaje musí obsahovat validní referenční údaje (IČO se správnou kontrolní číslicí, referenční údaje musí odpovídat údajům, pro něž bylo IČO vydáno).</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAifoIdAdrAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RosVlozOsobu2Data" type="sed:RosVlozOsobu2DataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="RosVlozOsobu2ResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E253 externího rozhraní - typ pro odpověď. Služba zakládá nový záznam osoby v registru - služba ROS S03. Záznam není založen, pokud je IČO duplicitní a pokud jde o zápis fyzické osoby ani pokud je AIFO duplicitní. ROS kontroluje, zda AIS má oprávnění založit osobu s udanou právní formou. Pokud IČO nebylo vydáno pro zaslané referenční údaje, vrací služba chybový status s očekávanými údaji. Pokud je IČO nebo AIFO duplicitní, vrátí služba chybový status.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAifoStIdAdrAbstractType">
+				<xs:sequence>
+					<xs:element name="RosOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RosVlozOsobu2DataResponse" type="sed:RosVlozOsobu2DataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

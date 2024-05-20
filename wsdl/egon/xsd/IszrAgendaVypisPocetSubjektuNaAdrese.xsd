@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrAgendaVypisPocetSubjektuNaAdrese:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrAgendaVypisPocetSubjektuNaAdrese:v1"
+	xmlns:e307="urn:cz:isvs:iszr:schemas:IszrAgendaVypisPocetSubjektuNaAdrese:v1"
+	xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:rod="urn:cz:isvs:rob:schemas:RobDotazyData:v1"
+	xmlns:rosi="urn:cz:isvs:ros:schemas:RosDotazyDataInt:v2"
+	xmlns:i34="urn:cz:isvs:iszr:schemas:IszrDataAgendaVypisPocetSubjektuNaAdrese:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.0.1">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E307 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vychozi verze 1.0.0, 13.5.2022, Ales Teply -->
+	<!-- Verze po revizi 1.0.1, 26.5.2022, obsah odpovědi ROS nepovinny, Ales Teply -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstractOrg.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrDataAgendaVypisPocetSubjektuNaAdrese:v1" schemaLocation="../../iszr/xsd/IszrDataAgendaVypisPocetSubjektuNaAdrese.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rob:schemas:RobDotazyData:v1" schemaLocation="../../rob/xsd/RobDotazyData.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ros:schemas:RosDotazyDataInt:v2" schemaLocation="../../ros/xsd/RosDotazyDataInt.xsd"/>
+
+	<!-- -->
+	<xs:element name="AgendaVypisPocetSubjektuNaAdrese" type="AgendaVypisPocetSubjektuNaAdreseType"/>
+	<xs:element name="AgendaVypisPocetSubjektuNaAdreseResponse" type="AgendaVypisPocetSubjektuNaAdreseResponseType"/>
+
+	<!-- -->
+	<xs:complexType name="AgendaVypisPocetSubjektuNaAdreseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E307 externího rozhraní - typ pro žádost. Služba umožňuje načíst data z evidencí ROB a ROS.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IszrAgendaVypisPocetSubjektuNaAdreseData" type="i34:IszrAgendaVypisPocetSubjektuNaAdreseDataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="AgendaVypisPocetSubjektuNaAdreseResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E307 externího rozhraní - typ pro odpověď. Služba umožňuje načíst data z evidencí ROB a ROS.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="RobOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RobCtiPodleAdresyDataResponse" type="rod:RobCtiPodleAdresyDataResponseType" /> 
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="RosOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RosCtiPocetNaAdreseDataResponse" type="rosi:RosCtiPocetNaAdreseDataResponseType" /> 
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

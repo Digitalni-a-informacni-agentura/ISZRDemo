@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:isui:schemas:ReklamaceCpTypy:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:isui:schemas:ReklamaceCpTypy:v1" xmlns:rekcp="urn:cz:isvs:isui:schemas:ReklamaceCpTypy:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:rek="urn:cz:isvs:isui:schemas:ReklamaceTypy:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" elementFormDefault="qualified" version="0.0.2">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:isui:schemas:ReklamaceTypy:v1" schemaLocation="../../../isui/xsd/reklamace/ReklamaceTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../RegTypy.xsd"/>
+	<xs:complexType name="ReklamaceCpIsuiRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na reklamace ISUI.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Standardní hlavička dotazu.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Dotaz" type="ReklamaceCpType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Dotaz na reklamace ISUI.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ReklamaceCpIsuiRequest" type="rekcp:ReklamaceCpIsuiRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na reklamace ISUI.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="ReklamaceCpType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Společný obal reklamačního požadavku ISUI.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Hlavicka" type="rek:HlavickaReklamaceType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Hlavička reklamace ISUI.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Prvek" type="TeloReklamaceCpType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Reklamovaný prvek.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ReklamaceCpIsuiResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpověď na reklamace ISUI.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Standardní hlavička odpovědi.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Odpoved" type="ReklamaceCpOdpovedType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Odpověď na reklamační požadavek ISUI.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ReklamaceCpIsuiResponse" type="rekcp:ReklamaceCpIsuiResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpověď na reklamace ISUI.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="ReklamaceCpOdpovedType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Společný obal odpovědi na reklamační požadavek.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="IdReklamace" type="base:Id18Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Identifikátor reklamace.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TeloReklamaceCpType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Popis prvku reklamace.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZmenaAdresniMistoPsc" type="rek:AdresniMistoPscZmenaExtRekType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Změna vazby adresního místa na PSČ.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

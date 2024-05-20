@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:Okres:v2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:Okres:v2" xmlns:ok="urn:cz:isvs:ruian:schemas:Okres:v2" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:vc="urn:cz:isvs:ruian:schemas:Vusc:v2" elementFormDefault="qualified" version="2.0.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Aplikační schéma Okres obsahuje prvek typu okres se základními elementy a bez geometrie. </xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:Vusc:v2" schemaLocation="Vusc.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../typy/CommonTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../typy/BaseTypy.xsd"/>
+	<xs:element name="Okres" type="ok:OkresType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Prvek představuje území okresu.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:group name="OkresGroup">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Základní elementy prvku okres.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod4Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód okresu.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Nazev" type="base:Nazev32Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Název okresu.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Nespravny" type="com:NespravnyType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Identifikátor nesprávnosti na prvku.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Vusc" type="vc:VuscType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Nadřazený VÚSC.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:group>
+	<xs:complexType name="OkresType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Prvek okres se základními elementy a bez geometrie.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:group ref="OkresGroup" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

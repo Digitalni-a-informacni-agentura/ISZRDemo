@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:VyhledejOkres:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:VyhledejOkres:v1" xmlns:vyhOk="urn:cz:isvs:ruian:schemas:VyhledejOkres:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:okPodm="urn:cz:isvs:ruian:schemas:OkresPodminka:v1" xmlns:okPolBase="urn:cz:isvs:ruian:schemas:OkresPolozkyBase:v1" xmlns:ok="urn:cz:isvs:ruian:schemas:Okres:v1" elementFormDefault="qualified" version="0.40.0">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:Okres:v1" schemaLocation="../../../ruian/xsd/prvky/Okres.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:OkresPolozkyBase:v1" schemaLocation="../../../ruian/xsd/vyhledej/OkresPolozkyBase.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:OkresPodminka:v1" schemaLocation="../../../ruian/xsd/vyhledej/OkresPodminka.xsd"/>
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../RegTypy.xsd"/>
+	<xs:element name="VyhledejOkresRequest" type="vyhOk:VyhledejOkresRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na vyhledani okresu</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="VyhledejOkresResponse" type="vyhOk:VyhledejOkresResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved vyhledani okresu</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="VyhledejOkresRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na vyhledani okresu</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Dotaz" type="VyhledejOkresDotazType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VyhledejOkresResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved vyhledani okresu</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Okresy" type="OkresSeznamType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VyhledejOkresDotazType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Parametry okresu</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Podminka" type="okPodm:OkresPodminkaType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="PozadovaneUdaje" type="okPolBase:OkresPolozkyBaseType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OkresSeznamType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam okresu</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Okres" type="ok:OkresType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

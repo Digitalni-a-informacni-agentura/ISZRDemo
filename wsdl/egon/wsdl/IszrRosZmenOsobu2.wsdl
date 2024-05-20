@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRosZmenOsobu2:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRosZmenOsobu2:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRosZmenOsobu2:v1"
+	xmlns:e254="urn:cz:isvs:iszr:schemas:IszrRosZmenOsobu2:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRosZmenOsobu2">
+
+	<wsdl:documentation>Služba E254 externího rozhraní - Služba provádí změnu referenčních údajů osoby - služba ROS S04.</wsdl:documentation>
+
+	<!-- Vývojová verze 2.0.0, 21.9.2020, Aleš Teplý -->
+	<!-- Vývojová verze 2.0.1, 8.10.2020, Aleš Teplý, přidání nillable=true k elementu StatutarniOrgany -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRosZmenOsobu2:v1" schemaLocation="../xsd/IszrRosZmenOsobu2.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="IszrRosZmenOsobu2">
+		<wsdl:part name="parametry" element="e254:RosZmenOsobu2"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRosZmenOsobu2Response">
+		<wsdl:part name="vysledek" element="e254:RosZmenOsobu2Response"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRosZmenOsobu2PortType">
+		<wsdl:operation name="IszrRosZmenOsobu2">
+			<wsdl:input message="tns:IszrRosZmenOsobu2"/>
+			<wsdl:output message="tns:IszrRosZmenOsobu2Response"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRosZmenOsobu2Binding" type="tns:IszrRosZmenOsobu2PortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRosZmenOsobu2">
+			<soap:operation soapAction="IszrRosZmenOsobu2"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRosZmenOsobu2Service">
+		<wsdl:port name="IszrRosZmenOsobu2PortService" binding="tns:IszrRosZmenOsobu2Binding">
+			<soap:address location="IszrRosZmenOsobu2"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

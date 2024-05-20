@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:aisc:schemas:AiscVyberDataObce:v1"
+  xmlns:aiscd="urn:cz:isvs:aisc:schemas:AiscDotazyData:v2" xmlns:aisc="urn:cz:isvs:aisc:schemas:AiscTypy:v2"
+  xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  targetNamespace="urn:cz:isvs:aisc:schemas:AiscVyberDataObce:v1"
+  elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.0">
+  <xs:annotation>
+    <xs:documentation xml:lang="cs">XML schéma s definicemi datových prvků AISC. Asynchronní služba CIS04 interního
+      rozhraní - asynchronní dotaz (+ odpověď) a odpověď pro službu, která bude volaná jako asynchronní odpověď.</xs:documentation>
+  </xs:annotation>
+  <!-- 0.0.1, 07.03.2014, J. Hadaš - Vývojová verze -->
+  <!-- 0.0.2, 08.04.2014, J. Hadaš - Přidán atribut DatumAISC - aktuální datum v případě, že AISC nepoužívá snapshot databáze -->
+
+  <!-- 1.0.0, 24.02.2015, M. Štulc - zventuty verze  AiscDotazyData a AiscTypy na V2-->
+
+  <xs:import namespace="urn:cz:isvs:aisc:schemas:AiscDotazyData:v2" schemaLocation="AiscDotazyData.xsd"/>
+  <xs:import namespace="urn:cz:isvs:aisc:schemas:AiscTypy:v2" schemaLocation="AiscTypy.xsd"/>
+  <xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+  <xs:element name="AiscAsyncVyberDataObce" type="AiscAsyncVyberDataObceType"/>
+  <xs:element name="AiscAsyncVyberDataObceResponse" type="AiscAsyncVyberDataObceResponseType"/>
+  <xs:element name="AiscVyberDataObceData" type="AiscVyberDataObceDataResponseType"/>
+  <xs:element name="AiscVyberDataObceDataResponse" type="AiscVyberDataObceDataResponseType"/>
+  <xs:complexType name="AiscAsyncVyberDataObceType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Asynchronní dotaz.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ZadostInfo" type="reg:ZadostInfoType"/>
+      <xs:element name="Dotaz">
+        <xs:complexType>
+          <xs:complexContent>
+            <xs:extension base="AiscVyberDataObceDataType"/>
+          </xs:complexContent>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AiscAsyncVyberDataObceResponseType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Synchronní odpověd na dotaz.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="OdpovedInfo" type="reg:OdpovedInfoType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AiscVyberDataObceDataType">
+    <xs:sequence>
+      <xs:element name="Zadatel" type="reg:ZadostInfoType"/>
+      <xs:choice>
+        <xs:element name="Lokalita">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="KodUzemnihoCelku" type="reg:KodUzemnihoCelkuType">
+                <xs:annotation>
+                  <xs:documentation>Kód lokality RUIAN</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="TypUzemnihoCelku" type="reg:TypUzemnihoCelkuType">
+                <xs:annotation>
+                  <xs:documentation>Obec, Část obce,Městský obvod, městská část, Městký obvod v Praze, Správní obvod, Ulice, Stavební objekt, Adresní místo</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="ObdobiOd" type="xs:date"/>
+              <xs:element name="ObdobiDo" type="xs:date"/>
+              <xs:element name="TypZmeny" type="aisc:TypZmenyTP">
+                <xs:annotation>
+                  <xs:documentation>Prihlaseni/odhlaseni</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Soubor" type="reg:SouborType"/>
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AiscVyberDataObceDataResponseType">
+    <xs:complexContent>
+      <xs:extension base="aiscd:AiscDotazyDataResponseType">
+        <xs:sequence minOccurs="0">
+          <xs:element name="Soubor" type="reg:SouborType">
+            <xs:annotation>
+              <xs:documentation>Vysledek dotazu</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="SouborORG" type="reg:SouborType">
+            <xs:annotation>
+              <xs:documentation>soubor obsahujici AIFOpro preklad v ORG - TXT </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="DatumAISC" type="xs:date">
+            <xs:annotation>
+              <xs:documentation>Datum snapshotu AISC, na zaklade ktereho je proveden vyber</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="DatumAISCRUIAN" type="xs:date" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Datum snapshotu RUIAN v AISC, na zaklade ktereho je proveden vyber</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>

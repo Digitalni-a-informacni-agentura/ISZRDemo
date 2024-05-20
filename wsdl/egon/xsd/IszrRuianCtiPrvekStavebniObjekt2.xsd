@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekStavebniObjekt2:v1" 
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekStavebniObjekt2:v1" 
+	xmlns:e250p="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekStavebniObjekt2:v1" 
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:ctiSo="urn:cz:isvs:ruian:schemas:CtiStavebniObjekt:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified" 
+	version="2.1.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E250p externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	
+	<!-- Výchozí verze 2.0.0, 6.10.2020 Aleš Teplý -->
+	<!-- Verze po revizi 2.0.1, 15.9.2021, Aleš Teplý, rozšíření Request, rozšíření Response -->
+	<!-- Verze po revizi 2.1.0, 19.5.2022 Aleš Teplý, rozšíření Response -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiStavebniObjekt:v2" schemaLocation="../../ruian/xsd/ext/v2/cti/CtiStavebniObjekt.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiStavebniObjekt:v2" schemaLocation="ref/RuianCtiPrvekStavebniObjekt2.xsd"/>
+
+	<xs:element name="RuianCtiPrvekStavebniObjekt2" type="RuianCtiPrvekStavebniObjekt2Type"/>
+	<xs:element name="RuianCtiPrvekStavebniObjekt2Response" type="RuianCtiPrvekStavebniObjekt2ResponseType"/>
+	
+	<xs:complexType name="RuianCtiPrvekStavebniObjekt2Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E250p externího rozhraní - žádost. Načtení Stavebního objektu z RUIAN. RUIAN služba, operace ctiStavebniObjekt.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianCtiPrvekStavebniObjekt2Data" type="ctiSo:CtiStavebniObjektDotazType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="RuianCtiPrvekStavebniObjekt2ResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E250p externího rozhraní - odpověď. Načtení Stavebního objektu z RUIAN. RUIAN služba, operace ctiStavebniObjekt.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+				  <xs:element name="RuianOdpoved" minOccurs="0">
+					<xs:complexType>
+					  <xs:sequence>
+						<xs:element name="RuianCtiPrvekStavebniObjekt2DataResponse">
+						  <xs:complexType>
+							<xs:sequence>
+							  <xs:element ref="ctiSo:StavebniObjekt"/>
+							</xs:sequence>
+						  </xs:complexType>
+						</xs:element>
+					  </xs:sequence>
+					</xs:complexType>
+				  </xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

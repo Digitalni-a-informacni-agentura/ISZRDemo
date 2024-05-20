@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:crob="urn:cz:isvs:ruian:schemas:CtiProRob:v1" xmlns:crob2="urn:cz:isvs:ruian:schemas:CtiProRob:v2" xmlns="urn:cz:isvs:ruian:schemas:CtiProRob:v2" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:cz:isvs:ruian:schemas:CtiProRob:v2" version="2.0.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="../../../ruian/xsd/ext/v2/cti_pro_rob/CtiProRob.xsd" />
+  <xs:import schemaLocation="RuianCtiProRob.xsd" namespace="urn:cz:isvs:ruian:schemas:CtiProRob:v1" />
+  <xs:annotation>
+    <xs:documentation xml:lang="cs">CtiProRob rozsireni. Potrebny element do jmenneho prostoru RUIAN.</xs:documentation>
+  </xs:annotation>
+  <xs:complexType name="RuianCtiProRobDataResponseType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Typ pro seznam adres a lokalit. Dočasně připouští CtiProRob v1 i v2.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" ref="crob:SeznamAdres" />
+      <xs:element minOccurs="0" ref="crob:SeznamLokalit" />
+      <xs:element minOccurs="0" name="SeznamAdres" type="crob2:SeznamAdresType" />
+      <xs:element minOccurs="0" name="SeznamLokalit" type="crob2:SeznamLokalitType" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

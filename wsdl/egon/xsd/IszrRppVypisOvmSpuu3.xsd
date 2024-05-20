@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRppVypisOvmSpuu3:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRppVypisOvmSpuu3:v1"
+	xmlns:e296="urn:cz:isvs:iszr:schemas:IszrRppVypisOvmSpuu3:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:pdo="urn:cz:isvs:rpp:schemas:RppDotazyData:v1"
+	xmlns:sdo="urn:cz:isvs:ros:schemas:RosDotazyData:v2"
+	xmlns:rod="urn:cz:isvs:rob:schemas:RobDotazyData:v1"
+	xmlns:crob2="urn:cz:isvs:ruian:schemas:CtiProRob:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.2.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E296 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Výchozí verze 1.0.0, 13.12.2012, Aleš Teplý -->
+	<!-- Verze po revizi 1.0.1, 16.3.2022, Aleš Teplý, RPP verze 1.11.5 -->
+	<!-- Verze po revizi 1.1.0, 12.4.2022, Aleš Teplý, RPP verze 1.11.8, použití odpovědí registrů v2 -->
+	<!-- Verze po revizi 1.2.0, 25.5.2022, Aleš Teplý, Response - AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstractOrg.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rpp:schemas:RppDotazyData:v1" schemaLocation="../../rpp/xsd/RppDotazyData.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rob:schemas:RobDotazyData:v1" schemaLocation="../../rob/xsd/RobDotazyData.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ros:schemas:RosDotazyData:v2" schemaLocation="../../ros/xsd/RosDotazyData.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiProRob:v2" schemaLocation="ref/RuianCtiProRob2n.xsd"/>
+
+	<xs:element name="RppVypisOvmSpuu3" type="RppVypisOvmSpuu3Type"/>
+	<xs:element name="RppVypisOvmSpuu3Response" type="RppVypisOvmSpuu3ResponseType"/>
+	<xs:complexType name="RppVypisOvmSpuu3Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E296 externího rozhraní - typ pro žádost. Služba vrátí veškeré vedené údaje o OVM nebo SPUU - RPP služba P95.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RppVypisOvmSpuu3Data" type="pdo:RppVypisOvmSpuu3DataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RppVypisOvmSpuu3ResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E296 externího rozhraní - typ pro odpověď. Služba vrátí veškeré vedené údaje o OVM nebo SPUU - RPP služba P95.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAifoStIdAdrIcoAbstractType">
+				<xs:sequence>
+					<xs:element name="RppOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RppVypisOvmSpuu3DataResponse" type="pdo:RppVypisOvmSpuu3DataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="RobOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RobCtiHromadneAifo2DataResponse" type="rod:RobCtiHromadneAifoDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="RosOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RosCtiSeznamIco2DataResponse" type="sdo:RosCtiSeznamIco2DataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="RuianOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianCtiProRob2DataResponse" type="crob2:RuianCtiProRobV2DataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:ais:schemas:AgendaCtiZmeny:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:at="urn:cz:isvs:ais:schemas:AisTypy:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:cz:isvs:ais:schemas:AgendaCtiZmeny:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.0.3">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Čtení změn nereferenčních údajů.</xs:documentation>
+	</xs:annotation>
+	<!-- Vývojová verze 0.0.1, 05.09.2014, Pavel Odstrčil -->
+	<!-- Vývojová verze 0.0.2, 18.11.2014, Pavel Odstrčil -->
+	<!-- Vývojová verze 0.0.3, 15.12.2014, Pavel Odstrčil, přejmenování AicCtiZmeny na AgendaCtiZmeny -->
+	<!-- AutoCont CZ a.s. -->
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ais:schemas:AisTypy:v1" schemaLocation="AisTypy.xsd"/>
+	<xs:element name="AgendaCtiZmeny" type="AgendaCtiZmenyType"/>
+	<xs:element name="AgendaCtiZmenyResponse" type="AgendaCtiZmenyResponseType"/>
+	<xs:complexType name="AgendaCtiZmenyType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Čtení změn nereferenčních údajů.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="at:AisZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="AgendaCtiZmenyData" type="at:AgendaCtiZmenyDataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="AgendaCtiZmenyResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Čtení změn nereferenčních údajů - odpověď.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="at:AisOdpovedAifoAbstractType">
+				<xs:sequence>
+					<xs:element name="AisOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="AgendaCtiZmenyDataResponse" type="at:AgendaCtiZmenyDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:CtiZsj:v2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:CtiZsj:v2" xmlns:ctiZj="urn:cz:isvs:ruian:schemas:CtiZsj:v2" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:zjPol="urn:cz:isvs:ruian:schemas:ZsjPolozky:v2" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:zjGml="urn:cz:isvs:ruian:schemas:ZsjGML:v2" elementFormDefault="qualified" version="2.0.0">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZsjGML:v2" schemaLocation="../prvky/ZsjGML.xsd"/>
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZsjPolozky:v2" schemaLocation="ZsjPolozky.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../typy/BaseTypy.xsd"/>
+	<xs:complexType name="CtiZsjDotazType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Parametry dotazu na informace o ZSJ.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod6Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód ZSJ.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PozadovaneUdaje" type="zjPol:ZsjPolozkyType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Seznam požadovaných údajů.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="CtiZsjRequest" type="ctiZj:CtiZsjRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na načtení informací o ZSJ.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="CtiZsjRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na načtení informací o ZSJ.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Standardní hlavička dotazu.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Dotaz" type="CtiZsjDotazType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Parametry dotazu.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="CtiZsjResponse" type="ctiZj:CtiZsjResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved na nacteni ZSJ</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="CtiZsjResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved na nacteni ZSJ</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Zsj" type="zjGml:ZsjGMLType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

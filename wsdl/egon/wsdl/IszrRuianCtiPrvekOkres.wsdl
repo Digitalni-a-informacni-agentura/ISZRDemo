@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRuianCtiPrvekOkres:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRuianCtiPrvekOkres:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRuianCtiPrvekOkres:v1"
+	xmlns:e35i="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekOkres:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRuianCtiPrvekOkres">
+
+	<wsdl:documentation>Služba E35i externího rozhraní - Načtení okresu z RUIAN. RUIAN služba A04, operace ctiOkres.</wsdl:documentation>
+	
+	<!-- Vývojová verze 0.0.1, 24.06.2011, Aleš Teplý -->
+	<!-- Vývojová verze 0.0.2, 27.07.2011, Pavel Kirchner -->
+	<!-- Fixovaná verze 1.0.0, 26.10.2011, Aleš Teplý -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekOkres:v1" schemaLocation="../xsd/IszrRuianCtiPrvekOkres.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrRuianCtiPrvekOkres">
+		<wsdl:part name="parametry" element="e35i:RuianCtiPrvekOkres"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRuianCtiPrvekOkresResponse">
+		<wsdl:part name="vysledek" element="e35i:RuianCtiPrvekOkresResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRuianCtiPrvekOkresPortType">
+		<wsdl:operation name="IszrRuianCtiPrvekOkres">
+			<wsdl:input message="tns:IszrRuianCtiPrvekOkres"/>
+			<wsdl:output message="tns:IszrRuianCtiPrvekOkresResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRuianCtiPrvekOkresBinding" type="tns:IszrRuianCtiPrvekOkresPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRuianCtiPrvekOkres">
+			<soap:operation soapAction="IszrRuianCtiPrvekOkres"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRuianCtiPrvekOkresService">
+		<wsdl:port name="IszrRuianCtiPrvekOkresPortService" binding="tns:IszrRuianCtiPrvekOkresBinding">
+			<soap:address location="IszrRuianCtiPrvekOkres"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

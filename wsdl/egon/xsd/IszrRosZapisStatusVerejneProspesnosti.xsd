@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRosZapisStatusVerejneProspesnosti:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRosZapisStatusVerejneProspesnosti:v1"
+	xmlns:e223="urn:cz:isvs:iszr:schemas:IszrRosZapisStatusVerejneProspesnosti:v1"
+	xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:sed="urn:cz:isvs:ros:schemas:RosEditaceData:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="2.0.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E223 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vývojová verze 1.9.5, 21.12.2016, Aleš Teplý -->
+	<!-- Verze 2.0.0, 24.09.2020, dočasné doplnění zrušeného RosZapisStatusVerejneProspesnosti, Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<!-- 
+	<xs:import namespace="urn:cz:isvs:ros:schemas:RosEditaceData:v2" schemaLocation="../../ros/xsd/RosEditaceData.xsd"/>
+	-->
+	<xs:import namespace="urn:cz:isvs:ros:schemas:RosEditaceData:v2" schemaLocation="ref/RosEditaceData.xsd"/>
+
+	<xs:element name="RosZapisStatusVerejneProspesnosti" type="RosZapisStatusVerejneProspesnostiType"/>
+	<xs:element name="RosZapisStatusVerejneProspesnostiResponse" type="RosZapisStatusVerejneProspesnostiResponseType"/>
+
+	<xs:complexType name="RosZapisStatusVerejneProspesnostiType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E223 externího rozhraní - typ pro žádost. Služba provádí zápis informace o statusu veřejné prospěšnosti osoby do ROS. - služba ROS S27. Vstupní údaje (IČO, indikátor veřejné prospěšnosti).</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RosZapisStatusVerejneProspesnostiData" type="sed:RosZapisStatusVerejneProspesnostiDataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="RosZapisStatusVerejneProspesnostiResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E223 externího rozhraní - typ pro odpověď. Služba provádí zápis informace o statusu veřejné prospěšnosti osoby do ROS - služba ROS S27. Služba vrací identifikátor a čas změny v případě úspěšného zápisu informace o statusu veřejné prospěšnosti nebo chybový status.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="RosOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RosZapisStatusVerejneProspesnostiDataResponse" type="sed:RosZapisStatusVerejneProspesnostiDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

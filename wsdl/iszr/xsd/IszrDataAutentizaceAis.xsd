@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:iszr:schemas:IszrDataAutentizaceAis:v1" xmlns:i23="urn:cz:isvs:iszr:schemas:IszrDataAutentizaceAis:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:iszr="urn:cz:isvs:iszr:schemas:IszrTypy:v1" xmlns:iszd="urn:cz:isvs:iszr:schemas:IszrDotazyData:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" targetNamespace="urn:cz:isvs:iszr:schemas:IszrDataAutentizaceAis:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.1">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">XML schéma s definicemi dat pro služby ISZR, interní služba ISZR I23 autentizace AIS.</xs:documentation>
+	</xs:annotation>
+	<!-- Verze 1.0.0, 03.07.2013 Pavel Odstrčil, výchozí verze -->
+	<!-- Verze 1.0.1, 16.06.2016 Josef Halamek, doplnen na vstupu nepovinny elelment OvmSpravce -->
+	<!-- AutoCont CZ a.s. -->
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrTypy:v1" schemaLocation="IszrTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrDotazyData:v1" schemaLocation="IszrDotazyData.xsd"/>
+	<xs:element name="IszrAutentizaceAisData" type="IszrAutentizaceAisDataType"/>
+	<xs:element name="IszrAutentizaceAisDataResponse" type="IszrAutentizaceAisDataResponseType"/>
+	<xs:complexType name="IszrAutentizaceAisDataType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba umožňuje autentizovat AIS pro přístup k ISZR.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Certifikat" type="reg:NonEmptyNormStringType"/>
+			<xs:element name="Agenda" type="reg:KodAgendyType"/>
+			<xs:element name="AgendovaRole" type="reg:AgendovaRoleType"/>
+			<xs:element name="Ovm" type="reg:KodOvmType"/>
+			<xs:element name="Ais" type="reg:KodAisType"/>
+			<xs:element name="OvmSpravce" type="reg:KodOvmType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="IszrAutentizaceAisDataResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba umožňuje autentizovat AIS pro přístup k ISZR. Datová část Response.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="iszd:IszrDotazyDataResponseType">
+				<xs:sequence>
+					<xs:element name="Povoleno" type="xs:boolean"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

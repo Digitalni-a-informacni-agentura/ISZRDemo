@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns="urn:cz:isvs:iszr:services:IszrRobOverHromadneAifo:v1" xmlns:tns="urn:cz:isvs:iszr:services:IszrRobOverHromadneAifo:v1" xmlns:e183="urn:cz:isvs:iszr:schemas:IszrRobOverHromadneAifo:v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:ns="http://www.w3.org/2004/08/xop/include" xmlns:ns1="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" xmlns:ns2="urn:cz:isvs:iszr:schemas:IszrRobOverHromadneAifo:v1" xmlns:ns3="urn:cz:isvs:org:schemas:OrgRozhrani:v1" xmlns:ns4="urn:cz:isvs:org:schemas:OrgTypy:v1" xmlns:ns5="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:ns6="urn:cz:isvs:rob:schemas:RobDotazyData:v1" xmlns:ns7="urn:cz:isvs:rob:schemas:RobTypy:v1" name="IszrRobOverHromadneAifo" targetNamespace="urn:cz:isvs:iszr:services:IszrRobOverHromadneAifo:v1">
+	<wsdl:documentation>Služba E183 externího rozhraní. Služba ověřuje požadované údaje osob z ROB ve formě opakované struktury požadovaných dat podle předaného seznamu AIFO. Služba využívá službu registru ROB (O25).</wsdl:documentation>
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRobOverHromadneAifo:v1" schemaLocation="../xsd/IszrRobOverHromadneAifo.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrRobOverHromadneAifo">
+		<wsdl:part name="parametry" element="e183:RobOverHromadneAifo"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRobOverHromadneAifoResponse">
+		<wsdl:part name="vysledek" element="e183:RobOverHromadneAifoResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRobOverHromadneAifoPortType">
+		<wsdl:operation name="IszrRobOverHromadneAifo">
+			<wsdl:input message="IszrRobOverHromadneAifo"/>
+			<wsdl:output message="IszrRobOverHromadneAifoResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRobOverHromadneAifoBinding" type="tns:IszrRobOverHromadneAifoPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRobOverHromadneAifo">
+			<soap:operation soapAction="IszrRobOverHromadneAifo"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRobOverHromadneAifoService">
+		<wsdl:port name="IszrRobOverHromadneAifoPortService" binding="tns:IszrRobOverHromadneAifoBinding">
+			<soap:address location="IszrRobOverHromadneAifo"/>
+		</wsdl:port>
+	</wsdl:service>
+	<!-- Vývojová verze 1.0.0, 5.3.2014, Pavel Odstrcil -->
+	<!-- AutoCont CZ a.s. -->
+</wsdl:definitions>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRuianZmenNespravnostIsui:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRuianZmenNespravnostIsui:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRuianZmenNespravnostIsui:v1"
+	xmlns:e90="urn:cz:isvs:iszr:schemas:IszrRuianZmenNespravnostIsui:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRuianZmenNespravnostIsui">
+
+	<wsdl:documentation>Služba E90 externího rozhraní - Služba pro změnu příznaku nesprávnosti referenčních údajů spravovaných aplikací ISUI do RUIAN - RUIAN služba A23.</wsdl:documentation>
+	
+	<!-- Vývojová verze 0.0.1, 01.07.2011, Pavel Kirchner -->
+	<!-- Vývojová verze 0.0.2, 29.07.2011, Aleš Teplý, přizpůsobení RUIAN 3 -->
+	<!-- Vývojová verze 0.0.3, 14.09.2011, Aleš Teplý, CamelCase -->
+	<!-- Fixovaná verze 1.0.0, 22.09.2011, Aleš Teplý -->
+	<!-- Verze po revizi 1.0.1, 30.11.2011, Aleš Teplý, změny RuianZmenNespravnostIsuiData -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+	
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRuianZmenNespravnostIsui:v1" schemaLocation="../xsd/IszrRuianZmenNespravnostIsui.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="IszrRuianZmenNespravnostIsui">
+		<wsdl:part name="parametry" element="e90:RuianZmenNespravnostIsui"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRuianZmenNespravnostIsuiResponse">
+		<wsdl:part name="vysledek" element="e90:RuianZmenNespravnostIsuiResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRuianZmenNespravnostIsuiPortType">
+		<wsdl:operation name="IszrRuianZmenNespravnostIsui">
+			<wsdl:input message="tns:IszrRuianZmenNespravnostIsui"/>
+			<wsdl:output message="tns:IszrRuianZmenNespravnostIsuiResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRuianZmenNespravnostIsuiBinding" type="tns:IszrRuianZmenNespravnostIsuiPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRuianZmenNespravnostIsui">
+			<soap:operation soapAction="IszrRuianZmenNespravnostIsui"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRuianZmenNespravnostIsuiService">
+		<wsdl:port name="IszrRuianZmenNespravnostIsuiPortService" binding="tns:IszrRuianZmenNespravnostIsuiBinding">
+			<soap:address location="IszrRuianZmenNespravnostIsui"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

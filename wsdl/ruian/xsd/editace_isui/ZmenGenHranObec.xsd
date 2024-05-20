@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:ZmenGenHranObec:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:ZmenGenHranObec:v1" xmlns:zgob="urn:cz:isvs:ruian:schemas:ZmenGenHranObec:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:zt="urn:cz:isvs:ruian:schemas:ZmenaTypy:v1" elementFormDefault="qualified" version="0.40.1">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenaTypy:v1" schemaLocation="../../../ruian/xsd/typy/ZmenaTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:complexType name="GenHraniceObecZmenaType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Zmena hranice obce</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Id" type="base:Id18Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="StatKod1" type="zt:Kod2ZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="StatKod2" type="zt:Kod2ZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="RegionSoudrznostiKod1" type="zt:Kod3ZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="RegionSoudrznostiKod2" type="zt:Kod3ZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="KrajKod1" type="zt:Kod3ZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="KrajKod2" type="zt:Kod3ZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="VuscKod1" type="zt:Kod3ZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="VuscKod2" type="zt:Kod3ZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="OkresKod1" type="zt:Kod4ZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="OkresKod2" type="zt:Kod4ZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="OrpKod1" type="zt:Kod4ZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="OrpKod2" type="zt:Kod4ZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PouKod1" type="zt:Kod4ZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PouKod2" type="zt:Kod4ZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ObecKod1" type="zt:Kod6ZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ObecKod2" type="zt:Kod6ZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="SpravobvKod1" type="zt:Kod3ZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="SpravobvKod2" type="zt:Kod3ZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="MopKod1" type="zt:Kod3ZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="MopKod2" type="zt:Kod3ZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="MomcKod1" type="zt:Kod6ZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="MomcKod2" type="zt:Kod6ZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ZsjKod1" type="zt:Kod6ZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ZsjKod2" type="zt:Kod6ZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Geometrie" type="zt:SdoGeometryType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="TypPrvkuPrehledMapKod" type="zt:Kod10ZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Nespravny" type="zt:NespravnyZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="GlobalniIdNavrhuZmeny" type="zt:IdNavrhuZmenyZmenaType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="PlatiOd" type="zt:DatumCasZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="HraniceKatastralnihoUzemiId" type="zt:Id18ZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="TypGeneralizaceMap" type="zt:Kod2ZmenaType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Typ generalizace map.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

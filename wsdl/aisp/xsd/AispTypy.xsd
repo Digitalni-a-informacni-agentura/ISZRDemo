@@ -1,0 +1,1494 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns="urn:cz:isvs:aisp:schemas:AispTypy:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ros="urn:cz:isvs:ros:schemas:RosTypy:v2" xmlns:rot="urn:cz:isvs:ros:schemas:RosEditaceTypy:v1" xmlns:rdt="urn:cz:isvs:rpp:schemas:RppDotazyTypy:v1" xmlns:rpp="urn:cz:isvs:rpp:schemas:RppTypy:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" targetNamespace="urn:cz:isvs:aisp:schemas:AispTypy:v1" version="1.0.1">
+    <xs:annotation>
+        <xs:documentation xml:lang="cs">Definice společných datových typů AISP.</xs:documentation>
+    </xs:annotation>
+    <!-- Vývojová verze 0.0.3, 19.10.2018, Petr Roušar -->
+    <!-- Vývojová verze 0.0.4, 9.1.201, Petr Roušar zmena 4 elementu ve strukture InformacniSystemType na nepovinne-->
+    <!-- Vývojová verze 1.0.0, 22.9.2020, Petr Roušar doplneni datovych typu novych sluzeb-->
+    <!-- Vývojová verze 1.0.1, 19.11.2020, Petr Roušar změna datového typu elementu Typ v AgendovostType-->    
+    <xs:import namespace="urn:cz:isvs:ros:schemas:RosEditaceTypy:v1" schemaLocation="../../ros/xsd/RosEditaceTypy.xsd"/>
+    <xs:import namespace="urn:cz:isvs:ros:schemas:RosTypy:v2" schemaLocation="../../ros/xsd/RosTypy.xsd"/>
+    <xs:import namespace="urn:cz:isvs:rpp:schemas:RppTypy:v1" schemaLocation="../../rpp/xsd/RppTypy.xsd"/>
+    <xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+    <xs:import namespace="urn:cz:isvs:rpp:schemas:RppDotazyTypy:v1" schemaLocation="../../rpp/xsd/RppDotazyTypy.xsd"/>
+    <xs:simpleType name="EmailType">
+        <xs:annotation>
+            <xs:documentation>Email.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="50"/>
+            <xs:pattern value="[^@]+@[^\.]+\..+|"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="TelefonType">
+        <xs:annotation>
+            <xs:documentation>Telefon.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="14"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="DatumZverejneniType">
+        <xs:annotation>
+            <xs:documentation>Datum zveřejnění.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:date"/>
+    </xs:simpleType>
+    <xs:simpleType name="DatumUkonceniType">
+        <xs:annotation>
+            <xs:documentation>Datum ukončení</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:date"/>
+    </xs:simpleType>
+    <xs:simpleType name="KategorieIsType">
+        <xs:annotation>
+            <xs:documentation>Kategorie IS.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="NazevSpravceType">
+        <xs:annotation>
+            <xs:documentation>Název správce</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="TypZmenyIsType">
+        <xs:annotation>
+            <xs:documentation>Typ změny záznamu o IS.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="I">
+                <xs:annotation>
+                    <xs:documentation>Insert</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="U">
+                <xs:annotation>
+                    <xs:documentation>Update</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="D">
+                <xs:annotation>
+                    <xs:documentation>Delete</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="DatumCertifikaceType">
+        <xs:annotation>
+            <xs:documentation>Datum provedení certifikace ISVS.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:date"/>
+    </xs:simpleType>
+    <xs:simpleType name="PoznamkaType">
+        <xs:annotation>
+            <xs:documentation>Poznámka.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyLineStringType">
+            <xs:maxLength value="4000"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="NazevSubjektuType">
+        <xs:annotation>
+            <xs:documentation>Název správce</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="255"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="TypCertifikaceType">
+        <xs:annotation>
+            <xs:documentation>Typ certifikace.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="255"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="KomentarIsType">
+        <xs:annotation>
+            <xs:documentation>Komentář, další informace.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyLineStringType">
+            <xs:maxLength value="4000"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="PopisSubsystemuType">
+        <xs:annotation>
+            <xs:documentation>Popis subsystému.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyLineStringType">
+            <xs:maxLength value="4000"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="CastkaType">
+        <xs:annotation>
+            <xs:documentation>Částka v  Kč.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:decimal">
+            <xs:fractionDigits value="2"/>
+            <xs:totalDigits value="12"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="DatumVytvoreniType">
+        <xs:annotation>
+            <xs:documentation>Datum ukončení</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:date"/>
+    </xs:simpleType>
+    <xs:simpleType name="CharakteristikaIsType">
+        <xs:annotation>
+            <xs:documentation>Charakteristika.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyLineStringType">
+            <xs:maxLength value="4000"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="VerzeIsType">
+        <xs:annotation>
+            <xs:documentation>Verze AISu.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="15"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="ZmenaIdType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Jednoznačný identifikátor změny.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:long"/>
+    </xs:simpleType>
+    <xs:simpleType name="NadrizenySubsystemType">
+        <xs:annotation>
+            <xs:documentation>Nadřízený subsystém.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="4000"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="TypOvmVyuzitiIsType">
+        <xs:annotation>
+            <xs:documentation>Typ změny záznamu o IS.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="POUZE SPRAVCE">
+                <xs:annotation>
+                    <xs:documentation>Insert</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="VYBER OVM">
+                <xs:annotation>
+                    <xs:documentation>Update</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="VSECHNA OVM">
+                <xs:annotation>
+                    <xs:documentation>Delete</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="NazevTypuDodavateleType">
+        <xs:annotation>
+            <xs:documentation>Název typu dodavatele - zpřesnění.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="255"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="IdentifikatorJinySubjektType">
+        <xs:annotation>
+            <xs:documentation>Identifikátor např. zahraniční osoby.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="20"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="NazevEtapyType">
+        <xs:annotation>
+            <xs:documentation>Název etapy.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="255"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="NazevUrovneSdileniType">
+        <xs:annotation>
+            <xs:documentation>Název parametru.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="255"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="PoradiType">
+        <xs:annotation>
+            <xs:documentation>Pořadí.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:KladneCeleCisloType"/>
+    </xs:simpleType>
+    <xs:simpleType name="NazevTypuFinancniCastkyType">
+        <xs:annotation>
+            <xs:documentation>Název typu finanční částky.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="255"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="RokType">
+        <xs:annotation>
+            <xs:documentation>Rok.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:KladneCeleCisloType"/>
+    </xs:simpleType>
+    <xs:simpleType name="NazevUpresneniTypuType">
+        <xs:annotation>
+            <xs:documentation>Upřesnění typu.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="255"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="IdentifikatorStrukturyType">
+        <xs:annotation>
+            <xs:documentation>Identifikátor komponenty IS :
+ISčíslo pro informační systém
+AKčíslo pro aplikační komponentu
+AFčíslo pro aplikační službu
+ASčíslo pro aplikační službu
+AR pro aplikační rozhraní</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="15"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="NazevCastiSystemuType">
+        <xs:annotation>
+            <xs:documentation>Název části systému.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="255"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="UcelFunkcionalitaType">
+        <xs:annotation>
+            <xs:documentation>Popis účelu komponenty, popis funkcionality služby.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyLineStringType">
+            <xs:maxLength value="4000"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="UrlAdresaType">
+        <xs:annotation>
+            <xs:documentation>URL adresa.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType"/>
+    </xs:simpleType>
+    <xs:simpleType name="NazevParametruType">
+        <xs:annotation>
+            <xs:documentation>Název parametru.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="255"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="PopisGdprType">
+        <xs:annotation>
+            <xs:documentation>Popis k parametru bezpečnosti.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyLineStringType">
+            <xs:maxLength value="4000"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="TypAgVyuzitiIsType">
+        <xs:annotation>
+            <xs:documentation>Typ změny záznamu o IS.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="ZADNA_AGENDA">
+                <xs:annotation>
+                    <xs:documentation>Insert</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="VYCET_AGEND">
+                <xs:annotation>
+                    <xs:documentation>Update</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="VSECHNY_AGENDY">
+                <xs:annotation>
+                    <xs:documentation>Delete</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="SidloTextemType">
+        <xs:annotation>
+            <xs:documentation>Adresa sídla firmy.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="2000"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="SeznamInformacnichSystemuProIszrType">
+        <xs:sequence>
+            <xs:element name="InformacniSystem" type="InformacniSystemProIszrType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="InformacniSystemProIszrType">
+        <xs:annotation>
+            <xs:documentation>Agendový informační systém.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Identifikator" type="reg:KodAisType">
+                <xs:annotation>
+                    <xs:documentation>Identifikátor IS.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Nazev" type="rpp:NazevAisType">
+                <xs:annotation>
+                    <xs:documentation>Název IS.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DatumZverejneni" type="DatumZverejneniType">
+                <xs:annotation>
+                    <xs:documentation>Datum registrace (propisu do ZR) do ISVS - zveřejnění verze.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DatumUkonceni" type="DatumUkonceniType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Datum zániku  - ukončení patnosti IS.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamOsobZpracovatele" type="SeznamKontaktnichOsobType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Seznam kontaktních údajů osob zpracovatele záznamu.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Spravce" type="OsobaSpravceType">
+                <xs:annotation>
+                    <xs:documentation>Osoba správce.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Provozovatel" type="OsobaProvozovateleType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Osoba provozovatele.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="KontakniOsobaType">
+        <xs:annotation>
+            <xs:documentation>Data ke kontaktní osobě.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Osoba" type="ros:FoTextemType">
+                <xs:annotation>
+                    <xs:documentation>Jméno a příjmení/název kontaktní osoby.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Email" type="EmailType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Elektronická adresa kontaktní osoby.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Telefon" type="TelefonType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Telefon kontaktní osoby.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="OsobaOvmType">
+        <xs:annotation>
+            <xs:documentation>Osoba správce nebo zpracovatele typu OVM.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="KodOvm" type="reg:KodOvmType">
+                <xs:annotation>
+                    <xs:documentation>Identifikátor OVM.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Nazev" type="rot:NazevOsobyStavType">
+                <xs:annotation>
+                    <xs:documentation>Název OVM.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Sidlo" type="SidloType">
+                <xs:annotation>
+                    <xs:documentation>Sídlo OVM.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamDatovychSchranek" type="rpp:SeznamDatovychSchranekType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Seznam datových schránek OVM.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="stav" type="rpp:StavRppType" use="optional">
+            <xs:annotation>
+                <xs:documentation>Příznak správnosti OVM.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="OsobaProvozovateleType">
+        <xs:annotation>
+            <xs:documentation>Údaje osoby provozovatele.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="SeznamKontaktuProvozovatele" type="SeznamKontaktnichOsobType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Seznam údajů kontaktních osob provozovatele.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:choice minOccurs="0">
+                <xs:element name="OsobaOvm" type="OsobaOvmType">
+                    <xs:annotation>
+                        <xs:documentation>Provozovatel typu OVM.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="OsobaRos" type="OsobaRosType">
+                    <xs:annotation>
+                        <xs:documentation>Provozovatel typu osoby ROS.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:choice>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="OsobaRosType">
+        <xs:annotation>
+            <xs:documentation>Osoba správce nebo zpracovatele typu OVM.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Ico" type="reg:IcoType">
+                <xs:annotation>
+                    <xs:documentation>IČO osoby ROS.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Nazev" type="ros:NazevOsobyType">
+                <xs:annotation>
+                    <xs:documentation>Název osoby ROS.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Sidlo" type="SidloType">
+                <xs:annotation>
+                    <xs:documentation>Sídlo osoby ROS.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamDatovychSchranek" type="rpp:SeznamDatovychSchranekType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Seznam datových schránek osoby ROS.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="stavNazvu" type="rpp:StavRppType" use="optional">
+            <xs:annotation>
+                <xs:documentation>Příznak správnosti názvu osoby.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="OsobaSpravceType">
+        <xs:annotation>
+            <xs:documentation>Údaje správce.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="OsobaOvm" type="OsobaOvmType">
+                <xs:annotation>
+                    <xs:documentation>OVM správce.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamKontaktuSpravce" type="SeznamKontaktnichOsobType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Seznam údajů kontaktních osob správce.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SeznamKontaktnichOsobType">
+        <xs:sequence>
+            <xs:element name="KontaktniOsoba" type="KontakniOsobaType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SidloType">
+        <xs:sequence>
+            <xs:element name="Sidlo" type="ros:AdresaTextemType">
+                <xs:annotation>
+                    <xs:documentation>Adresa textem (uvedená textem, nebo složená z adresních položek podle kód RUIAN).</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="AdresniMisto" type="ros:AdresaTextemType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Adresní místo kódem RUIAN.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="stav" type="rpp:StavRppType" use="optional">
+            <xs:annotation>
+                <xs:documentation>Příznak správnosti adresy.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="InformacniSystemZakladType">
+        <xs:annotation>
+            <xs:documentation>Seznam agendovách informačních systémů.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="DatumUkonceni" type="DatumUkonceniType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Datum zániku  - ukončení patnosti IS.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DatumZverejneni" type="DatumZverejneniType">
+                <xs:annotation>
+                    <xs:documentation>Datum registrace (propisu do ZR) do ISVS - zveřejnění verze.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Identifikator" type="reg:KodAisType">
+                <xs:annotation>
+                    <xs:documentation>Identifikátor IS.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="KategorieIs" type="KategorieIsType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Typ informačního systému - kategorie.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="KodOvmSpravce" type="reg:KodOvmType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Identifikátor OVM správce.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Nazev" type="rpp:NazevAisType">
+                <xs:annotation>
+                    <xs:documentation>Název IS.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="NazevSpravce" type="NazevSpravceType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Název správce.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="VerzeIs" type="rpp:VerzeAisType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Verze IS.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SeznamInformacnichSystemuZakladType">
+        <xs:sequence>
+            <xs:element name="InformacniSystem" type="InformacniSystemZakladType" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>Informační systém, základní informace</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="CertifikaceType">
+        <xs:annotation>
+            <xs:documentation>Seznam certifikací IS.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="DatumCertifikace" type="DatumCertifikaceType">
+                <xs:annotation>
+                    <xs:documentation>Datum provedení certifikace ISVS.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="TypCertifikace" type="TypCertifikaceType">
+                <xs:annotation>
+                    <xs:documentation>Typ certifikace.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="FinancniNarocnostType">
+        <xs:annotation>
+            <xs:documentation>Finanční nátočnost IS.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="CelkoveNaklady" type="CastkaType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Hrubý kvalifikovaný odhad externích nákladů v tis.Kč včetně DPH - celkové náklady na pořízení (definice, tvorba, implementace). </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="PoznamkaFinance" type="PoznamkaType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Poznámka ISVS k metodě výpočtu odhadů finanční náročnosti.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="RocniNaklady" type="CastkaType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Hrubý kvalifikovaný odhad externích nákladů v tis.Kč včetně DPH - náklady na údržbu a provoz za minulý kalendářní rok vzhledem k zápisu IS.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="InformacniSystemType">
+        <xs:annotation>
+            <xs:documentation>Seznam informačních systémů.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="SeznamCertifikaci" type="SeznamCertifikaciType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Seznam certifikací IS.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DatumUkonceni" type="DatumUkonceniType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Datum ukončení platnosti informačního systému.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DatumVytvoreni" type="DatumVytvoreniType">
+                <xs:annotation>
+                    <xs:documentation>Datum vytvoření nové verze záznamu o IS (plněno automaticky podle času vytvoření nové verze záznamu).</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DatumVzniku" type="rpp:DatumVznikuType">
+                <xs:annotation>
+                    <xs:documentation>Datum vzniku IS (vznik první verze IS v ISoVS, plněno automaticky podle data vytvoření 1. verze o IS).</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DatumZverejneni" type="DatumZverejneniType">
+                <xs:annotation>
+                    <xs:documentation>Datum registrace (propisu do ZR) do ISVS - zveřejnění verze.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Charakteristika" type="CharakteristikaIsType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Spručný popis, účel, charakteristika zpracovávaných dat, použitá architektura.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Identifikator" type="reg:KodAisType">
+                <xs:annotation>
+                    <xs:documentation>Kód IS.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="KategorieIs" type="KategorieIsType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Označení kategorie, do které IS spadá.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Komentar" type="KomentarIsType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Další informace, v případu ukončení AISu i důvod ukončení činnosti.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="KontaktInformace" type="EmailType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Elektronická poštovní adresa, na které lze žádat o informace k informačnímu systému.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="LegislativniRamec" type="rpp:SeznamUstanoveniPpType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Právní předpisy vztahující se k informačnímu systému.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Nazev" type="rpp:NazevAisType">
+                <xs:annotation>
+                    <xs:documentation>Název AIS.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="PoskytujeSluzby" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>Poskytuje služby jiným IS.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Provozovatel" type="SubjektType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Provozovatel informačního systému.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Spravce" type="SubjektType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Správce informačního systému.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Verze" type="VerzeIsType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Verze AISu.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="VyuzivaSluzby" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>Využívá služby jiných IS.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DokumentaceAplikace" type="xs:anyURI" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>URL adresa, na které je dostupná uživatelská dokumentace webové aplikace.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="WebAdresa" type="xs:anyURI" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>URL adresa, kde je dostupná webová aplikace.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamSubsystemu" type="SeznamSubsystemuType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Implementované subsystémy.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="FinancniNarocnost" type="FinancniNarocnostType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Finanční náročnost IS.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SeznamCertifikaciType">
+        <xs:sequence>
+            <xs:element name="Certifikace" type="CertifikaceType" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>Certifikace IS.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SeznamInformacnichSystemuType">
+        <xs:sequence>
+            <xs:element name="InformacniSystem" type="InformacniSystemType" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>Informační systém</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SeznamSubsystemuType">
+        <xs:sequence>
+            <xs:element name="Subsystem" type="SubsystemType" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>Implementovaný subsystém.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SubjektType">
+        <xs:annotation>
+            <xs:documentation>Údaje subjektu.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Email" type="EmailType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Email subjektu.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Ico" type="reg:IcoType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>IČO subjektu.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="KodOvm" type="reg:KodOvmType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Identifikátor OVM.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Nazev" type="NazevSubjektuType">
+                <xs:annotation>
+                    <xs:documentation>Název subjektu.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SubsystemType">
+        <xs:annotation>
+            <xs:documentation>Implementovaný subsystém. </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Popis" type="PopisSubsystemuType">
+                <xs:annotation>
+                    <xs:documentation>Krátký popis subsystému.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="NadrizenySubsystem" type="NadrizenySubsystemType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Nadřízený subsystém.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="AgendovostType">
+        <xs:annotation>
+            <xs:documentation>Využití dle agend.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Typ" type="TypAgVyuzitiIsType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Typ agendovosti - enum.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="KodAgendy" type="reg:KodAgendyType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Kód agendy</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="InformacniSystemZaklad2Type">
+        <xs:annotation>
+            <xs:documentation>Seznam agendovách informačních systémů.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Identifikator" type="reg:KodAisType">
+                <xs:annotation>
+                    <xs:documentation>Identifikátor IS.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="IdentifikatorSpravce" type="OsobaOvmSpuuType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Identifikátor OVM/SPUU správce.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Nazev" type="rpp:NazevAisType">
+                <xs:annotation>
+                    <xs:documentation>Název IS.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Typ" type="rpp:TypIsType">
+                <xs:annotation>
+                    <xs:documentation>Typ - ISVS/SSVU.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="VerzeIs" type="rpp:VerzeAisType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Verze IS.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DatumZverejneni" type="DatumZverejneniType">
+                <xs:annotation>
+                    <xs:documentation>Datum registrace (propisu do ZR) do ISVS - zveřejnění verze.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DatumUkonceni" type="DatumVytvoreniType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Datum zániku  - ukončení patnosti IS.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="NazevSpravce" type="NazevSpravceType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Název správce.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="OsobaOvmSpuuType">
+        <xs:annotation>
+            <xs:documentation>Data ke kontaktní osobě.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="IdentifikatorOvm" type="reg:KodOvmType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Identifikator OVM.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="IdentifikatorSpuu" type="rpp:KodSpuuType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Identifikator SPUU.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="IsvsType">
+        <xs:annotation>
+            <xs:documentation>Seznam informačních systémů OVM.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Identifikator" type="reg:KodAisType">
+                <xs:annotation>
+                    <xs:documentation>Kód IS.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Nazev" type="rpp:NazevAisType">
+                <xs:annotation>
+                    <xs:documentation>Název AIS.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Verze" type="VerzeIsType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Verze AISu.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Etapa" type="NazevEtapyType">
+                <xs:annotation>
+                    <xs:documentation>Etapa IS.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Charakteristika" type="CharakteristikaIsType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Spručný popis, účel, charakteristika zpracovávaných dat, použitá architektura.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Komentar" type="KomentarIsType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Další informace, v případu ukončení AISu i důvod ukončení činnosti.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DatumVytvoreni" type="DatumVytvoreniType">
+                <xs:annotation>
+                    <xs:documentation>Datum vytvoření nové verze záznamu o IS (plněno automaticky podle času vytvoření nové verze záznamu).</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DatumVzniku" type="rpp:DatumVznikuType">
+                <xs:annotation>
+                    <xs:documentation>Datum vzniku IS (vznik první verze IS v ISoVS, plněno automaticky podle data vytvoření 1. verze o IS).</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DatumUkonceni" type="DatumUkonceniType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Datum ukončení platnosti informačního systému.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DatumZverejneni" type="DatumZverejneniType">
+                <xs:annotation>
+                    <xs:documentation>Datum registrace (propisu do ZR) do ISVS - zveřejnění verze.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="KontaktInformace" type="EmailType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Elektronická poštovní adresa, na které lze žádat o informace k informačnímu systému.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Spravce" type="Subjekt2Type" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Správce informačního systému.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Provozovatel" type="Subjekt2Type" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Provozovatel informačního systému.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="PlatnostOd" type="rpp:DatumPlatnostiOdType">
+                <xs:annotation>
+                    <xs:documentation>Počátek platnosti záznamu.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="PlatnostDo" type="rpp:DatumPlatnostiDoType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Konec platnosti záznamu.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="CasPosleniZmeny" type="rdt:ZmenaCasType">
+                <xs:annotation>
+                    <xs:documentation>Čas poslední editace záznamu.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="UrovenSdileni" type="NazevUrovneSdileniType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Úroveň sdílení.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="UrcenySystem" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>Příznak, že se jedná o určený systém.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Agendovost" type="AgendovostVypisType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Agendy používající IS.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Vyuziti" type="VyuzitiType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Využití IS OVM nebo kategoriemi.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="LegislativniRamec" type="rpp:SeznamUstanoveniPpType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Právní předpisy vztahující se k informačnímu systému.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamMilnikuEtapy" type="SeznamMilnikuEtapyType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Milníky IS.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamCertifikaci" type="SeznamCertifikaciType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Seznam certifikací IS.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamFinancnichNarocnosti" type="SeznamFinancnichNarocnostiType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Finanční náročnost IS.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamStruktur" type="SeznamStrukturType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Struktura IS - komponenty.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamDodavek" type="SeznamDodavekType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Dodavatelé a jimi dodané části.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamGdpr" type="SeznamGdprType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Parametry dle Nařízení (EU) 2016/679 – GDPR.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SsvuType">
+        <xs:annotation>
+            <xs:documentation>Seznam informačních systémů SSVU.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Identifikator" type="reg:KodAisType">
+                <xs:annotation>
+                    <xs:documentation>Kód IS.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Nazev" type="rpp:NazevAisType">
+                <xs:annotation>
+                    <xs:documentation>Název AIS.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Verze" type="VerzeIsType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Verze AISu.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Charakteristika" type="CharakteristikaIsType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Spručný popis, účel, charakteristika zpracovávaných dat, použitá architektura.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DatumVytvoreni" type="DatumVytvoreniType">
+                <xs:annotation>
+                    <xs:documentation>Datum vytvoření nové verze záznamu o IS (plněno automaticky podle času vytvoření nové verze záznamu).</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DatumVzniku" type="rpp:DatumVznikuType">
+                <xs:annotation>
+                    <xs:documentation>Datum vzniku IS (vznik první verze IS v ISoVS, plněno automaticky podle data vytvoření 1. verze o IS).</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DatumUkonceni" type="DatumUkonceniType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Datum ukončení platnosti informačního systému.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DatumZverejneni" type="DatumZverejneniType">
+                <xs:annotation>
+                    <xs:documentation>Datum registrace (propisu do ZR) do ISVS - zveřejnění verze.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="KontaktInformace" type="EmailType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Elektronická poštovní adresa, na které lze žádat o informace k informačnímu systému.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Spravce" type="SubjektSsvuType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Správce informačního systému.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Provozovatel" type="SubjektSsvuType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Provozovatel informačního systému.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="PlatnostOd" type="rpp:DatumPlatnostiOdType">
+                <xs:annotation>
+                    <xs:documentation>Počátek platnosti záznamu.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="PlatnostDo" type="rpp:DatumPlatnostiDoType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Konec platnosti záznamu.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="CasPosleniZmeny" type="rdt:ZmenaCasType">
+                <xs:annotation>
+                    <xs:documentation>Čas poslední editace záznamu.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Agendovost" type="AgendovostVypisType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Agendy používající IS.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="LegislativniRamec" type="rpp:SeznamUstanoveniPpType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Právní předpisy vztahující se k informačnímu systému.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Subjekt2Type">
+        <xs:annotation>
+            <xs:documentation>Údaje subjektu.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="IdentifikatorOvm" type="reg:KodOvmType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Identifikátor OVM.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Ico" type="reg:IcoType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>IČO subjektu.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Identifikator" type="IdentifikatorJinySubjektType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Identifikátor, pokud nemá kód OVM nebo IČO.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Nazev" type="NazevSubjektuType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Název subjektu.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SidloTextem" type="SidloTextemType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Adresa sídla firmy.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Email" type="EmailType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Email subjektu.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamDatovychSchranek" type="rpp:SeznamDatovychSchranekType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Datové schránky, pokud jsou známy.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="VyuzitiType">
+        <xs:annotation>
+            <xs:documentation>Využití dle OVM a kategorií.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Typ" type="TypOvmVyuzitiIsType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Typ využití OVM/kategoriemi OVM - enum</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamVyuzitiOvm" type="rpp:SeznamKoduOvmType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Seznam OVM a kategorií OVM, které IS využívají.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamVyuzitiKatOvm" type="rpp:SeznamKoduKategoriiOvmType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Kategorie OVM, které používají IS.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SeznamMilnikuEtapyType">
+        <xs:sequence>
+            <xs:element name="Milnik" type="MilnikEtapyType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SeznamMilnikuType">
+        <xs:sequence>
+            <xs:element name="Milnik" type="MilnikType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="MilnikEtapyType">
+        <xs:annotation>
+            <xs:documentation>Milníky v etapě.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Etapa" type="NazevEtapyType">
+                <xs:annotation>
+                    <xs:documentation>Etapa</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Poradi" type="PoradiType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Pořadí.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamMilniku" type="SeznamMilnikuType">
+                <xs:annotation>
+                    <xs:documentation>Jenotlivé milníky.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="MilnikType">
+        <xs:annotation>
+            <xs:documentation>Seznam milníků a termínů (skutečných a plánovaných).</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Faze" type="rdt:NazevFazeUkonuType">
+                <xs:annotation>
+                    <xs:documentation>Fáze v etapě IS.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DatumOdPlan" type="rpp:DatumPlatnostiOdType">
+                <xs:annotation>
+                    <xs:documentation>Plánovaný datum počátku milníku.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DatumDoPlan" type="rpp:DatumPlatnostiDoType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Plánovaný datum konce milníku.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DatumOdSkutecnost" type="rpp:DatumPlatnostiOdType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Skutečný datum počátku milníku.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DatumDoSkutecnost" type="rpp:DatumPlatnostiDoType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Skutečný datum konce milníku.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Poznamka" type="PoznamkaType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Text poznámky.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="AgendovostVypisType">
+        <xs:annotation>
+            <xs:documentation>Využití dle agend.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Typ" type="TypAgVyuzitiIsType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Typ agendovosti - enum.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamKoduAgendy" type="SeznamKoduAgendyType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Kód agendy</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SeznamKoduAgendyType">
+        <xs:sequence>
+            <xs:element name="KodAgendy" type="reg:KodAgendyType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SeznamFinancnichNarocnostiType">
+        <xs:sequence>
+            <xs:element name="FinancniNarocnost" type="EtapaFinanceType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="EtapaFinanceType">
+        <xs:annotation>
+            <xs:documentation>Finanční náročnost v etapách.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Etapa" type="NazevEtapyType">
+                <xs:annotation>
+                    <xs:documentation>Etapa</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Poznamka" type="PoznamkaType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Poznámka k finančnímu záznamu.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Poradi" type="PoradiType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Pořadí.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamCastek" type="SeznamCastekType">
+                <xs:annotation>
+                    <xs:documentation>Jenotlivé částky za roky.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SeznamCastekType">
+        <xs:sequence>
+            <xs:element name="Castka" type="FinancniNakladType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="FinancniNakladType">
+        <xs:annotation>
+            <xs:documentation>Roční finanční náklady na informační systém del typu,</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Typ" type="NazevTypuFinancniCastkyType">
+                <xs:annotation>
+                    <xs:documentation>Typ finanční položky.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Rok" type="RokType">
+                <xs:annotation>
+                    <xs:documentation>Rok nákladů.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ExterniNaklad" type="CastkaType">
+                <xs:annotation>
+                    <xs:documentation>Částka v Kč - externí náklad.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="InterniVydej" type="CastkaType">
+                <xs:annotation>
+                    <xs:documentation>Částka v Kč - interní výdej.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SeznamStrukturType">
+        <xs:sequence>
+            <xs:element name="Struktura" type="StrukturaType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="StrukturaType">
+        <xs:annotation>
+            <xs:documentation>Seznam implementovaných struktur - komponent dle typu.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Typ" type="NazevUpresneniTypuType">
+                <xs:annotation>
+                    <xs:documentation>Upřesnění typu.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Identifikator" type="IdentifikatorStrukturyType">
+                <xs:annotation>
+                    <xs:documentation>Identifikátor komponenty IS.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Nazev" type="NazevCastiSystemuType">
+                <xs:annotation>
+                    <xs:documentation>Název části systému.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="UcelFunkcionalita" type="UcelFunkcionalitaType">
+                <xs:annotation>
+                    <xs:documentation>Stručný popis účelu komponenty, popis funkcionality služby.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="EndPoint" type="UrlAdresaType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Endpoint, na kterém je aplikační prvek dostupný.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Dokumentace" type="UrlAdresaType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>URL adresa, na které je dostupná dokumentace k aplikačnímu prvku.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="NadrizenaStruktura" type="IdentifikatorStrukturyType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Identifikace nadřízené struktury/komponenty.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SeznamDodavekType">
+        <xs:sequence>
+            <xs:element name="Dodavka" type="DodavkaType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="DodavkaType">
+        <xs:annotation>
+            <xs:documentation>Dodávky struktury Is.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Dodavatel" type="Subjekt2Type" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Info o dodavateli.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Hlavni" type="xs:boolean" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Příznak, že se jedn á o hlavního dodavatele.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="UcastOd" type="rpp:DatumPlatnostiOdType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Počátek období dodávky.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="UcastDo" type="rpp:DatumPlatnostiDoType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Konec období dodávky.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Email" type="EmailType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Email.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamIdentifikatoruStruktury" type="SeznamIdentifikatoruStrukturyType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Dodávané komponenty.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SeznamIdentifikatoruStrukturyType">
+        <xs:sequence>
+            <xs:element name="IdentifikatorStruktury" type="IdentifikatorStrukturyType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SeznamGdprType">
+        <xs:sequence>
+            <xs:element name="Gdpr" type="GdprType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="GdprType">
+        <xs:annotation>
+            <xs:documentation>Popis či souhlas s parametry dle Nařízení (EU) 2016/679 – GDPR.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Parametr" type="NazevParametruType">
+                <xs:annotation>
+                    <xs:documentation>Název parametru.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Souhlas" type="xs:boolean" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Příznak, že splňuje bezp. parametr.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Popis" type="PopisGdprType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Popis k parametru bezpečnosti.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="LegislativniRamec" type="rpp:SeznamUstanoveniPpType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Legislativní rámec pro vydávání údajů informačním systémem.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SubjektSsvuType">
+        <xs:annotation>
+            <xs:documentation>Údaje subjektu.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="IdentifikatorSpuu" type="rpp:KodSpuuType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Identifikátor SPUU.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Ico" type="reg:IcoType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>IČO subjektu.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Email" type="EmailType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Email subjektu.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamDatovychSchranek" type="rpp:SeznamDatovychSchranekType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Datové schránky, pokud jsou známy.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

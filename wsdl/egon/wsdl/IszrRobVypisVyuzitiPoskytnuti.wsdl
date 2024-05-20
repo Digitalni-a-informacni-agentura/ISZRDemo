@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRobVypisVyuzitiPoskytnuti:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRobVypisVyuzitiPoskytnuti:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRobVypisVyuzitiPoskytnuti:v1"
+	xmlns:e154="urn:cz:isvs:iszr:schemas:IszrRobVypisVyuzitiPoskytnuti:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRobVypisVyuzitiPoskytnuti">
+
+	<wsdl:documentation>Služba E154 externího rozhraní.</wsdl:documentation>
+
+	<!-- Fixovaná verze 0.0.1, 28.02.2012, Jan Sluka -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- Verze po revizi 1.4.3, 13.2.2013, Aleš Teplý, do Response přidán nepovinný element Kontrola -->
+	<!-- Verze po revizi 1.6.1, 7.4.2014, Aleš Teplý, do Request přidán nepovinný atribut hromadnyVydej -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRobVypisVyuzitiPoskytnuti:v1" schemaLocation="../xsd/IszrRobVypisVyuzitiPoskytnuti.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="IszrRobVypisVyuzitiPoskytnuti">
+		<wsdl:part name="parametry" element="e154:RobVypisVyuzitiPoskytnuti"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRobVypisVyuzitiPoskytnutiResponse">
+		<wsdl:part name="vysledek" element="e154:RobVypisVyuzitiPoskytnutiResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRobVypisVyuzitiPoskytnutiPortType">
+		<wsdl:operation name="IszrRobVypisVyuzitiPoskytnuti">
+			<wsdl:input message="IszrRobVypisVyuzitiPoskytnuti"/>
+			<wsdl:output message="IszrRobVypisVyuzitiPoskytnutiResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRobVypisVyuzitiPoskytnutiBinding" type="tns:IszrRobVypisVyuzitiPoskytnutiPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRobVypisVyuzitiPoskytnuti">
+			<soap:operation soapAction="IszrRobVypisVyuzitiPoskytnuti"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRobVypisVyuzitiPoskytnutiService">
+		<wsdl:port name="IszrRobVypisVyuzitiPoskytnutiPortService" binding="tns:IszrRobVypisVyuzitiPoskytnutiBinding">
+			<soap:address location="IszrRobVypisVyuzitiPoskytnuti"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

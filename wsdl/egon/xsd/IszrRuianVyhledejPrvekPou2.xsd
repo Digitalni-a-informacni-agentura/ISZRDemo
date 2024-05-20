@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekPou2:v1" 
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekPou2:v1" 
+	xmlns:e249l="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekPou2:v1" 
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:vyhPu="urn:cz:isvs:ruian:schemas:VyhledejPou:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified" 
+	version="2.0.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E249l externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	
+	<!-- Výchozí verze 2.0.0, 29.09.2020 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:VyhledejPou:v2" schemaLocation="ref/RuianVyhledejPrvekPou2.xsd"/>
+	
+	<xs:element name="RuianVyhledejPrvekPou2" type="RuianVyhledejPrvekPou2Type"/>
+	<xs:element name="RuianVyhledejPrvekPou2Response" type="RuianVyhledejPrvekPou2ResponseType"/>
+	
+	<xs:complexType name="RuianVyhledejPrvekPou2Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E249l externího rozhraní - žádost. Vyhledání pou z RUIAN. RUIAN služba, operace VyhledejPou.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+		 						<xs:element name="RuianVyhledejPrvekPou2Data" type="vyhPu:VyhledejPouDotazType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="RuianVyhledejPrvekPou2ResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E249l externího rozhraní - odpověď. Vyhledání pou z RUIAN. RUIAN služba, operace VyhledejPou.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="RuianOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianVyhledejPrvekPou2DataResponse">
+									<xs:complexType>
+										<xs:sequence>
+										  <xs:element ref="vyhPu:Pou"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

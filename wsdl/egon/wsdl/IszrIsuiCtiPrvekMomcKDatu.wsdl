@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrIsuiCtiPrvekMomcKDatu:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrIsuiCtiPrvekMomcKDatu:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrIsuiCtiPrvekMomcKDatu:v1"
+	xmlns:e67f="urn:cz:isvs:iszr:schemas:IszrIsuiCtiPrvekMomcKDatu:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrIsuiCtiPrvekMomcKDatu">
+
+	<wsdl:documentation>Služba E67F externího rozhraní.</wsdl:documentation>
+
+	<!-- Vývojová verze 0.0.1, 10.2.2011, Jan Sluka -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrIsuiCtiPrvekMomcKDatu:v1" schemaLocation="../xsd/IszrIsuiCtiPrvekMomcKDatu.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="IszrIsuiCtiPrvekMomcKDatu">
+		<wsdl:part name="parametry" element="e67f:IsuiCtiPrvekMomcKDatu"/>
+	</wsdl:message>
+	<wsdl:message name="IszrIsuiCtiPrvekMomcKDatuResponse">
+		<wsdl:part name="vysledek" element="e67f:IsuiCtiPrvekMomcKDatuResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrIsuiCtiPrvekMomcKDatuPortType">
+		<wsdl:operation name="IszrIsuiCtiPrvekMomcKDatu">
+			<wsdl:input message="IszrIsuiCtiPrvekMomcKDatu"/>
+			<wsdl:output message="IszrIsuiCtiPrvekMomcKDatuResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrIsuiCtiPrvekMomcKDatuBinding" type="tns:IszrIsuiCtiPrvekMomcKDatuPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrIsuiCtiPrvekMomcKDatu">
+			<soap:operation soapAction="IszrIsuiCtiPrvekMomcKDatu"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrIsuiCtiPrvekMomcKDatuService">
+		<wsdl:port name="IszrIsuiCtiPrvekMomcKDatuPortService" binding="tns:IszrIsuiCtiPrvekMomcKDatuBinding">
+			<soap:address location="IszrIsuiCtiPrvekMomcKDatu"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

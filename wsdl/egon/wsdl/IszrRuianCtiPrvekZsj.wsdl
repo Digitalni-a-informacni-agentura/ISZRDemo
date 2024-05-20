@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRuianCtiPrvekZsj:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRuianCtiPrvekZsj:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRuianCtiPrvekZsj:v1"
+	xmlns:e35s="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekZsj:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRuianCtiPrvekZsj">
+
+	<wsdl:documentation>Služba E35s externího rozhraní - Načtení Zsj z RUIAN. RUIAN služba A04, operace ctiZsj.</wsdl:documentation>
+
+	<!-- Vývojová verze 0.0.1, 28.06.2011, Pavel Kirchner -->
+	<!-- Vývojová verze 0.0.2, 25.07.2011, Pavel Kirchner -->
+	<!-- Fixovaná verze 1.0.0, 26.10.2011, Aleš Teplý -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+	
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekZsj:v1" schemaLocation="../xsd/IszrRuianCtiPrvekZsj.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrRuianCtiPrvekZsj">
+		<wsdl:part name="parametry" element="e35s:RuianCtiPrvekZsj"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRuianCtiPrvekZsjResponse">
+		<wsdl:part name="vysledek" element="e35s:RuianCtiPrvekZsjResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRuianCtiPrvekZsjPortType">
+		<wsdl:operation name="IszrRuianCtiPrvekZsj">
+			<wsdl:input message="tns:IszrRuianCtiPrvekZsj"/>
+			<wsdl:output message="tns:IszrRuianCtiPrvekZsjResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRuianCtiPrvekZsjBinding" type="tns:IszrRuianCtiPrvekZsjPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRuianCtiPrvekZsj">
+			<soap:operation soapAction="IszrRuianCtiPrvekZsj"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRuianCtiPrvekZsjService">
+		<wsdl:port name="IszrRuianCtiPrvekZsjPortService" binding="tns:IszrRuianCtiPrvekZsjBinding">
+			<soap:address location="IszrRuianCtiPrvekZsj"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

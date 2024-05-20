@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:Zsj:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:Zsj:v1" xmlns:zj="urn:cz:isvs:ruian:schemas:Zsj:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:ku="urn:cz:isvs:ruian:schemas:KatastralniUzemi:v1" elementFormDefault="qualified" version="0.40.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Aplikační schéma Zsj obsahuje prvek typu: ZSJ se základními elementy a bez geometrie. </xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:KatastralniUzemi:v1" schemaLocation="../../../ruian/xsd/prvky/KatastralniUzemi.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../ruian/xsd/typy/CommonTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:group name="ZsjGroup">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Základní elementy prvku ZSJ.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod6Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Nazev" type="base:Nazev48Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Nespravny" type="com:NespravnyType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="KatastralniUzemi" type="ku:KatastralniUzemiType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:group>
+	<xs:element name="Zsj" type="zj:ZsjType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Prvek představuje území základní sídelní jednotky (ZSJ).</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="ZsjType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Prvek ZSJ se základními elementy a bez geometrie.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:group ref="ZsjGroup" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:KatastralniUzemiPolozky:v2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:KatastralniUzemiPolozky:v2" xmlns:kuPol="urn:cz:isvs:ruian:schemas:KatastralniUzemiPolozky:v2" xmlns:kuPolBase="urn:cz:isvs:ruian:schemas:KatastralniUzemiPolozkyBase:v2" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:obPolBase="urn:cz:isvs:ruian:schemas:ObecPolozkyBase:v2" elementFormDefault="qualified" version="2.0.0">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../typy/CommonTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:KatastralniUzemiPolozkyBase:v2" schemaLocation="../vyhledej/KatastralniUzemiPolozkyBase.xsd"/>
+	<xs:complexType name="KatastralniUzemiPolozkyType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na katastralni uzemi</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:group ref="kuPolBase:KatastralniUzemiPolozkyGroup" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="PlatiOd" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="IdTransakce" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="GlobalniIdNavrhuZmeny" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="RizeniId" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="MluvnickeCharakteristiky" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="DefinicniBod" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Hranice" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="DatumVzniku" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

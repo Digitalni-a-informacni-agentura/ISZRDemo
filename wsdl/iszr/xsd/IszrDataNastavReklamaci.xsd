@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:iszr:schemas:IszrDataNastavReklamaci:v1" xmlns:i29="urn:cz:isvs:iszr:schemas:IszrDataNastavReklamaci:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:iszr="urn:cz:isvs:iszr:schemas:IszrTypy:v1" xmlns:iszd="urn:cz:isvs:iszr:schemas:IszrDotazyData:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" targetNamespace="urn:cz:isvs:iszr:schemas:IszrDataNastavReklamaci:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.1">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">XML schéma s definicemi dat pro služby ISZR</xs:documentation>
+	</xs:annotation>
+	<!-- Vývojová verze 1.0.0, 16.04.2014, Pavel Odstrčil -->
+	<!-- Verze 1.0.1, 23.10.2017, Pavel Odstrčil, oprava dokumentace u typu StavReklamaceType -->
+	<!-- AutoCont CZ a.s. -->
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrTypy:v1" schemaLocation="IszrTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrDotazyData:v1" schemaLocation="IszrDotazyData.xsd"/>
+	<xs:element name="IszrNastavReklamaciData" type="IszrNastavReklamaciDataType"/>
+	<xs:element name="IszrNastavReklamaciDataResponse" type="IszrNastavReklamaciDataResponseType"/>
+	<xs:complexType name="IszrNastavReklamaciDataType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Zápis stavu reklamace.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ReklamaceEditorId" type="reg:RegOdpovedIdType">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Identifikátor reklamace u editora</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StavReklamace" type="iszr:StavReklamaceType">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Hodnota pro nastavení stavu. Editor může nastavit pouze stav ZPRACOVANO nebo CHYBA ZPRACOVANI. Detaily specifikuje v popisu.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StavReklamacePopis" type="iszr:StavReklamacePopisType">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Popis stavu reklamace</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="IszrNastavReklamaciDataResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Zápis stavu reklamace, odpověď.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="iszd:IszrDotazyDataResponseType">
+				<xs:sequence minOccurs="0"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

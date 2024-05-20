@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:isui:schemas:NavrhZmenyUUPTypy:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:isui:schemas:NavrhZmenyUUPTypy:v1" xmlns:nzuup="urn:cz:isvs:isui:schemas:NavrhZmenyUUPTypy:v1" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:icom="urn:cz:isvs:isui:schemas:IsuiCommon:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:eex="urn:cz:isvs:isui:schemas:EditaceExtTypy:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" elementFormDefault="qualified" version="1.4.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Aplikační schéma pro zplatnění návrhu změny v rámci agendy ÚÚP (Účelový územní prvek).</xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../ruian/xsd/typy/CommonTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:isui:schemas:EditaceExtTypy:v1" schemaLocation="../../../isui/xsd/externi_nz/EditaceExtTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:isui:schemas:IsuiCommon:v1" schemaLocation="../common/IsuiCommon.xsd"/>
+	<xs:import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../../common/gml/3.2.1/gml.xsd"/>
+	<xs:complexType name="ZmenPrvkyUUPRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Požadavek na návrh změny v rámci agendy UUP.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Dotaz" type="EditaceUUPType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ZplatniNzUUPRequest" type="nzuup:ZmenPrvkyUUPRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Požadavek na externí návrh změny Účelových územních prvků.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="EditaceUUPType">
+		<xs:sequence>
+			<xs:element name="HlavickaNZ" type="eex:HlavickaNzType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="PodkladyNZ" type="eex:PodkladNzSeznamType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Prvky" type="PrvekListEditaceUUPType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PrvekListEditaceUUPType">
+		<xs:sequence>
+			<xs:element name="Prvek" type="PrvekEditaceUUPType" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PrvekEditaceUUPType">
+		<xs:choice>
+			<xs:element name="VytvoreniUcelovyPrvek" type="UcelovyPrvekVytvoreniExtNZType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ZmenaUcelovyPrvek" type="UcelovyPrvekZmenaExtNZType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ZruseniUcelovyPrvek" type="UcelovyPrvekZruseniExtNZType" minOccurs="0" maxOccurs="1"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="UcelovyPrvekVytvoreniExtNZType">
+		<xs:complexContent>
+			<xs:extension base="gml:AbstractFeatureType">
+				<xs:sequence>
+					<xs:element name="Identifikace" type="UcelovyPrvekIdentifikaceType" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="Nazev" type="base:Nazev50Type" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="Geometrie" type="GeometrieUUPType" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="Popis" type="base:Text2000Type" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="DatumVzniku" type="base:DatumType" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">Datum vzniku účelového prvku.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Cislo" type="base:Nazev50Type" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="StavUUP" type="base:Kod4Type" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="SubTyp" type="base:Kod4Type" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="ZpusobVymezeni" type="base:Kod4Type" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="PresnostVymezeni" type="com:PresnostVytyceniType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="DalsiUdaje" type="DalsiUdajeUUPType" minOccurs="0" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="UcelovyPrvekZmenaExtNZType">
+		<xs:complexContent>
+			<xs:extension base="gml:AbstractFeatureType">
+				<xs:sequence>
+					<xs:element name="Identifikace" type="UcelovyPrvekIdentifikaceType" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="Nazev" type="base:Nazev50Type" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="Geometrie" type="GeometrieUUPZmenaExType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="DatumVzniku" type="eex:DatumZmenaExType" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">Požadavek na změnu data vzniku účelového prvku.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Cislo" type="eex:Nazev50ZmenaExType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="Popis" type="eex:Text2000ZmenaExType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="StavUUP" type="eex:Kod4ZmenaExType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="SubTyp" type="eex:Kod4ZmenaExType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="ZpusobVymezeni" type="eex:Kod4ZmenaExType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="PresnostVymezeni" type="eex:PresnostVytyceniZmenaExType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="DalsiUdaje" type="DalsiUdajeUUPZmenaExType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="NespravneUdaje" type="eex:NespravnyUdajZmenaListType" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">Seznam změn nesprávností referenčních údajů.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="NespravnostVazeb" type="NespravnaVazbaUupZmenaListType" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">Seznam změn nesprávností vazeb účelového prvku.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="UcelovyPrvekZruseniExtNZType">
+		<xs:sequence>
+			<xs:element name="Identifikace" type="UcelovyPrvekIdentifikaceType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="UcelovyPrvekIdentifikaceType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Identifikace účelového územního prvku.
+Povinnost subelementů pro jednotlivé případy:  
+1) Vytvoření prvku (element VytvoreniUcelovyPrvek):
+
+	- Kod: nepoužitý, ignoruje se
+	- TypUUP: povinný
+	- ExterniID: nepovinný
+
+
+2) Změna a zrušení prvku (element ZmenaUcelovyPrvek a ZruseniUcelovyPrvek):
+Varianty:
+
+	- Je uveden Kod: Hodnoty TypUUP a ExterniID se ignorují.
+	- Není uveden Kod: Hodnoty TypUUP a ExterniID jsou povinné.
+
+
+3) Odpovědi (elementy ZplatniNzUUPResponse.ZalozeneUUP.Identifikace a CtiStavNzUUPResponse.ZalozeneUUP.Identifikace):
+
+	- Kod: povinný
+	- TypUUP: povinný
+	- ExterniID: nepovinný - je uveden, pokud byl zadán v požadavku na vytvoření prvku</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod9Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="TypUUP" type="base:Kod4Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ExterniID" type="base:Nazev50Type" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="GeometrieUUPZmenaExType">
+		<xs:sequence>
+			<xs:element name="Vymezeni" type="UcelovyPrvekVymezeniType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="DefinicniBod" type="eex:MultiPointPropertyZmenaExType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="GeneralizovaneHranice1" type="eex:MultiSurfacePropertyZmenaExType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Generalizovaná geometrie hranice ÚÚP (stupeň generalizace 1).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GeneralizovaneHranice2" type="eex:MultiSurfacePropertyZmenaExType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Generalizovaná geometrie hranice ÚÚP (stupeň generalizace 2).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GeneralizovaneHranice3" type="eex:MultiSurfacePropertyZmenaExType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Generalizovaná geometrie hranice ÚÚP (stupeň generalizace 3).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GeneralizovaneHranice4" type="eex:MultiSurfacePropertyZmenaExType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Generalizovaná geometrie hranice ÚÚP (stupeň generalizace 4).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GeneralizovaneHranice5" type="eex:MultiSurfacePropertyZmenaExType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Generalizovaná geometrie hranice ÚÚP (stupeň generalizace 5).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="GeometrieUUPType">
+		<xs:sequence>
+			<xs:element name="Vymezeni" type="UcelovyPrvekVymezeniType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="DefinicniBod" type="gml:MultiPointPropertyType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="GeneralizovaneHranice1" type="gml:MultiSurfacePropertyType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Generalizovaná geometrie hranice ÚÚP (stupeň generalizace 1).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GeneralizovaneHranice2" type="gml:MultiSurfacePropertyType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Generalizovaná geometrie hranice ÚÚP (stupeň generalizace 2).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GeneralizovaneHranice3" type="gml:MultiSurfacePropertyType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Generalizovaná geometrie hranice ÚÚP (stupeň generalizace 3).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GeneralizovaneHranice4" type="gml:MultiSurfacePropertyType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Generalizovaná geometrie hranice ÚÚP (stupeň generalizace 4).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GeneralizovaneHranice5" type="gml:MultiSurfacePropertyType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Generalizovaná geometrie hranice ÚÚP (stupeň generalizace 5).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="UcelovyPrvekVymezeniType">
+		<xs:choice>
+			<xs:element name="Bod" type="gml:MultiPointPropertyType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Polygon" type="gml:MultiSurfacePropertyType" minOccurs="1" maxOccurs="1"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="DalsiUdajeUUPType">
+		<xs:sequence>
+			<xs:element name="Plocha" type="com:PlochaUUPType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Nerost" type="base:Text2000Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="SkupinaNerostu" type="base:Kod4Type" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="VyhlasovaciDokumentace" type="base:Text2000Type" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DalsiUdajeUUPZmenaExType">
+		<xs:sequence>
+			<xs:element name="Plocha" type="PlochaUUPZmenaExType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Nerost" type="eex:Text2000ZmenaExType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="SkupinaNerostu" type="eex:Kod4ZmenaExType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="VyhlasovaciDokumentace" type="eex:Text2000ZmenaExType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PlochaUUPZmenaExType">
+		<xs:choice>
+			<xs:element name="Hodnota" type="com:PlochaUUPType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="NullovatHodnotu" type="com:NullovatHodnotuType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Příznak nulování hodnoty.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="ZmenPrvkyUUPResponseType">
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="ExterniId" type="eex:IdNavrhuZmenyExtType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="VysledekKontrol" type="eex:VysledekKontrolType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="GlobalniIdNavrhuZmeny" type="com:IdNavrhuZmenyType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="StavNavrhuZmeny" type="eex:StavNavrhuZmenyType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ZaslaneUUP" type="UcelovyPrvekIdentifikaceSeznamType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Seznam identifikací Účelových územních prvků zaslaných v návrhu změny. Umožňuje mapování zaslaných prvků s vytvořenými prvky popř. s identifikovanými chybami (v elementu VysledekKontrol/Chyby/Chyba/PrvekKod). 
+Podelementy Identifikace obsahují:
+-Kod: Pokud byl návrh změny (NZ) akceptován, obsahuje kód založeného územního prvku, jinak obsahuje umělý kód platný pouze v rozsahu zaslaného NZ.
+-TypUUP: Vždy uveden.
+-ExterniID: Externí identifikace účelového prvku.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ZplatniNzUUPResponse" type="nzuup:ZmenPrvkyUUPResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpověď na externí návrh změny Účelových územních prvků.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="UcelovyPrvekIdentifikaceSeznamType">
+		<xs:sequence>
+			<xs:element name="Identifikace" type="UcelovyPrvekIdentifikaceType" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="CtiStavNzUUPResponse" type="nzuup:ZmenPrvkyUUPResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpověď na externí návrh změny Účelových územních prvků.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="CtiStavNzUUPType">
+		<xs:sequence>
+			<xs:element name="GlobalniIdNavrhuZmeny" type="com:IdNavrhuZmenyType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Id návrhu změny UUP, ke kterému je požadováno zjistit stav</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CtiStavNzUUPRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Požadavek na návrh změny v rámci agendy UUP.  </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Dotaz" type="CtiStavNzUUPType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="CtiStavNzUUPRequest" type="nzuup:CtiStavNzUUPRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Požadavek na zjištění stavu návrhu změny Účelových územních prvků.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="NespravnaVazbaUupZmenaListType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam změn nesprávností vazeb účelového prvku.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="NespravnostVazby" type="NespravnaVazbaUupZmenaType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="NespravnaVazbaUupZmenaType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Změna nesprávnosti vazby účelového prvku.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:group ref="icom:IdPrvkuVeVazbeNaUup" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Nespravny" type="xs:boolean" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Hodnota na kterou je požadováno změnit nesprávnost.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

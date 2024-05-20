@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:CtiProRob:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:CtiProRob:v1" xmlns:crob="urn:cz:isvs:ruian:schemas:CtiProRob:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:ctiAdresa="urn:cz:isvs:ruian:schemas:CtiAdresa:v1" elementFormDefault="qualified" version="0.0.3">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiAdresa:v1" schemaLocation="../../../ruian/xsd/cti/CtiAdresa.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../RegTypy.xsd"/>
+	<xs:complexType name="SeznamLokalitType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam lokalit - místo narození nebo úmrtí.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Lokalita" type="LokalitaType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="CtiProRobRequest" type="crob:CtiProRobRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz pro ověření nebo získání údajů potřebných k doplnění údajů o fyzické osobě z ROB.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="CtiProRobRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz pro získání údajů potřebných k doplnění údajů o fyzické osobě z ROB.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Dotaz" type="CtiProRobDotazType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CtiProRobDotazType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam adres pro ověření nebo načtení.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="SeznamIdAdres" type="reg:SeznamIdAdresType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="CtiProRobResponse" type="crob:CtiProRobResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpověď na dotaz pro ověření nebo získání údajů potřebných k doplnění údajů o fyzické osobě z ROB.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="CtiProRobResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz pro získání údajů potřebných k doplnění údajů o fyzické osobě z ROB.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Odpoved" type="CtiProRobOdpovedType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CtiProRobOdpovedType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam adres pro ověření nebo načtení.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="SeznamAdres" type="SeznamAdresType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="SeznamIdAdres" type="reg:SeznamIdAdresType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="SeznamLokalit" type="SeznamLokalitType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="LokalitaType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Místo narození narození nebo úmrtí.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="reg:AdresniLokalitaType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Nazev" type="base:Nazev48Type" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="TypPrvku" use="optional" default="OB" type="reg:TypAdresniLokalityType">
+			<xs:annotation>
+				<xs:documentation xml:lang="cs">Informace o výsledku načtení v RUIAN, pokud se nepodařilo načíst.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="SeznamAdresType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam položkových adres.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PolozkovaAdresa" type="ctiAdresa:AdresaPolozkovaType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

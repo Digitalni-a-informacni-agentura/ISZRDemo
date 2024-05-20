@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRuianZmenPrvekIsui:v1" 
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRuianZmenPrvekIsui:v1" 
+	xmlns:e33="urn:cz:isvs:iszr:schemas:IszrRuianZmenPrvekIsui:v1" 
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:zpui="urn:cz:isvs:ruian:schemas:ZmenPrvekIsui:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified" 
+	version="1.1.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E33 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	
+	<!-- Vývojová verze 0.0.1, 15.06.2011, Aleš Teplý -->
+	<!-- Vývojová verze 0.0.2, 13.07.2011, Aleš Teplý, Response nemusí obsahovat data (async) -->
+	<!-- Vývojová verze 0.0.3, 28.07.2011, Pavel Kirchner -->
+	<!-- Vývojová verze 0.0.4, 28.07.2011, Aleš Teplý, převzetí datového elementu Response pomocí ref (deklaruje AC) -->
+	<!-- Vývojová verze 0.0.5, 14.09.2011, Aleš Teplý, podadresáře registrů malými písmeny, CamelCase -->
+	<!-- Fixovaná verze 1.0.0, 22.09.2011, Aleš Teplý -->
+	<!-- Verze po revizi 1.0.1, 30.11.2011, Aleš Teplý, změny RuianZmenPrvekIsuiData -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenPrvekIsui:v1" schemaLocation="ref/RuianZmenPrvekIsui.xsd"/>
+	
+	<xs:element name="RuianZmenPrvekIsui" type="RuianZmenPrvekIsuiType"/>
+	<xs:element name="RuianZmenPrvekIsuiResponse" type="RuianZmenPrvekIsuiResponseType"/>
+	
+	<xs:complexType name="RuianZmenPrvekIsuiType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E33 externího rozhraní - žádost. Služba pro uložení změn ISUI do RUIAN. RUIAN služba A02. V RUIAN jsou opraveny existující záznamy prvků, zapsány nové či označeny jako zrušené.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianZmenPrvekIsuiData" type="zpui:EditaceISUIType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RuianZmenPrvekIsuiResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E33 externího rozhraní - odpověď. Služba pro uložení změn ISUI do RUIAN. RUIAN služba A02.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="RuianOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianZmenPrvekIsuiDataResponse">
+									<xs:complexType>
+										<xs:sequence>
+										  <xs:element ref="zpui:Odpoved"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

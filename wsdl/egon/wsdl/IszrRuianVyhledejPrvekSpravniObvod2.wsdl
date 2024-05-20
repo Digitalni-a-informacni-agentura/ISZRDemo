@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRuianVyhledejPrvekSpravniObvod2:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRuianVyhledejPrvekSpravniObvod2:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRuianVyhledejPrvekSpravniObvod2:v1"
+	xmlns:e249n="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekSpravniObvod2:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRuianVyhledejPrvekSpravniObvod2">
+
+	<wsdl:documentation>Služba E249n externího rozhraní - Vyhledání správní obvod z RUIAN. RUIAN služba, operace VyhledejSpravniObvod.</wsdl:documentation>
+	
+	<!-- Výchozí verze 2.0.0, 29.09.2020 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+	
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekSpravniObvod2:v1" schemaLocation="../xsd/IszrRuianVyhledejPrvekSpravniObvod2.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrRuianVyhledejPrvekSpravniObvod2">
+		<wsdl:part name="parametry" element="e249n:RuianVyhledejPrvekSpravniObvod2"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRuianVyhledejPrvekSpravniObvod2Response">
+		<wsdl:part name="vysledek" element="e249n:RuianVyhledejPrvekSpravniObvod2Response"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRuianVyhledejPrvekSpravniObvod2PortType">
+		<wsdl:operation name="IszrRuianVyhledejPrvekSpravniObvod2">
+			<wsdl:input message="tns:IszrRuianVyhledejPrvekSpravniObvod2"/>
+			<wsdl:output message="tns:IszrRuianVyhledejPrvekSpravniObvod2Response"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRuianVyhledejPrvekSpravniObvod2Binding" type="tns:IszrRuianVyhledejPrvekSpravniObvod2PortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRuianVyhledejPrvekSpravniObvod2">
+			<soap:operation soapAction="IszrRuianVyhledejPrvekSpravniObvod2"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRuianVyhledejPrvekSpravniObvod2Service">
+		<wsdl:port name="IszrRuianVyhledejPrvekSpravniObvod2PortService" binding="tns:IszrRuianVyhledejPrvekSpravniObvod2Binding">
+			<soap:address location="IszrRuianVyhledejPrvekSpravniObvod2"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

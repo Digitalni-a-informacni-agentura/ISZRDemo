@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:AdresniMistoPolozkyBase:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:AdresniMistoPolozkyBase:v1" xmlns:adPolBase="urn:cz:isvs:ruian:schemas:AdresniMistoPolozkyBase:v1" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:soPolBase="urn:cz:isvs:ruian:schemas:StavebniObjektPolozkyBase:v1" xmlns:ulPolBase="urn:cz:isvs:ruian:schemas:UlicePolozkyBase:v1" elementFormDefault="qualified" version="0.40.0">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:UlicePolozkyBase:v1" schemaLocation="../../../ruian/xsd/vyhledej/UlicePolozkyBase.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:StavebniObjektPolozkyBase:v1" schemaLocation="../../../ruian/xsd/vyhledej/StavebniObjektPolozkyBase.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../ruian/xsd/typy/CommonTypy.xsd"/>
+	<xs:group name="AdresniMistoPolozkyGroup">
+		<xs:sequence>
+			<xs:element name="VsechnyInformace" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Kod" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Nespravny" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="CisloDomovni" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="CisloOrientacni" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="CisloOrientacniPismeno" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Psc" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="StavebniObjekt" type="soPolBase:StavebniObjektPolozkyBaseType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Ulice" type="ulPolBase:UlicePolozkyBaseType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:group>
+	<xs:complexType name="AdresniMistoPolozkyBaseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na adresni misto</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:group ref="AdresniMistoPolozkyGroup" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

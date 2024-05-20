@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:iskn:schemas:ReklamaceTypy:v1" xmlns:rt="urn:cz:isvs:iskn:schemas:Reklamace:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:cz:isvs:iskn:schemas:Reklamace:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Rozšíření ReklamujPrvek, definice potřebného elementu ve jmenném prostoru ISKN.</xs:documentation>
+	</xs:annotation>
+	<!-- Vývojová verze 1.0.0, 26.10.2017 -->
+	<!-- AutoCont CZ a.s. -->
+	<xs:include schemaLocation="../../../iskn/xsd/reklamace/Reklamace.xsd"/>
+	<xs:element name="Odpoved" type="rt:ReklamaceOdpovedType"/>
+</xs:schema>

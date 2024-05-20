@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrOrgKompromitujAifo:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrOrgKompromitujAifo:v1"
+	xmlns:e72="urn:cz:isvs:iszr:schemas:IszrOrgKompromitujAifo:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:ot="urn:cz:isvs:org:schemas:OrgTypy:v1"
+	xmlns:or="urn:cz:isvs:org:schemas:OrgRozhrani:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.1.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E72 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vývojová verze 0.0.01, 22.7.2011, Jan Sluka -->
+	<!-- Vývojová verze 0.0.02, 30.7.2011, Jan Sluka, navaznost na nove abstraktni typy-->
+	<!-- Vývojová verze 0.0.03, 12.8.2011, Jan Sluka, CaseSensitive upravy -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:org:schemas:OrgRozhrani:v1" schemaLocation="ref/OrgStatus.xsd"/>
+
+	<xs:element name="OrgKompromitujAifo" type="OrgKompromitujAifoType"/>
+	<xs:element name="OrgKompromitujAifoResponse" type="OrgKompromitujAifoResponseType"/>
+
+	<xs:complexType name="OrgKompromitujAifoType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E72 externího rozhraní - typ pro žádost.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostRAifoAbstractType"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="OrgKompromitujAifoResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E72 externího rozhraní - typ pro odpověď.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAifoAbstractType">
+				<xs:sequence>
+					<xs:element name="OrgOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="OrgKompromitujAifoDataResponse">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element ref="or:OrgStatus"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

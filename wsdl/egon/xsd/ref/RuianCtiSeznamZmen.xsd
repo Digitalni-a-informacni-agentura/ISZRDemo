@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+	targetNamespace="urn:cz:isvs:ruian:schemas:SeznamZmenTypy:v1" 
+	xmlns="urn:cz:isvs:ruian:schemas:SeznamZmenTypy:v1" 
+	xmlns:zme="urn:cz:isvs:ruian:schemas:SeznamZmenTypy:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified" 
+	version="1.1.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Rozšíření CtiSeznamZmen, definice potřebného elementu v namespace RUIAN.</xs:documentation>
+	</xs:annotation>
+	
+	<!-- Vývojová verze 0.0.1, 14.10.2011, Aleš Teplý -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:include schemaLocation="../../../ruian/xsd/cti_seznam_zmen/SeznamZmenTypy.xsd"/>
+
+	<xs:element name="Odpoved" type="zme:CtiSeznamZmenOdpovedType"/>
+
+</xs:schema>

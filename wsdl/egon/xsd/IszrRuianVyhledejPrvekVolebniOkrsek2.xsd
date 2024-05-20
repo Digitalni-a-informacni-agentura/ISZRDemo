@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekVolebniOkrsek2:v1" 
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekVolebniOkrsek2:v1" 
+	xmlns:e249t="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekVolebniOkrsek2:v1" 
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:vyhVo="urn:cz:isvs:ruian:schemas:VyhledejVolebniOkrsek:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified" 
+	version="2.0.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E249t externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	
+	<!-- Výchozí verze 2.0.0, 29.09.2020 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:VyhledejVolebniOkrsek:v2" schemaLocation="ref/RuianVyhledejPrvekVolebniOkrsek2.xsd"/>
+	
+	<xs:element name="RuianVyhledejPrvekVolebniOkrsek2" type="RuianVyhledejPrvekVolebniOkrsek2Type"/>
+	<xs:element name="RuianVyhledejPrvekVolebniOkrsek2Response" type="RuianVyhledejPrvekVolebniOkrsek2ResponseType"/>
+	
+	<xs:complexType name="RuianVyhledejPrvekVolebniOkrsek2Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E249t externího rozhraní - žádost. Vyhledání volebního okrsku z RUIAN. RUIAN služba, operace VyhledejVolebniOkrsek.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+		 						<xs:element name="RuianVyhledejPrvekVolebniOkrsek2Data" type="vyhVo:VyhledejVolebniOkrsekDotazType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="RuianVyhledejPrvekVolebniOkrsek2ResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E249t externího rozhraní - odpověď. Vyhledání volebního okrsku z RUIAN. RUIAN služba, operace VyhledejVolebniOkrsek.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="RuianOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianVyhledejPrvekVolebniOkrsek2DataResponse">
+									<xs:complexType>
+										<xs:sequence>
+										  <xs:element ref="vyhVo:VolebniOkrsek"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

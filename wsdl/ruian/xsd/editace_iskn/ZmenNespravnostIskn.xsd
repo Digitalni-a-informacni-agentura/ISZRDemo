@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:ZmenNespravnostIskn:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:ZmenNespravnostIskn:v1" xmlns:znkn="urn:cz:isvs:ruian:schemas:ZmenNespravnostIskn:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:zpkn="urn:cz:isvs:ruian:schemas:ZmenPrvekIskn:v1" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" elementFormDefault="qualified" version="0.40.2">
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../ruian/xsd/typy/CommonTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenPrvekIskn:v1" schemaLocation="../../../ruian/xsd/editace_iskn/ZmenPrvekIskn.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:complexType name="EditaceNespravnostiISKNType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Editace nespravnosti z ISKN</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Nespravnosti" type="NespravnostListISKNType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ZmenNespravnostISKNRequest" type="znkn:ZmenNespravnostISKNRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na zmeny nespravnosti ISKN</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ZmenNespravnostISKNResponse" type="znkn:ZmenNespravnostISKNRespType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved na zmeny nespravnosti ISKN</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="NespravnostListISKNType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam nespravnosti ISKN</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Nespravnost" type="NespravnostISKNType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="NespravnostISKNType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Nespravnost ISKN</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PrvekId" type="base:Id18Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="TypPrvku" type="zpkn:TypPrvkuISKNType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="TypAtributu" type="com:AtributType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="TypZmeny" type="com:TypZmenyNespravnostiType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Nespravny" type="com:NespravnyType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="OznacenoDne" type="base:DatumCasType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="OznacenoInfo" type="base:Text500Type" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ZmenNespravnostISKNRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na zmeny nespravnosti ISKN</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Dotaz" type="EditaceNespravnostiISKNType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ZmenNespravnostISKNRespType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpověď na změny nesprávnosti ISKN</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

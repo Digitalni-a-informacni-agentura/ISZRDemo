@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:VyhledejSpravniObvod:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:VyhledejSpravniObvod:v1" xmlns:vyhSp="urn:cz:isvs:ruian:schemas:VyhledejSpravniObvod:v1" xmlns:spPodm="urn:cz:isvs:ruian:schemas:SpravniObvodPodminka:v1" xmlns:spPolBase="urn:cz:isvs:ruian:schemas:SpravniObvodPolozkyBase:v1" xmlns:sp="urn:cz:isvs:ruian:schemas:SpravniObvod:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" elementFormDefault="qualified" version="0.40.0">
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:SpravniObvod:v1" schemaLocation="../../../ruian/xsd/prvky/SpravniObvod.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:SpravniObvodPolozkyBase:v1" schemaLocation="../../../ruian/xsd/vyhledej/SpravniObvodPolozkyBase.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:SpravniObvodPodminka:v1" schemaLocation="../../../ruian/xsd/vyhledej/SpravniObvodPodminka.xsd"/>
+	<xs:complexType name="VyhledejSpravniObvodDotazType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Parametry spravniho obvodu</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Podminka" type="spPodm:SpravniObvodPodminkaType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="PozadovaneUdaje" type="spPolBase:SpravniObvodPolozkyBaseType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SpravniObvodSeznamType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam spravnich obvodu</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="SpravniObvod" type="sp:SpravniObvodType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VyhledejSpravniObvodRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na vyhledani spravniho obvodu</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Dotaz" type="VyhledejSpravniObvodDotazType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VyhledejSpravniObvodResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved vyhledani spravniho obvodu</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="SpravniObvody" type="SpravniObvodSeznamType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="VyhledejSpravniObvodRequest" type="vyhSp:VyhledejSpravniObvodRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na vyhledani spravniho obvodu</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="VyhledejSpravniObvodResponse" type="vyhSp:VyhledejSpravniObvodResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved vyhledani spravniho obvodu</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

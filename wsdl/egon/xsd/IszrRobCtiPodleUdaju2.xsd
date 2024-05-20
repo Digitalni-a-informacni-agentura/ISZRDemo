@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:iszr:schemas:IszrRobCtiPodleUdaju2:v1" xmlns:e278="urn:cz:isvs:iszr:schemas:IszrRobCtiPodleUdaju2:v1" xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" xmlns:rod="urn:cz:isvs:rob:schemas:RobDotazyData:v1" xmlns:crob2="urn:cz:isvs:ruian:schemas:CtiProRob:v2" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:cz:isvs:iszr:schemas:IszrRobCtiPodleUdaju2:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.1.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E278 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	<!-- Výchozí verze 1.0.0, 12.8.2021, Aleš Teplý -->
+	<!-- Verze po revizi 1.0.1, 15.10.2021, Aleš Teplý, přidává možnou hodnotu u nepovinného elementu Response (RodinnyStavPartnerstviType) -->
+	<!-- Verze po revizi 1.1.0, 8.12.2021, Aleš Teplý, modifikace Request, odebrány atributy stavu (OmezeniSvepravnosti, RodinnyStavPartnerstvi, Pohlavi) -->
+	<!-- AutoCont CZ a.s. -->
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstractOrg.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rob:schemas:RobDotazyData:v1" schemaLocation="../../rob/xsd/RobDotazyData.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiProRob:v2" schemaLocation="ref/RuianCtiProRob2n.xsd"/>
+	<xs:element name="RobCtiPodleUdaju2" type="RobCtiPodleUdaju2Type"/>
+	<xs:element name="RobCtiPodleUdaju2Response" type="RobCtiPodleUdaju2ResponseType"/>
+	<xs:complexType name="RobCtiPodleUdaju2Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E278 externího rozhraní - typ pro žádost. Služba zprostředkuje čtení referenčních údajů z ROB na základě vyhledání fyzické osoby podle kombinace údajů. Dotaz je omezen jen na ty údaje, které jsou vedeny přímo v ROB (adresa musí být zadána formou referenčního odkazu do RUIAN).</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostIdAdrAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RobCtiPodleUdaju2Data" type="rod:RobCtiPodleUdaju2DataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RobCtiPodleUdaju2ResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E278 externího rozhraní - typ pro odpověď. Výstupní formát služby je definován vstupním seznamem požadavaných RU a právy podle RPP. Služba skládá údaje ze základních registrů ROB a RUIAN. Služba podle výsledku dotazu vrací 0, 1 nebo více záznamů.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAifoStIdAdrAbstractType">
+				<xs:sequence>
+					<xs:element name="RobOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RobCtiPodleUdaju2DataResponse" type="rod:RobCtiPodleUdajuDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="RuianOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianCtiProRobV2DataResponse" type="crob2:RuianCtiProRobV2DataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

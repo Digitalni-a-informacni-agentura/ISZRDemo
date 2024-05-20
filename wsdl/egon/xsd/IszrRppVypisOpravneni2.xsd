@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRppVypisOpravneni2:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRppVypisOpravneni2:v1"
+	xmlns:e295="urn:cz:isvs:iszr:schemas:IszrRppVypisOpravneni2:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:pdo="urn:cz:isvs:rpp:schemas:RppDotazyData:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.1.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E295 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Výchozí verze 1.0.0, 13.12.2012, Aleš Teplý -->
+	<!-- Verze po revizi 1.1.0, 25.5.2022, Aleš Teplý, Response - AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rpp:schemas:RppDotazyData:v1" schemaLocation="../../rpp/xsd/RppDotazyData.xsd"/>
+
+	<xs:element name="RppVypisOpravneni2" type="RppVypisOpravneni2Type"/>
+	<xs:element name="RppVypisOpravneni2Response" type="RppVypisOpravneni2ResponseType"/>
+
+	<xs:complexType name="RppVypisOpravneni2Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E295 externího rozhraní - typ pro žádost. Poskytnutí informací o přiřazení agendových rolí a služeb k agendě včetně povolených přístupů k AIS pro konkrétní agendu nebo agendy vykonávané příslušným OVM. RPP služba P94.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RppVypisOpravneni2Data" type="pdo:RppVypisOpravneni2DataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="RppVypisOpravneni2ResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E295 externího rozhraní - typ pro odpověď. Poskytnutí informací o přiřazení agendových rolí a služeb k agendě včetně povolených přístupů k AIS pro konkrétní agendu nebo agendy vykonávané příslušným OVM. RPP služba P94.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="RppOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RppVypisOpravneni2DataResponse" type="pdo:RppVypisOpravneni2DataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

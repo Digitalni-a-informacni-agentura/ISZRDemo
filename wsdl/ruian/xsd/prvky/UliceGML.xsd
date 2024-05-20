@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:UliceGML:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:UliceGML:v1" xmlns:ulGml="urn:cz:isvs:ruian:schemas:UliceGML:v1" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:ul="urn:cz:isvs:ruian:schemas:Ulice:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:ob="urn:cz:isvs:ruian:schemas:Obec:v1" elementFormDefault="qualified" version="0.40.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Aplikační schéma UliceGML obsahuje prvek typu: Ulice, včetně geometrie. 
+		</xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../ruian/xsd/typy/CommonTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:Ulice:v1" schemaLocation="../../../ruian/xsd/prvky/Ulice.xsd"/>
+	<xs:import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../../common/gml/3.2.1/gml.xsd"/>
+	<xs:element name="Ulice" type="ulGml:UliceGMLType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Prvek představuje ulici nebo jiné veřejné prostranství.
+Prvek rozšiřuje gml:AbstractFeatureType a obsahuje geometrii. 	</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="UliceGMLType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Prvek Ulice jako rozšíření gml:AbstractFeatureType.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="gml:AbstractFeatureType">
+				<xs:sequence>
+					<xs:group ref="ul:UliceGroup" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="PlatiOd" type="base:DatumCasType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="IdTransakce" type="com:IdTransakceType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="GlobalniIdNavrhuZmeny" type="com:IdNavrhuZmenyType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="Geometrie" type="GeometrieUliceType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="NespravneUdaje" type="com:NespravnyUdajListType" minOccurs="0" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="GeometrieUliceType">
+		<xs:sequence>
+			<xs:element name="DefinicniCara" type="gml:MultiCurvePropertyType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Geometrie definiční čáry ulice (Povolený typ geometrie je Multilinie).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

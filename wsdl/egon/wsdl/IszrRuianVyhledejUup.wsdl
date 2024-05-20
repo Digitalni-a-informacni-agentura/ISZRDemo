@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRuianVyhledejUup:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRuianVyhledejUup:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRuianVyhledejUup:v1"
+	xmlns:e281="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejUup:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRuianVyhledejUup">
+
+	<wsdl:documentation>Služba E281 externího rozhraní - Vyhledání Uup z RUIAN. RUIAN služba A41, operace VyhledejUup.</wsdl:documentation>
+	
+	<!-- Výchozí verze 1.0.0, 6.10.2021 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+	
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejUup:v1" schemaLocation="../xsd/IszrRuianVyhledejUup.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrRuianVyhledejUup">
+		<wsdl:part name="parametry" element="e281:RuianVyhledejUup"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRuianVyhledejUupResponse">
+		<wsdl:part name="vysledek" element="e281:RuianVyhledejUupResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRuianVyhledejUupPortType">
+		<wsdl:operation name="IszrRuianVyhledejUup">
+			<wsdl:input message="tns:IszrRuianVyhledejUup"/>
+			<wsdl:output message="tns:IszrRuianVyhledejUupResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRuianVyhledejUupBinding" type="tns:IszrRuianVyhledejUupPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRuianVyhledejUup">
+			<soap:operation soapAction="IszrRuianVyhledejUup"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRuianVyhledejUupService">
+		<wsdl:port name="IszrRuianVyhledejUupPortService" binding="tns:IszrRuianVyhledejUupBinding">
+			<soap:address location="IszrRuianVyhledejUup"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

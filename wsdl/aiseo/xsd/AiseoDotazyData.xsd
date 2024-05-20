@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:aiseo:schemas:AiseoDotazyData:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:iszr="urn:cz:isvs:aiseo:schemas:AiseoTypy:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" targetNamespace="urn:cz:isvs:aiseo:schemas:AiseoDotazyData:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.1.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">XML schéma s definicemi dat pro služby ISEO</xs:documentation>
+	</xs:annotation>
+	<!-- Vývojová verze 0.1.0, 14.10.2011, Pavel Odstrčil -->
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:aiseo:schemas:AiseoTypy:v1" schemaLocation="AiseoTypy.xsd"/>
+	<xs:complexType name="AiseoDotazyDataResponseType" abstract="true">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Společný předek všech aplikačních částí odpovědí na dotazy ISZR.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AiseoAplikacniStatus" type="iszr:AiseoAplikacniStatusType"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

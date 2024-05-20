@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:ZsjGML:v2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:ZsjGML:v2" xmlns:zjGml="urn:cz:isvs:ruian:schemas:ZsjGML:v2" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:zj="urn:cz:isvs:ruian:schemas:Zsj:v2" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:ku="urn:cz:isvs:ruian:schemas:KatastralniUzemi:v2" elementFormDefault="qualified" version="2.0.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Aplikační schéma ZsjGML obsahuje prvek typu ZSJ, včetně geometrie. </xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../typy/BaseTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../typy/CommonTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:Zsj:v2" schemaLocation="Zsj.xsd"/>
+	<xs:import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../../../../common/gml/3.2.1/gml.xsd"/>
+	<xs:complexType name="GeometrieZsjType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Geometrické údaje ZSJ.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DefinicniBod" type="gml:MultiPointPropertyType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Geometrie definičního bodu ZSJ.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Hranice" type="HraniceZsjType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Geometrie hranice ZSJ.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="HraniceZsjType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Hranice ZSJ.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="gml:MultiSurfacePropertyType">
+				<xs:sequence>
+					<xs:element name="StupenGeneralizace" type="com:StupenGeneralizaceType" minOccurs="1" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">Stupeň generalizace.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="Zsj" type="zjGml:ZsjGMLType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Prvek představuje území základní sídelní jednotky (ZSJ) s geometrií (GML).</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="ZsjGMLType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Prvek ZSJ jako rozšíření gml:AbstractFeatureType.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="gml:AbstractFeatureType">
+				<xs:sequence>
+					<xs:group ref="zj:ZsjGroup" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="PlatiOd" type="base:DatumCasType" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">Začátek platnosti.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="IdTransakce" type="com:IdTransakceType" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">ID transakce v RUIAN.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="GlobalniIdNavrhuZmeny" type="com:IdNavrhuZmenyType" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">ID návrhu změny v ISUI.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="MluvnickeCharakteristiky" type="com:MluvnickeCharakteristikyType" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">Mluvnické charakteristiky 2 až 7 pád.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Vymera" type="com:VymeraType" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">Výměra ZSJ v metrech čtverečních.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="CharakterZsjKod" type="base:Kod4Type" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">Převažující charakter využití ZSJ.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Geometrie" type="GeometrieZsjType" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">Geometrické údaje ZSJ.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="NespravneUdaje" type="com:NespravnyUdajListType" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">Seznam nesprávnych referenčních údajú.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DatumVzniku" type="base:DatumCasType" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">Datum vzniku prvku.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

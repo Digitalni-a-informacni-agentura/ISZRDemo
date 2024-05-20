@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRppVypisPusobnostOvm5:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRppVypisPusobnostOvm5:v1"
+	xmlns:e261="urn:cz:isvs:iszr:schemas:IszrRppVypisPusobnostOvm5:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:pdo="urn:cz:isvs:rpp:schemas:RppDotazyData:v1"
+	xmlns:crob2="urn:cz:isvs:ruian:schemas:CtiProRob:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.11.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E261 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vytvoření nové verze služby, která vypíše údaje o působnosti pro OVM či SPUU v agendě, včetně stavu zpochybnění, RPP 1.10.0, 12.10.2020, Aleš Teplý -->
+	<!-- Verze po revizi 1.10.1, 14.10.2020, Aleš Teplý, RuianCtiProRobDataResponse v1 i v2 -->
+	<!-- Verze po revizi 1.10.2, 29.10.2020, Aleš Teplý, RppVypisPusobnostOvm5DataResponseType, doplneni minOccurs="0" -->
+	<!-- Verze po revizi 1.10.3, 15.10.2021, Aleš Teplý, AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- Verze po revizi 1.11.0, 25.5.2022, Aleš Teplý, Response - AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rpp:schemas:RppDotazyData:v1" schemaLocation="../../rpp/xsd/RppDotazyData.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiProRob:v2" schemaLocation="ref/RuianCtiProRob2.xsd"/>
+
+	<xs:element name="RppVypisPusobnostOvm5" type="RppVypisPusobnostOvm5Type"/>
+	<xs:element name="RppVypisPusobnostOvm5Response" type="RppVypisPusobnostOvm5ResponseType"/>
+	<xs:complexType name="RppVypisPusobnostOvm5Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E261 externího rozhraní - typ pro žádost. Poskytnutí detailních informací o působnosti OVM v Agendě definovaných v katalogu působností na základě vstupních parametrů (Agenda, OVM). RPP služba P81.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RppVypisPusobnostOvm5Data" type="pdo:RppVypisPusobnostOvm5DataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RppVypisPusobnostOvm5ResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E261 externího rozhraní - typ pro odpověď. Poskytnutí detailních informací o působnosti OVM v Agendě definovaných v katalogu působností na základě vstupních parametrů (Agenda, OVM). RPP služba P81.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedIdAdrAbstractType">
+				<xs:sequence>
+					<xs:element name="RppOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RppVypisPusobnostOvm5DataResponse" type="pdo:RppVypisPusobnostOvm5DataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="RuianOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianCtiProRobDataResponse" type="crob2:RuianCtiProRobDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

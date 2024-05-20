@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekMomc2:v1" 
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekMomc2:v1" 
+	xmlns:e249f="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekMomc2:v1" 
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:vyhMc="urn:cz:isvs:ruian:schemas:VyhledejMomc:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified" 
+	version="2.0.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E249f externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	
+	<!-- Výchozí verze 2.0.0, 29.09.2020 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:VyhledejMomc:v2" schemaLocation="ref/RuianVyhledejPrvekMomc2.xsd"/>
+	
+	<xs:element name="RuianVyhledejPrvekMomc2" type="RuianVyhledejPrvekMomc2Type"/>
+	<xs:element name="RuianVyhledejPrvekMomc2Response" type="RuianVyhledejPrvekMomc2ResponseType"/>
+	
+	<xs:complexType name="RuianVyhledejPrvekMomc2Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E249f externího rozhraní - žádost. Vyhledání momc z RUIAN. RUIAN služba, operace VyhledejMomc.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+		 						<xs:element name="RuianVyhledejPrvekMomc2Data" type="vyhMc:VyhledejMomcDotazType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="RuianVyhledejPrvekMomc2ResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E249f externího rozhraní - odpověď. Vyhledání momc z RUIAN. RUIAN služba, operace VyhledejMomc.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="RuianOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianVyhledejPrvekMomc2DataResponse">
+									<xs:complexType>
+										<xs:sequence>
+										  <xs:element ref="vyhMc:Momc"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

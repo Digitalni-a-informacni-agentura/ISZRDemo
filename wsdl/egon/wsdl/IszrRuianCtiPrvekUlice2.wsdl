@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRuianCtiPrvekUlice2:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRuianCtiPrvekUlice2:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRuianCtiPrvekUlice2:v1"
+	xmlns:e250q="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekUlice2:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRuianCtiPrvekUlice2">
+
+	<wsdl:documentation>Služba E250q externího rozhraní - Načtení ulice z RUIAN. RUIAN služba, operace ctiUlice.</wsdl:documentation>
+	
+	<!-- Výchozí verze 2.0.0, 6.10.2020 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+  <wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekUlice2:v1" schemaLocation="../xsd/IszrRuianCtiPrvekUlice2.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrRuianCtiPrvekUlice2">
+		<wsdl:part name="parametry" element="e250q:RuianCtiPrvekUlice2"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRuianCtiPrvekUlice2Response">
+		<wsdl:part name="vysledek" element="e250q:RuianCtiPrvekUlice2Response"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRuianCtiPrvekUlice2PortType">
+		<wsdl:operation name="IszrRuianCtiPrvekUlice2">
+			<wsdl:input message="tns:IszrRuianCtiPrvekUlice2"/>
+			<wsdl:output message="tns:IszrRuianCtiPrvekUlice2Response"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRuianCtiPrvekUlice2Binding" type="tns:IszrRuianCtiPrvekUlice2PortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRuianCtiPrvekUlice2">
+			<soap:operation soapAction="IszrRuianCtiPrvekUlice2"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRuianCtiPrvekUlice2Service">
+		<wsdl:port name="IszrRuianCtiPrvekUlice2PortService" binding="tns:IszrRuianCtiPrvekUlice2Binding">
+			<soap:address location="IszrRuianCtiPrvekUlice2"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

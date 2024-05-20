@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:RuianProbe:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:RuianProbe:v1" xmlns:probe="urn:cz:isvs:ruian:schemas:RuianProbe:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" elementFormDefault="qualified" version="1.0.0">
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../RegTypy.xsd"/>
+	<xs:element name="RuianProbeRequest" type="probe:RuianProbeRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz monitoringu.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="RuianProbeResponse" type="probe:RuianProbeResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpověď monitoringu.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="RuianProbeResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpověď monitoringu.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Odpoved" type="reg:OdpovedRozhraniType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Odpověď.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RuianProbeRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz monitoringu.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Standardní hlavička dotazu.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

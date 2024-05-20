@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:iszr:schemas:IszrDataCtiReklamaci:v1" xmlns:i28="urn:cz:isvs:iszr:schemas:IszrDataCtiReklamaci:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:iszr="urn:cz:isvs:iszr:schemas:IszrTypy:v1" xmlns:iszd="urn:cz:isvs:iszr:schemas:IszrDotazyData:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" targetNamespace="urn:cz:isvs:iszr:schemas:IszrDataCtiReklamaci:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.1">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">XML schéma s definicemi dat pro služby ISZR</xs:documentation>
+	</xs:annotation>
+	<!-- Vývojová verze 1.0.0, 16.04.2014, Pavel Odstrčil -->
+	<!-- Vývojová verze 1.0.1, 21.01.2022, AUTOCONT rozsireni typu polozky o nepovinny upresnujici atribut -->
+	<!-- AUTOCONT a.s. -->
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrTypy:v1" schemaLocation="IszrTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrDotazyData:v1" schemaLocation="IszrDotazyData.xsd"/>
+	<xs:element name="IszrCtiReklamaciData" type="IszrCtiReklamaciDataType"/>
+	<xs:element name="IszrCtiReklamaciDataResponse" type="IszrCtiReklamaciDataResponseType"/>
+	<xs:complexType name="IszrCtiReklamaciDataType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Čtení reklamace. Musí být zadán minimálně jeden identifikátor.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="IdentifikatorReklamace" type="reg:NonEmptyStringType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Přidělený identifikátor reklamace</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IszrZadostId" type="reg:IszrZadostIdType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Identifikátor požadavku o reklamaci.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="provozniUdaje" type="xs:boolean" default="false">
+			<xs:annotation>
+				<xs:documentation xml:lang="cs">Příznak, zda v odpovědi vracet i provozní údaje o pokusech o provedení reklamace.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="IszrCtiReklamaciDataResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Čtení reklamace, odpověď.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="iszd:IszrDotazyDataResponseType">
+				<xs:sequence minOccurs="0">
+					<xs:element name="AgendaZadostId" type="reg:AgendaZadostIdType"/>
+					<xs:element name="IszrZadostId" type="reg:IszrZadostIdType"/>
+					<xs:element name="IdentifikatorReklamace" type="reg:NonEmptyStringType"/>
+					<xs:element name="Registr">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:enumeration value="RPP"/>
+								<xs:enumeration value="ROB"/>
+								<xs:enumeration value="ROS"/>
+								<xs:enumeration value="RUIAN"/>
+								<xs:enumeration value="ORG"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="CasVytvoreni" type="reg:CasovaZnackaType"/>
+					<xs:element name="CasZmeny" type="reg:CasovaZnackaType"/>
+					<xs:element name="ReklamaceEditora" type="ReklamaceEditoraSeznamType"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ReklamaceEditoraSeznamType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam reklamací u jednotlivých editorů.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ReklamaceEditora" type="ReklamaceEditoraType" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ReklamaceEditoraType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Infromace o reklamaci u editora</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AgendaEditora" type="reg:KodAgendyType"/>
+			<xs:element name="IcoEditora" type="reg:IcoType" minOccurs="0"/>
+			<xs:element name="ReklamovanePolozky" type="ReklamovanePolozkyType"/>
+			<xs:element name="StavReklamace" type="iszr:StavReklamaceType"/>
+			<xs:element name="StavReklamacePopis" type="iszr:StavReklamacePopisType"/>
+			<xs:element name="CasZmeny" type="reg:CasovaZnackaType"/>
+			<xs:element name="ReklamaceEditorId" type="reg:RegOdpovedIdType"/>
+			<xs:element name="ReklamacePrubeh" type="ReklamacePrubehType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ReklamovanePolozkyType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam preklamovaných položek</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ReklamovanaPolozka" type="ReklamovanaPolozkaType" minOccurs="1" maxOccurs="unbounded">
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ReklamovanaPolozkaType">
+		<xs:simpleContent>
+			<xs:extension base="reg:IdentifikatorType">
+				<xs:attribute name="upresneni" type="reg:IdentifikatorType"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="ReklamacePrubehType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam pokusů o provedení reklamace u editora.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ReklamacePokus" type="ReklamacePokusType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ReklamacePokusType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Informace o pokusu o provedení reklamace u editora</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PokusCislo" type="xs:int"/>
+			<xs:element name="CasVytvoreni" type="reg:CasovaZnackaType"/>
+			<xs:element name="Vysledek" type="ReklamaceVysledekType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ReklamaceVysledekType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Výsledek operace reklamace</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="VysledekKod" type="reg:VysledekKodType"/>
+			<xs:element name="VysledekDetail" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="VysledekSubKod" type="VysledekSubKodReklamaceType"/>
+						<xs:element name="VysledekPopis" type="reg:VysledekPopisType" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="VysledekSubKodReklamaceType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Detailní kód výsledku reklamace, výčtový typ.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="EDITOR NEDOSTUPNY">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Nebylo možné odeslat do systému editora, editor není dostupný.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="EDITOR CHYBA PRIJEM">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Nebylo možné odeslat do systému editora, editor nepotrvdil přijetí.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="EDITOR ODESLANO">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Reklamace byla odeslána editorovi (buď přes WS potvrzeno nebo odesláno do DS).</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SPECIFIKACE V POPISU">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Detaily jsou uvedeny v popisu.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns="urn:cz:isvs:iszr:services:IszrUlozMapaAifo:v1" xmlns:tns="urn:cz:isvs:iszr:services:IszrUlozMapaAifo:v1" xmlns:e175="urn:cz:isvs:iszr:schemas:IszrUlozMapaAifo:v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" name="IszrUlozMapaAifo" targetNamespace="urn:cz:isvs:iszr:services:IszrUlozMapaAifo:v1">
+	<wsdl:documentation>Služba E175 externího rozhraní. Služba umožňuje uložení MapaAifo pro vydání jinému AIS (službou E176).</wsdl:documentation>
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrUlozMapaAifo:v1" schemaLocation="../xsd/IszrUlozMapaAifo.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrUlozMapaAifo">
+		<wsdl:part name="parametry" element="e175:IszrUlozMapaAifo"/>
+	</wsdl:message>
+	<wsdl:message name="IszrUlozMapaAifoResponse">
+		<wsdl:part name="vysledek" element="e175:IszrUlozMapaAifoResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrUlozMapaAifoPortType">
+		<wsdl:operation name="IszrUlozMapaAifo">
+			<wsdl:input message="IszrUlozMapaAifo"/>
+			<wsdl:output message="IszrUlozMapaAifoResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrUlozMapaAifoBinding" type="tns:IszrUlozMapaAifoPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrUlozMapaAifo">
+			<soap:operation soapAction="IszrUlozMapaAifo"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrUlozMapaAifoService">
+		<wsdl:port name="IszrUlozMapaAifoPortService" binding="tns:IszrUlozMapaAifoBinding">
+			<soap:address location="IszrUlozMapaAifo"/>
+		</wsdl:port>
+	</wsdl:service>
+	<!-- Vývojová verze 0.1.0, 19.11.2013 Pavel Odstrčil, výchozí verze -->
+	<!-- 1.1.0, 15.7.2019, Pavel Odstrčil, doplnění nepovinné MapaAifo na výstup -->
+	<!-- AutoCont CZ a.s. -->
+</wsdl:definitions>

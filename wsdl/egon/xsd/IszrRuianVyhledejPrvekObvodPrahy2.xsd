@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekObvodPrahy2:v1" 
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekObvodPrahy2:v1" 
+	xmlns:e34g="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekObvodPrahy2:v1" 
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:vyhMp="urn:cz:isvs:ruian:schemas:VyhledejObvodPrahy:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified" 
+	version="2.0.1">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E34g externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	
+	<!-- Výchozí verze 2.0.0, 29.09.2020 Aleš Teplý -->
+	<!-- Verze po revizi 2.0.1, 16.10.2020, Aleš Teplý, parent Obvod(y)Prahy -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:VyhledejObvodPrahy:v2" schemaLocation="ref/RuianVyhledejPrvekObvodPrahy2.xsd"/>
+	
+	<xs:element name="RuianVyhledejPrvekObvodPrahy2" type="RuianVyhledejPrvekObvodPrahy2Type"/>
+	<xs:element name="RuianVyhledejPrvekObvodPrahy2Response" type="RuianVyhledejPrvekObvodPrahy2ResponseType"/>
+	
+	<xs:complexType name="RuianVyhledejPrvekObvodPrahy2Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E249g externího rozhraní - žádost. Vyhledání ObvodPrahy z RUIAN. RUIAN služba, operace VyhledejObvodPrahy.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+		 						<xs:element name="RuianVyhledejPrvekObvodPrahy2Data" type="vyhMp:VyhledejObvodPrahyDotazType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="RuianVyhledejPrvekObvodPrahy2ResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E249g externího rozhraní - odpověď. Vyhledání ObvodPrahy z RUIAN. RUIAN služba, operace VyhledejObvodPrahy.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="RuianOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianVyhledejPrvekObvodPrahy2DataResponse">
+									<xs:complexType>
+										<xs:sequence>
+										  <xs:element ref="vyhMp:ObvodyPrahy"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRuianVyhledejPrvekVolebniOkrsek:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRuianVyhledejPrvekVolebniOkrsek:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRuianVyhledejPrvekVolebniOkrsek:v1"
+	xmlns:e34t="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekVolebniOkrsek:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRuianVyhledejPrvekVolebniOkrsek">
+
+	<wsdl:documentation>Služba E34t externího rozhraní - Vyhledání volebního okrsku z RUIAN. RUIAN služba A03, operace VyhledejVolebniOkrsek.</wsdl:documentation>
+	
+	<!-- Vývojová verze 1.4.4, 25.10.2013, Aleš Teplý -->
+	<!-- Verze po revizi 1.9.6, 27.07.2016, ales.teply@autocont.cz, Úprava Request: přidán nepovinný element /RuianVyhledejPrvekVolebniOkrsek/Zadost/RuianVyhledejPrvekVolebniOkrsekData/Podminka/Ohrada -->
+	<!-- AutoCont CZ a.s. -->
+	
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekVolebniOkrsek:v1" schemaLocation="../xsd/IszrRuianVyhledejPrvekVolebniOkrsek.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrRuianVyhledejPrvekVolebniOkrsek">
+		<wsdl:part name="parametry" element="e34t:RuianVyhledejPrvekVolebniOkrsek"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRuianVyhledejPrvekVolebniOkrsekResponse">
+		<wsdl:part name="vysledek" element="e34t:RuianVyhledejPrvekVolebniOkrsekResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRuianVyhledejPrvekVolebniOkrsekPortType">
+		<wsdl:operation name="IszrRuianVyhledejPrvekVolebniOkrsek">
+			<wsdl:input message="tns:IszrRuianVyhledejPrvekVolebniOkrsek"/>
+			<wsdl:output message="tns:IszrRuianVyhledejPrvekVolebniOkrsekResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRuianVyhledejPrvekVolebniOkrsekBinding" type="tns:IszrRuianVyhledejPrvekVolebniOkrsekPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRuianVyhledejPrvekVolebniOkrsek">
+			<soap:operation soapAction="IszrRuianVyhledejPrvekVolebniOkrsek"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRuianVyhledejPrvekVolebniOkrsekService">
+		<wsdl:port name="IszrRuianVyhledejPrvekVolebniOkrsekPortService" binding="tns:IszrRuianVyhledejPrvekVolebniOkrsekBinding">
+			<soap:address location="IszrRuianVyhledejPrvekVolebniOkrsek"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

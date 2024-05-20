@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:ZmenStavebniObjektIskn:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:ZmenStavebniObjektIskn:v1" xmlns:zsokn="urn:cz:isvs:ruian:schemas:ZmenStavebniObjektIskn:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:zt="urn:cz:isvs:ruian:schemas:ZmenaTypy:v1" elementFormDefault="qualified" version="0.40.1">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenaTypy:v1" schemaLocation="../../../ruian/xsd/typy/ZmenaTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:complexType name="StavebniObjektIsknZmenaType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Zmena stavebniho objektu z ISKN</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod9Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="BudovaId" type="zt:Id18ZmenaType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

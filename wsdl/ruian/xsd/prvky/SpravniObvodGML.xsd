@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:SpravniObvodGML:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:SpravniObvodGML:v1" xmlns:spGml="urn:cz:isvs:ruian:schemas:SpravniObvodGML:v1" xmlns:sp="urn:cz:isvs:ruian:schemas:SpravniObvod:v1" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:ob="urn:cz:isvs:ruian:schemas:Obec:v1" elementFormDefault="qualified" version="0.40.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Aplikační schéma SpravniObvodGML obsahuje prvek typu: Správní obvod, včetně geometrie. </xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../ruian/xsd/typy/CommonTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../../common/gml/3.2.1/gml.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:SpravniObvod:v1" schemaLocation="../../../ruian/xsd/prvky/SpravniObvod.xsd"/>
+	<xs:element name="SpravniObvod" type="spGml:SpravniObvodGMLType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Prvek představuje správní obvod v hlavním městě Praze.
+Prvek rozšiřuje gml:AbstractFeatureType a obsahuje geometrii. 	</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="SpravniObvodGMLType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Prvek Správní obvod jako rozšíření gml:AbstractFeatureType.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="gml:AbstractFeatureType">
+				<xs:sequence>
+					<xs:group ref="sp:SpravniObvodGroup" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="PlatiOd" type="base:DatumCasType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="IdTransakce" type="com:IdTransakceType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="GlobalniIdNavrhuZmeny" type="com:IdNavrhuZmenyType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="Geometrie" type="GeometrieSpravniObvodType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="NespravneUdaje" type="com:NespravnyUdajListType" minOccurs="0" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="GeometrieSpravniObvodType">
+		<xs:sequence>
+			<xs:element name="DefinicniBod" type="gml:PointPropertyType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Geometrie definičního bodu prvku.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Hranice" type="HraniceSpravniObvodType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Geometrie hranice prvku.			</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="HraniceSpravniObvodType">
+		<xs:complexContent>
+			<xs:extension base="gml:MultiSurfacePropertyType">
+				<xs:sequence>
+					<xs:element name="StupenGeneralizace" type="com:StupenGeneralizaceType" minOccurs="1" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

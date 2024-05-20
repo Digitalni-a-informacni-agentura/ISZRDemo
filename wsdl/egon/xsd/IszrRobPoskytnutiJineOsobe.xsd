@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRobPoskytnutiJineOsobe:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRobPoskytnutiJineOsobe:v1"
+	xmlns:e102="urn:cz:isvs:iszr:schemas:IszrRobPoskytnutiJineOsobe:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:roe="urn:cz:isvs:rob:schemas:RobEditaceData:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.1.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E102 externího rozhraní.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vývojová verze 0.0.1, 22.11.2011, Aleš Teplý -->
+	<!-- Fixovaná verze 1.0.0, 30.11.2011, Aleš Teplý -->
+	<!-- Verze po revizi 1.0.1, 14.02.2012 Aleš Teplý, doplnění MapaAifo a OrgStatus do Response -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstractOrg.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rob:schemas:RobEditaceData:v1" schemaLocation="../../rob/xsd/RobEditaceData.xsd"/>
+
+	<xs:element name="RobPoskytnutiJineOsobe" type="RobPoskytnutiJineOsobeType"/>
+	<xs:element name="RobPoskytnutiJineOsobeResponse" type="RobPoskytnutiJineOsobeResponseType"/>
+
+	<xs:complexType name="RobPoskytnutiJineOsobeType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E102 externího rozhraní - typ pro žádost. Služba ROB O17. Služba zakládá, ruší nebo opravuje v registru záznam o zpřístupnění údajů subjektu jiné osobě. Kam se mají údaje odeslat je zadáno identifikátorem datové schránky IDDS. Záznam dále obsahuje výčet referenčních údajů, které se při změně mají jiné osobě odeslat do DS a identifikaci této osoby (AIFO nebo IČO).</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostRAifoAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RobPoskytnutiJineOsobeData" type="roe:RobPoskytnutiJineOsobeDataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="RobPoskytnutiJineOsobeResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E102 externího rozhraní - typ pro odpověď</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAifoStAbstractType">
+				<xs:sequence>
+					<xs:element name="RobOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RobPoskytnutiJineOsobeDataResponse" type="roe:RobPoskytnutiJineOsobeDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

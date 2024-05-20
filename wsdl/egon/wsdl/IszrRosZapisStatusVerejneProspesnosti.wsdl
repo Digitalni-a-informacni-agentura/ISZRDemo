@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRosZapisStatusVerejneProspesnosti:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRosZapisStatusVerejneProspesnosti:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRosZapisStatusVerejneProspesnosti:v1"
+	xmlns:e223="urn:cz:isvs:iszr:schemas:IszrRosZapisStatusVerejneProspesnosti:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRosZapisStatusVerejneProspesnosti">
+
+	<wsdl:documentation>Služba E223 externího rozhraní - služba provádí zápis informace o statusu veřejné prospěšnosti osoby do ROS - služba ROS S27.</wsdl:documentation>
+
+	<!-- Vývojová verze 1.9.5, 21.12.2016, Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRosZapisStatusVerejneProspesnosti:v1" schemaLocation="../xsd/IszrRosZapisStatusVerejneProspesnosti.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="IszrRosZapisStatusVerejneProspesnosti">
+		<wsdl:part name="parametry" element="e223:RosZapisStatusVerejneProspesnosti"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRosZapisStatusVerejneProspesnostiResponse">
+		<wsdl:part name="vysledek" element="e223:RosZapisStatusVerejneProspesnostiResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRosZapisStatusVerejneProspesnostiPortType">
+		<wsdl:operation name="IszrRosZapisStatusVerejneProspesnosti">
+			<wsdl:input message="tns:IszrRosZapisStatusVerejneProspesnosti"/>
+			<wsdl:output message="tns:IszrRosZapisStatusVerejneProspesnostiResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRosZapisStatusVerejneProspesnostiBinding" type="tns:IszrRosZapisStatusVerejneProspesnostiPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRosZapisStatusVerejneProspesnosti">
+			<soap:operation soapAction="IszrRosZapisStatusVerejneProspesnosti"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRosZapisStatusVerejneProspesnostiService">
+		<wsdl:port name="IszrRosZapisStatusVerejneProspesnostiPortService" binding="tns:IszrRosZapisStatusVerejneProspesnostiBinding">
+			<soap:address location="IszrRosZapisStatusVerejneProspesnosti"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

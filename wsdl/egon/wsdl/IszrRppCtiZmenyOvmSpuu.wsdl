@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns="urn:cz:isvs:iszr:services:IszrRppCtiZmenyOvmSpuu:v1" xmlns:tns="urn:cz:isvs:iszr:services:IszrRppCtiZmenyOvmSpuu:v1" xmlns:e218="urn:cz:isvs:iszr:schemas:IszrRppCtiZmenyOvmSpuu:v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" name="IszrRppCtiZmenyOvmSpuu" targetNamespace="urn:cz:isvs:iszr:services:IszrRppCtiZmenyOvmSpuu:v1">
+	<wsdl:documentation>Služba E218 externího rozhraní - Služba podle vstupních parametrů vrací seznam změn objektů (OVM, SPUU, kategorií OVM a kategorií SPUU) od konkrétního identifikátoru změny, nebo za požadované období - RPP služba P55.</wsdl:documentation>
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRppCtiZmenyOvmSpuu:v1" schemaLocation="../xsd/IszrRppCtiZmenyOvmSpuu.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrRppCtiZmenyOvmSpuu">
+		<wsdl:part name="parametry" element="e218:RppCtiZmenyOvmSpuu"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRppCtiZmenyOvmSpuuResponse">
+		<wsdl:part name="vysledek" element="e218:RppCtiZmenyOvmSpuuResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRppCtiZmenyOvmSpuuPortType">
+		<wsdl:operation name="IszrRppCtiZmenyOvmSpuu">
+			<wsdl:input message="IszrRppCtiZmenyOvmSpuu"/>
+			<wsdl:output message="IszrRppCtiZmenyOvmSpuuResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRppCtiZmenyOvmSpuuBinding" type="tns:IszrRppCtiZmenyOvmSpuuPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRppCtiZmenyOvmSpuu">
+			<soap:operation soapAction="IszrRppCtiZmenyOvmSpuu"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRppCtiZmenyOvmSpuuService">
+		<wsdl:port name="IszrRppCtiZmenyOvmSpuuPortService" binding="tns:IszrRppCtiZmenyOvmSpuuBinding">
+			<soap:address location="IszrRppCtiZmenyOvmSpuu"/>
+		</wsdl:port>
+	</wsdl:service>
+
+	<!-- Novela zákona 1.0.0, 12.12.2016 Pavel Odstrčil -->
+	<!-- Verze po revizi 1.0.1, 15.10.2021, Aleš Teplý, AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- Verze po revizi 1.1.0, 25.5.2022, Aleš Teplý, Response - AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- AutoCont CZ a.s. -->
+
+</wsdl:definitions>

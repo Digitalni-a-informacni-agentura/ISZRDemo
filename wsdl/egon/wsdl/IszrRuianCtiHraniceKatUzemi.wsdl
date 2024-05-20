@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions 
+    targetNamespace="urn:cz:isvs:iszr:services:IszrRuianCtiHraniceKatUzemi:v1"
+    xmlns="urn:cz:isvs:iszr:services:IszrRuianCtiHraniceKatUzemi:v1" 
+    xmlns:tns="urn:cz:isvs:iszr:services:IszrRuianCtiHraniceKatUzemi:v1" 
+    xmlns:e155="urn:cz:isvs:iszr:schemas:IszrRuianCtiHraniceKatUzemi:v1" 
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" 
+    name="IszrRuianCtiHraniceKatUzemi">
+    
+	<wsdl:documentation>Služba E155 externího rozhraní.</wsdl:documentation>
+
+	<!-- Vývojová verze 0.0.1, 21.03.2011, Jan Sluka -->
+	<!-- Katalog.7.2 verze 1.1.1, 28.06.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+        
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRuianCtiHraniceKatUzemi:v1" schemaLocation="../xsd/IszrRuianCtiHraniceKatUzemi.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+    
+	<wsdl:message name="IszrRuianCtiHraniceKatUzemi">
+		<wsdl:part name="parametry" element="e155:RuianCtiHraniceKatUzemi"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRuianCtiHraniceKatUzemiResponse">
+		<wsdl:part name="vysledek" element="e155:RuianCtiHraniceKatUzemiResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRuianCtiHraniceKatUzemiPortType">
+		<wsdl:operation name="IszrRuianCtiHraniceKatUzemi">
+			<wsdl:input message="IszrRuianCtiHraniceKatUzemi"/>
+			<wsdl:output message="IszrRuianCtiHraniceKatUzemiResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRuianCtiHraniceKatUzemiBinding" type="tns:IszrRuianCtiHraniceKatUzemiPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRuianCtiHraniceKatUzemi">
+			<soap:operation soapAction="IszrRuianCtiHraniceKatUzemi"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRuianCtiHraniceKatUzemiService">
+		<wsdl:port name="IszrRuianCtiHraniceKatUzemiPortService" binding="tns:IszrRuianCtiHraniceKatUzemiBinding">
+			<soap:address location="IszrRuianCtiHraniceKatUzemi"/>
+		</wsdl:port>
+	</wsdl:service>
+	
+</wsdl:definitions>

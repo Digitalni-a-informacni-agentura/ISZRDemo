@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2012 sp1 (x64) (http://www.altova.com) by PK (AutoCont CZ a.s.) -->
+<xs:schema xmlns="urn:cz:isvs:iszr:schemas:IszrRuianCtiSeznamAdres:v1" xmlns:e184="urn:cz:isvs:iszr:schemas:IszrRuianCtiSeznamAdres:v1" xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" xmlns:ctSezAd="urn:cz:isvs:ruian:schemas:CtiSeznamAdres:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:cz:isvs:iszr:schemas:IszrRuianCtiSeznamAdres:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.4.4">
+	<xs:annotation>
+		<xs:documentation>Návrh XML schématu s definicemi datových prvků ISZR. Služba E184 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	<!-- Vývojová verze 1.4.4, 24.3.2014, Pavel Kirchner -->
+	<!-- AutoCont CZ a.s. -->
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiSeznamAdres:v1" schemaLocation="../../ruian/xsd/cti_seznam_adres/CtiSeznamAdres.xsd"/>
+	<xs:element name="RuianCtiSeznamAdres" type="RuianCtiSeznamAdresType"/>
+	<xs:element name="RuianCtiSeznamAdresResponse" type="RuianCtiSeznamAdresResponseType"/>
+	<xs:complexType name="RuianCtiSeznamAdresType">
+		<xs:annotation>
+			<xs:documentation>Služba E184 externího rozhraní - žádost. Čti seznam adres. RUIAN služba Axx.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianCtiSeznamAdresData" type="ctSezAd:CtiSeznamAdresDotazType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RuianCtiSeznamAdresResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba e184 externího rozhraní - odpověď. Vyhledání adresních míst. RUIAN služba Axx.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="RuianOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianCtiSeznamAdresDataResponse">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element ref="ctSezAd:CtiSeznamAdresResponse"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

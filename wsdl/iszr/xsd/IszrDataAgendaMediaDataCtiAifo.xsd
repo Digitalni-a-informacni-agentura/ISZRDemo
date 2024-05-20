@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:iszr:schemas:IszrDataAgendaMediaDataCtiAifo:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:iszr="urn:cz:isvs:iszr:schemas:IszrTypy:v1" xmlns:iszd="urn:cz:isvs:iszr:schemas:IszrDotazyData:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:aisse="urn:cz:isvs:aisse:schemas:AisSeTypy:v1" targetNamespace="urn:cz:isvs:iszr:schemas:IszrDataAgendaMediaDataCtiAifo:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.2.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">XML schéma s definicemi dat pro služby ISZR</xs:documentation>
+	</xs:annotation>
+	<!-- Vznik - 27.08.2015 AutoCont CZ a.s. -->
+	<!-- 1.1.0 - 31.07.2017 AutoCont CZ a.s. - zmena typu pro Zadost -->
+	<!-- 1.2.0 - 10.05.2018 AutoCont CZ a.s. - rozsireni o podporu AISC -->
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrTypy:v1" schemaLocation="IszrTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrDotazyData:v1" schemaLocation="IszrDotazyData.xsd"/>
+	<xs:import namespace="urn:cz:isvs:aisse:schemas:AisSeTypy:v1" schemaLocation="../../aisse/xsd/AisSeTypy.xsd"/>
+	<!-- zakladni elementy -->
+	<xs:element name="IszrAgendaMediaDataCtiAifoData" type="IszrAgendaMediaDataCtiAifoDataType"/>
+	<!-- typy -->
+	<xs:complexType name="IszrAgendaMediaDataCtiAifoDataType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Společný datový typ pro žádost do připojených SPAIS.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AgendaZdroj" type="AgendaZdrojMediaDataType">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Agenda, ze které je požadován výdej</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Ais" type="reg:KodAisType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Volitelně identifikátor AIS. Použije se v případě, kdy není na základě agendy možné uržit jednoznačně AIS</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Dotaz" type="aisse:AisSeMediaCtiAifoDataType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="AgendaZdrojMediaDataType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Eop"/>
+			<xs:enumeration value="Ecd"/>
+			<xs:enumeration value="Aisc"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

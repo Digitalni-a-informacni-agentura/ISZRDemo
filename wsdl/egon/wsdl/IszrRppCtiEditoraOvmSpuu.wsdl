@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns="urn:cz:isvs:iszr:services:IszrRppCtiEditoraOvmSpuu:v1" xmlns:tns="urn:cz:isvs:iszr:services:IszrRppCtiEditoraOvmSpuu:v1" xmlns:e219="urn:cz:isvs:iszr:schemas:IszrRppCtiEditoraOvmSpuu:v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" name="IszrRppCtiEditoraOvmSpuu" targetNamespace="urn:cz:isvs:iszr:services:IszrRppCtiEditoraOvmSpuu:v1">
+	<wsdl:documentation>Služba E219 externího rozhraní - Služba vrací agendu editora a OVM editora pro požadovaný objekt (OVM, SPUU, kategorii OVM, kategorii SPUU. - RPP služba P68.</wsdl:documentation>
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRppCtiEditoraOvmSpuu:v1" schemaLocation="../xsd/IszrRppCtiEditoraOvmSpuu.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrRppCtiEditoraOvmSpuu">
+		<wsdl:part name="parametry" element="e219:RppCtiEditoraOvmSpuu"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRppCtiEditoraOvmSpuuResponse">
+		<wsdl:part name="vysledek" element="e219:RppCtiEditoraOvmSpuuResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRppCtiEditoraOvmSpuuPortType">
+		<wsdl:operation name="IszrRppCtiEditoraOvmSpuu">
+			<wsdl:input message="IszrRppCtiEditoraOvmSpuu"/>
+			<wsdl:output message="IszrRppCtiEditoraOvmSpuuResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRppCtiEditoraOvmSpuuBinding" type="tns:IszrRppCtiEditoraOvmSpuuPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRppCtiEditoraOvmSpuu">
+			<soap:operation soapAction="IszrRppCtiEditoraOvmSpuu"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRppCtiEditoraOvmSpuuService">
+		<wsdl:port name="IszrRppCtiEditoraOvmSpuuPortService" binding="tns:IszrRppCtiEditoraOvmSpuuBinding">
+			<soap:address location="IszrRppCtiEditoraOvmSpuu"/>
+		</wsdl:port>
+	</wsdl:service>
+
+	<!-- Novela zákona 1.0.0, 21.12.2016 Pavel Odstrčil -->
+	<!-- Verze po revizi 1.0.1, 15.10.2021, Aleš Teplý, AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- Verze po revizi 1.1.0, 25.5.2022, Aleš Teplý, Response - AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- AutoCont CZ a.s. -->
+
+</wsdl:definitions>

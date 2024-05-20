@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:StavebniObjektPolozky:v2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:StavebniObjektPolozky:v2" xmlns:soPol="urn:cz:isvs:ruian:schemas:StavebniObjektPolozky:v2" xmlns:soPolBase="urn:cz:isvs:ruian:schemas:StavebniObjektPolozkyBase:v2" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:upPolBase="urn:cz:isvs:ruian:schemas:UupPolozkyBase:v2" xmlns:paPolBase="urn:cz:isvs:ruian:schemas:ParcelaPolozkyBase:v2" xmlns:coPolBase="urn:cz:isvs:ruian:schemas:CastObcePolozkyBase:v2" xmlns:mcPolBase="urn:cz:isvs:ruian:schemas:MomcPolozkyBase:v2" elementFormDefault="qualified" version="2.2.0">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:UupPolozkyBase:v2" schemaLocation="../vyhledej/UupPolozkyBase.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../typy/CommonTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:StavebniObjektPolozkyBase:v2" schemaLocation="../vyhledej/StavebniObjektPolozkyBase.xsd"/>
+	<xs:complexType name="StavebniObjektPolozkyType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Požadované údaje stavebního objektu</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DetailniTEA" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PlatiOd" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="IdTransakce" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="GlobalniIdNavrhuZmeny" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Dokonceni" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="IsknBudovaId" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:group ref="soPolBase:StavebniObjektPolozkyGroup" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="DruhKonstrukceKod" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ObestavenyProstor" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PocetBytu" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PocetPodlazi" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PodlahovaPlocha" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PripojeniKanalizaceKod" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PripojeniPlynKod" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PripojeniVodovodKod" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="VybaveniVytahemKod" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ZastavenaPlocha" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ZpusobVytapeniKod" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ZpusobVyuzitiKod" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ZpusobOchrany" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="DefinicniBod" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Hranice" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="HraniceOmpv" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Hranice OMP-V.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NavazaneUUP" type="upPolBase:UupPolozkyBaseType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Požadavek na navázané účelové prvky</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NezjisteneUdaje" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Požadavek na nezjištěné technicko-ekonomické atributy</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

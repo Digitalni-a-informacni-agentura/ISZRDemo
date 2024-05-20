@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:isui:schemas:ExportStavObj:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:isui:schemas:ExportStavObj:v1" xmlns:gso="urn:cz:isvs:isui:schemas:ExportStavObj:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" elementFormDefault="qualified" version="1.1.0">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../ruian/xsd/typy/CommonTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:complexType name="StavObjType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Generovaný stavební objekt.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod9Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód stavebního objektu.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CislaDomovni" type="com:CisloDomovniSeznamType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Seznam čísel domovních.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IdentifikacniParcelaId" type="base:Id18Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód nadřazené obce.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TypStavebnihoObjektuKod" type="com:TypSTOKodType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód typu stavebního objektu.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CastObceKod" type="base:Kod6Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód části obce stavebního objektu.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MomcKod" type="base:Kod6Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód MOMC stavebního objektu.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DatumZruseni" type="base:DatumCasType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Datum a čas zrušení stavebního objektu.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Nespravnost" type="xs:boolean" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Příznak nesprávnosti prvku (true, nic).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PublikovanoRuian" type="xs:boolean" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Příznak publikování v RÚIAN. (nic, false)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="StavObjSeznamType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam generovaných stavebních objektů.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="StavObj" type="StavObjType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Seznam stavebních objektů.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ExportStavObj" type="gso:ExportStavObjType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Generování exportu stavebních objektů.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="ExportStavObjType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Základní typ pro generování exportu seznamu stavebních objektů.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="NazevSestavy" type="base:Text200Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Název sestavy.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Generovano" type="base:DatumCasType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Datum a čas generování sestavy.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:choice minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Prvek, který generoval sestavu.</xs:documentation>
+				</xs:annotation>
+				<xs:element name="ObecKod" type="base:Kod6Type" minOccurs="1" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation xml:lang="cs">Kód území obce, území vojenského újezdu.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="CastObceKod" type="base:Kod6Type" minOccurs="1" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation xml:lang="cs">Kód části obce.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="MomcKod" type="base:Kod6Type" minOccurs="1" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation xml:lang="cs">Kód území městského obvodu nebo městské části územně členěného statutárního města.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="ObvodPrahyKod" type="base:Kod3Type" minOccurs="1" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation xml:lang="cs">Kód obvodu Prahy.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="SpravniObvodKod" type="base:Kod3Type" minOccurs="1" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation xml:lang="cs">Kód správní obvodu v hlavním městě Praze,.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="KatastralniUzemiKod" type="base:Kod6Type" minOccurs="1" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation xml:lang="cs">Kód katastrálního území.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+			<xs:element name="SeznamStavObj" type="StavObjSeznamType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Seznam exportovaných stavebních objektů.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

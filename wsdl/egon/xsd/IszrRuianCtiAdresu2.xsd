@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRuianCtiAdresu2:v1" 
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRuianCtiAdresu2:v1" 
+	xmlns:e251="urn:cz:isvs:iszr:schemas:IszrRuianCtiAdresu2:v1" 
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:ctiAdresa="urn:cz:isvs:ruian:schemas:CtiAdresa:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified" 
+	version="2.0.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E251 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	
+	<!-- Výchozí verze 2.0.0, 13.10.2020 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiAdresa:v2" schemaLocation="ref/RuianCtiAdresu2.xsd"/>
+	
+	<xs:element name="RuianCtiAdresu2" type="RuianCtiAdresu2Type"/>
+	<xs:element name="RuianCtiAdresu2Response" type="RuianCtiAdresu2ResponseType"/>
+	
+	<xs:complexType name="RuianCtiAdresu2Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E251 externího rozhraní - žádost. Získání adresy adresního místa z RUIAN. RUIAN služba.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+		 						<xs:element name="RuianCtiAdresu2Data" type="ctiAdresa:CtiAdresuDotazType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RuianCtiAdresu2ResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E251 externího rozhraní - odpověď. Získání adresy adresního místa z RUIAN. RUIAN služba.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="RuianOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianCtiAdresu2DataResponse">
+									<xs:complexType>
+										<xs:sequence>
+										  <xs:element ref="ctiAdresa:Adresa"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

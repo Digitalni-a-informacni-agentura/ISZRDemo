@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRuianCtiAdresu2:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRuianCtiAdresu2:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRuianCtiAdresu2:v1"
+	xmlns:e251="urn:cz:isvs:iszr:schemas:IszrRuianCtiAdresu2:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRuianCtiAdresu2">
+
+	<wsdl:documentation>Služba E251 externího rozhraní - Získání adresy adresního místa - RUIAN služba.</wsdl:documentation>
+	
+	<!-- Výchozí verze 2.0.0, 13.10.2020 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+	
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRuianCtiAdresu2:v1" schemaLocation="../xsd/IszrRuianCtiAdresu2.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="IszrRuianCtiAdresu2">
+		<wsdl:part name="parametry" element="e251:RuianCtiAdresu2"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRuianCtiAdresu2Response">
+		<wsdl:part name="vysledek" element="e251:RuianCtiAdresu2Response"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRuianCtiAdresu2PortType">
+		<wsdl:operation name="IszrRuianCtiAdresu2">
+			<wsdl:input message="tns:IszrRuianCtiAdresu2"/>
+			<wsdl:output message="tns:IszrRuianCtiAdresu2Response"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRuianCtiAdresu2Binding" type="tns:IszrRuianCtiAdresu2PortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRuianCtiAdresu2">
+			<soap:operation soapAction="IszrRuianCtiAdresu2"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRuianCtiAdresu2Service">
+		<wsdl:port name="IszrRuianCtiAdresu2PortService" binding="tns:IszrRuianCtiAdresu2Binding">
+			<soap:address location="IszrRuianCtiAdresu2"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

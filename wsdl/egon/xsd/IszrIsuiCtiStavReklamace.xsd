@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrIsuiCtiStavReklamace:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrIsuiCtiStavReklamace:v1"
+	xmlns:e286="urn:cz:isvs:iszr:schemas:IszrIsuiCtiStavReklamace:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:ctiStRe="urn:cz:isvs:isui:schemas:CtiStavReklamace:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.0.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E286 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Výchozí verze 1.0.0, 20.09.2021 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:isui:schemas:CtiStavReklamace:v1" schemaLocation="ref/IsuiCtiStavReklamace.xsd"/>
+
+	<xs:element name="IsuiCtiStavReklamace" type="IsuiCtiStavReklamaceType"/>
+	<xs:element name="IsuiCtiStavReklamaceResponse" type="IsuiCtiStavReklamaceResponseType"/>
+
+	<xs:complexType name="IsuiCtiStavReklamaceType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E286 externího rozhraní - žádost. Služba, požadavek na zjištění stavu reklamace v ISUI. ISUI služba A46.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IsuiCtiStavReklamaceData" type="ctiStRe:CtiStavReklamaceDotazType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="IsuiCtiStavReklamaceResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E286 externího rozhraní - odpověď. Služba, prostřednictvím které AIS reklamuje v ISUI údaje. ISUI služba A46.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="IsuiOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IsuiCtiStavReklamaceDataResponse">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element ref="ctiStRe:StavReklamace"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

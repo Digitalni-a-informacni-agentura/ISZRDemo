@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:VolebniOkrsekPolozky:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:VolebniOkrsekPolozky:v1" xmlns:voPol="urn:cz:isvs:ruian:schemas:VolebniOkrsekPolozky:v1" xmlns:voPolBase="urn:cz:isvs:ruian:schemas:VolebniOkrsekPolozkyBase:v1" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:obPolBase="urn:cz:isvs:ruian:schemas:ObecPolozkyBase:v1" xmlns:mcPolBase="urn:cz:isvs:ruian:schemas:MomcPolozkyBase:v1" elementFormDefault="qualified" version="1.1.1">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../ruian/xsd/typy/CommonTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:VolebniOkrsekPolozkyBase:v1" schemaLocation="../../../ruian/xsd/vyhledej/VOPolozkyBase.xsd"/>
+	<xs:complexType name="VolebniOkrsekPolozkyType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Požadované položky dotazu.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DefinicniBod" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="GlobalniIdNavrhuZmeny" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Hranice" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="IdTransakce" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PlatiOd" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:group ref="voPolBase:VolebniOkrsekPolozkyGroup" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRppZmenSla:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRppZmenSla:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRppZmenSla:v1"
+	xmlns:e143="urn:cz:isvs:iszr:schemas:IszrRppZmenSla:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRppZmenSla">
+
+	<wsdl:documentation>Služba E143 externího rozhraní - Služba, kterou se mění záznam SLA - RPP služba P40.</wsdl:documentation>
+	
+	<!-- Vývojová verze 0.0.1, 02.02.2012, Aleš Teplý -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- Verze po revizi 1.1.1, 15.10.2021, Aleš Teplý, AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- Verze po revizi 1.2.0, 25.5.2022, Aleš Teplý, Response - AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- AutoCont CZ a.s. -->
+	
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRppZmenSla:v1" schemaLocation="../xsd/IszrRppZmenSla.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="IszrRppZmenSla">
+		<wsdl:part name="parametry" element="e143:RppZmenSla"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRppZmenSlaResponse">
+		<wsdl:part name="vysledek" element="e143:RppZmenSlaResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRppZmenSlaPortType">
+		<wsdl:operation name="IszrRppZmenSla">
+			<wsdl:input message="tns:IszrRppZmenSla"/>
+			<wsdl:output message="tns:IszrRppZmenSlaResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRppZmenSlaBinding" type="tns:IszrRppZmenSlaPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRppZmenSla">
+			<soap:operation soapAction="IszrRppZmenSla"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRppZmenSlaService">
+		<wsdl:port name="IszrRppZmenSlaPortService" binding="tns:IszrRppZmenSlaBinding">
+			<soap:address location="IszrRppZmenSla"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

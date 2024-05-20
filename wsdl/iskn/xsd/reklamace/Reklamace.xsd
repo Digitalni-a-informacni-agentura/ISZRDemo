@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:iskn:schemas:Reklamace:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:iskn:schemas:Reklamace:v1"
+	xmlns:reklamace="urn:cz:isvs:iskn:schemas:Reklamace:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1"
+	xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+	elementFormDefault="qualified" version="0.0.6">
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../ruian/xsd/typy/CommonTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:group name="ParcelaGroup">
+		<xs:sequence>
+			<xs:element name="ParcelaId" type="base:Id18Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Identifkátor parcely.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="KmenoveCislo" type="com:KmenoveCisloType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Kmenové číslo parcely.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PododdeleniCisla" type="com:PoddeleniCislaType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Poddělení čísla parcely.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DruhCislovaniKod" type="base:Kod2Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Druh čísla parcely.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="KatastralniUzemiKod" type="base:Kod6Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Kód katastrálního území.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="BudovaGroup">
+		<xs:sequence>
+			<xs:element name="BudovaId" type="base:Id18Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Identifikátor budovy.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CisloDomovni" type="com:CisloDomovniType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Číslo domovní (povinné pouze v případě budovy s číslem domovním nebo evidenčním).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TypStavebnihoObjektuKod" type="com:TypSTOKodType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Kód typu budovy.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CastObceKod" type="base:Kod6Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Kód části obce (povinné pouze v případě budovy s číslem domovním nebo evidenčním).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Parcela" type="ParcelaType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:group>
+	<xs:complexType name="ParcelaType">
+		<xs:annotation>
+			<xs:documentation>Identifikace parcely.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:group ref="ParcelaGroup" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OpravaGeometrieKatastralniUzemiType">
+		<xs:annotation>
+			<xs:documentation>Oprava geometrie katastrálního území.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="KatastralniUzemiKod" type="base:Kod6Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Kód měněného katastrálního území.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OpravaGeometrieParcelaType">
+		<xs:annotation>
+			<xs:documentation>Oprava geometrie parcely.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:group ref="ParcelaGroup" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OpravaGeometrieBudovaType">
+		<xs:annotation>
+			<xs:documentation>Oprava geometrie budovy.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:group ref="BudovaGroup" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="IdReklamaceExtType">
+		<xs:annotation>
+			<xs:documentation>Externí ID reklamace specifikované zadavatelem.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="50"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="HlavickaReklamaceType">
+		<xs:annotation>
+			<xs:documentation>Unifikovaná hlavička reklamace.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="RizeniId" type="base:Id18Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ExterniId" type="IdReklamaceExtType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Poznamka" type="base:Text4000Type" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ReklamaceType">
+		<xs:annotation>
+			<xs:documentation>Tělo reklamačního požadavku na ISKN.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Hlavicka" type="HlavickaReklamaceType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Prvek" type="TeloReklamaceIsknType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ReklamaceIsknResponseType">
+		<xs:annotation>
+			<xs:documentation>Odpověď na reklamační požadavek ISKN.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Hlavička odpovědi.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Odpoved" type="ReklamaceOdpovedType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ReklamaceOdpovedType">
+		<xs:annotation>
+			<xs:documentation>Tělo odpovědi na reklamační požadavek ISKN.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="IdReklamace" type="base:Id18Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Přidělený identifikátor reklamace.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ReklamaceIsknResponse" type="reklamace:ReklamaceIsknResponseType">
+		<xs:annotation>
+			<xs:documentation>Odpověď na reklamační požadavek ISKN.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="TeloReklamaceIsknType">
+		<xs:annotation>
+			<xs:documentation>Tělo reklamace obsahující vlastní strukturovaný nebo nestrukturovaný požadavek na změnu prvku.
+Jeden požadavek obsahuje právě jednen typ reklamace.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="OpravaPolygonBudova" type="OpravaGeometrieBudovaType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="ZruseniOchranaBudovy" type="ZpusobOchranyBudovyZmenaType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="OpravaDefinicniBodParcela" type="OpravaGeometrieParcelaType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="OpravaBonitniDilParcely" type="BonitniDilParcelaZmenaType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="OpravaKatastralniUzemi" type="KatastralniUzemiZmenaType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="VytvoreniBonitniDilParcely" type="BonitniDilParcelaZmenaType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="ZruseniKatastralniUzemi" type="KatastralniUzemiZruseniType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="VytvoreniOchranaParcely" type="ZpusobOchranyParcelyZmenaType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="OpravaPolygonKatastralnihoUzemi" type="OpravaGeometrieKatastralniUzemiType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="OpravaPolygonParcela" type="OpravaGeometrieParcelaType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="ZruseniParcela" type="ParcelaZruseniType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="ZruseniOchranaParcely" type="ZpusobOchranyParcelyZmenaType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="OpravaParcela" type="ParcelaZmenaType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="VytvoreniOchranaBudovy" type="ZpusobOchranyBudovyZmenaType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="ZruseniBonitniDilParcely" type="BonitniDilParcelaZmenaType" minOccurs="1" maxOccurs="1"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="ParcelaZmenaType">
+		<xs:annotation>
+			<xs:documentation>Změna parcely.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DruhPozemkuKod" type="base:Kod2Type" minOccurs="0" maxOccurs="1" nillable="true">
+				<xs:annotation>
+					<xs:documentation>Nová hodnota kódu druhu pozemku.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ZpusobyVyuzitiPozemkuKod" type="base:Kod4Type" minOccurs="0" maxOccurs="1" nillable="true">
+				<xs:annotation>
+					<xs:documentation>Nová hodnota kódu způsobu využití pozemku.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VymeraParcely" type="com:VymeraType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Nová hodnota výměry parcely.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:group ref="ParcelaGroup" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BonitniDilParcelaZmenaType">
+		<xs:annotation>
+			<xs:documentation>Změna bonitního dílu parcely.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Vymera" type="com:VymeraDiluType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Nová výměra bonitního dílu.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BonitovanaJednotkaKod" type="base:Kod5Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Kód bonitové jednotky.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:group ref="ParcelaGroup" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ZpusobOchranyParcelyZmenaType">
+		<xs:annotation>
+			<xs:documentation>Změna ochrany parcely.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZpusobOchranyKod" type="base:Kod4Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Kód způsobu ochrany parcely.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:group ref="ParcelaGroup" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="KatastralniUzemiZmenaType">
+		<xs:annotation>
+			<xs:documentation>Změna katastrálního území.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="KatastralniUzemiKod" type="base:Kod6Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Kód měněného katastrálního území.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Nazev" type="Nazev48MinDelkaType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Nový název katastrálního území.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ZpusobOchranyBudovyZmenaType">
+		<xs:annotation>
+			<xs:documentation>Změna ochrany budovy.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZpusobOchranyKod" type="base:Kod4Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Kód způsobu ochrany budovy.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:group ref="BudovaGroup" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ReklamaceIsknRequestType">
+		<xs:annotation>
+			<xs:documentation>Reklamační požadavek ISKN.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Hlavička žádosti.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Dotaz" type="ReklamaceType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ReklamaceIsknRequest" type="reklamace:ReklamaceIsknRequestType">
+		<xs:annotation>
+			<xs:documentation>Reklamační požadavek ISKN.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="KatastralniUzemiZruseniType">
+		<xs:annotation>
+			<xs:documentation>Zrušení katastrálního území.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="KatastralniUzemiKod" type="base:Kod6Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Kód měněného katastrálního území.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Nazev" type="Nazev48MinDelkaType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Název rušeného katastrálního území.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ParcelaZruseniType">
+		<xs:annotation>
+			<xs:documentation>Zrušení parcely.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:group ref="ParcelaGroup" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:simpleType name="Nazev48MinDelkaType">
+		<xs:annotation>
+			<xs:documentation>Název na 2-48 znaků.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="base:Nazev48Type">
+			<xs:minLength value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

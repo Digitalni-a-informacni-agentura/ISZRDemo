@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:isui:schemas:ZapisZmenyDCUTypy:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:isui:schemas:ZapisZmenyDCUTypy:v1" xmlns:zzdcu="urn:cz:isvs:isui:schemas:ZapisZmenyDCUTypy:v1" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" elementFormDefault="qualified" version="0.0.2">
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../ruian/xsd/typy/CommonTypy.xsd"/>
+	<xs:import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../../common/gml/3.2.1/gml.xsd"/>
+	<xs:complexType name="ZapisZmenyDCURequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Pozadavek na zapis zmen definicnich car ulic.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="HlavickaNZ" type="HlavickaNzDcuType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Ulice" type="UliceDCUType" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="HlavickaNzDcuType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Hlavicka navrhu zmeny definicni cary ulice.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="TypRizeni" type="TypRizeniType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="RizeniId" type="com:IdRizeniType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Identifikator zmenoveho rizeni ZABAGED.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TransakceId" type="com:IdTransakceType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Jednoznacny identifikator zapisu obce nebo ID reklamace.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ObecKod" type="base:Kod6Type" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="TypRizeniType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Typ rizeni zmeny definicni cary ulice.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="POZADAVEK_INTERNI"/>
+			<xs:enumeration value="POZADAVEK_OBEC"/>
+			<xs:enumeration value="REKLAMACE"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="UliceDCUType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Ulice s jednotlivymi segmenty definicni cary.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="gml:AbstractFeatureType">
+				<xs:sequence>
+					<xs:element name="Kod" type="base:Kod7Type" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="NazevUlice" type="base:Nazev48Type" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="SegmentyDCU" type="gml:MultiCurvePropertyType" minOccurs="1" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="ZapisZmenyDCURequest" type="zzdcu:ZapisZmenyDCURequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Pozadavek na zapis zmen definicnich car ulic.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="ZmenyDCUResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved na zapis nebo povrzeni zmen definicnich car ulic.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Status" type="TeloStatusType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ZapisZmenyDCUResponse" type="zzdcu:ZmenyDCUResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved na zapis zmeny definicni cary ulice.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="TeloStatusType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Aplikacni status provedeni pozadovane operace.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="VysledekKod" type="reg:VysledekKodType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="VysledekPopis" type="reg:VysledekPopisType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRuianCtiUupEd:v1" 
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRuianCtiUupEd:v1" 
+	xmlns:e284="urn:cz:isvs:iszr:schemas:IszrRuianCtiUupEd:v1" 
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:ctiUup="urn:cz:isvs:ruian:schemas:CtiUup:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified" 
+	version="1.0.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E284 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	
+	<!-- Výchozí verze 1.0.0, 6.10.2021 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiUup:v2" schemaLocation="ref/RuianCtiUup.xsd"/>
+	
+	<xs:element name="RuianCtiUupEd" type="RuianCtiUupEdType"/>
+	<xs:element name="RuianCtiUupEdResponse" type="RuianCtiUupEdResponseType"/>
+	
+	<xs:complexType name="RuianCtiUupEdType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E284 externího rozhraní - žádost. Vyhledání Uup z RUIAN. RUIAN služba A44, operace CtiUupEd.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+		 						<xs:element name="RuianCtiUupEdData" type="ctiUup:CtiUupDotazType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="RuianCtiUupEdResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E284 externího rozhraní - odpověď. Vyhledání Uup z RUIAN. RUIAN služba A44, operace CtiUupEd.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="RuianOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianCtiUupEdDataResponse">
+									<xs:complexType>
+										<xs:sequence>
+										  <xs:element ref="ctiUup:UcelovyPrvek"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

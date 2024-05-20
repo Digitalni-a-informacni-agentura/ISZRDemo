@@ -1,0 +1,686 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:isui:schemas:ObecStuExtTypy:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:isui:schemas:ObecStuExtTypy:v1" xmlns:osx="urn:cz:isvs:isui:schemas:ObecStuExtTypy:v1" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:eex="urn:cz:isvs:isui:schemas:EditaceExtTypy:v1" elementFormDefault="qualified" version="1.0.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Aplikační schéma pro kontrolu a zplatnění návrhu změny v rámci agendy Obec nebo Stavební úřad.</xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="urn:cz:isvs:isui:schemas:EditaceExtTypy:v1" schemaLocation="../../../isui/xsd/externi_nz/EditaceExtTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../ruian/xsd/typy/CommonTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../../common/gml/3.2.1/gml.xsd"/>
+	<xs:element name="ZkontrolujNzSTURequest" type="osx:ZmenPrvkySTURequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Požadavek na kontrolu návrhu změny v rámci agendy Stavební úřad.  </xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ZkontrolujNzObecRequest" type="osx:ZmenPrvkyObecRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Požadavek na kontrolu návrhu změny v rámci agendy Obec.  </xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="StavebniObjektZmenaExtNZType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Změna stavebního objektu.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="gml:AbstractFeatureType">
+				<xs:sequence>
+					<xs:element name="Kod" type="base:Kod9Type" minOccurs="1" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">Kód stavebního objektu.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="GlobalniIdNavrhuZmeny" type="com:IdNavrhuZmenyType" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="TypStavebnihoObjektuKod" type="com:TypSTOKodType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="CastObceKod" type="CastObceZmenaExType" minOccurs="0" maxOccurs="1" nillable="true"/>
+					<xs:element name="CislaDomovni" type="CisloDomovniSeznamZmenaExType" minOccurs="0" maxOccurs="1" nillable="true"/>
+					<xs:element name="MomcKod" type="base:Kod6Type" minOccurs="0" maxOccurs="1" nillable="true"/>
+					<xs:element name="IdentifikacniParcelaId" type="base:Id18Type" minOccurs="0" maxOccurs="1" nillable="true"/>
+					<xs:element name="Dokonceni" type="base:DatumCasType" minOccurs="0" maxOccurs="1" nillable="true"/>
+					<xs:element name="ZpusobVyuzitiKod" type="base:Kod4Type" minOccurs="0" maxOccurs="1" nillable="true"/>
+					<xs:element name="ZastavenaPlocha" type="ZastavenaPlochaZmenaExType" minOccurs="0" maxOccurs="1" nillable="true">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">Změna zastavěné plochy.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="PodlahovaPlocha" type="PodlahovaPlochaZmenaExType" minOccurs="0" maxOccurs="1" nillable="true"/>
+					<xs:element name="ObestavenyProstor" type="ObestavenyProstorZmenaExType" minOccurs="0" maxOccurs="1" nillable="true"/>
+					<xs:element name="PocetPodlazi" type="PocetPodlaziZmenaExType" minOccurs="0" maxOccurs="1" nillable="true"/>
+					<xs:element name="PocetBytu" type="PocetBytuZmenaExType" minOccurs="0" maxOccurs="1" nillable="true"/>
+					<xs:element name="JeVytahKod" type="JeVytahKodZmenaExType" minOccurs="0" maxOccurs="1" nillable="true"/>
+					<xs:element name="DruhKonstrukceKod" type="DruhKonstrukceKodZmenaExType" minOccurs="0" maxOccurs="1" nillable="true"/>
+					<xs:element name="ZpusobVytapeniKod" type="ZpusobVytapeniKodZmenaExType" minOccurs="0" maxOccurs="1" nillable="true"/>
+					<xs:element name="PripojeniVodovodKod" type="PripojeniVodovodKodZmenaExType" minOccurs="0" maxOccurs="1" nillable="true"/>
+					<xs:element name="PripojeniKanalizaceKod" type="PripojeniKanalizaceKodZmenaExType" minOccurs="0" maxOccurs="1" nillable="true"/>
+					<xs:element name="PripojeniPlynKod" type="PripojeniPlynKodZmenaExType" minOccurs="0" maxOccurs="1" nillable="true"/>
+					<xs:element name="DefinicniBod" type="gml:PointPropertyType" minOccurs="0" maxOccurs="1" nillable="true"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="AdresniMistoZmenaExtNZType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Změna adresního místa.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="gml:AbstractFeatureType">
+				<xs:sequence>
+					<xs:element name="Kod" type="base:Kod9Type" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="GlobalniIdNavrhuZmeny" type="com:IdNavrhuZmenyType" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="StavebniObjektKod" type="base:Kod9Type" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="CisloDomovni" type="com:CisloDomovniType" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="UliceKod" type="UliceZmenaExType" minOccurs="0" maxOccurs="1" nillable="true"/>
+					<xs:element name="CisloOrientacni" type="CisloOrientacniZmenaExType" minOccurs="0" maxOccurs="1" nillable="true"/>
+					<xs:element name="CisloOrientacniPismeno" type="CisloOrientacniPismenoZmenaExType" minOccurs="0" maxOccurs="1" nillable="true"/>
+					<xs:element name="DefinicniBod" type="DefinicniBodAdmZmenaExType" minOccurs="0" maxOccurs="1" nillable="true"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="UliceZruseniExtNZType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Zrušení ulice v rámci externího NZ.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod7Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="GlobalniIdNavrhuZmeny" type="com:IdNavrhuZmenyType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="UliceVytvoreniExtNZType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Vytvoření ulice v rámci externího NZ.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ObecKod" type="base:Kod6Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="NazevUlice" type="base:Nazev48Type" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AdresniMistoZruseniExtNZType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Zrušení adresního místa.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod9Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="GlobalniIdNavrhuZmeny" type="com:IdNavrhuZmenyType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AdresniMistoVytvoreniExtNZType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Vytvoření  adresního místa. Kód adresního místa se zadává jako externí (agendový) a použije se pro případné navázání adresního místa k vchodu stavebního objektu (v rámci detailních technickoekonomických atributů vchodu stavebního objektu). </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="gml:AbstractFeatureType">
+				<xs:sequence>
+					<xs:element name="Kod" type="base:Kod9Type" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="StavebniObjektKod" type="base:Kod9Type" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="CisloDomovni" type="com:CisloDomovniType" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="UliceKod" type="base:Kod7Type" minOccurs="0" maxOccurs="1" nillable="true"/>
+					<xs:element name="CisloOrientacni" type="com:CisloOrientacniType" minOccurs="0" maxOccurs="1" nillable="true"/>
+					<xs:element name="CisloOrientacniPismeno" type="com:CisloOrientacniPismenoType" minOccurs="0" maxOccurs="1" nillable="true"/>
+					<xs:element name="DefinicniBod" type="DefinicniBodAdmType" minOccurs="0" maxOccurs="1" nillable="true"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="StavebniObjektVytvoreniExtNZType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Vytvoření stavebního objektu. Kód stavebního objektu se zadává jako externí (agendový) a použije se pro případné navázání na adresní místo nebo detailní technickoekonomické atributy vchodu stavebního objektu v rámci návrhu změny.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="gml:AbstractFeatureType">
+				<xs:sequence>
+					<xs:element name="Kod" type="base:Kod9Type" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">Kód stavebního objektu.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="TypStavebnihoObjektuKod" type="com:TypSTOKodType" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="CastObceKod" type="base:Kod6Type" minOccurs="0" maxOccurs="1" nillable="true"/>
+					<xs:element name="CislaDomovni" type="com:CisloDomovniSeznamType" minOccurs="0" maxOccurs="1" nillable="true"/>
+					<xs:element name="MomcKod" type="base:Kod6Type" minOccurs="0" maxOccurs="1" nillable="true"/>
+					<xs:element name="IdentifikacniParcelaId" type="base:Id18Type" minOccurs="0" maxOccurs="1" nillable="true"/>
+					<xs:element name="Dokonceni" type="base:DatumCasType" minOccurs="0" maxOccurs="1" nillable="true"/>
+					<xs:element name="ZpusobVyuzitiKod" type="base:Kod4Type" minOccurs="0" maxOccurs="1" nillable="true"/>
+					<xs:element name="ZastavenaPlocha" type="com:ZastavenaPlochaType" minOccurs="0" maxOccurs="1" nillable="true"/>
+					<xs:element name="PodlahovaPlocha" type="com:PodlahovaPlochaType" minOccurs="0" maxOccurs="1" nillable="true"/>
+					<xs:element name="ObestavenyProstor" type="com:ObestavenyProstorType" minOccurs="0" maxOccurs="1" nillable="true"/>
+					<xs:element name="PocetPodlazi" type="com:PocetPodlaziType" minOccurs="0" maxOccurs="1" nillable="true"/>
+					<xs:element name="PocetBytu" type="com:PocetBytuType" minOccurs="0" maxOccurs="1" nillable="true"/>
+					<xs:element name="JeVytahKod" type="base:Kod4Type" minOccurs="0" maxOccurs="1" nillable="true"/>
+					<xs:element name="DruhKonstrukceKod" type="base:Kod4Type" minOccurs="0" maxOccurs="1" nillable="true"/>
+					<xs:element name="ZpusobVytapeniKod" type="base:Kod4Type" minOccurs="0" maxOccurs="1" nillable="true"/>
+					<xs:element name="PripojeniVodovodKod" type="base:Kod4Type" minOccurs="0" maxOccurs="1" nillable="true"/>
+					<xs:element name="PripojeniKanalizaceKod" type="base:Kod4Type" minOccurs="0" maxOccurs="1" nillable="true"/>
+					<xs:element name="PripojeniPlynKod" type="base:Kod4Type" minOccurs="0" maxOccurs="1" nillable="true"/>
+					<xs:element name="DefinicniBod" type="gml:PointPropertyType" minOccurs="0" maxOccurs="1" nillable="true"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="StavebniObjektZruseniExtNZType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Zrušení Stavebního objektu v rámci externího NZ.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod9Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Odstraneni" type="base:DatumCasType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="GlobalniIdNavrhuZmeny" type="com:IdNavrhuZmenyType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PrvekListEditaceSTUType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam editovaných prvků z agendy Stavební úřad.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Prvek" type="PrvekEditaceSTUType" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PrvekEditaceSTUType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Editace prvků z agendy Stavební úřad.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="VytvoreniStavebniObjekt" type="StavebniObjektVytvoreniExtNZType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="VytvoreniAdresniMisto" type="AdresniMistoVytvoreniExtNZType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="VytvoreniDetailTEA" type="DetailTEAVyvoreniExtNZType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ZmenaStavebniObjekt" type="StavebniObjektZmenaExtNZType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ZmenaAdresniMisto" type="AdresniMistoZmenaExtNZType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ZmenaDetailTEA" type="DetailTEAZmenaExtNZType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ZruseniStavebniObjekt" type="StavebniObjektZruseniExtNZType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ZruseniAdresniMisto" type="AdresniMistoZruseniExtNZType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ZruseniDetailTEA" type="DetailTEAZruseniExtNZType" minOccurs="0" maxOccurs="1"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="ZmenPrvkySTURequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Požadavek na návrh změny v rámci agendy Stavební úřad.  </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Dotaz" type="EditaceSTUType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PrvekEditaceObecType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Editace prvku z agendy Obec.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="VytvoreniUlice" type="UliceVytvoreniExtNZType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="VytvoreniStavebniObjekt" type="StavebniObjektVytvoreniExtNZType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="VytvoreniAdresniMisto" type="AdresniMistoVytvoreniExtNZType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="VytvoreniDetailTEA" type="DetailTEAVyvoreniExtNZType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ZmenaUlice" type="UliceZmenaExtNZType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ZmenaStavebniObjekt" type="StavebniObjektZmenaExtNZType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ZmenaAdresniMisto" type="AdresniMistoZmenaExtNZType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ZmenaDetailTEA" type="DetailTEAZmenaExtNZType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ZruseniUlice" type="UliceZruseniExtNZType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ZruseniStavebniObjekt" type="StavebniObjektZruseniExtNZType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ZruseniAdresniMisto" type="AdresniMistoZruseniExtNZType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ZruseniDetailTEA" type="DetailTEAZruseniExtNZType" minOccurs="0" maxOccurs="1"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="UliceZmenaExtNZType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Změna ulice v rámci externího NZ.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod7Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="GlobalniIdNavrhuZmeny" type="com:IdNavrhuZmenyType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="NazevUlice" type="base:Nazev48Type" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="EditaceObecType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Editace z agendy Obec.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="HlavickaNZ" type="eex:HlavickaNzType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="PodkladyNZ" type="eex:PodkladNzSeznamType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Prvky" type="PrvekListEditaceObecType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PrvekListEditaceObecType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam editovaných prvků z agendy Obec.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Prvek" type="PrvekEditaceObecType" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ZmenPrvkyObecRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Požadavek na návrh změny v rámci agendy Obec.  </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Dotaz" type="EditaceObecType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ZastavenaPlochaZmenaExType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Změna zastavěné plochy.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="Hodnota" type="com:ZastavenaPlochaType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Zastavěna plocha.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NullovatHodnotu" type="com:NullovatHodnotuType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Příznak nulování hodnoty.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="CastObceZmenaExType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Změna části obce.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="Hodnota" type="base:Kod6Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód části obce.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NullovatHodnotu" type="com:NullovatHodnotuType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Příznak nulování hodnoty.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="CisloDomovniZmenaExType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Změna čísla domovního.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Hodnota" type="com:CisloDomovniType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Číslo domovní.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NullovatHodnotu" type="com:NullovatHodnotuType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Příznak nulování hodnoty.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CisloDomovniSeznamZmenaExType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Změna čísel domovních.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="CisloDomovni" type="CisloDomovniZmenaExType" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">seznam čísel domovních.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NullovatHodnotu" type="com:NullovatHodnotuType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Příznak nulování hodnoty.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="ObestavenyProstorZmenaExType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Změna obestavěného prostoru.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="Hodnota" type="com:ObestavenyProstorType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Obestavěný prostor.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NullovatHodnotu" type="com:NullovatHodnotuType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Příznak nulování hodnoty.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="PodlahovaPlochaZmenaExType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Změna podlahové plochy.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="Hodnota" type="com:PodlahovaPlochaType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Podlahová plocha.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NullovatHodnotu" type="com:NullovatHodnotuType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Příznak nulování hodnoty.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="PocetPodlaziZmenaExType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Změna počtu podlaží.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="Hodnota" type="com:PocetPodlaziType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Počet podlaží.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NullovatHodnotu" type="com:NullovatHodnotuType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Příznak nulování hodnoty.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="PocetBytuZmenaExType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Změna počtu bytů.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="Hodnota" type="com:PocetBytuType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Počet bytů.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NullovatHodnotu" type="com:NullovatHodnotuType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Příznak nulování hodnoty.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="JeVytahKodZmenaExType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Výtah.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="Hodnota" type="base:Kod4Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód výtahu.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NullovatHodnotu" type="com:NullovatHodnotuType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Příznak nulování hodnoty.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="DetailTEAVyvoreniExtNZType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Vytvoření detailních tecnickoekonomických atributů (TEA) vchodu stavebního objektu.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="StavebniObjektKod" type="base:Kod9Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="PocetPodlazi" type="com:PocetPodlaziType" minOccurs="0" maxOccurs="1" nillable="true"/>
+			<xs:element name="PocetBytu" type="com:PocetBytuType" minOccurs="0" maxOccurs="1" nillable="true"/>
+			<xs:element name="DruhKonstrukceKod" type="base:Kod4Type" minOccurs="0" maxOccurs="1" nillable="true"/>
+			<xs:element name="ZpusobVytapeniKod" type="base:Kod4Type" minOccurs="0" maxOccurs="1" nillable="true"/>
+			<xs:element name="PripojeniVodovodKod" type="base:Kod4Type" minOccurs="0" maxOccurs="1" nillable="true"/>
+			<xs:element name="PripojeniKanalizaceKod" type="base:Kod4Type" minOccurs="0" maxOccurs="1" nillable="true"/>
+			<xs:element name="PripojeniPlynKod" type="base:Kod4Type" minOccurs="0" maxOccurs="1" nillable="true"/>
+			<xs:element name="AdresniMistoKod" type="base:Kod9SeznamType" minOccurs="0" maxOccurs="1" nillable="true"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DetailTEAZmenaExtNZType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Změna detailních tecnickoekonomických atributů (TEA) vchodu stavebního objektu.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod8Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="GlobalniIdNavrhuZmeny" type="com:IdNavrhuZmenyType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="StavebniObjektKod" type="base:Kod9Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="DruhKonstrukceKod" type="DruhKonstrukceKodZmenaExType" minOccurs="0" maxOccurs="1" nillable="true"/>
+			<xs:element name="PocetPodlazi" type="PocetPodlaziZmenaExType" minOccurs="0" maxOccurs="1" nillable="true"/>
+			<xs:element name="PocetBytu" type="PocetBytuZmenaExType" minOccurs="0" maxOccurs="1" nillable="true"/>
+			<xs:element name="ZpusobVytapeniKod" type="ZpusobVytapeniKodZmenaExType" minOccurs="0" maxOccurs="1" nillable="true"/>
+			<xs:element name="PripojeniVodovodKod" type="PripojeniVodovodKodZmenaExType" minOccurs="0" maxOccurs="1" nillable="true"/>
+			<xs:element name="PripojeniKanalizaceKod" type="PripojeniKanalizaceKodZmenaExType" minOccurs="0" maxOccurs="1" nillable="true"/>
+			<xs:element name="PripojeniPlynKod" type="PripojeniPlynKodZmenaExType" minOccurs="0" maxOccurs="1" nillable="true"/>
+			<xs:element name="AdresniMistoKod" type="base:Kod9SeznamType" minOccurs="0" maxOccurs="1" nillable="true"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DetailTEAZruseniExtNZType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Zrušení detailních tecnickoekonomických atributů (TEA) vchodu stavebního objektu.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod8Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="GlobalniIdNavrhuZmeny" type="com:IdNavrhuZmenyType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="EditaceSTUType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Editace z agendy Stavební úřad.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="HlavickaNZ" type="eex:HlavickaNzType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="PodkladyNZ" type="eex:PodkladNzSeznamType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Prvky" type="PrvekListEditaceSTUType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ZplatniNzObecRequest" type="osx:ZmenPrvkyObecRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Požadavek na zplatnění návrhu změny v rámci agendy Obec. </xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ZplatniNzSTURequest" type="osx:ZmenPrvkySTURequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Požadavek na zplatnění návrhu změny v rámci agendy Stavební úřad.  </xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="DefinicniBodAdmType">
+		<xs:sequence>
+			<xs:element name="AdresniBod" type="gml:PointPropertyType" minOccurs="0" maxOccurs="1" nillable="true">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Definiční bod typu Adresní bod.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Zachranka" type="gml:PointPropertyType" minOccurs="0" maxOccurs="1" nillable="true">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Definiční bod typu Přístup pro záchrannou službu.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Hasici" type="gml:PointPropertyType" minOccurs="0" maxOccurs="1" nillable="true">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Definiční bod typu Přístup pro hasiče.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PripojeniKanalizaceKodZmenaExType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Změna připojení kanalizace.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="Hodnota" type="base:Kod4Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód připojení kanalizace.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NullovatHodnotu" type="com:NullovatHodnotuType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Příznak nulování hodnoty.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="PripojeniPlynKodZmenaExType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Změna připojení plynu.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="Hodnota" type="base:Kod4Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód připojení plynu.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NullovatHodnotu" type="com:NullovatHodnotuType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Příznak nulování hodnoty.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="UliceZmenaExType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Změna ulice.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="Hodnota" type="base:Kod7Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód ulice.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NullovatHodnotu" type="com:NullovatHodnotuType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Příznak nulování hodnoty.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="CisloOrientacniZmenaExType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Změna čísla orientačního.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="Hodnota" type="com:CisloOrientacniType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Číslo orientační.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NullovatHodnotu" type="com:NullovatHodnotuType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Příznak nulování hodnoty.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="CisloOrientacniPismenoZmenaExType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Změna písmena čísla orientačního.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="Hodnota" type="com:CisloOrientacniPismenoType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Písmeno čísla orientačního.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NullovatHodnotu" type="com:NullovatHodnotuType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Příznak nulování hodnoty.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="DefinicniBodAdmZmenaExType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Změna definičních bodů adresního místa.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AdresniBod" type="gml:PointPropertyType" minOccurs="0" maxOccurs="1" nillable="true">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Změna definičního bodu typu Adresní bod.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Zachranka" type="ZachrankaZmenaExType" minOccurs="0" maxOccurs="1" nillable="true">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Změna definičního bodu typu Přístup pro záchrannou službu.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Hasici" type="HasiciZmenaExType" minOccurs="0" maxOccurs="1" nillable="true">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Změna definičního bodu typu přístup pro hasiče.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="HasiciZmenaExType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Změna definičního bodu typu přístup pro hasiče.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="Hodnota" type="gml:PointPropertyType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Definičníh bod typu přístup pro hasiče.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NullovatHodnotu" type="com:NullovatHodnotuType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Příznak nulování hodnoty.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="ZachrankaZmenaExType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Změna definičního bodu typu přístup pro záchrannou službu.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="Hodnota" type="gml:PointPropertyType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Definičníh bod typu přístup pro záchrannou službu.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NullovatHodnotu" type="com:NullovatHodnotuType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Příznak nulování hodnoty.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="PripojeniVodovodKodZmenaExType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Změna  připojení vodovodu.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="Hodnota" type="base:Kod4Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód připojení vodovodu.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NullovatHodnotu" type="com:NullovatHodnotuType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Příznak nulování hodnoty.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="ZpusobVytapeniKodZmenaExType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Změna způsobu vytápění.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="Hodnota" type="base:Kod4Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód způsobu vytápění.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NullovatHodnotu" type="com:NullovatHodnotuType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Příznak nulování hodnoty.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="DruhKonstrukceKodZmenaExType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Změna druhu konstrukce.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="Hodnota" type="base:Kod4Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód druhu konstrukce.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NullovatHodnotu" type="com:NullovatHodnotuType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Příznak nulování hodnoty.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+</xs:schema>

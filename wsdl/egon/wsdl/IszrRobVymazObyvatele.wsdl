@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRobVymazObyvatele:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRobVymazObyvatele:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRobVymazObyvatele:v1"
+	xmlns:e06="urn:cz:isvs:iszr:schemas:IszrRobVymazObyvatele:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRobVymazObyvatele">
+
+	<wsdl:documentation>Služba E06 externího rozhraní - Služba zprostředkuje zrušení záznamu v ROB - služba ROB O06.</wsdl:documentation>
+
+	<!-- Fixovaná verze 1.0.0, 30.09.2011, Pavel Kirchner -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRobVymazObyvatele:v1" schemaLocation="../xsd/IszrRobVymazObyvatele.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="IszrRobVymazObyvatele">
+		<wsdl:part name="parametry" element="e06:RobVymazObyvatele"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRobVymazObyvateleResponse">
+		<wsdl:part name="vysledek" element="e06:RobVymazObyvateleResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRobVymazObyvatelePortType">
+		<wsdl:operation name="IszrRobVymazObyvatele">
+			<wsdl:input message="tns:IszrRobVymazObyvatele"/>
+			<wsdl:output message="tns:IszrRobVymazObyvateleResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRobVymazObyvateleBinding" type="tns:IszrRobVymazObyvatelePortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRobVymazObyvatele">
+			<soap:operation soapAction="IszrRobVymazObyvatele"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRobVymazObyvateleService">
+		<wsdl:port name="IszrRobVymazObyvatelePortService" binding="tns:IszrRobVymazObyvateleBinding">
+			<soap:address location="IszrRobVymazObyvatele"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns="urn:cz:isvs:iszr:services:IszrEcdCtiIdFoto:v1" xmlns:tns="urn:cz:isvs:iszr:services:IszrEcdCtiIdFoto:v1" xmlns:e269="urn:cz:isvs:iszr:schemas:IszrEcdCtiIdFoto:v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" name="IszrEcdCtiIdFoto" targetNamespace="urn:cz:isvs:iszr:services:IszrEcdCtiIdFoto:v1">
+	<wsdl:documentation>Služba E269 externího rozhraní - Služba umožňuje vyhledávat Aifo podle IdFoto.</wsdl:documentation>
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrEcdCtiIdFoto:v1" schemaLocation="../xsd/IszrEcdCtiIdFoto.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrEcdCtiIdFoto">
+		<wsdl:part name="parametry" element="e269:EcdCtiIdFoto"/>
+	</wsdl:message>
+	<wsdl:message name="IszrEcdCtiIdFotoResponse">
+		<wsdl:part name="vysledek" element="e269:EcdCtiIdFotoResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrEcdCtiIdFotoPortType">
+		<wsdl:operation name="IszrEcdCtiIdFoto">
+			<wsdl:input message="tns:IszrEcdCtiIdFoto"/>
+			<wsdl:output message="tns:IszrEcdCtiIdFotoResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrEcdCtiIdFotoBinding" type="tns:IszrEcdCtiIdFotoPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrEcdCtiIdFoto">
+			<soap:operation soapAction="IszrEcdCtiIdFoto"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrEcdCtiIdFotoService">
+		<wsdl:port name="IszrEcdCtiIdFotoPortService" binding="tns:IszrEcdCtiIdFotoBinding">
+			<soap:address location="IszrEcdCtiIdFoto"/>
+		</wsdl:port>
+	</wsdl:service>
+	<!-- Vznik verze 1.0.0, 20.04.2021, ales.teply@autocont.cz -->
+	<!-- AutoCont CZ a.s. -->
+</wsdl:definitions>

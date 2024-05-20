@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns="urn:cz:isvs:iszr:services:IszrRppVypisKategoriiOvmSpuu:v1" xmlns:tns="urn:cz:isvs:iszr:services:IszrRppVypisKategoriiOvmSpuu:v1" xmlns:e216="urn:cz:isvs:iszr:schemas:IszrRppVypisKategoriiOvmSpuu:v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" name="IszrRppVypisKategoriiOvmSpuu" targetNamespace="urn:cz:isvs:iszr:services:IszrRppVypisKategoriiOvmSpuu:v1">
+	<wsdl:documentation>Služba E215 externího rozhraní - poskytnutí informací o působnostech definovaných v katalogu působností na základě vstupních parametrů - RPP služba P54.</wsdl:documentation>
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRppVypisKategoriiOvmSpuu:v1" schemaLocation="../xsd/IszrRppVypisKategoriiOvmSpuu.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrRppVypisKategoriiOvmSpuu">
+		<wsdl:part name="parametry" element="e216:RppVypisKategoriiOvmSpuu"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRppVypisKategoriiOvmSpuuResponse">
+		<wsdl:part name="vysledek" element="e216:RppVypisKategoriiOvmSpuuResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRppVypisKategoriiOvmSpuuPortType">
+		<wsdl:operation name="IszrRppVypisKategoriiOvmSpuu">
+			<wsdl:input message="IszrRppVypisKategoriiOvmSpuu"/>
+			<wsdl:output message="IszrRppVypisKategoriiOvmSpuuResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRppVypisKategoriiOvmSpuuBinding" type="tns:IszrRppVypisKategoriiOvmSpuuPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRppVypisKategoriiOvmSpuu">
+			<soap:operation soapAction="IszrRppVypisKategoriiOvmSpuu"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRppVypisKategoriiOvmSpuuService">
+		<wsdl:port name="IszrRppVypisKategoriiOvmSpuuPortService" binding="tns:IszrRppVypisKategoriiOvmSpuuBinding">
+			<soap:address location="IszrRppVypisKategoriiOvmSpuu"/>
+		</wsdl:port>
+	</wsdl:service>
+
+	<!-- Novela zákona 1.0.0, 21.12.2016 Pavel Odstrčil -->
+	<!-- 1.0.1 - Oprava popisu - sluzba E215, 6.4.2017 Pavel Odstrčil -->
+	<!-- Verze po revizi 1.0.2, 15.10.2021, Aleš Teplý, AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- Verze po revizi 1.1.0, 25.5.2022, Aleš Teplý, Response - AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- AutoCont CZ a.s. -->
+
+</wsdl:definitions>

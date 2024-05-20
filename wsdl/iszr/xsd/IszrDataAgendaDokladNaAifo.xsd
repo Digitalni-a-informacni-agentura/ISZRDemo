@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:iszr:schemas:IszrDataAgendaDokladNaAifo:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:iszr="urn:cz:isvs:iszr:schemas:IszrTypy:v1" xmlns:iszd="urn:cz:isvs:iszr:schemas:IszrDotazyData:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:aisse="urn:cz:isvs:aisse:schemas:AisSeTypy:v1" xmlns:rob="urn:cz:isvs:rob:schemas:RobTypy:v1" targetNamespace="urn:cz:isvs:iszr:schemas:IszrDataAgendaDokladNaAifo:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">XML schéma s definicemi dat pro služby ISZR</xs:documentation>
+	</xs:annotation>
+	<!-- Vznik verze 1.0.0, 04.10.2020, vznik, autocont.cz-->
+	<!-- AutoCont CZ a.s. -->
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rob:schemas:RobTypy:v1" schemaLocation="../../rob/xsd/RobTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrTypy:v1" schemaLocation="IszrTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrDotazyData:v1" schemaLocation="IszrDotazyData.xsd"/>
+	<xs:import namespace="urn:cz:isvs:aisse:schemas:AisSeTypy:v1" schemaLocation="../../aisse/xsd/AisSeTypy.xsd"/>
+	<!-- rootove elementy -->
+	<xs:element name="IszrAgendaDokladNaAifoData" type="IszrAgendaDokladNaAifoDataType"/>
+	<!-- type -->
+	<xs:complexType name="IszrAgendaDokladNaAifoDataType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Společný datový typ pro žádost do připojených SPAIS</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AgendaZdroj" type="AgendaZdrojType">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Agenda, ze které je požadován výdej</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Ais" type="reg:KodAisType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Volitelně identifikátor AIS. Použije se v případě, kdy není na základě agendy možné určit jednoznačně AIS</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Dotaz" type="IszrAisSeDokladNaAifoDataType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="AgendaZdrojType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Eop"/>
+			<xs:enumeration value="Ecd"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="IszrAisSeDokladNaAifoDataType">
+		<xs:sequence>
+			<xs:element name="AisSeDokladNaAifoData" type="IszrAisSeDokladNaAifoDotazDataType"/>
+		</xs:sequence>
+		<xs:attribute name="verzeSluzby" type="aisse:Text2"/>
+	</xs:complexType>
+	<xs:complexType name="IszrAisSeDokladNaAifoDotazDataType">
+		<xs:sequence>
+			<xs:element name="DotazDoklad">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:choice>
+							<xs:element name="Op">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="OpCislo" type="aisse:OPCisloType"/>
+										<xs:element name="OpSerie" type="aisse:OPSerieType" minOccurs="0"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="Cd">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="CdCislo" type="aisse:CDCisloType"/>
+										<xs:element name="CdDruh" type="aisse:DruhCestovnihoDokladuType" minOccurs="0"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:choice>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="znepristupniLog" type="xs:boolean"/>
+	</xs:complexType>
+</xs:schema>

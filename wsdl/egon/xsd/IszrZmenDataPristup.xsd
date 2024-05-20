@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrZmenDataPristup:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrZmenDataPristup:v1"
+	xmlns:e182="urn:cz:isvs:iszr:schemas:IszrZmenDataPristup:v1"
+	xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:i11="urn:cz:isvs:iszr:schemas:IszrDataZmenDataPristup:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.0.0">
+	
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Nastavení povolení přístupu k ISZR.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vývojová verze 1.0.0, 01.04.2019, Pavel Odstrčil, vznik -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrDataZmenDataPristup:v1" schemaLocation="../../iszr/xsd/IszrDataZmenDataPristup.xsd"/>
+
+	<xs:element name="IszrZmenDataPristup" type="IszrZmenDataPristupType"/>
+	<xs:element name="IszrZmenDataPristupResponse" type="IszrZmenDataPristupResponseType"/>
+
+	<xs:complexType name="IszrZmenDataPristupType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Nastavení povolení přístupu k ISZR. Podporováno pouze synchronní zpracování.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAsyncAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IszrZmenDataPristupData" type="i11:IszrZmenDataPristupDataType" />
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="IszrZmenDataPristupResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpověd na nastavení povolení přístupu k ISZR.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="IszrOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IszrZmenDataPristupDataResponse" type="i11:IszrZmenDataPristupDataResponseType">
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

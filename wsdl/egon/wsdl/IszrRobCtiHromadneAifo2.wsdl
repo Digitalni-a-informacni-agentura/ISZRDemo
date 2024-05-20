@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRobCtiHromadneAifo2:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRobCtiHromadneAifo2:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRobCtiHromadneAifo2:v1"
+	xmlns:e277="urn:cz:isvs:iszr:schemas:IszrRobCtiHromadneAifo2:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRobCtiHromadneAifo2">
+
+	<wsdl:documentation>Služba E277 externího rozhraní. Služba vydává požadované údaje osob z ROB ve formě opakované struktury požadovaných dat podle předaného seznamu AIFO. Služba skládá údaje ze základních registrů ROB a RUIAN (A28).</wsdl:documentation>
+
+	<!-- Výchozí verze 1.0.0, 12.8.2021, Aleš Teplý -->
+	<!-- Verze po revizi 1.0.1, 15.10.2021, Aleš Teplý, přidává možnou hodnotu u nepovinného elementu Response (RodinnyStavPartnerstviType) -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRobCtiHromadneAifo2:v1" schemaLocation="../xsd/IszrRobCtiHromadneAifo2.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="IszrRobCtiHromadneAifo2">
+		<wsdl:part name="parametry" element="e277:RobCtiHromadneAifo2"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRobCtiHromadneAifo2Response">
+		<wsdl:part name="vysledek" element="e277:RobCtiHromadneAifo2Response"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRobCtiHromadneAifo2PortType">
+		<wsdl:operation name="IszrRobCtiHromadneAifo2">
+			<wsdl:input message="tns:IszrRobCtiHromadneAifo2"/>
+			<wsdl:output message="tns:IszrRobCtiHromadneAifo2Response"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRobCtiHromadneAifo2Binding" type="tns:IszrRobCtiHromadneAifo2PortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRobCtiHromadneAifo2">
+			<soap:operation soapAction="IszrRobCtiHromadneAifo2"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRobCtiHromadneAifo2Service">
+		<wsdl:port name="IszrRobCtiHromadneAifo2PortService" binding="tns:IszrRobCtiHromadneAifo2Binding">
+			<soap:address location="IszrRobCtiHromadneAifo2"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

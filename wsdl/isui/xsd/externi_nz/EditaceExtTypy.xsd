@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:isui:schemas:EditaceExtTypy:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:isui:schemas:EditaceExtTypy:v1" xmlns:eex="urn:cz:isvs:isui:schemas:EditaceExtTypy:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:gml="http://www.opengis.net/gml/3.2" elementFormDefault="qualified" version="0.42.0">
+	<xs:import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../../common/gml/3.2.1/gml.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../ruian/xsd/typy/CommonTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../RegTypy.xsd"/>
+	<xs:simpleType name="OblastKontrolyType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Oblast kontroly</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="AdresniMisto"/>
+			<xs:enumeration value="DetailTEA"/>
+			<xs:enumeration value="NavrhZmeny"/>
+			<xs:enumeration value="StavebniObjekt"/>
+			<xs:enumeration value="Ulice"/>
+			<xs:enumeration value="Zsj"/>
+			<xs:enumeration value="VolebniOkrsek"/>
+			<xs:enumeration value="MOMC"/>
+			<xs:enumeration value="DefinicniBod"/>
+			<xs:enumeration value="UUP">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Účelový územní prvek</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="ZmenPrvkyResponse" type="eex:ZmenPrvkyResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved na externi navrh zmeny.  </xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="TypPrvkuUzemiDokumentuType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Typ prvku ISUI</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="MC">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Mestska cast (MOMC)</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OB">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Obec</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ST">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Stat</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="PodkladNzSeznamType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam podkladů návrhu změny.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PodkladNZ" type="PodkladNzType" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ZmenPrvkyResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved na externi navrh zmeny.  </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="ExterniId" type="IdNavrhuZmenyExtType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="VysledekKontrol" type="VysledekKontrolType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="GlobalniIdNavrhuZmeny" type="com:IdNavrhuZmenyType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="HlavickaNzType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Hlavička návrhu změny</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ExterniId" type="IdNavrhuZmenyExtType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="TypEditace" type="com:TypEditaceType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Nazev" type="base:Nazev50Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Popis" type="base:Text1000Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="UzemiDokumentuId" type="base:Id18Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="PlatiOd" type="base:DatumCasType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="UzemiDokumentuTyp" type="TypPrvkuUzemiDokumentuType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VysledekKontrolType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Vysledky kontrol navrhu zmeny.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Souhrn" type="base:Text500Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Chyby" type="ChybyNZSeznamType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ChybyNZSeznamType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam chyb z kontroly navrhu zmeny.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Chyba" type="ChybaNzType" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ChybaNzType">
+		<xs:sequence>
+			<xs:element name="Poradi" type="com:PoradiType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="OblastKontroly" type="OblastKontrolyType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="PrvekKod" type="base:Id18Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="ChybaKod" type="ChybaKodType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Text" type="base:Text4000Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Uroven" type="UrovenType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="TypChyby" type="TypChybyType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PodkladNzType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Podklad návrhu změny.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Popis" type="base:Text4000Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="CisloJednaci" type="base:Nazev50Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="PravniPredpis" type="base:Text4000Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="DatumUcinnosti" type="base:DatumCasType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="DatumRozhodnuti" type="base:DatumCasType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="UrovenType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Uroven</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:int"/>
+	</xs:simpleType>
+	<xs:simpleType name="TypChybyType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Typ chyby</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="DEFECT"/>
+			<xs:enumeration value="ERROR"/>
+			<xs:enumeration value="FATAL"/>
+			<xs:enumeration value="WARNING"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ChybaKodType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Chyba kod</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="IdNavrhuZmenyExtType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Externí identifikace návrhu změny</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="50"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="MultiPointPropertyZmenaExType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Požadovaná změna hodnoty typu MultiPointPropertyType - buď nová hodnota nebo příznak, že je požadováno hodnotu vynulovat. </xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="Hodnota" type="gml:MultiPointPropertyType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="NullovatHodnotu" type="com:NullovatHodnotuType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Příznak nulování hodnoty.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:simpleType name="StavNavrhuZmenyType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Stav návrhu změny z externího pohledu (např. z pohledu klienta webových služeb).</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ZAMITNUT">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Návrh změny byl zamítnit - nevyhověl požadovaným kontrolám.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ZPRACOVAVA_SE">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Návrh změny se zpracovává.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SCHVALEN">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Návrh změny byl schválen.  </xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ZPLATNEN">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Návrh změny byl zplatněn.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="MultiSurfacePropertyZmenaExType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Požadovaná změna hodnoty typu MultiSurfacePropertyType - buď nová hodnota nebo příznak, že je požadováno hodnotu vynulovat.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="Hodnota" type="gml:MultiSurfacePropertyType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="NullovatHodnotu" type="com:NullovatHodnotuType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Příznak nulování hodnoty.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="Text2000ZmenaExType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Požadovaná změna hodnoty typu Text2000Type - buď nová hodnota nebo příznak, že je požadováno hodnotu vynulovat.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="Hodnota" type="base:Text2000Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="NullovatHodnotu" type="com:NullovatHodnotuType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Příznak nulování hodnoty.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="Kod4ZmenaExType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Požadovaná změna hodnoty typu Kod4 - buď nová hodnota nebo příznak, že je požadováno hodnotu vynulovat.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="Hodnota" type="base:Kod4Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="NullovatHodnotu" type="com:NullovatHodnotuType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Příznak nulování hodnoty.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="PresnostVytyceniZmenaExType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Požadovaná změna hodnoty typu PresnostVytyceniType - buď nová hodnota nebo příznak, že je požadováno hodnotu vynulovat.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="Hodnota" type="com:PresnostVytyceniType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="NullovatHodnotu" type="com:NullovatHodnotuType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Příznak nulování hodnoty.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="NespravnyUdajZmenaListType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam změn nesprávností referenčních údajů.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="NespravnyUdaj" type="NespravnyUdajZmenaType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Změna nesprávnosti referenčního údaje.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="NespravnyUdajZmenaType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Změna nesprávnosti referenčního údaje.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="UdajKod" type="com:UdajKodType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód referenčního údaje</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Nespravny" type="xs:boolean" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Hodnota na kterou je požadováno změnit nesprávnost.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Poznamka" type="base:Text500Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Popis nesprávnosti. Odpovídá údaji OznacenoInfo ve výměnném formátu.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DatumZmenaExType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Požadovaná změna hodnoty typu DatumType - nová hodnota nebo příznak, že je požadováno hodnotu vynulovat.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="Hodnota" type="base:DatumType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="NullovatHodnotu" type="com:NullovatHodnotuType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Příznak nulování hodnoty.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="Nazev50ZmenaExType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Požadovaná změna hodnoty typu Nazev50Type - nová hodnota nebo příznak, že je požadováno hodnotu vynulovat.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="Hodnota" type="base:Nazev50Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="NullovatHodnotu" type="com:NullovatHodnotuType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Příznak nulování hodnoty.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="DatumCasZmenaExType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Změna data a času.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Hodnota" type="base:DatumCasType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Nová hodnota.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NullovatHodnotu" type="com:NullovatHodnotuType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Požadováno zrušení hodnoty.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

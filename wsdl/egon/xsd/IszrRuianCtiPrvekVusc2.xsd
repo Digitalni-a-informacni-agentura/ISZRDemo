@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekVusc2:v1" 
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekVusc2:v1" 
+	xmlns:e250r="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekVusc2:v1" 
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:ctiVc="urn:cz:isvs:ruian:schemas:CtiVusc:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified" 
+	version="2.0.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E250r externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	
+	<!-- Výchozí verze 2.0.0, 6.10.2020 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiVusc:v2" schemaLocation="../../ruian/xsd/ext/v2/cti/CtiVusc.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiVusc:v2" schemaLocation="ref/RuianCtiPrvekVusc2.xsd"/>
+
+	<xs:element name="RuianCtiPrvekVusc2" type="RuianCtiPrvekVusc2Type"/>
+	<xs:element name="RuianCtiPrvekVusc2Response" type="RuianCtiPrvekVusc2ResponseType"/>
+	
+	<xs:complexType name="RuianCtiPrvekVusc2Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E250r externího rozhraní - žádost. Načtení Vusc z RUIAN. RUIAN služba, operace ctiVusc.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianCtiPrvekVusc2Data" type="ctiVc:CtiVuscDotazType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="RuianCtiPrvekVusc2ResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E250r externího rozhraní - odpověď. Načtení Vusc z RUIAN. RUIAN služba, operace ctiVusc.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+				  <xs:element name="RuianOdpoved" minOccurs="0">
+					<xs:complexType>
+					  <xs:sequence>
+						<xs:element name="RuianCtiPrvekVusc2DataResponse">
+						  <xs:complexType>
+							<xs:sequence>
+							  <xs:element ref="ctiVc:Vusc"/>
+							</xs:sequence>
+						  </xs:complexType>
+						</xs:element>
+					  </xs:sequence>
+					</xs:complexType>
+				  </xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

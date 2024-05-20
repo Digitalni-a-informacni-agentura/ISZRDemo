@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:iszr:schemas:IszrDataVypisSeznamRegistraciAis:v1" xmlns:i19="urn:cz:isvs:iszr:schemas:IszrDataVypisSeznamRegistraciAis:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:iszr="urn:cz:isvs:iszr:schemas:IszrTypy:v1" xmlns:iszd="urn:cz:isvs:iszr:schemas:IszrDotazyData:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" targetNamespace="urn:cz:isvs:iszr:schemas:IszrDataVypisSeznamRegistraciAis:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">XML schéma s definicemi dat pro služby ISZR, interní služba ISZR I36.</xs:documentation>
+	</xs:annotation>
+	<!-- Verze 1.0.0, 09.10.2021 Pavel Odstrčil, výchozí verze -->
+	<!-- AutoCont CZ a.s. -->
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrTypy:v1" schemaLocation="IszrTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrDotazyData:v1" schemaLocation="IszrDotazyData.xsd"/>
+	<xs:element name="IszrVypisSeznamRegistraciAisData" type="IszrVypisSeznamRegistraciAisDataType"/>
+	<xs:element name="IszrVypisSeznamRegistraciAisDataResponse" type="IszrVypisSeznamRegistraciAisDataResponseType"/>
+	<xs:complexType name="IszrVypisSeznamRegistraciAisDataType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba umožňuje vypsat informace o registrovaných AIS. Služba s omezeným přístupem. Datová část Request.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Ais" type="reg:KodAisType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="IszrVypisSeznamRegistraciAisDataResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba umožňuje vypsat informace o registrovaných AIS. Služba s omezeným přístupem. Datová část Response.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="iszd:IszrDotazyDataResponseType">
+				<xs:sequence minOccurs="0">
+					<xs:element name="Registrace" type="RegistraceAisType" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RegistraceAisType">
+		<xs:sequence>
+			<xs:element name="Ais" type="reg:KodAisType" minOccurs="1"/>
+			<xs:element name="Nazev" type="xs:string" minOccurs="0"/>
+			<xs:element name="Ovm" type="reg:KodOvmType" minOccurs="0"/>			
+			<xs:element name="Certifikat" type="CertifikatType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CertifikatType">
+		<xs:sequence>
+			<xs:element name="SN" type="xs:string" minOccurs="1"/>
+			<xs:element name="Stav" type="xs:int" minOccurs="1"/>
+			<xs:element name="DatumVytvoreni" type="xs:dateTime" minOccurs="1"/>
+			<xs:element name="DatumBlokace" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="DatumPlatiOd" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="DatumPlatiDo" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="IPPristup" type="IPPristupType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="IPPristupType">
+		<xs:sequence>
+			<xs:element name="IPPristup" type="xs:string"/>
+			<xs:element name="Stav" type="xs:int"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

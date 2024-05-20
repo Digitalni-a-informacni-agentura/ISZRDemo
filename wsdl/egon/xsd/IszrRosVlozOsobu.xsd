@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRosVlozOsobu:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRosVlozOsobu:v1"
+	xmlns:e18="urn:cz:isvs:iszr:schemas:IszrRosVlozOsobu:v1"
+	xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:sed="urn:cz:isvs:ros:schemas:RosEditaceData:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.1.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E18 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vývojová verze 0.0.1, 20.06.2011, Aleš Teplý -->
+	<!-- Vývojová verze 0.0.2, 13.07.2011, Aleš Teplý, Response nemusí obsahovat data (async) -->
+	<!-- Vývojová verze 0.0.3, 21.07.2011, Aleš Teplý, ref na type (sjednocení), odstraneno PrvotniPlneni -->
+	<!-- Vývojová verze 0.0.4, 13.09.2011, Aleš Teplý, podadresáře registrů malými písmeny -->
+	<!-- Fixovaná verze 1.0.0, 18.09.2011, Aleš Teplý -->
+	<!-- Verze po revizi 1.0.1, 14.02.2012 Aleš Teplý, doplnění OrgStatus do Response -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstractOrg.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ros:schemas:RosEditaceData:v2" schemaLocation="../../ros/xsd/RosEditaceData.xsd"/>
+
+	<xs:element name="RosVlozOsobu" type="RosVlozOsobuType"/>
+	<xs:element name="RosVlozOsobuResponse" type="RosVlozOsobuResponseType"/>
+
+	<xs:complexType name="RosVlozOsobuType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E18 externího rozhraní - typ pro žádost. Služba zakládá nový záznam osoby v registru - služba ROS S03. Vstupní údaje musí obsahovat validní referenční údaje (IČO se správnou kontrolní číslicí, referenční údaje musí odpovídat údajům, pro něž bylo IČO vydáno).</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAifoIdAdrAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RosVlozOsobuData" type="sed:RosVlozOsobuDataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="RosVlozOsobuResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E18 externího rozhraní - typ pro odpověď. Služba zakládá nový záznam osoby v registru - služba ROS S03. Záznam není založen, pokud je IČO duplicitní a pokud jde o zápis fyzické osoby ani pokud je AIFO duplicitní. ROS kontroluje, zda AIS má oprávnění založit osobu s udanou právní formou. Pokud IČO nebylo vydáno pro zaslané referenční údaje, vrací služba chybový status s očekávanými údaji. Pokud je IČO nebo AIFO duplicitní, vrátí služba chybový status.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAifoStIdAdrAbstractType">
+				<xs:sequence>
+					<xs:element name="RosOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RosVlozOsobuDataResponse" type="sed:RosVlozOsobuDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

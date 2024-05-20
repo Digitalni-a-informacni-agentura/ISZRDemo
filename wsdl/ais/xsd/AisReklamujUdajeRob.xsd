@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:ais:schemas:AisReklamujUdajeRob:v1" xmlns:x62="urn:cz:isvs:ais:schemas:AisReklamujUdajeRob:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:aabs="urn:cz:isvs:ais:schemas:AisTypy:v1" xmlns:i02="urn:cz:isvs:iszr:schemas:IszrDataReklamujUdajeRob:v1" xmlns:roe="urn:cz:isvs:rob:schemas:RobEditaceData:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:cz:isvs:ais:schemas:AisReklamujUdajeRob:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.0.1">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Avízo o nesprávném údaji v registru ROB příslušnému editorovi údaje.</xs:documentation>
+	</xs:annotation>
+	<!-- Vývojová verze 0.0.1, 01.10.2012, Aleš Teplý -->
+	<!-- Katalog.7.4 verze 1.4.0, 31.10.2012 Aleš Teplý, IdentifikatorReklamace v Response nepovinný -->
+	<!-- AutoCont CZ a.s. -->
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ais:schemas:AisTypy:v1" schemaLocation="AisTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrDataReklamujUdajeRob:v1" schemaLocation="../../iszr/xsd/IszrDataReklamujUdajeRob.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rob:schemas:RobEditaceData:v1" schemaLocation="../../rob/xsd/RobEditaceData.xsd"/>
+	<xs:element name="AisReklamujUdajeRob" type="AisReklamujUdajeRobType"/>
+	<xs:element name="AisReklamujUdajeRobResponse" type="AisReklamujUdajeRobResponseType"/>
+	<xs:complexType name="AisReklamujUdajeRobType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Avízo o nesprávném údaji v registru ROB příslušnému editorovi údaje.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="aabs:AisZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="AisReklamujUdajeRobData" type="AisReklamujUdajeRobDataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="AisReklamujUdajeRobResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Avízo o nesprávném údaji v registru ROB příslušnému editorovi údaje, odpověď.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="aabs:AisOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="AisOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="AisReklamujUdajeRobDataResponse" type="AisReklamujUdajeRobDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="AisReklamujUdajeRobDataType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Avízo o nesprávném údaji v registru ROB příslušnému editorovi údaje.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="i02:IszrReklamujUdajeRobDataType">
+				<xs:sequence>
+					<xs:element name="NavrhovaneHodnoty" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">Pokud není vyplněno, předává se k ručnímu zpracování</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:choice>
+								<xs:element name="RobZmenObyvateleData" type="roe:RobZmenObyvateleDataType"/>
+								<xs:element name="RobZmenObyvatele2Data" type="roe:RobZmenObyvatele2DataType"/>
+							</xs:choice>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="AisReklamujUdajeRobDataResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpověď na reklamaci.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="aabs:AisDotazyDataResponseType">
+				<xs:sequence>
+					<xs:element name="IdentifikatorReklamace" type="reg:NonEmptyStringType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">Přidělený identifikátor reklamace</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

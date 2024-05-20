@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:VyhledejStavebniObjekt:v2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:VyhledejStavebniObjekt:v2" xmlns:vyhSo="urn:cz:isvs:ruian:schemas:VyhledejStavebniObjekt:v2" xmlns:so="urn:cz:isvs:ruian:schemas:StavebniObjekt:v2" xmlns:soPodm="urn:cz:isvs:ruian:schemas:StavebniObjektPodminka:v2" xmlns:soPolBase="urn:cz:isvs:ruian:schemas:StavebniObjektPolozkyBase:v2" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" elementFormDefault="qualified" version="2.0.0">
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:StavebniObjektPolozkyBase:v2" schemaLocation="StavebniObjektPolozkyBase.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:StavebniObjektPodminka:v2" schemaLocation="StavebniObjektPodminka.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:StavebniObjekt:v2" schemaLocation="../prvky/StavebniObjekt.xsd"/>
+	<xs:complexType name="StavebniObjektSeznamType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam casti obci</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="StavebniObjekt" type="so:StavebniObjektType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VyhledejStavebniObjektDotazType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Parametry casti obce</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Podminka" type="soPodm:StavebniObjektPodminkaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PozadovaneUdaje" type="soPolBase:StavebniObjektPolozkyBaseType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="VyhledejStavebniObjektRequest" type="vyhSo:VyhledejStavebniObjektRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na vyhledani stavebnich objektu</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="VyhledejStavebniObjektRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na vyhledani stavebnich objektu</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Dotaz" type="VyhledejStavebniObjektDotazType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="VyhledejStavebniObjektResponse" type="vyhSo:VyhledejStavebniObjektResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved na vyhledani stavebnich objektu</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="VyhledejStavebniObjektResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved na vyhledani stavebnich objektu</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="StavebniObjekty" type="StavebniObjektSeznamType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

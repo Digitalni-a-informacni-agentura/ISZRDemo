@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:rpp:schemas:RppReg:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" targetNamespace="urn:cz:isvs:rpp:schemas:RppReg:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.0">
+    <xs:annotation>
+        <xs:documentation xml:lang="cs">
+            Návrh XML schématu s definicemi specifickými pro interní služby RPP.
+        </xs:documentation>
+    </xs:annotation>
+    <!-- Verze 1.0.0, 6.2.2012 -->
+    <xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+    <!-- Číselník RPP služeb -->
+    <xs:simpleType name="KodRppSluzbyType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Kód služby, výčtový typ všech dotazovacích a editačních služeb RPP.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NazevSluzbyType">
+            <xs:enumeration value="RppVypisVyuzitiRefUdaju"/>
+            <xs:enumeration value="RppCtiZmeny"/>
+            <xs:enumeration value="RppVypisSeznamAgend"/>
+            <xs:enumeration value="RppVypisAgendu"/>
+            <xs:enumeration value="RppVlozAgendu"/>
+            <xs:enumeration value="RppZmenAgendu"/>
+            <xs:enumeration value="RppZpochybniAgendu"/>
+            <xs:enumeration value="RppZrusAgendu"/>
+            <xs:enumeration value="RppVypisRozhodnuti"/>
+            <xs:enumeration value="RppVypisSeznamRozhodnuti"/>
+            <xs:enumeration value="RppVlozRozhodnuti"/>
+            <xs:enumeration value="RppZmenRozhodnuti"/>
+            <xs:enumeration value="RppZpochybniRozhodnuti"/>
+            <xs:enumeration value="RppVymazRozhodnuti"/>
+            <xs:enumeration value="RppVypisSeznamProcesnichModelu"/>
+            <xs:enumeration value="RppVypisProcesniModel"/>
+            <xs:enumeration value="RppVlozProcesniModel"/>
+            <xs:enumeration value="RppZmenProcesniModel"/>
+            <xs:enumeration value="RppVymazProcesniModel"/>
+            <xs:enumeration value="RppVypisSeznamPravnichPredpisu"/>
+            <xs:enumeration value="RppVypisPravniPredpis"/>
+            <xs:enumeration value="RppVlozPravniPredpis"/>
+            <xs:enumeration value="RppZmenPravniPredpis"/>
+            <xs:enumeration value="RppZrusPravniPredpis"/>
+            <xs:enumeration value="RppVypisSeznamPusobnostiOvm"/>
+            <xs:enumeration value="RppVypisPusobnostOvm"/>
+            <xs:enumeration value="RppVlozPusobnostOvm"/>
+            <xs:enumeration value="RppZmenPusobnostOvm"/>
+            <xs:enumeration value="RppZpochybniPusobnostOvm"/>
+            <xs:enumeration value="RppZrusPusobnostOvm"/>
+            <xs:enumeration value="RppVypisSeznamSluzeb"/>
+            <xs:enumeration value="RppVypisSluzbu"/>
+            <xs:enumeration value="RppVlozSluzbu"/>
+            <xs:enumeration value="RppZmenSluzbu"/>
+            <xs:enumeration value="RppZrusSluzbu"/>
+            <xs:enumeration value="RppVypisSeznamSla"/>
+            <xs:enumeration value="RppVypisSla"/>
+            <xs:enumeration value="RppVlozSla"/>
+            <xs:enumeration value="RppZmenSla"/>
+            <xs:enumeration value="RppZrusSla"/>
+            <xs:enumeration value="RppVlozVazbuAgendaSluzba"/>
+            <xs:enumeration value="RppVymazVazbuAgendaSluzba"/>
+            <xs:enumeration value="RppVypisOpravneniNaProvedeniSluzby"/>
+            <xs:enumeration value="RppVypisOpravneni"/>
+            <xs:enumeration value="RppPoskytniKatalogSluzeb"/>
+            <xs:enumeration value="RppSpravaCiselniku"/>
+            <xs:enumeration value="RppPoskytniMaticiOpravneniKCinnostem"/>
+            <xs:enumeration value="RppPoskytniMaticiOpravneniKOvm"/>
+            <xs:enumeration value="RppPoskytniMaticiOpravneniKeSluzbam"/>
+            <xs:enumeration value="RppPoskytniMaticiOpravneniKAis"/>
+            <xs:enumeration value="RppPoskytniMaticiOpravneniKUdajumAis"/>
+            <xs:enumeration value="RppCtiEditora"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:iskn:schemas:CommonTypy:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:iskn:schemas:CommonTypy:v1" xmlns:iskncom="urn:cz:isvs:iskn:schemas:CommonTypy:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" elementFormDefault="qualified" version="1.0.0">
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:simpleType name="TypPrvkuVlastnictviType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Budova"/>
+			<xs:enumeration value="Parcela"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Nazev35Type">
+		<xs:annotation>
+			<xs:documentation>Název o maximální délce 35 znaků.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="35"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PrijmeniType">
+		<xs:annotation>
+			<xs:documentation>Příjmení fyzické osoby.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="reg:NonEmptyNormStringType">
+			<xs:maxLength value="100"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TitulPredJmenemType">
+		<xs:annotation>
+			<xs:documentation>Typ pro titul před jménem osoby.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="iskncom:Nazev35Type"/>
+	</xs:simpleType>
+	<xs:simpleType name="JmenoType">
+		<xs:annotation>
+			<xs:documentation>Jméno popřípadě jména fyzické osoby.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="reg:NonEmptyNormStringType">
+			<xs:maxLength value="100"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Nazev10Type">
+		<xs:annotation>
+			<xs:documentation>Název o maximální délce 10 znaků.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TitulZaJmenemType">
+		<xs:annotation>
+			<xs:documentation>Typ pro titul za jménem osoby.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="iskncom:Nazev10Type"/>
+	</xs:simpleType>
+	<xs:simpleType name="Kod6Type">
+		<xs:annotation>
+			<xs:documentation>Kód o délce 6 znaků.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="6"/>
+			<xs:maxLength value="6"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ZkraceneRCType">
+		<xs:annotation>
+			<xs:documentation>Zkrácená verze rodného čísla. Jedná se prvních šest znaků RČ.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="iskncom:Kod6Type"/>
+	</xs:simpleType>
+	<xs:simpleType name="NazevUliceType">
+		<xs:annotation>
+			<xs:documentation>Typ pro název ulice.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="base:Nazev48Type"/>
+	</xs:simpleType>
+	<xs:simpleType name="TypCisloDomovniType">
+		<xs:annotation>
+			<xs:documentation>Typ čísla domovního. </xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="CISLO_EVIDENCNI"/>
+			<xs:enumeration value="CISLO_POPISNE"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Nazev4Type">
+		<xs:annotation>
+			<xs:documentation>Název o maximální délce 4 znaků.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="4"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CisloOrientacniType">
+		<xs:annotation>
+			<xs:documentation>Číslo orientační.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="iskncom:Nazev4Type"/>
+	</xs:simpleType>
+	<xs:simpleType name="NazevCastiObceType">
+		<xs:annotation>
+			<xs:documentation>Název části obce.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="base:Nazev48Type"/>
+	</xs:simpleType>
+	<xs:simpleType name="NazevObceType">
+		<xs:annotation>
+			<xs:documentation>Název obce.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="base:Nazev48Type"/>
+	</xs:simpleType>
+	<xs:simpleType name="NazevOkresuType">
+		<xs:annotation>
+			<xs:documentation>Název okresu.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="base:Nazev32Type"/>
+	</xs:simpleType>
+	<xs:simpleType name="NazevStatType">
+		<xs:annotation>
+			<xs:documentation>Název státu.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="100"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TypVlastnictviKodType">
+		<xs:annotation>
+			<xs:documentation>Kód typu vlastnictví.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="reg:NonEmptyNormStringType">
+			<xs:maxLength value="4"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TypVlastnictviNazevType">
+		<xs:annotation>
+			<xs:documentation>Název typu vlastnictví.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="reg:NonEmptyNormStringType">
+			<xs:maxLength value="60"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="NazevOsobyType">
+		<xs:annotation>
+			<xs:documentation>Název osoby.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="reg:NonEmptyNormStringType">
+			<xs:maxLength value="2000"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="IcoDoplnekType">
+		<xs:annotation>
+			<xs:documentation>Doplněk IČO.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:integer"/>
+	</xs:simpleType>
+</xs:schema>

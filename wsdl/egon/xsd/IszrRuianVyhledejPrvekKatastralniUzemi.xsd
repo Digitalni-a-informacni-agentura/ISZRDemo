@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekKatastralniUzemi:v1" 
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekKatastralniUzemi:v1" 
+	xmlns:e34d="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekKatastralniUzemi:v1" 
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:vyhKu="urn:cz:isvs:ruian:schemas:VyhledejKatastralniUzemi:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified" 
+	version="1.1.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E34d externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	
+	<!-- Vývojová verze 0.0.1, 21.07.2011, Pavel Kirchner -->
+	<!-- Vývojová verze 0.0.2, 28.07.2011, Pavel Kirchner, převzetí datového elementu Response pomocí ref (deklaruje AC) -->
+	<!-- Fixovaná verze 1.0.0, 25.10.2011, Aleš Teplý -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:VyhledejKatastralniUzemi:v1" schemaLocation="ref/RuianVyhledejPrvekKatastralniUzemi.xsd"/>
+	
+	<xs:element name="RuianVyhledejPrvekKatastralniUzemi" type="RuianVyhledejPrvekKatastralniUzemiType"/>
+	<xs:element name="RuianVyhledejPrvekKatastralniUzemiResponse" type="RuianVyhledejPrvekKatastralniUzemiResponseType"/>
+	
+	<xs:complexType name="RuianVyhledejPrvekKatastralniUzemiType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E34d externího rozhraní - žádost. Vyhledání katastrálního území z RUIAN. RUIAN služba A03, operace VyhledejKatastralniUzemi.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+		 						<xs:element name="RuianVyhledejPrvekKatastralniUzemiData" type="vyhKu:VyhledejKatastralniUzemiDotazType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="RuianVyhledejPrvekKatastralniUzemiResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E34d externího rozhraní - odpověď. Vyhledání katastrálního území z RUIAN. RUIAN služba A03, operace VyhledejKatastralniUzemi.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="RuianOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianVyhledejPrvekKatastralniUzemiDataResponse">
+									<xs:complexType>
+										<xs:sequence>
+										  <xs:element ref="vyhKu:KatastralniUzemi"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

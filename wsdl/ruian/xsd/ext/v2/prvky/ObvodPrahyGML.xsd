@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:ObvodPrahyGML:v2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:ObvodPrahyGML:v2" xmlns:mpGml="urn:cz:isvs:ruian:schemas:ObvodPrahyGML:v2" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:mp="urn:cz:isvs:ruian:schemas:ObvodPrahy:v2" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:ob="urn:cz:isvs:ruian:schemas:Obec:v2" elementFormDefault="qualified" version="2.0.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Schéma specifikuje prvek typu ObvodPrahy včetně geometrie. </xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../typy/BaseTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../typy/CommonTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ObvodPrahy:v2" schemaLocation="ObvodPrahy.xsd"/>
+	<xs:import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../../../../common/gml/3.2.1/gml.xsd"/>
+	<xs:complexType name="GeometrieObvodPrahyType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Geometrické údaje prvku ObvodPrahy.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DefinicniBod" type="gml:PointPropertyType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Geometrie definičního bodu</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Hranice" type="HraniceObvodPrahyType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Geometrie hranice</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="HraniceObvodPrahyType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Hranice prvku ObvodPrahy.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="gml:MultiSurfacePropertyType">
+				<xs:sequence>
+					<xs:element name="StupenGeneralizace" type="com:StupenGeneralizaceType" minOccurs="1" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">Stupeň generalizace.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="ObvodPrahy" type="mpGml:ObvodPrahyGMLType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Prvek představuje území obvodu v hlavním Prahy s geometrií (GML).</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="ObvodPrahyGMLType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Prvek ObvodPrahy jako rozšíření gml:AbstractFeatureType.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="gml:AbstractFeatureType">
+				<xs:sequence>
+					<xs:group ref="mp:ObvodPrahyGroup" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="PlatiOd" type="base:DatumCasType" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">Začátek platnosti.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="IdTransakce" type="com:IdTransakceType" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">ID transakce v RUIAN.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="GlobalniIdNavrhuZmeny" type="com:IdNavrhuZmenyType" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">ID návrhu změny v ISUI.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Geometrie" type="GeometrieObvodPrahyType" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">Geometrické údaje prvku</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="NespravneUdaje" type="com:NespravnyUdajListType" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">Seznam nesprávnych referenčních údajú.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DatumVzniku" type="base:DatumCasType" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">Datum vzniku prvku.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

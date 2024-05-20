@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:ZmenPou:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:ZmenPou:v1" xmlns:zpu="urn:cz:isvs:ruian:schemas:ZmenPou:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:zt="urn:cz:isvs:ruian:schemas:ZmenaTypy:v1" elementFormDefault="qualified" version="0.40.1">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenaTypy:v1" schemaLocation="../../../ruian/xsd/typy/ZmenaTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:complexType name="PouZmenaType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Zmena POU</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod4Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Nazev" type="zt:Nazev48ZmenaType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Nespravny" type="zt:NespravnyZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="OrpKod" type="zt:Kod4ZmenaType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="SpravniObecKod" type="zt:Kod6ZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PlatiOd" type="zt:DatumCasZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="GlobalniIdNavrhuZmeny" type="zt:IdNavrhuZmenyZmenaType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="ZmenaGrafiky" type="zt:ZmenaGrafikyZmenaType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrPodejMapaAifo:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrPodejMapaAifo:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrPodejMapaAifo:v1"
+	xmlns:e176="urn:cz:isvs:iszr:schemas:IszrPodejMapaAifo:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrPodejMapaAifo">
+
+	<wsdl:documentation>Služba E176 externího rozhraní. Služba umožňuje čtení MapaAifo uložené jiným AIS (slubou E175).</wsdl:documentation>
+
+	<!-- Vývojová verze 0.1.0, 19.11.2013 Pavel Odstrčil, výchozí verze -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrPodejMapaAifo:v1" schemaLocation="../xsd/IszrPodejMapaAifo.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrPodejMapaAifo">
+		<wsdl:part name="parametry" element="e176:IszrPodejMapaAifo"/>
+	</wsdl:message>
+	<wsdl:message name="IszrPodejMapaAifoResponse">
+		<wsdl:part name="vysledek" element="e176:IszrPodejMapaAifoResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrPodejMapaAifoPortType">
+		<wsdl:operation name="IszrPodejMapaAifo">
+			<wsdl:input message="tns:IszrPodejMapaAifo"/>
+			<wsdl:output message="tns:IszrPodejMapaAifoResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrPodejMapaAifoBinding" type="tns:IszrPodejMapaAifoPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrPodejMapaAifo">
+			<soap:operation soapAction="IszrPodejMapaAifo"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrPodejMapaAifoService">
+		<wsdl:port name="IszrPodejMapaAifoPortService" binding="tns:IszrPodejMapaAifoBinding">
+			<soap:address location="IszrPodejMapaAifo"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

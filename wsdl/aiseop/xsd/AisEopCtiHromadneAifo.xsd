@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:aiseop:schemas:AisEopCtiHromadneAifo:v2" 
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	   xmlns:aisse="urn:cz:isvs:aisse:schemas:AisSeTypy:v2" 
+           xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" 
+           targetNamespace="urn:cz:isvs:aiseop:schemas:AisEopCtiHromadneAifo:v2"
+           elementFormDefault="qualified" 
+           attributeFormDefault="unqualified" 
+           version="2.0.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Definice prvků pro AIS EOP pro službuAisEopCtiHromadneAifo.</xs:documentation>
+	</xs:annotation>
+        
+    <!-- Úvodní verze pro atomické služby AIS EOP pro ZR v.2.0.0, 12.04.2017, KOMIX: Libor Málek, Jan Štastný, Andrea Vataščinová  -->
+
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd" />
+	<xs:import namespace="urn:cz:isvs:aisse:schemas:AisSeTypy:v2" schemaLocation="../../aisse/xsd/AisSeTypyV2.xsd" />
+
+	<xs:element name="AisEopSyncCtiHromadneAifo" type="AisEopCtiHromadneAifoType" />
+	<xs:element name="AisEopSyncCtiHromadneAifoResponse" type="AisEopCtiHromadneAifoResponseType" />
+
+	<xs:complexType name="AisEopCtiHromadneAifoType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na data.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" />
+			<xs:element name="AutorizaceInfo" type="reg:AutorizaceType" minOccurs="0" />
+			<xs:element name="MapaAifo" type="reg:MapaAifoType" minOccurs="0" />
+			<xs:element name="SeznamIdAdres" type="reg:SeznamIdAdresType" minOccurs="0" />
+            <xs:element name="Dotaz" type="aisse:AisSeCtiHromadneAifoDotazDataType" minOccurs="0" />
+		</xs:sequence>
+		<xs:attribute name="verzeZadosti" type="reg:VerzeType" />
+	</xs:complexType>
+
+	<xs:complexType name="AisEopCtiHromadneAifoResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpověd na dotaz.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" />
+			<xs:element name="MapaAifo" type="reg:MapaAifoType" minOccurs="0" />
+			<xs:element name="SeznamIdAdres" type="reg:SeznamIdAdresType" minOccurs="0" />
+			<xs:element name="EopOdpoved" type="AisEopCtiHromadneAifoDataResponseType" minOccurs="0" />
+		</xs:sequence>
+		<xs:attribute name="verzeZadosti" type="reg:VerzeType" />
+	</xs:complexType>
+
+	<xs:complexType name="AisEopCtiHromadneAifoDataResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpověd na dotaz - data AIS EOP.</xs:documentation>
+		</xs:annotation>		
+                    <xs:sequence>
+			<xs:element name="EopOdpovedV1" type="AisEopCtiHromadneAifoDataResponseTypeV1" minOccurs="0" />
+                    </xs:sequence>    
+	</xs:complexType>
+        
+	<xs:complexType name="AisEopCtiHromadneAifoDataResponseTypeV1">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpověd na dotaz - data AIS EOP. Verze 1.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="aisse:AisSeDotazyDataResponseType">
+				<xs:sequence minOccurs="0">
+					<xs:element name="Data" minOccurs="0" maxOccurs="unbounded">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="Aifo" type="reg:LokalniAifoType" />
+								<xs:element name="KompletniUdaje" type="aisse:KompletniUdajeOPType" />
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

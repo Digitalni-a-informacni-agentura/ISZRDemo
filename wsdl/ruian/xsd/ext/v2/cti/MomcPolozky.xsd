@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:MomcPolozky:v2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:MomcPolozky:v2" xmlns:mcPol="urn:cz:isvs:ruian:schemas:MomcPolozky:v2" xmlns:mcPolBase="urn:cz:isvs:ruian:schemas:MomcPolozkyBase:v2" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:mpPolBase="urn:cz:isvs:ruian:schemas:ObvodPrahyPolozkyBase:v2" xmlns:obPolBase="urn:cz:isvs:ruian:schemas:ObecPolozkyBase:v2" xmlns:spPolBase="urn:cz:isvs:ruian:schemas:SpravniObvodPolozkyBase:v2" elementFormDefault="qualified" version="2.0.0">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../typy/CommonTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:MomcPolozkyBase:v2" schemaLocation="../vyhledej/MomcPolozkyBase.xsd"/>
+	<xs:complexType name="MomcPolozkyType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Pozadovane polozky MOMC</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:group ref="mcPolBase:MomcPolozkyGroup" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="PlatiOd" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="IdTransakce" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="GlobalniIdNavrhuZmeny" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="MluvnickeCharakteristiky" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="VlajkaText" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="VlajkaObrazek" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ZnakText" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ZnakObrazek" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="DefinicniBod" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Hranice" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="DatumVzniku" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:VyhledejUlice:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:VyhledejUlice:v1" xmlns:vyhUl="urn:cz:isvs:ruian:schemas:VyhledejUlice:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:ulPodm="urn:cz:isvs:ruian:schemas:UlicePodminka:v1" xmlns:ulPolBase="urn:cz:isvs:ruian:schemas:UlicePolozkyBase:v1" xmlns:ul="urn:cz:isvs:ruian:schemas:Ulice:v1" elementFormDefault="qualified" version="0.40.0">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:Ulice:v1" schemaLocation="../../../ruian/xsd/prvky/Ulice.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:UlicePolozkyBase:v1" schemaLocation="../../../ruian/xsd/vyhledej/UlicePolozkyBase.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:UlicePodminka:v1" schemaLocation="../../../ruian/xsd/vyhledej/UlicePodminka.xsd"/>
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../RegTypy.xsd"/>
+	<xs:complexType name="VyhledejUliceRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na vyhledani ulic</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Dotaz" type="VyhledejUliceDotazType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VyhledejUliceDotazType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Parametry ulic</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Podminka" type="ulPodm:UlicePodminkaType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="PozadovaneUdaje" type="ulPolBase:UlicePolozkyBaseType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VyhledejUliceResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved na vyhledani ulic</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Ulice" type="UliceSeznamType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="UliceSeznamType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam ulic</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Ulice" type="ul:UliceType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="VyhledejUliceRequest" type="vyhUl:VyhledejUliceRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na vyhledani ulic</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="VyhledejUliceResponse" type="vyhUl:VyhledejUliceResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved na vyhledani ulic</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrDataCtiCertifikatRole:v1" 
+	xmlns="urn:cz:isvs:iszr:schemas:IszrDataCtiCertifikatRole:v1"
+	xmlns:i15="urn:cz:isvs:iszr:schemas:IszrDataCtiCertifikatRole:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	xmlns:iszr="urn:cz:isvs:iszr:schemas:IszrTypy:v1" 
+	xmlns:iszd="urn:cz:isvs:iszr:schemas:IszrDotazyData:v1" 
+	xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" 
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.1.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">XML schéma s definicemi dat pro služby ISZR. Interní služba I15.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vývojová verze 0.0.1, 12.12.2011 Aleš Teplý, formální úpravy -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrTypy:v1" schemaLocation="IszrTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrDotazyData:v1" schemaLocation="IszrDotazyData.xsd"/>
+
+	<xs:element name="IszrCtiCertifikatRoleData" type="IszrCtiCertifikatRoleDataType"/>
+	<xs:element name="IszrCtiCertifikatRoleDataResponse" type="IszrCtiCertifikatRoleDataResponseType"/>
+
+	<xs:complexType name="IszrCtiCertifikatRoleDataType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Datová část žádosti o ověření certifikátu.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+      <xs:element name="SerioveCisloCertifikatu" type="SerioveCisloCertifikatuType"/>
+      <xs:element name="Ais" type="reg:KodAisType"/>
+      <xs:element name="Agenda" type="reg:KodAgendyType"/>
+      <xs:element name="Ovm" type="reg:KodOvmType"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="IszrCtiCertifikatRoleDataResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Datová část odpovědi na ověření certifikátu.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="IszrAplikacniStatus" type="iszr:IszrAplikacniStatusType"/>
+			<xs:element name="NazevOvmType" type="NazevOvmType" minOccurs="0"/>
+			<xs:element name="SeznamUzemniPusobnost" type="SeznamUzemniPusobnostType" minOccurs="0"/>
+			<xs:element name="SeznamAgendovaRole" type="SeznamAgendovaRoleType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+
+  <xs:simpleType name="SerioveCisloCertifikatuType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Sériové číslo certifikátu, kladné celé číslo nebo v hexadecimálním tvaru 0x...</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="reg:NonEmptyStringType">
+      <xs:maxLength value="48"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="NazevOvmType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Název orgánu veřejné moci.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+	<xs:complexType name="SeznamUzemniPusobnostType">
+		<xs:annotation>
+			<xs:documentation>Seznam územních působností.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="UzemniPusobnost" type="UzemniPusobnostType" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="UzemniPusobnostType">
+		<xs:annotation>
+			<xs:documentation>Územní pusobnost - kombinace typu a identifikace</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="UzemniPusobnostId" type="UzemniPusobnostIdType"/>
+			<xs:element name="UzemniPusobnostTyp" type="UzemniPusobnostTypType"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:simpleType name="UzemniPusobnostIdType">
+		<xs:annotation>
+			<xs:documentation>Identifikátor uzemní působnosti.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:int"/>
+	</xs:simpleType>
+
+	<xs:simpleType name="UzemniPusobnostTypType">
+		<xs:annotation>
+			<xs:documentation>Typ územní působnosti (obec, Městská část).</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+
+  <xs:complexType name="SeznamAgendovaRoleType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Seznam agendových rolí.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+			<xs:element name="AgendovaRole" type="reg:AgendovaRoleType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+
+</xs:schema>

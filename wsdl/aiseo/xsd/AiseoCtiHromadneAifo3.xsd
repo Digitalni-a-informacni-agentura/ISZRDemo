@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:aiseo:schemas:AiseoCtiHromadneAifo3:v1" 
+           xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+           xmlns:rob="urn:cz:isvs:rob:schemas:RobTypy:v1" 
+           xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" 
+           xmlns:typse="urn:cz:isvs:aisse:schemas:AisSeTypy3:v1"
+           xmlns:dt="urn:cz:isvs:aisse:schemas:DataTypy:v1"
+           targetNamespace="urn:cz:isvs:aiseo:schemas:AiseoCtiHromadneAifo3:v1"            
+           elementFormDefault="qualified" 
+           attributeFormDefault="unqualified" 
+           version="0.3.0">
+    
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">XML schéma s definicemi dat pro služby Aiseo, služba AiseoCtiHromadneAifo3.</xs:documentation>
+	</xs:annotation>
+
+        <!-- Vývojová verze 0.3.0, 20.02.2020, Libor Málek  Úvodní verze - vytvoření nové služby-->
+
+	<xs:import namespace="urn:cz:isvs:rob:schemas:RobTypy:v1" schemaLocation="../../rob/xsd/RobTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+        <xs:import namespace="urn:cz:isvs:aisse:schemas:AisSeTypy3:v1" schemaLocation="../../aisse/xsd/AisSeTypyV3.xsd" />
+        <xs:import namespace="urn:cz:isvs:aisse:schemas:DataTypy:v1" schemaLocation="../../aisse/xsd/DataTypy.xsd" />
+
+	<xs:element name="AiseoSyncCtiHromadneAifo3" type="AiseoSyncCtiHromadneAifo3Type">
+                <xs:annotation>
+			<xs:documentation xml:lang="cs">Služba umožňuje přijmout žádost o data na zákaldě AIFO</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+        
+	<xs:element name="AiseoSyncCtiHromadneAifo3Response" type="AiseoCtiHromadneAifo3ResponseType"/>
+        
+	<xs:complexType name="AiseoSyncCtiHromadneAifo3Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na data.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType"/>
+			<xs:element name="AutorizaceInfo" type="reg:AutorizaceType"/>
+			<xs:element name="MapaAifo" type="reg:MapaAifoType"/>
+			<xs:element name="Dotaz" minOccurs="0">
+				<xs:complexType>
+                                        <xs:attribute name="znepristupniLog" type="xs:boolean">
+                                                <xs:annotation>
+                                                        <xs:documentation>Zápis do sledování dotazů - znepřístupnění záznamu</xs:documentation>
+                                                </xs:annotation>
+                                        </xs:attribute>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+        
+ 	<xs:complexType name="AiseoCtiHromadneAifo3ResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpověd na dotaz - data AIS EO. Verze 3.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" />
+			<xs:element name="MapaAifo" type="reg:MapaAifoType" minOccurs="0" />
+			<xs:element name="SeznamIdAdres" type="reg:SeznamIdAdresType" minOccurs="0" />
+			<xs:element name="EoOdpoved" type="AiseoSyncCtiHromadneAifo3DataResponseType" minOccurs="0" />
+		</xs:sequence>
+		<xs:attribute name="verzeZadosti" type="reg:VerzeType" />
+	</xs:complexType>   
+                
+        
+	<xs:complexType name="AiseoSyncCtiHromadneAifo3DataResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpověd na dotaz - data AIS EO.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="EoOdpoved" type="AisEoCtiHromadneAifo3DataResponseType"/>
+		</xs:sequence>
+	</xs:complexType>
+        
+	<xs:complexType name="AisEoCtiHromadneAifo3DataResponseType">                
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpověd na dotaz - data AIS EO. Verze 3.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="typse:AisSeDotazyDataResponseType">
+				<xs:sequence minOccurs="0">
+					<xs:element name="KompletniUdaje" type="typse:KompletniUdajeEOType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>                
+                
+                
+	</xs:complexType>  
+</xs:schema>

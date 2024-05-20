@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekMomc2:v1" 
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekMomc2:v1" 
+	xmlns:e250f="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekMomc2:v1" 
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:ctiMc="urn:cz:isvs:ruian:schemas:CtiMomc:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified" 
+	version="2.0.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E250f externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	
+	<!-- Výchozí verze 2.0.0, 6.10.2020 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiMomc:v2" schemaLocation="../../ruian/xsd/ext/v2/cti/CtiMomc.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiMomc:v2" schemaLocation="ref/RuianCtiPrvekMomc2.xsd"/>
+
+	<xs:element name="RuianCtiPrvekMomc2" type="RuianCtiPrvekMomc2Type"/>
+	<xs:element name="RuianCtiPrvekMomc2Response" type="RuianCtiPrvekMomc2ResponseType"/>
+	
+	<xs:complexType name="RuianCtiPrvekMomc2Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E250f externího rozhraní - žádost. Načtení Momc z RUIAN. RUIAN služba, operace ctiMomc.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianCtiPrvekMomc2Data" type="ctiMc:CtiMomcDotazType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="RuianCtiPrvekMomc2ResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E250f externího rozhraní - odpověď. Načtení Momc z RUIAN. RUIAN služba, operace ctiMomc.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+				  <xs:element name="RuianOdpoved" minOccurs="0">
+					<xs:complexType>
+					  <xs:sequence>
+						<xs:element name="RuianCtiPrvekMomc2DataResponse">
+						  <xs:complexType>
+							<xs:sequence>
+							  <xs:element ref="ctiMc:Momc"/>
+							</xs:sequence>
+						  </xs:complexType>
+						</xs:element>
+					  </xs:sequence>
+					</xs:complexType>
+				  </xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

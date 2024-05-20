@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns="urn:cz:isvs:iszr:services:IszrRppVypisUkonNaZadost:v1" xmlns:tns="urn:cz:isvs:iszr:services:IszrRppVypisUkonNaZadost:v1" xmlns:e232="urn:cz:isvs:iszr:schemas:IszrRppVypisUkonNaZadost:v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" name="IszrRppVypisUkonNaZadost" targetNamespace="urn:cz:isvs:iszr:services:IszrRppVypisUkonNaZadost:v1">
+	<wsdl:documentation>Služba E232 externího rozhraní - Služba na základě předaných dat vypíše Úkon na žádost včetně nových údajů plynoucích ze zák 251 a novely 111/2009 - RPP služba P73.</wsdl:documentation>
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRppVypisUkonNaZadost:v1" schemaLocation="../xsd/IszrRppVypisUkonNaZadost.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrRppVypisUkonNaZadost">
+		<wsdl:part name="parametry" element="e232:RppVypisUkonNaZadost"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRppVypisUkonNaZadostResponse">
+		<wsdl:part name="vysledek" element="e232:RppVypisUkonNaZadostResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRppVypisUkonNaZadostPortType">
+		<wsdl:operation name="IszrRppVypisUkonNaZadost">
+			<wsdl:input message="IszrRppVypisUkonNaZadost"/>
+			<wsdl:output message="IszrRppVypisUkonNaZadostResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRppVypisUkonNaZadostBinding" type="tns:IszrRppVypisUkonNaZadostPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRppVypisUkonNaZadost">
+			<soap:operation soapAction="IszrRppVypisUkonNaZadost"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRppVypisUkonNaZadostService">
+		<wsdl:port name="IszrRppVypisUkonNaZadostPortService" binding="tns:IszrRppVypisUkonNaZadostBinding">
+			<soap:address location="IszrRppVypisUkonNaZadost"/>
+		</wsdl:port>
+	</wsdl:service>
+
+	<!-- Vytvoření nové služby, která vrátí vždy základní údaje úkonu, násobné údaje vedené úkonu vrací pouze v případě požadavku uživatele v řídící části služby. Služba na základě předaných dat vypíše Úkon na žádost včetně nových údajů plynoucích ze zák 251 a novely 111/2009, verze 1.3.3, 12.7.2018, Aleš Teplý -->
+	<!-- Verze po revizi 1.0.1, 14.10.2020, Aleš Teplý, RuianCtiProRobDataResponse v1 i v2 -->
+	<!-- Verze po revizi 1.3.5, 15.10.2021, Aleš Teplý, AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- Verze po revizi 1.4.0, 25.5.2022, Aleš Teplý, Response - AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- AutoCont CZ a.s. -->
+
+</wsdl:definitions>

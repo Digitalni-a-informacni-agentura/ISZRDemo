@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRosZapisPravniStav:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRosZapisPravniStav:v1"
+	xmlns:e93="urn:cz:isvs:iszr:schemas:IszrRosZapisPravniStav:v1"
+	xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:sed="urn:cz:isvs:ros:schemas:RosEditaceData:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.1.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E93 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vývojová verze 0.0.1, 09.09.2011, Pavel Kirchner -->
+	<!-- Vývojová verze 0.0.2, 13.09.2011, Aleš Teplý, podadresáře registrů malými písmeny -->
+	<!-- Fixovaná verze 1.0.0, 18.09.2011, Aleš Teplý -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ros:schemas:RosEditaceData:v2" schemaLocation="../../ros/xsd/RosEditaceData.xsd"/>
+
+	<xs:element name="RosZapisPravniStav" type="RosZapisPravniStavType"/>
+	<xs:element name="RosZapisPravniStavResponse" type="RosZapisPravniStavResponseType"/>
+
+	<xs:complexType name="RosZapisPravniStavType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E93 externího rozhraní - typ pro žádost. Služba provádí zápis informace o právním stavu nebo zániku právního stavu do ROS. - služba ROS S17. Vstupní údaje (IČO, identifikátor poslední změny  a právní stav (hodnoty dle číselníku)).</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RosZapisPravniStavData" type="sed:RosZapisPravniStavDataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="RosZapisPravniStavResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E93 externího rozhraní - typ pro odpověď. Služba provádí zápis informace o právním stavu nebo zániku právního stavu do ROS - služba ROS S17. identifikátor změny, časový okamžik změny a status a výpis pro DS</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="RosOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RosZapisPravniStavDataResponse" type="sed:RosZapisPravniStavDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

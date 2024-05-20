@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrEopCtiIdFoto:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrEopCtiIdFoto:v1"
+	xmlns:e268="urn:cz:isvs:iszr:schemas:IszrEopCtiIdFoto:v1"
+	xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:z6="urn:cz:isvs:aiseop:schemas:AisEopCtiIdFoto:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.0.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E268 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vznik verze 1.0.0, 20.04.2021, ales.teply@autocont.cz -->
+	<!-- Verze po revizi 1.0.1, 23.9.2021, Aleš Teplý, oprava importu AisEopCtiIdFoto.xsd - case sensitivita Path "/aisEop/" -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstractOrg.xsd"/>
+	<xs:import namespace="urn:cz:isvs:aiseop:schemas:AisEopCtiIdFoto:v1" schemaLocation="../../aiseop/xsd/AisEopCtiIdFoto.xsd"/>
+	<xs:element name="EopCtiIdFoto" type="EopCtiIdFotoType"/>
+	<xs:element name="EopCtiIdFotoResponse" type="EopCtiIdFotoResponseType"/>
+	<xs:complexType name="EopCtiIdFotoType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E268 externího rozhraní - typ pro žádost. Služba umožňujevyhledávat Aifo podle IdFoto.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="AisEopCtiIdFotoData" type="z6:AisEopCtiIdFotoDataType" minOccurs="0"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="EopCtiIdFotoResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E268 externího rozhraní - typ pro odpověď. Služba umožňujevyhledávat Aifo podle IdFoto.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAifoStAbstractType">
+				<xs:sequence>
+					<xs:element name="EopOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="EopCtiIdFotoDataResponse" type="z6:AisEopCtiIdFotoDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

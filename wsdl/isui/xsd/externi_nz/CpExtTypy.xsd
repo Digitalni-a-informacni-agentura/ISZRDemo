@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:isui:schemas:CpExtTypy:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:isui:schemas:CpExtTypy:v1" xmlns:cpx="urn:cz:isvs:isui:schemas:CpExtTypy:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:eex="urn:cz:isvs:isui:schemas:EditaceExtTypy:v1" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" elementFormDefault="qualified" version="0.0.2">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Aplikační schéma pro kontrolu a zplatnění návrhu změny v rámci agendy České Pošty.</xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../ruian/xsd/typy/CommonTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:isui:schemas:EditaceExtTypy:v1" schemaLocation="../../../isui/xsd/externi_nz/EditaceExtTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../RegTypy.xsd"/>
+	<xs:complexType name="ZmenPrvkyCpRequestType">
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Dotaz" type="EditaceCpType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="EditaceCpType">
+		<xs:sequence>
+			<xs:element name="HlavickaNZ" type="eex:HlavickaNzType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Prvky" type="PrvekListEditaceCpType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PrvekEditaceCpType">
+		<xs:choice>
+			<xs:element name="VytvoreniAdresniPosta" type="AdresniPostaVytvoreniExtNZType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="ZmenaAdresniPosta" type="AdresniPostaZmenaExtNZType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="ZruseniAdresniPosta" type="AdresniPostaZruseniExtNZType" minOccurs="1" maxOccurs="1"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="AdresniPostaVytvoreniExtNZType">
+		<xs:sequence>
+			<xs:element name="Psc" type="com:PscType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">PSČ adresní pošty.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Nazev" type="base:Nazev48Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Název adresní pošty.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AdresniPostaZmenaExtNZType">
+		<xs:sequence>
+			<xs:element name="Psc" type="com:PscType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">PSČ adresní pošty.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Nazev" type="base:Nazev48Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Název adresní pošty.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GlobalniIdNavrhuZmeny" type="com:IdNavrhuZmenyType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AdresniPostaZruseniExtNZType">
+		<xs:sequence>
+			<xs:element name="Psc" type="com:PscType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">PSČ adresní pošty.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GlobalniIdNavrhuZmeny" type="com:IdNavrhuZmenyType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ZplatniNzCpRequest" type="cpx:ZmenPrvkyCpRequestType"/>
+	<xs:complexType name="PrvekListEditaceCpType">
+		<xs:sequence>
+			<xs:element name="Prvek" type="PrvekEditaceCpType" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

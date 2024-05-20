@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRosVymazProvozovnu:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRosVymazProvozovnu:v1"
+	xmlns:e27="urn:cz:isvs:iszr:schemas:IszrRosVymazProvozovnu:v1"
+	xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:sed="urn:cz:isvs:ros:schemas:RosEditaceData:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.1.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E27 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vývojová verze 0.0.1, 28.06.2011, Aleš Teplý -->
+	<!-- Vývojová verze 0.0.2, 13.07.2011, Aleš Teplý, Response nemusí obsahovat data (async) -->
+	<!-- Vývojová verze 0.0.3, 21.07.2011, Aleš Teplý, ref na type (sjednocení), odstraneno PrvotniPlneni -->
+	<!-- Vývojová verze 0.0.4, 13.09.2011, Aleš Teplý, podadresáře registrů malými písmeny -->
+	<!-- Fixovaná verze 1.0.0, 18.09.2011, Aleš Teplý -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ros:schemas:RosEditaceData:v2" schemaLocation="../../ros/xsd/RosEditaceData.xsd"/>
+
+	<xs:element name="RosVymazProvozovnu" type="RosVymazProvozovnuType"/>
+	<xs:element name="RosVymazProvozovnuResponse" type="RosVymazProvozovnuResponseType"/>
+
+	<xs:complexType name="RosVymazProvozovnuType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E27 externího rozhraní - typ pro žádost. Služba provádí výmaz provozovny z ROS - služba ROS S12. Slouží pro korekci chybného zápisu do registru.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RosVymazProvozovnuData" type="sed:RosVymazProvozovnuDataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="RosVymazProvozovnuResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E27 externího rozhraní - typ pro odpověď. Služba provádí výmaz provozovny z ROS - služba ROS S12.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="RosOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RosVymazProvozovnuDataResponse" type="sed:RosVymazProvozovnuDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:ros:schemas:RosReg:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" targetNamespace="urn:cz:isvs:ros:schemas:RosReg:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.0">
+    <xs:annotation>
+        <xs:documentation xml:lang="cs">
+            Návrh XML schématu s definicemi specifickými pro interní služby ROS.
+        </xs:documentation>
+    </xs:annotation>
+    <!-- Verze 1.0.0, 9.2.2012 -->
+    <xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+    <!-- Číselník ROS služeb -->
+    <xs:simpleType name="KodRosSluzbyType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Kód služby, výčtový typ všech dotazovacích a editačních služeb ROS.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NazevSluzbyType">
+            <xs:enumeration value="RosCtiIco"/>
+            <xs:enumeration value="RosCtiAifo"/>
+            <xs:enumeration value="RosCtiPodleUdaju"/>
+            <xs:enumeration value="RosCtiZmeny"/>
+            <xs:enumeration value="RosCtiSeznamIco"/>
+            <xs:enumeration value="RosCtiSeznamEditoru"/>
+            <xs:enumeration value="RosVypisVyuziti"/>
+            <xs:enumeration value="RosPridelIco"/>
+            <xs:enumeration value="RosPridelIcp"/>
+            <xs:enumeration value="RosVlozOsobu"/>
+            <xs:enumeration value="RosZmenOsobu"/>
+            <xs:enumeration value="RosVymazOsobu"/>
+            <xs:enumeration value="RosVlozProvozovnu"/>
+            <xs:enumeration value="RosZmenProvozovnu"/>
+            <xs:enumeration value="RosVymazProvozovnu"/>
+            <xs:enumeration value="RosZapisDatovouSchranku"/>
+            <xs:enumeration value="RosZapisPravniStav"/>
+            <xs:enumeration value="RosOverIco"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

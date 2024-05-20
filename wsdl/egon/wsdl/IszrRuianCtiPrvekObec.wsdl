@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRuianCtiPrvekObec:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRuianCtiPrvekObec:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRuianCtiPrvekObec:v1"
+	xmlns:e35h="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekObec:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRuianCtiPrvekObec">
+
+	<wsdl:documentation>Služba E35h externího rozhraní - Načtení obce z RUIAN. RUIAN služba A04, operace ctiObec.</wsdl:documentation>
+	
+	<!-- Vývojová verze 0.0.1, 24.06.2011, Aleš Teplý -->
+	<!-- Vývojová verze 0.0.2, 27.07.2011, Pavel Kirchner -->
+	<!-- Fixovaná verze 1.0.0, 26.10.2011, Aleš Teplý -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekObec:v1" schemaLocation="../xsd/IszrRuianCtiPrvekObec.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrRuianCtiPrvekObec">
+		<wsdl:part name="parametry" element="e35h:RuianCtiPrvekObec"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRuianCtiPrvekObecResponse">
+		<wsdl:part name="vysledek" element="e35h:RuianCtiPrvekObecResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRuianCtiPrvekObecPortType">
+		<wsdl:operation name="IszrRuianCtiPrvekObec">
+			<wsdl:input message="tns:IszrRuianCtiPrvekObec"/>
+			<wsdl:output message="tns:IszrRuianCtiPrvekObecResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRuianCtiPrvekObecBinding" type="tns:IszrRuianCtiPrvekObecPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRuianCtiPrvekObec">
+			<soap:operation soapAction="IszrRuianCtiPrvekObec"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRuianCtiPrvekObecService">
+		<wsdl:port name="IszrRuianCtiPrvekObecPortService" binding="tns:IszrRuianCtiPrvekObecBinding">
+			<soap:address location="IszrRuianCtiPrvekObec"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

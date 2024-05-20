@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:AdresniMisto:v2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:AdresniMisto:v2" xmlns:ad="urn:cz:isvs:ruian:schemas:AdresniMisto:v2" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:so="urn:cz:isvs:ruian:schemas:StavebniObjekt:v2" xmlns:ul="urn:cz:isvs:ruian:schemas:Ulice:v2" elementFormDefault="qualified" version="2.0.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Aplikační schéma AdresniMisto obsahuje prvek typu adresní místo se základními elementy a bez geometrie. </xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:Ulice:v2" schemaLocation="Ulice.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:StavebniObjekt:v2" schemaLocation="StavebniObjekt.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../typy/CommonTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../typy/BaseTypy.xsd"/>
+	<xs:element name="AdresniMisto" type="ad:AdresniMistoType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Prvek představuje adresní místo.
+
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:group name="AdresniMistoGroup">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Základní elementy prvku adresní místo.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod9Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód adresního místa.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Nespravny" type="com:NespravnyType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Identifikátor nesprávnosti na prvku.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CisloDomovni" type="com:CisloDomovniType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Číslo domovní.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CisloOrientacni" type="com:CisloOrientacniType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Číselná část čísla orientačního.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CisloOrientacniPismeno" type="com:CisloOrientacniPismenoType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Koncové písmeno čísla orientačního.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Psc" type="com:PscType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">PSČ adresní pošty.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StavebniObjekt" type="so:StavebniObjektType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Nadřazený stavební objekt.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Ulice" type="ul:UliceType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Nadřazená ulice.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VOKod" type="base:Kod6Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód volebního okrsku</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:group>
+	<xs:complexType name="AdresniMistoType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Prvek adresní místo se základními elementy.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:group ref="AdresniMistoGroup" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

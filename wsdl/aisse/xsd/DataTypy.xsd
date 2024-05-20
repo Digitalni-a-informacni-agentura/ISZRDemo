@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:aisse:schemas:DataTypy:v1"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="urn:cz:isvs:aisse:schemas:DataTypy:v1"
+           elementFormDefault="qualified" attributeFormDefault="unqualified"
+           version="1.0.0">
+    <xs:annotation>
+        <xs:documentation xml:lang="cs">Definice obecných datových prvků.</xs:documentation>
+    </xs:annotation>
+
+    <!-- Úvodní verze 1.0.0, 07.06.2017, KOMIX: Libor Málek, Jan Štastný, Andrea Vataščinová  -->
+    <!-- Úprava verze 1.0.1, 21.05.2019, KOMIX: Ladislav Hlom - úprava položek -->
+
+    <xs:simpleType name="Text250">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="250"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+
+    <xs:simpleType name="Text300">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="300"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Text100">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="100"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Text1000">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="1000"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Text60">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="60"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Text50">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="50"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Text48">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="48"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Text45">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="45"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Text32">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="32"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Text30">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="30"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Text20">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="20"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Text15">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="15"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Text11">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="11"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Text10">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="10"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Text6">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="6"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Text5">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="5"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Text4">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="4"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Text3">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="3"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Text2">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="2"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Text1">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="1"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="JmenoType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Jméno</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="100"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="KratkeJmenoType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">zkrácená podoba jména, popřípadě jmen a příjmení, pokud jsou zapsané v
+                dokladu
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="100"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="PrijmeniType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Příjmení</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="100"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="RodneCisloType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Rodné číslo</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+
+    <xs:simpleType name="DatumType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Datum</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:date"/>
+    </xs:simpleType>
+
+    <xs:simpleType name="DatumCasType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Datum a čas</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:dateTime"/>
+    </xs:simpleType>
+
+    <xs:simpleType name="PohlType">
+        <xs:annotation>
+            <xs:documentation>Pohlaví</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+
+    <xs:simpleType name="PohlaviType">
+        <xs:annotation>
+            <xs:documentation>Pohlaví</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="1"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+     <xs:simpleType name="RodinnyStavKodType">
+        <xs:annotation>
+            <xs:documentation>Rodinný stav kód</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="1"/>
+        </xs:restriction>
+    </xs:simpleType>   
+    
+    <xs:simpleType name="OPCisloType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Čislo OP</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+    
+     <xs:simpleType name="OPCisloIntType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Čislo OP</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:int"/>
+    </xs:simpleType>   
+
+    <xs:simpleType name="OPSerieType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Série OP</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+
+    <xs:simpleType name="OPZadostCisloType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Čislo žádosti o OP</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:long"/>
+    </xs:simpleType>
+
+    <xs:simpleType name="TotoznostType">
+        <xs:annotation>
+            <xs:documentation>Totožnost</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="100"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="MistoDoklType">
+        <xs:annotation>
+            <xs:documentation>Místo předání/převzetí dokladu</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="100"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+
+    <xs:simpleType name="CDCisloType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Čislo CD</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:int"/>
+    </xs:simpleType>
+
+
+    <!--xs:simpleType name="CDDruhType">
+  <xs:annotation>
+      <xs:documentation xml:lang="cs">Druh CD</xs:documentation>
+  </xs:annotation>
+  <xs:restriction base="xs:int"/>
+</xs:simpleType-->
+
+
+    <xs:simpleType name="CDZadostCisloType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Čislo žádosti o CD</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:long"/>
+    </xs:simpleType>
+
+
+    <xs:simpleType name="DruhCestovnihoDokladuType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Druh dokladu kód:
+                CD - Cestovní doklad
+                CP - Cestovní pas
+                CA - Cestovní průkaz
+                CB - Cestovní doklad PR v rámci MPS
+                CT - Cestovní pas se strojově čitelným kódem
+                EP - Cestovní pas s biometrickými údaji
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="2"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+
+    <xs:simpleType name="PriznakZmeny">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Příznak změny údaje - Ano/Ne</xs:documentation>
+        </xs:annotation>        
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="3" />
+            <xs:enumeration value="Ano" />
+            <xs:enumeration value="Ne" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="IdFotoType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">ID foto</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:long"/>
+    </xs:simpleType>
+    
+</xs:schema>
+
+

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:aisp:schemas:AispVypisDetailIs:v1" xmlns:aispd="urn:cz:isvs:aisp:schemas:AispDotazyData:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:cz:isvs:aisp:schemas:AispVypisDetailIs:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.0.1">
+    <xs:annotation>
+        <xs:documentation xml:lang="cs">Výpis údajů informačního systému.</xs:documentation>
+    </xs:annotation>
+    <!-- Vývojová verze 0.0.1, 19.10.2018, Petr Roušar -->
+    <xs:import namespace="urn:cz:isvs:aisp:schemas:AispDotazyData:v1" schemaLocation="AispDotazyData.xsd"/>
+    <xs:element name="AispVypisDetailIs" type="AispVypisDetailIsType"/>
+    <xs:element name="AispVypisDetailIsResponse" type="AispVypisDetailIsResponseType"/>
+    <xs:complexType name="AispVypisDetailIsType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz na výpis detailu veřejných údajů k informačnímu systému.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="aispd:ZadostAbstractType">
+                <xs:sequence>
+                    <xs:element name="Zadost">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="AispVypisDetailIsData" type="aispd:AispVypisDetailIsDataType"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="AispVypisDetailIsResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď dotaz na výpis detailu veřejných údajů k informačnímu systému.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="aispd:OdpovedAbstractType">
+                <xs:sequence>
+                    <xs:element name="AispOdpoved" minOccurs="0">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="AispVypisDetailIsDataResponse" type="aispd:AispVypisDetailIsDataResponseType"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>

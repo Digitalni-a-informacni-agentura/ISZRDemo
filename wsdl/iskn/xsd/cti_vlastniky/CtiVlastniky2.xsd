@@ -1,0 +1,348 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:iskn:schemas:CtiVlastniky:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns="urn:cz:isvs:iskn:schemas:CtiVlastniky:v2"
+	xmlns:iskncom="urn:cz:isvs:iskn:schemas:CommonTypy:v2"
+	xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+	elementFormDefault="qualified"
+	version="2.0.0">
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iskn:schemas:CommonTypy:v2" schemaLocation="../typy/CommonTypy2.xsd"/>
+
+	<xs:complexType name="CtiVlastnikyResponseType">
+		<xs:annotation>
+			<xs:documentation>Odpověď na dotaz na seznam vlastníků nemovitosti.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Odpoved" type="CtiVlastnikyOdpovedType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CtiVlastnikyRequestType">
+		<xs:annotation>
+			<xs:documentation>Dotaz na seznam vlastníků nemovitosti.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Dotaz" type="CtiVlastnikyDotazType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CtiVlastnikyDotazType">
+		<xs:annotation>
+			<xs:documentation>Parametry dotazu na seznam vlastníků nemovitosti.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="TypPrvku" type="iskncom:TypPrvkuVlastnictviType" minOccurs="1"
+				maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Typ vyhledávaného prvku.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Kod" type="iskncom:Id18Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Kód vyhledávaného prvku.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:group name="OFOGroup">
+		<xs:annotation>
+			<xs:documentation>Atributy fyzické osoby.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Id" type="iskncom:Id18Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Identifikátor osoby.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Prijmeni" type="iskncom:PrijmeniType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Příjmení.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Jmeno" type="iskncom:JmenoType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Jméno.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TitulPredJmenem" type="iskncom:TitulPredJmenemType" minOccurs="0"
+				maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Titul před jménem.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TitulZaJmenem" type="iskncom:TitulZaJmenemType" minOccurs="0"
+				maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Titul za jménem.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ZkraceneRc" type="iskncom:ZkraceneRCType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Prvních šest znaků rodného čísla.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Adresa" type="AdresaType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Adresa.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:group>
+	<xs:element name="CtiVlastnikyRequest" type="CtiVlastnikyRequestType">
+		<xs:annotation>
+			<xs:documentation>Dotaz na seznam vlastníků nemovitosti.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="CtiVlastnikyResponse" type="CtiVlastnikyResponseType">
+		<xs:annotation>
+			<xs:documentation>Odpověď na dotaz na seznam vlastníků nemovitosti.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="OFOType">
+		<xs:annotation>
+			<xs:documentation>Typ vlastníka odpovídající fyzické osobě.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:group ref="OFOGroup" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:group name="VlastnikGroup">
+		<xs:sequence>
+			<xs:element name="TypVlastnictviKod" type="iskncom:TypVlastnictviKodType" minOccurs="1"
+				maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Kód typu vlastnictví.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TypVlastnictviNazev" type="iskncom:TypVlastnictviNazevType"
+				minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Název typu vlastnictví.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Podil" type="PodilType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Vlastnický podíl.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:group>
+	<xs:complexType name="VlastnikOPOType">
+		<xs:annotation>
+			<xs:documentation>Typ vlastníka odpovídající právnické osobě.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Id" type="iskncom:Id18Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Identifikátor osoby.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Nazev" type="iskncom:NazevOsobyType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Název.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Ico" type="reg:IcoType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>IČO.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DoplnekIco" type="iskncom:IcoDoplnekType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Doplněk IČO.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Adresa" type="AdresaType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Adresa.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:group ref="CharOSGroup" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VlastnikBSMType">
+		<xs:annotation>
+			<xs:documentation>Typ vlastníka odpovídající společnému jmění manželů.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Id" type="iskncom:Id18Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Identifikátor osoby.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Nazev" type="iskncom:NazevOsobyType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Název.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Partner1" type="OFOType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Partner2" type="OFOType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PodilType">
+		<xs:annotation>
+			<xs:documentation>Typ definující vlastnický podíl.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Citatel" type="iskncom:CitatelType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Čitatel.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Jmenovatel" type="iskncom:JmenovatelType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Jmenovatel.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VlastnikType">
+		<xs:sequence>
+			<xs:choice maxOccurs="1" minOccurs="1">
+				<xs:element name="FyzickaOsoba" type="VlastnikOFOType" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="PravnickaOsoba" type="VlastnikOPOType" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="SpolecneJmeniManzelu" type="VlastnikBSMType" minOccurs="1"
+					maxOccurs="1"/>
+				<xs:element name="NadrazenaNemovitost" type="NadrazenaNemovitostType" minOccurs="1"
+					maxOccurs="1"/>
+			</xs:choice>
+			<xs:group ref="VlastnikGroup" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CtiVlastnikyOdpovedType">
+		<xs:annotation>
+			<xs:documentation>Odpověď WS čti vlastníky.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="iskncom:Id18Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="TypPrvku" type="iskncom:TypPrvkuVlastnictviType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Vlastnik" type="VlastnikType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AdresaType">
+		<xs:annotation>
+			<xs:documentation>Adresa.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Ulice" type="iskncom:NazevUliceType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Název ulice.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CisloDomovni" type="iskncom:CisloDomovniType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Číslo domovní.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TypCislaDomovniho" type="iskncom:TypCisloDomovniType" minOccurs="0"
+				maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Typ čísla domovního.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CisloOrientacni" type="iskncom:CisloOrientacniType" minOccurs="0"
+				maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Číslo orientační.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Psc" type="iskncom:PscType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>PSČ.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CastObce" type="iskncom:NazevCastiObceType" minOccurs="0"
+				maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Název části obce.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Obec" type="iskncom:NazevObceType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Název obce.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Okres" type="iskncom:NazevOkresuType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Název okresu.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Stat" type="iskncom:NazevStatType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Název státu.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VlastnikOFOType">
+		<xs:annotation>
+			<xs:documentation>Typ vlastníka odpovídající fyzické osobě.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:group ref="OFOGroup" minOccurs="1" maxOccurs="1"/>
+			<xs:group ref="CharOSGroup" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="NadrazenaNemovitostType">
+		<xs:annotation>
+			<xs:documentation>Nemovitost v roli vlastníka</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:choice minOccurs="1" maxOccurs="1">
+				<xs:element name="Parcela" type="ParcelaType" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="Stavba" type="StavbaType" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="Jednotka" type="JednotkaType" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="PravoStavby" type="PravoStavbyType" minOccurs="1" maxOccurs="1"/>
+			</xs:choice>
+			<xs:element name="Vlastnik" type="VlastnikType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="StavbaType">
+		<xs:annotation>
+			<xs:documentation>Identifikační údaje stavby</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="StavbaTypKod" type="iskncom:TypStavbyKodType"/>
+			<xs:element name="CastObceNazev" type="iskncom:NazevCastiObceType" minOccurs="0"/>
+			<xs:element name="CisloDomovni" type="iskncom:CisloDomovniType" minOccurs="0"/>
+			<xs:element name="ParcelaIdentifikacni" type="ParcelaType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ParcelaType">
+		<xs:annotation>
+			<xs:documentation>Identifikační údaje parcely</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="KatastralniUzemiKod" type="iskncom:Kod6Type"/>
+			<xs:element name="KatastralniUzemiNazev" type="iskncom:Nazev48Type"/>
+			<xs:element name="KmenoveCislo" type="iskncom:KmenoveCisloType"/>
+			<xs:element name="PoddeleniCisla" type="iskncom:PoddeleniCislaType" minOccurs="0"/>
+			<xs:element name="DruhCislovaniKod" type="iskncom:DruhCislovaniParType"/>
+			<xs:element name="DruhPozemkuKod" type="iskncom:DruhPozemkuKodType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="JednotkaType">
+		<xs:annotation>
+			<xs:documentation>Identifikační údaje Jednotky</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CisloJednotky" type="iskncom:CisloJednotkyType"/>
+			<xs:element name="Stavba" type="StavbaType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PravoStavbyType">
+		<xs:annotation>
+			<xs:documentation>Identifikační údaje práva stavby</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ParcelaIdentifikacni" type="ParcelaType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:group name="CharOSGroup">
+		<xs:sequence>
+			<xs:element name="CharOSKod" type="iskncom:CharakteristikaOSKodType"/>
+			<xs:element name="charOSNazev" type="iskncom:CharakteristikaOSZkratkaType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:group>
+</xs:schema>

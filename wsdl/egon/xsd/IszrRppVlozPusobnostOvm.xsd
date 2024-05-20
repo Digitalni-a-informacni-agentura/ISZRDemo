@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRppVlozPusobnostOvm:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRppVlozPusobnostOvm:v1"
+	xmlns:e131="urn:cz:isvs:iszr:schemas:IszrRppVlozPusobnostOvm:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:ped="urn:cz:isvs:rpp:schemas:RppEditaceData:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.1.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E131 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vývojová verze 0.0.1, 21.12.2011, Aleš Teplý -->
+	<!-- Fixovaná verze 1.0.0, 11.01.2012, Aleš Teplý -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rpp:schemas:RppEditaceData:v1" schemaLocation="../../rpp/xsd/RppEditaceData.xsd"/>
+
+	<xs:element name="RppVlozPusobnostOvm" type="RppVlozPusobnostOvmType"/>
+	<xs:element name="RppVlozPusobnostOvmResponse" type="RppVlozPusobnostOvmResponseType"/>
+
+	<xs:complexType name="RppVlozPusobnostOvmType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E131 externího rozhraní - typ pro žádost. Služba, kterou se provádí vložení záznamu do Katalogu Působností. RPP služba P28.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RppVlozPusobnostOvmData" type="ped:RppVlozPusobnostOvmDataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="RppVlozPusobnostOvmResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E131 externího rozhraní - typ pro odpověď. Služba, kterou se provádí vložení záznamu do Katalogu Působností. RPP služba P28.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="RppOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RppVlozPusobnostOvmDataResponse" type="ped:RppVlozPusobnostOvmDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

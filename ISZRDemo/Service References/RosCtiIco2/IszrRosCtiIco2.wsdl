@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:cz:isvs:iszr:services:IszrRosCtiIco2:v1" xmlns:e256="urn:cz:isvs:iszr:schemas:IszrRosCtiIco2:v1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns="urn:cz:isvs:iszr:services:IszrRosCtiIco2:v1" name="IszrRosCtiIco2" targetNamespace="urn:cz:isvs:iszr:services:IszrRosCtiIco2:v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation>Služba E256 externího rozhraní - Služba na základě identifikace osoby pomocí IČO vrací požadované referenční údaje.</wsdl:documentation>
+  <wsdl:types>
+    <xsd:schema>
+      <xsd:import schemaLocation="../xsd/IszrRosCtiIco2.xsd" namespace="urn:cz:isvs:iszr:schemas:IszrRosCtiIco2:v1" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IszrRosCtiIco2">
+    <wsdl:part name="parametry" element="e256:RosCtiIco2" />
+  </wsdl:message>
+  <wsdl:message name="IszrRosCtiIco2Response">
+    <wsdl:part name="vysledek" element="e256:RosCtiIco2Response" />
+  </wsdl:message>
+  <wsdl:portType name="IszrRosCtiIco2PortType">
+    <wsdl:operation name="IszrRosCtiIco2">
+      <wsdl:input message="tns:IszrRosCtiIco2" />
+      <wsdl:output message="tns:IszrRosCtiIco2Response" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="IszrRosCtiIco2Binding" type="tns:IszrRosCtiIco2PortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="IszrRosCtiIco2">
+      <soap:operation soapAction="IszrRosCtiIco2" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="IszrRosCtiIco2Service">
+    <wsdl:port name="IszrRosCtiIco2PortService" binding="tns:IszrRosCtiIco2Binding">
+      <soap:address location="IszrRosCtiIco2" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

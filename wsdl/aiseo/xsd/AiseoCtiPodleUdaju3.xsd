@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:aiseo:schemas:AiseoCtiPodleUdaju3:v1" 
+           xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+           xmlns:dt="urn:cz:isvs:aisse:schemas:DataTypy:v1"
+           xmlns:rob="urn:cz:isvs:rob:schemas:RobTypy:v1" 
+           xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" 
+           xmlns:typse="urn:cz:isvs:aisse:schemas:AisSeTypy3:v1"
+           targetNamespace="urn:cz:isvs:aiseo:schemas:AiseoCtiPodleUdaju3:v1" 
+           elementFormDefault="qualified" 
+           attributeFormDefault="unqualified" 
+           version="0.3.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">XML schéma s definicemi dat pro služby AISEO, služba AiseoCtiPodleUdaju3.</xs:documentation>
+	</xs:annotation>
+        
+	<!-- Vývojová verze 0.3.0, 20.02.2020, Libor Málek  Úvodní verze - vytvoření nové služby-->
+        
+	<xs:import namespace="urn:cz:isvs:rob:schemas:RobTypy:v1" schemaLocation="../../rob/xsd/RobTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+        <xs:import namespace="urn:cz:isvs:aisse:schemas:AisSeTypy:v1" schemaLocation="../../aisse/xsd/AisSeTypy.xsd" />
+	<xs:import namespace="urn:cz:isvs:aisse:schemas:AisSeTypy3:v1" schemaLocation="../../aisse/xsd/AisSeTypyV3.xsd" />
+        <xs:import namespace="urn:cz:isvs:aisse:schemas:DataTypy:v1" schemaLocation="../../aisse/xsd/DataTypy.xsd" />
+        
+	<xs:element name="AiseoSyncCtiPodleUdaju3" type="AiseoSyncCtiPodleUdaju3Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba umožňuje přijmout definovanou žádost na vyhledání osoby podle kombinace tři údajů</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+        
+	<xs:element name="AiseoSyncCtiPodleUdaju3Response" type="AiseoCtiPodleUdaju3ResponseType"/>
+	<xs:element name="AiseoCtiPodleUdaju3Data" type="AiseoCtiPodleUdaju3DataType"/>
+        
+	<xs:complexType name="AiseoSyncCtiPodleUdaju3Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na data.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType"/>
+			<xs:element name="AutorizaceInfo" type="reg:AutorizaceType"/>
+                        <xs:element name="MapaAifo" type="reg:MapaAifoType" minOccurs="0" />
+			<xs:element name="SeznamIdAdres" type="reg:SeznamIdAdresType" minOccurs="0" />
+			<xs:element name="Dotaz">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="AiseoCtiPodleUdaju3DataType">
+							<xs:attribute name="typPorovnani" type="rob:TypPorovnaniType">
+								<xs:annotation>
+									<xs:documentation>Výběr podle jména nebo přijmení nezávisle na diakritiku.</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+							<xs:attribute name="znepristupniLog" type="xs:boolean">
+								<xs:annotation>
+									<xs:documentation>Zápis do sledování dotazů - znepřístupnění záznamu</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+    
+
+        
+	<xs:complexType name="AiseoCtiPodleUdaju3DataType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba umožňuje přijmout definovanou žádost na vyhledání osoby podle kombinace tři údajů.</xs:documentation>
+		</xs:annotation>
+		
+                    <xs:sequence>
+                         <xs:element name="RodneCislo" type="dt:RodneCisloType" minOccurs="0" nillable="true">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Rodné číslo</xs:documentation>
+				</xs:annotation>
+			</xs:element>      
+                        
+			<xs:element name="DatumNarozeni" type="dt:DatumType" minOccurs="0" nillable="true">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Datum narození. Pokud je zadáni RČ, nezahrnuje se do kombinace 3 položek pro výběr.</xs:documentation>
+				</xs:annotation>
+			</xs:element>       
+                        
+			<xs:element name="Pohlavi" type="dt:PohlaviType" minOccurs="0" nillable="true">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Pohlaví. Pouze jako doplňující položka do kombinace s 3 položkami pro výběr.</xs:documentation>
+				</xs:annotation>
+			</xs:element>                                                                                               
+                
+			<xs:element name="Jmeno" type="dt:JmenoType" minOccurs="0" nillable="true">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Jméno/Jména</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+                        
+			<xs:element name="Prijmeni" type="dt:PrijmeniType" minOccurs="0" nillable="true">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Příjmení</xs:documentation>
+				</xs:annotation>
+			</xs:element>         
+                        
+			<xs:element name="RodnePrijmeni" type="dt:PrijmeniType" minOccurs="0" nillable="true">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Rodné příjmení</xs:documentation>
+				</xs:annotation>
+			</xs:element>     
+                        
+			<xs:element name="JmenoMinule" type="dt:JmenoType" minOccurs="0" nillable="true">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Minulé jméno/jména </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+                        
+			<xs:element name="PrijmeniMinule" type="dt:PrijmeniType" minOccurs="0" nillable="true">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Minulé příjmení</xs:documentation>
+				</xs:annotation>
+			</xs:element>         
+                        
+			<xs:element name="RodnePrijmeniMinule" type="dt:PrijmeniType" minOccurs="0" nillable="true">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Minulé rodné příjmení</xs:documentation>
+				</xs:annotation>
+			</xs:element>          
+                                                                                                                                                                                                  
+  			<xs:element name="DatumUmrti" type="dt:DatumType" minOccurs="0" nillable="true">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Datum úmrtí; je-li vydáno rozhodnutí soudu o prohlášení za mrtvého, den, který je v rozhodnutí uveden jako den smrti nebo den, který občan prohlášený za mrtvého nepřežil</xs:documentation>
+				</xs:annotation>
+			</xs:element>                                                                                                      
+			
+                        <xs:element name="MistoNarozeni" type="typse:MistoDotazType" minOccurs="0" nillable="true">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Místo narození.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+                        
+                         <xs:element name="MistoUmrti" type="typse:MistoDotazType" minOccurs="0" nillable="true">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Místo úmrtí.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+                        
+			<xs:element name="RodinnyStavKod" type="dt:RodinnyStavKodType" minOccurs="0" nillable="true">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Rodinný stav - kód MV. Pouze jako doplňující položka do kombinace s 3 položkami pro výběr.</xs:documentation>
+				</xs:annotation>
+			</xs:element>                           
+                                           
+ 			<xs:element name="AdresaTP" type="typse:AdresniMistoDotazType" minOccurs="0" nillable="true">
+				<xs:annotation>
+					<xs:documentation>Adresa trvalého pobytu.</xs:documentation>
+				</xs:annotation>                            
+                        </xs:element>    
+                                                                                                                         
+ 			<xs:element name="AdresaTPMinule" type="typse:AdresniMistoDotazType" minOccurs="0" nillable="true">
+				<xs:annotation>
+					<xs:documentation>Adresa trvalého pobytu - minulé pobyty.</xs:documentation>
+				</xs:annotation>                            
+                        </xs:element>                                                           
+                                                               
+                        <xs:element name="RodnePrijmeniMatky" type="dt:PrijmeniType" minOccurs="0" nillable="true">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Rodné příjmení matky. Pouze jako doplňující položka do kombinace s 3 položkami pro výběr.</xs:documentation>
+				</xs:annotation>
+			</xs:element> 
+                        
+                    </xs:sequence>    
+                        
+	</xs:complexType>
+        
+        
+                
+        
+ 	<xs:complexType name="AiseoCtiPodleUdaju3ResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpověd na dotaz - data AIS EO. Verze 3.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" />
+			<xs:element name="MapaAifo" type="reg:MapaAifoType" minOccurs="0" />
+			<xs:element name="SeznamIdAdres" type="reg:SeznamIdAdresType" minOccurs="0" />
+			<xs:element name="EoOdpoved" type="AiseoSyncCtiPodleUdaju3DataResponseType" minOccurs="0" />
+		</xs:sequence>
+		<xs:attribute name="verzeZadosti" type="reg:VerzeType" />
+	</xs:complexType>   
+                
+        
+	<xs:complexType name="AiseoSyncCtiPodleUdaju3DataResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpověd na dotaz - data AIS EO.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="EoOdpoved" type="AisEoCtiPodleUdaju3DataResponseType"/>
+		</xs:sequence>
+	</xs:complexType>
+        
+	<xs:complexType name="AisEoCtiPodleUdaju3DataResponseType">                
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpověd na dotaz - data AIS EO. Verze 3.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="typse:AisSeDotazyDataResponseType">
+				<xs:sequence minOccurs="0">
+					<xs:element name="KompletniUdaje" type="typse:KompletniUdajeEOType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>                
+                
+                
+	</xs:complexType>   
+        
+
+
+
+</xs:schema>

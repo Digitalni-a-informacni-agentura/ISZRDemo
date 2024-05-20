@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekStavebniObjekt2:v1" 
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekStavebniObjekt2:v1" 
+	xmlns:e249p="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekStavebniObjekt2:v1" 
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:vyhSo="urn:cz:isvs:ruian:schemas:VyhledejStavebniObjekt:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified" 
+	version="2.0.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E249p externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	
+	<!-- Výchozí verze 2.0.0, 29.09.2020 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:VyhledejStavebniObjekt:v2" schemaLocation="ref/RuianVyhledejPrvekStavebniObjekt2.xsd"/>
+	
+	<xs:element name="RuianVyhledejPrvekStavebniObjekt2" type="RuianVyhledejPrvekStavebniObjekt2Type"/>
+	<xs:element name="RuianVyhledejPrvekStavebniObjekt2Response" type="RuianVyhledejPrvekStavebniObjekt2ResponseType"/>
+	
+	<xs:complexType name="RuianVyhledejPrvekStavebniObjekt2Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E249p externího rozhraní - žádost. Vyhledání stavebního objektu z RUIAN. RUIAN služba, operace VyhledejStavebniObjekt.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+		 						<xs:element name="RuianVyhledejPrvekStavebniObjekt2Data" type="vyhSo:VyhledejStavebniObjektDotazType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="RuianVyhledejPrvekStavebniObjekt2ResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E249p externího rozhraní - odpověď. Vyhledání stavebního objektu z RUIAN. RUIAN služba, operace VyhledejStavebniObjekt.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="RuianOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianVyhledejPrvekStavebniObjekt2DataResponse">
+									<xs:complexType>
+										<xs:sequence>
+										  <xs:element ref="vyhSo:StavebniObjekty"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

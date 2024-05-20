@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+  targetNamespace="urn:cz:isvs:aisc:schemas:AiscCtiPodleUdaju:v2"
+  xmlns="urn:cz:isvs:aisc:schemas:AiscCtiPodleUdaju:v2"
+  xmlns:aiscd="urn:cz:isvs:aisc:schemas:AiscDotazyData:v2"
+  xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  elementFormDefault="qualified"
+  attributeFormDefault="unqualified"
+  version="1.0.0"
+>
+
+  <xs:annotation>
+    <xs:documentation xml:lang="cs">XML schéma s definicemi datových prvků AISC. Služba CIS02 interního rozhraní - dotaz a odpověď.</xs:documentation>
+  </xs:annotation>
+
+  <!-- Vývojová verze 0.0.1, 30.07.2014, Martin Štulc -->
+  <!-- Verze 1.0.0, 24.02.2015, Martin Štulc -->
+
+  <xs:import namespace="urn:cz:isvs:aisc:schemas:AiscDotazyData:v2" schemaLocation="AiscDotazyData.xsd"/>
+  <xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd" />
+
+  <xs:element name="AiscCtiPodleUdaju" type="AiscCtiPodleUdaju2Type"/>
+  <xs:element name="AiscCtiPodleUdajuResponse" type="AiscCtiPodleUdaju2ResponseType"/>
+
+  <xs:complexType name="AiscCtiPodleUdaju2Type">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Dotaz na údaje o osobách na základě údajů</xs:documentation>
+    </xs:annotation>
+
+    <xs:complexContent>
+      <xs:extension base="aiscd:ZadostAbstractType">
+        <xs:sequence>
+          <xs:element name="Zadost">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="AiscCtiPodleUdajuData" type="aiscd:AiscCtiPodleUdajuDataType" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="AiscCtiPodleUdaju2ResponseType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Odpověď na dotaz na osoby podle údajů</xs:documentation>
+    </xs:annotation>
+
+    <xs:complexContent>
+      <xs:extension base="aiscd:OdpovedAbstractType">
+        <xs:sequence>
+          <xs:element name="AiscOdpoved" minOccurs="0">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="AiscCtiPodleUdajuDataResponse" type="aiscd:AiscCtiPodleUdaju2DataResponseType"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>

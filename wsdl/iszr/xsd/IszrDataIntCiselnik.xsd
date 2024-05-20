@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrDataIntCiselnik:v1" 
+	xmlns="urn:cz:isvs:iszr:schemas:IszrDataIntCiselnik:v1"
+	xmlns:i21="urn:cz:isvs:iszr:schemas:IszrDataIntCiselnik:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	xmlns:iszr="urn:cz:isvs:iszr:schemas:IszrTypy:v1" 
+	xmlns:iszd="urn:cz:isvs:iszr:schemas:IszrDotazyData:v1" 
+	xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" 
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="0.1.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">XML schéma s definicemi dat pro služby ISZR, interní služba ISZR I21.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vývojová verze 0.1.0, 04.09.2014 Aleš Teplý, výchozí verze -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrTypy:v1" schemaLocation="IszrTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrDotazyData:v1" schemaLocation="IszrDotazyData.xsd"/>
+
+	<xs:element name="IszrIntCiselnikData" type="IszrIntCiselnikDataType"/>
+	<xs:element name="IszrIntCiselnikDataResponse" type="IszrIntCiselnikDataResponseType"/>
+
+	<xs:complexType name="IszrIntCiselnikDataType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">
+        Služba pro předání číselníku na rozhraní systémů využívaných ISZR (Základní registry, ORG, AISy). Datová část Request.
+        Volání může být provedeno i jinou službou ZR (specialní požadavek na implementaci společné odpovědi při předání číselníku).
+      </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="SeznamSouboru" type="reg:SouboryType"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="IszrIntCiselnikDataResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba pro předání číselníku na rozhraní systémů využívaných ISZR (Základní registry, ORG, AISy). Datová část Response.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="iszd:IszrDotazyDataResponseType">
+				<xs:sequence minOccurs="0">
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

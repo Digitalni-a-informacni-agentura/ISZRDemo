@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:aisc:schemas:AiscMediaCtiAifo:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:aiscd="urn:cz:isvs:aisc:schemas:AiscDotazyData:v2" targetNamespace="urn:cz:isvs:aisc:schemas:AiscMediaCtiAifo:v1" elementFormDefault="qualified" version="1.0.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Definice prvků pro službu AiscMediaCtiAifo.</xs:documentation>
+	</xs:annotation>
+	<!-- Verze 0.0.1, 19.04.2018, Vývojová verze - Martin Štulc-->
+	<xs:import namespace="urn:cz:isvs:aisc:schemas:AiscDotazyData:v2" schemaLocation="AiscDotazyData.xsd"/>
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:element name="AiscMediaCtiAifo" type="AiscMediaCtiAifoType"/>
+	<xs:element name="AiscMediaCtiAifoResponse" type="AiscMediaCtiAifoResponseType"/>
+	<xs:complexType name="AiscMediaCtiAifoType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na media osoby na základě zadání identifikátoru AIFO</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="aiscd:ZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="MapaAifo" type="reg:MapaAifoType"/>
+					<xs:element name="Dotaz">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="AiscMediaCtiAifoData" type="aiscd:AiscMediaCtiAifoDataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+				<xs:attribute name="verzeZadosti" type="reg:VerzeType"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="AiscMediaCtiAifoResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpověď na dotaz podle AIFO</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="aiscd:OdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="AiscOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="AiscMediaCtiAifoDataResponse" type="aiscd:AiscMediaCtiAifoDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+				<xs:attribute name="verzeZadosti" type="reg:VerzeType"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

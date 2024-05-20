@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:cz:isvs:iszr:services:IszrAsyncOdpovedZFronty:v1" xmlns:odpf="urn:cz:isvs:iszr:schemas:IszrAsyncOdpovedZFronty:v1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns="urn:cz:isvs:iszr:services:IszrAsyncOdpovedZFronty:v1" name="IszrAsyncOdpovedZFronty" targetNamespace="urn:cz:isvs:iszr:services:IszrAsyncOdpovedZFronty:v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation>Služba na načtení jednoho výsledku z fronty výsledků asynchronních volání.</wsdl:documentation>
+  <wsdl:types>
+    <xsd:schema>
+      <xsd:import schemaLocation="../xsd/IszrAsyncOdpovedZFronty.xsd" namespace="urn:cz:isvs:iszr:schemas:IszrAsyncOdpovedZFronty:v1" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IszrAsyncOdpovedZFronty">
+    <wsdl:part name="parametry" element="odpf:IszrAsyncOdpovedZFronty" />
+  </wsdl:message>
+  <wsdl:message name="IszrAsyncOdpovedZFrontyResponse">
+    <wsdl:part name="vysledek" element="odpf:IszrAsyncOdpovedZFrontyResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IszrAsyncOdpovedZFrontyPortType">
+    <wsdl:operation name="IszrAsyncOdpovedZFronty">
+      <wsdl:input message="tns:IszrAsyncOdpovedZFronty" />
+      <wsdl:output message="tns:IszrAsyncOdpovedZFrontyResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="IszrAsyncOdpovedZFrontyBinding" type="tns:IszrAsyncOdpovedZFrontyPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="IszrAsyncOdpovedZFronty">
+      <soap:operation soapAction="IszrAsyncOdpovedZFronty" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="IszrAsyncOdpovedZFrontyService">
+    <wsdl:port name="IszrAsyncOdpovedZFrontyPortService" binding="tns:IszrAsyncOdpovedZFrontyBinding">
+      <soap:address location="IszrAsyncOdpovedZFronty" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

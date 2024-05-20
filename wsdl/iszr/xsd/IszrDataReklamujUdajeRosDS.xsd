@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:iszr:schemas:IszrDataReklamujUdajeRosDS:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" xmlns:i02="urn:cz:isvs:iszr:schemas:IszrDataReklamujUdajeRos:v1" xmlns:roe="urn:cz:isvs:rob:schemas:RobEditaceData:v1" xmlns:rod="urn:cz:isvs:rob:schemas:RobDotazyData:v1" xmlns:rose="urn:cz:isvs:ros:schemas:RosEditaceData:v2" xmlns:rosd="urn:cz:isvs:ros:schemas:RosDotazyData:v2" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:cz:isvs:iszr:schemas:IszrDataReklamujUdajeRosDS:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.1">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Avízo o nesprávném údaji v registru ROS příslušnému editorovi údaje prostřednictvím datové schránky. Žádost neobsahuje element MapaAifo.
+		</xs:documentation>
+	</xs:annotation>
+	<!-- Vývojová verze 1.0.0, 12.10.2014, Pavel Odstrčil, revize, typy, jména -->
+	<!-- Vývojová verze 1.0.1, 23.09.2016, Pavel Odstrčil, oprava namespace a povinnosti elementu navrhovanych hodnot-->
+	<!-- AutoCont CZ a.s. -->
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="../../egon/xsd/IszrAbstractOrg.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrDataReklamujUdajeRos:v1" schemaLocation="../../iszr/xsd/IszrDataReklamujUdajeRos.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rob:schemas:RobEditaceData:v1" schemaLocation="../../rob/xsd/RobEditaceData.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rob:schemas:RobDotazyData:v1" schemaLocation="../../rob/xsd/RobDotazyData.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ros:schemas:RosEditaceData:v2" schemaLocation="../../ros/xsd/RosEditaceData.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ros:schemas:RosDotazyData:v2" schemaLocation="../../ros/xsd/RosDotazyData.xsd"/>
+	<xs:element name="IszrDataReklamujUdajeRosDS" type="IszrDataReklamujUdajeRosDSType"/>
+	<xs:complexType name="IszrDataReklamujUdajeRosDSType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Avízo o nesprávném údaji v registru ROS příslušnému editorovi prostřednictvím datové schránky. 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostIdAdrAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="ReklamaceEditorId" type="reg:RegOdpovedIdType"/>
+								<xs:element name="UlozkaId" type="reg:UuidType" minOccurs="0"/>
+								<xs:element name="IdentifikatorReklamace" type="reg:NonEmptyStringType"/>
+								<xs:element name="IszrZadostId" type="reg:IszrZadostIdType"/>
+								<xs:element name="IszrDataReklamujUdajeRosDSData" type="IszrReklamujUdajeRosDSDataType"/>
+								<xs:element name="RosCtiIcoData" type="rosd:RosCtiIcoDataResponseType" minOccurs="0" maxOccurs="1"/>
+								<xs:element name="RobCtiHromadneAifoData" type="rod:RobCtiHromadneAifoDataResponseType" minOccurs="0" maxOccurs="1"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="IszrReklamujUdajeRosDSDataType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Avízo o nesprávném údaji v registru ROS příslušnému editorovi údaje prostřednictvím datové schránky.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="i02:IszrReklamujUdajeRosDataType">
+				<xs:sequence>
+					<xs:element name="NavrhovaneHodnoty" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">Lokální hodnoty AIFO vždy 1.</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RosZmenOsobuData" type="rose:RosZmenOsobuDataType" minOccurs="0"/>
+								<xs:element name="RosZmenProvozovnuData" type="rose:RosZmenProvozovnuDataType" minOccurs="0"/>
+								<xs:element name="RosZapisDatovouSchrankuData" type="rose:RosZapisDatovouSchrankuDataType" minOccurs="0"/>
+								<xs:element name="RosZapisPravniStavData" type="rose:RosZapisPravniStavDataType" minOccurs="0"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

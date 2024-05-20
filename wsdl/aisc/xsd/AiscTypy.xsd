@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xs:schema
+  targetNamespace="urn:cz:isvs:aisc:schemas:AiscTypy:v1"
+  xmlns:t="urn:cz:isvs:aisc:schemas:AiscTypy:v1"
+  xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  elementFormDefault="qualified" attributeFormDefault="unqualified"
+  version="1.0.0"
+>
+
+  <xs:annotation>
+    <xs:documentation xml:lang="cs">XML schéma s definicemi dat pro dotazování AISC.</xs:documentation>
+  </xs:annotation>
+
+  <!-- Vývojová verze 0.0.1, 03.06.2012, David Matějček -->
+  <!-- Vývojová verze 0.1.0, 08.07.2012, David Matějček -->
+  <!-- Vývojová verze 0.1.1, 11.07.2012, David Matějček -->
+  <!-- Verze 0.1.2, 17.08.2012, Marian Bouček -->
+  <!-- Verze pro revizi 0.1.3, 20.08.2012, Aleš Teplý, Aisc typy pro AutorizaceInfo -->
+  <!-- Verze 0.2.0, 28.08.2012, David Matějček, LokalniAifo, Aisc typy pro autorizaci přesunuty -->
+  <!-- Verze 0.2.1, 17.10.2012, Marian Bouček, změna pravidel pro řetězce -->
+  <!-- Verze 0.2.2, 29.01.2013, David Matějček, datumOd u adresy pobytu není povinné -->
+  <!-- Verze 1.0.0, xx.xx.2013, Přeznačení vydané verze -->
+  <!-- Verze 1.1.0, 18.10.2017, Martin Štulc, adresaUradu -->
+
+
+  <xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd" />
+
+  <xs:complexType name="OsobaCis">
+    <xs:sequence>
+      <!-- polozky se stavem -->
+      <xs:element name="Prijmeni" type="t:PrijmeniStav" minOccurs="0"/>
+      <xs:element name="Jmeno" type="t:JmenoStav" minOccurs="0" />
+      <xs:element name="DatumNarozeni" type="t:DatumStav" minOccurs="0" />
+      <xs:element name="DatumUmrti" type="t:DatumStav" minOccurs="0" />
+      <xs:element name="DatumPravniMociUmrti" type="t:DatumStav" minOccurs="0" />
+      <xs:element name="AdresaPobytu" type="t:AdresaPobytuStav" minOccurs="0" />
+      <xs:element name="DorucovaciAdresa" type="t:DorucovaciAdresaStav" minOccurs="0" />
+      <xs:element name="Obcanstvi" type="t:ObcanstviStav" minOccurs="0" />
+      <xs:element name="MistoNarozeni" type="t:MistoStav" minOccurs="0" />
+      <xs:element name="MistoUmrti" type="t:MistoStav" minOccurs="0" />
+      <xs:element name="DalsiObcanstvi" type="t:ObcanstviStav" minOccurs="0" maxOccurs="unbounded" />
+
+      <!-- polozky bez stavu -->
+      <xs:element name="Aifo" type="reg:LokalniAifoType" minOccurs="0" />
+      <xs:element name="RodneCislo" type="t:RodneCislo" minOccurs="0" />
+      <xs:element name="OstatniJmena" type="t:Text" minOccurs="0" />
+      <xs:element name="Pohlavi" type="t:Pohlavi" minOccurs="0" />
+      <xs:element name="RodnePrijmeni" type="t:Text" minOccurs="0" />
+      <xs:element name="RodinnyStav" type="t:RodinnyStav" minOccurs="0" />
+      <xs:element name="SkutecnyPobyt" type="t:SkutecnyPobyt" minOccurs="0" />
+      <xs:element name="PovoleniKPobytu" type="t:PovoleniKPobytu" minOccurs="0" />
+      <xs:element name="PravniZpusobilost" type="t:PravniZpusobilost" minOccurs="0" />
+      <xs:element name="TypPobytu" type="t:TypPobytu" minOccurs="0" />
+      <xs:element name="Vyhosteni" type="t:Vyhosteni" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="ZarazenDoSip" type="t:AnoNe" minOccurs="0" />
+      <xs:element name="Zivy" type="t:AnoNe" minOccurs="0" />
+      <xs:element name="Vztah" type="t:Vztah" minOccurs="0" />
+      <xs:element name="Rodice" type="t:Rodice" minOccurs="0" />
+      <xs:element name="Deti" type="t:Dite" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="NezaopatreneOsoby" type="t:NezaopatrenaOsoba" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="ZakonniZastupci" type="t:ZakonnyZastupce" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="Osvojeni" type="t:OsvojeniRozsirene" minOccurs="0" />
+
+      <!-- minule -->
+      <xs:element name="MinuleAdresyPobytu" type="t:AdresaPobytu" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="MinulaRodnaCisla" type="t:MinuleRodneCislo" minOccurs="0" maxOccurs="unbounded"  />
+      <xs:element name="MinulaJmena" type="t:MinuleJmeno" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="MinulaPrijmeni" type="t:MinulePrijmeni" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="MinulePohlavi" type="t:MinulePohlavi" minOccurs="0" />
+      <xs:element name="MinuleVztahy" type="t:MinulyVztah" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Polozky se stavem -->
+  <xs:complexType name="PrijmeniStav">
+    <xs:complexContent>
+      <xs:extension base="t:PolozkaStav">
+        <xs:sequence>
+          <xs:element name="Prijmeni" type="t:Text" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="JmenoStav">
+    <xs:complexContent>
+      <xs:extension base="t:PolozkaStav">
+        <xs:sequence>
+          <xs:element name="Jmeno" type="t:Text" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="DatumStav">
+    <xs:complexContent>
+      <xs:extension base="t:PolozkaStav">
+        <xs:sequence>
+          <xs:element name="Datum" type="t:Datum" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="MistoStav">
+    <xs:complexContent>
+      <xs:extension base="t:PolozkaStav">
+        <xs:sequence>
+          <xs:element name="Misto" type="t:Misto" minOccurs="0" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="AdresaPobytuStav">
+    <xs:complexContent>
+      <xs:extension base="t:PolozkaStav">
+        <xs:sequence>
+          <xs:element name="Adresa" type="t:AdresaPobytu" minOccurs="0" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="DorucovaciAdresaStav">
+    <xs:complexContent>
+      <xs:extension base="t:PolozkaStav">
+        <xs:sequence>
+          <xs:element name="Typ" type="t:Kod" minOccurs="1" />
+          <xs:element name="Idam" type="xs:long" minOccurs="0" />
+          <xs:element name="Adresa" type="t:TextSEscapovanymiKonciRadek" minOccurs="0" />
+          <xs:element name="DatumOd" type="t:Datum" minOccurs="0" />
+          <xs:element name="DatumDo" type="t:Datum" minOccurs="0" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ObcanstviStav">
+    <xs:complexContent>
+      <xs:extension base="t:PolozkaStav">
+        <xs:sequence>
+          <xs:element name="Obcanstvi" type="t:Obcanstvi" minOccurs="0" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <!-- Minule polozky -->
+  <xs:complexType name="MinuleJmeno">
+    <xs:sequence>
+      <xs:element name="Jmeno" type="t:Text" minOccurs="0" />
+      <xs:element name="DatumDo" type="t:Datum" minOccurs="0" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="MinulePrijmeni">
+    <xs:sequence>
+      <xs:element name="Prijmeni" type="t:Text" minOccurs="0" />
+      <xs:element name="DatumDo" type="t:Datum" minOccurs="0" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="MinulePohlavi">
+    <xs:all>
+      <xs:element name="DatumDo" type="t:Datum" minOccurs="0" />
+    </xs:all>
+  </xs:complexType>
+  <xs:complexType name="MinuleRodneCislo">
+    <xs:sequence>
+      <xs:element name="RodneCislo" type="t:RodneCislo" minOccurs="1" />
+      <xs:element name="DatumOd" type="t:Datum" minOccurs="0" />
+      <xs:element name="DatumDo" type="t:Datum" minOccurs="0" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="MinulyVztah">
+    <xs:sequence>
+      <xs:element name="Typ" type="t:TypVztahu" minOccurs="1" />
+      <xs:element name="DuvodUkonceni" type="t:DuvodUkonceniVztahu" minOccurs="0" />
+      <xs:element name="DatumDo" type="t:Datum" minOccurs="0" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Zakladni typy -->
+  <xs:complexType name="Osvojeni">
+    <xs:sequence>
+      <xs:element name="PuvodniRodneCislo" type="t:RodneCislo" minOccurs="0" />
+      <xs:element name="PuvodniJmeno" type="t:Text" minOccurs="0" />
+      <xs:element name="PuvodniPrijmeni" type="t:Text" minOccurs="0" />
+      <xs:element name="DatumOd" type="t:Datum" minOccurs="0" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OsvojeniRozsirene">
+    <xs:complexContent>
+      <xs:extension base="t:Osvojeni">
+        <xs:sequence>
+          <xs:element name="Typ" type="xs:short"  minOccurs="0"/>
+          <xs:element name="PuvodniDatumNarozeni" type="t:Datum" minOccurs="0" />
+          <xs:element name="Otec" type="t:FyzickaOsoba" minOccurs="0" />
+          <xs:element name="Matka" type="t:FyzickaOsoba" minOccurs="0" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="Vztah">
+    <xs:sequence>
+      <xs:element name="Typ" type="t:TypVztahu" minOccurs="1" />
+      <xs:element name="Partner" type="t:Partner" minOccurs="1" />
+      <xs:element name="Misto" type="t:Text" minOccurs="0" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Dite">
+    <xs:complexContent>
+      <xs:extension base="t:FyzickaOsoba">
+        <xs:sequence>
+          <xs:element name="Osvojeni" type="t:Osvojeni" minOccurs="0" />
+          <xs:element name="MistoNarozeni" type="t:Misto" minOccurs="0" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="Rodice">
+    <xs:sequence minOccurs="1">
+      <xs:element name="Otec" type="t:FyzickaOsoba" minOccurs="0" />
+      <xs:element name="Matka" type="t:FyzickaOsoba" minOccurs="0" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ZakonnyZastupce">
+    <xs:sequence>
+      <xs:choice minOccurs="1" maxOccurs="1">
+        <xs:element name="FyzickaOsoba" type="t:FyzickaOsoba" minOccurs="0" />
+      </xs:choice>
+      <xs:choice>
+        <xs:element name="Nazev" type="t:Text" minOccurs="0" />
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Partner">
+    <xs:complexContent>
+      <xs:extension base="t:FyzickaOsoba" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="NezaopatrenaOsoba">
+    <xs:complexContent>
+      <xs:extension base="t:FyzickaOsoba">
+        <xs:sequence>
+          <xs:element name="Typ" type="t:TypNezaopatreneOsoby" minOccurs="0" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FyzickaOsoba">
+    <xs:sequence>
+      <xs:element name="RodneCislo" type="t:RodneCislo" minOccurs="0" />
+      <xs:element name="DatumNarozeni" type="t:Datum" minOccurs="0" />
+      <xs:element name="Prijmeni" type="t:Text" minOccurs="1" />
+      <xs:element name="Jmeno" type="t:Text" minOccurs="0" />
+      <xs:element name="Obcanstvi" type="t:Obcanstvi" minOccurs="0" />
+      <xs:element name="RodnePrijmeni" type="t:Text" minOccurs="0" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AdresaPobytu">
+    <xs:sequence>
+      <xs:element name="Idam" type="xs:long" minOccurs="0" />
+      <xs:element name="PCD" type="xs:int" minOccurs="0" />
+      <xs:element name="PSC" type="t:PSC" minOccurs="0" />
+      <xs:element name="Ulice" type="t:Text" minOccurs="0" />
+      <xs:element name="CastObce" type="t:Text" minOccurs="0" />
+      <xs:element name="MestskaCast" type="t:Text" minOccurs="0" />
+      <xs:element name="PrazskyObvod" type="t:Text" minOccurs="0" />
+      <xs:element name="Obec" type="t:Text" minOccurs="0" />
+      <xs:element name="KodOkresu" type="xs:int" minOccurs="0" />
+      <xs:element name="Okres" type="t:Text" minOccurs="0" />
+      <xs:element name="CisloDomovni" type="xs:int" minOccurs="0" />
+      <xs:element name="DruhCislaDomovniho" type="t:Kod" minOccurs="0" />
+      <xs:element name="CisloOrientacni" type="xs:int" minOccurs="0" />
+      <xs:element name="ZnakCislaOrientacniho" type="t:Kod" minOccurs="0" />
+      <xs:element name="DatumOd" type="t:Datum" minOccurs="0" />
+      <xs:element name="DatumDo" type="t:Datum" minOccurs="0" />
+    </xs:sequence>
+    <xs:attribute name="adresaUradu" type="xs:boolean" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="cs">
+          false - nejde o pobyt na adrese úřadu,
+          true - jde o pobyt na adrese úřadu
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="Misto">
+    <xs:sequence>
+      <xs:element name="KodObce" type="xs:int" minOccurs="0" />
+      <xs:element name="Obec" type="t:Text" minOccurs="0" />
+      <xs:element name="KodOkresu" type="xs:int" minOccurs="0" />
+      <xs:element name="Okres" type="t:Text" minOccurs="0" />
+      <xs:element name="KodStatu" type="t:Kod" minOccurs="0" />
+      <xs:element name="KodStatuCsu" type="t:Kod" minOccurs="0" />
+      <xs:element name="Stat" type="t:Text" minOccurs="0" />
+      <xs:element name="Misto" type="t:Text" minOccurs="0" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PovoleniKPobytu">
+    <xs:sequence>
+      <xs:element name="Cislo" type="t:Kod" minOccurs="0" />
+      <xs:element name="DatumOd" type="t:Datum" minOccurs="0" />
+      <xs:element name="DatumDo" type="t:Datum" minOccurs="0" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SkutecnyPobyt">
+    <xs:sequence>
+      <xs:element name="DatumOd" type="t:Datum" minOccurs="0" />
+      <xs:element name="DatumDo" type="t:Datum" minOccurs="0" />
+      <xs:element name="DuvodUkonceniPobytu" type="t:DuvodUkonceniPobytu" minOccurs="0" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Vyhosteni">
+    <xs:sequence>
+      <xs:element name="Typ" type="t:TypVyhosteni" minOccurs="1" />
+      <xs:element name="DatumOd" type="t:Datum" minOccurs="0" />
+      <xs:element name="DatumDo" type="t:Datum" minOccurs="0" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="DuvodUkonceniVztahu">
+    <xs:complexContent>
+      <xs:extension base="t:PolozkaCiselniku" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="DuvodUkonceniPobytu">
+    <xs:complexContent>
+      <xs:extension base="t:PolozkaCiselniku" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="TypNezaopatreneOsoby">
+    <xs:complexContent>
+      <xs:extension base="t:PolozkaCiselniku" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="TypPobytu">
+    <xs:complexContent>
+      <xs:extension base="t:PolozkaCiselniku" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="RodinnyStav">
+    <xs:complexContent>
+      <xs:extension base="t:PolozkaCiselniku">
+        <xs:sequence>
+          <xs:element name="DatumOd" type="t:Datum" minOccurs="0" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="PravniZpusobilost">
+    <xs:complexContent>
+      <xs:extension base="t:PolozkaCiselniku">
+        <xs:sequence>
+          <xs:element name="Popis" type="t:Text" minOccurs="0" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="Obcanstvi">
+    <xs:complexContent>
+      <xs:extension base="t:PolozkaCiselniku">
+        <xs:sequence>
+          <xs:element name="KodCsu" type="xs:int" minOccurs="0" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="PolozkaCiselniku" abstract="true">
+    <xs:sequence>
+      <xs:element name="Kod" type="t:Kod" minOccurs="1" />
+      <xs:element name="Nazev" type="t:Text" minOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PolozkaStav" abstract="true">
+    <xs:attribute name="stav" type="reg:StavType" use="required" />
+  </xs:complexType>
+
+  <xs:simpleType name="PSC">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Poštovní směrovací číslo
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int">
+      <xs:pattern value="\d{5}"></xs:pattern>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="TypOvm">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Typ organizační jednotky podle CIS
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="t:Kod">
+      <!-- TODO: upresnit -->
+      <xs:minLength value="1" />
+      <xs:maxLength value="10" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="RodneCislo">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="\d{6}/\d{3}\d?" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="Datum">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Datum ve formátu DD.MM.YYYY, kde nula znamená neurčenou hodnotu.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="\d{1,2}\.\d{1,2}\.\d{4}"></xs:pattern>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="Pohlavi">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="M" />
+      <xs:enumeration value="Z" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="AnoNe">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="A" />
+      <xs:enumeration value="N" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="TypVztahu">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Manzelstvi" />
+      <xs:enumeration value="Partnerstvi" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="TypVyhosteni">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Spravni" />
+      <xs:enumeration value="Soudni" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="Kod">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Neprázdný kód s písmeny, čísly, mezerami a vybranými znaky.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="reg:NonEmptyNormStringType">
+      <xs:pattern value="[\p{L}0-9_\-]+"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Text">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Neprázdný text s mezerami
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="reg:NonEmptyNormStringType">
+      <xs:maxLength value="100" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TextSEscapovanymiKonciRadek">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Neprázdný text s mezerami, konce řádek jsou nahrazeny vlnovkami
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="reg:NonEmptyNormStringType">
+      <xs:maxLength value="255" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="TypZmenyTP">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Pristehovani" />
+      <xs:enumeration value="Odstehovani" />
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

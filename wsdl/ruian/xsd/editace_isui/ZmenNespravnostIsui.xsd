@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:ZmenNespravnostIsui:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:ZmenNespravnostIsui:v1" xmlns:znui="urn:cz:isvs:ruian:schemas:ZmenNespravnostIsui:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" elementFormDefault="qualified" version="0.40.2">
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../ruian/xsd/typy/CommonTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:complexType name="EditaceNespravnostiISUIType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Editace nespravnosti z ISUI</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Nespravnosti" type="NespravnostListISUIType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="TypNespravnostiISUIType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Typ nespravnosti ISUI</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="AD">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Adresni misto</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="KU">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Katastralni uzemi</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CO">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Cast obce</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DAM">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Definicni bod adresniho mista</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DUC">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Definicni bod prehledove mapy pro vyssi uzemni celky a ZSJ</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DUL">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Definicni cara ulice</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PMC">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Polygony uzemi mestskeho obvodu nebo mestske casti uzemne cleneneho statutarniho mesta</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="HOB">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Hranice uzemni obce, vojenskeho ujezdu</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DSO">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Definicni bod stavebniho objektu</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PZJ">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Polygony uzemi zakladni sidelni jednotky</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="KR">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Uzemi kraje</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MC">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Uzemi mestskeho obvodu nebo mestske casti uzemne cleneneho statutarniho mesta</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MP">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Uzemi mestskeho obvodu v hlavnim meste Praze</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OB">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Uzemi obce, uzemi vojenskeho ujezdu</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OK">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Uzemi okresu</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OP">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Spravni obvod obce s rozsirenou pusobnosti</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PU">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Spravni obvod obce s poverenym obecnim uradem</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="RS">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Uzemi regionu soudrznosti</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SP">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Spravni obvod v hlavnim meste Praze</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SO">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Stavebni objekt</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="VC">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Uzemi vyssiho uzemne samospravneho celku</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ZJ">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Uzemi zakladni sidelni jednotky</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ST">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Uzemi statu</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="UL">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Ulice nebo jine verejne prostranstvi</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="ZmenNespravnostISUIRequest" type="znui:ZmenNespravnostISUIRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na zmeny nespravnosti ISUI</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ZmenNespravnostISUIResponse" type="znui:ZmenNespravnostISUIRespType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved na zmeny nespravnosti ISUI</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="NespravnostListISUIType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam nespravnosti ISUI</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Nespravnost" type="NespravnostISUIType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="NespravnostISUIType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Nespravnost ISUI</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PrvekId" type="base:Id18Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="TypPrvku" type="TypNespravnostiISUIType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="TypAtributu" type="com:AtributType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="TypZmeny" type="com:TypZmenyNespravnostiType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Nespravny" type="com:NespravnyType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="OznacenoDne" type="base:DatumCasType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="OznacenoInfo" type="base:Text500Type" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ZmenNespravnostISUIRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na zmeny nespravnosti ISUI</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Dotaz" type="EditaceNespravnostiISUIType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ZmenNespravnostISUIRespType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpověď na změny nesprávnosti ISUI</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

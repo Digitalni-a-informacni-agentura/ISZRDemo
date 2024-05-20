@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:iszr:schemas:IszrDataVypisOpravneniPolozky:v1" xmlns:i33="urn:cz:isvs:iszr:schemas:IszrDataVypisOpravneniPolozky:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:iszr="urn:cz:isvs:iszr:schemas:IszrTypy:v1" xmlns:iszd="urn:cz:isvs:iszr:schemas:IszrDotazyData:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" targetNamespace="urn:cz:isvs:iszr:schemas:IszrDataVypisOpravneniPolozky:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">XML schéma s definicemi dat pro služby ISZR, interní služba ISZR I33 výpis oprávnění na položky ZR.</xs:documentation>
+	</xs:annotation>
+	<!-- Verze 1.0.0, 09.05.2018 Pavel Odstrčil, výchozí verze -->
+	<!-- AutoCont CZ a.s. -->
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrTypy:v1" schemaLocation="IszrTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrDotazyData:v1" schemaLocation="IszrDotazyData.xsd"/>
+	<xs:element name="IszrVypisOpravneniPolozkyData" type="IszrVypisOpravneniPolozkyDataType"/>
+	<xs:element name="IszrVypisOpravneniPolozkyDataResponse" type="IszrVypisOpravneniPolozkyDataResponseType"/>
+	<xs:complexType name="IszrVypisOpravneniPolozkyDataType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba umožňuje čtení oprávnění OVM/agenry/role na položky ZR dle RPP názvy pro SeznamUdaju. Datová část pro žádost.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Agenda" type="reg:KodAgendyType"/>
+			<xs:element name="AgendovaRole" type="reg:AgendovaRoleType"/>
+			<xs:element name="Ovm" type="reg:KodOvmType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="IszrVypisOpravneniPolozkyDataResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba umožňuje čtení oprávnění OVM/agenry/role na položky ZR dle RPP názvy pro SeznamUdaju. Datová část pro odpověď.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="iszd:IszrDotazyDataResponseType">
+				<xs:sequence>
+					<xs:element name="Polozka" type="PolozkaType" minOccurs="0" maxOccurs="unbounded" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="PolozkaType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Položka pro SeznamUdaju</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="KodIszr" minOccurs="1"/>
+			<xs:element name="KodRpp" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

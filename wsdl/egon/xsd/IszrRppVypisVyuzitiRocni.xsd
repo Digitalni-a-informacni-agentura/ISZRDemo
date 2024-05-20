@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRppVypisVyuzitiRocni:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRppVypisVyuzitiRocni:v1"
+	xmlns:e161="urn:cz:isvs:iszr:schemas:IszrRppVypisVyuzitiRocni:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:pdo="urn:cz:isvs:rpp:schemas:RppDotazyData:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.5.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E161 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Výchozí verze 0.0.1, 30.05.2012, Aleš Teplý -->
+	<!-- Katalog.7.2 verze 1.1.1, 28.06.2012 Aleš Teplý -->
+	<!-- Katalog.7.3 verze 1.3.1, 18.10.2012 Aleš Teplý, přidání SeznamIco do Response -->
+	<!-- Katalog.7.4 verze 1.4.0, 29.10.2012 Aleš Teplý -->
+	<!-- Verze po revizi 1.4.1, 15.10.2021, Aleš Teplý, AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- Verze po revizi 1.5.0, 25.5.2022, Aleš Teplý, Response - AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rpp:schemas:RppDotazyData:v1" schemaLocation="../../rpp/xsd/RppDotazyData.xsd"/>
+
+	<xs:element name="RppVypisVyuzitiRocni" type="RppVypisVyuzitiRocniType"/>
+	<xs:element name="RppVypisVyuzitiRocniResponse" type="RppVypisVyuzitiRocniResponseType"/>
+
+	<xs:complexType name="RppVypisVyuzitiRocniType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E161 externího rozhraní - typ pro žádost. RPP služba P50.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RppVypisVyuzitiRocniData" type="pdo:RppVypisVyuzitiRocniDataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RppVypisVyuzitiRocniResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E161 externího rozhraní - typ pro odpověď. RPP služba P50.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAifoIcoAbstractType">
+				<xs:sequence>
+					<xs:element name="RppOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RppVypisVyuzitiRocniDataResponse" type="pdo:RppVypisVyuzitiRocniDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

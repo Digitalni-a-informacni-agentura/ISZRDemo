@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrAispVypisSeznamIsV2:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrAispVypisSeznamIsV2:v1"
+	xmlns:e265="urn:cz:isvs:iszr:schemas:IszrAispVypisSeznamIsV2:v1"
+	xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:z1="urn:cz:isvs:aisp:schemas:AispDotazyData:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.0.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E265 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vytvoření nové verze služby 1.0.0, AISP 1.0.0, 30.11.2020, Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstractOrg.xsd"/>
+	<xs:import namespace="urn:cz:isvs:aisp:schemas:AispDotazyData:v1" schemaLocation="../../aisp/xsd/AispDotazyData.xsd"/>
+	<xs:element name="AispVypisSeznamIsV2" type="AispVypisSeznamIsV2Type"/>
+	<xs:element name="AispVypisSeznamIsV2Response" type="AispVypisSeznamIsV2ResponseType"/>
+	<xs:complexType name="AispVypisSeznamIsV2Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E265 externího rozhraní - typ pro žádost. Služba umožňuje načítat z AISP nereferenční údaje, seznam AIS, včetně neveřejných dat.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="AispVypisSeznamIsV2Data" type="z1:AispVypisSeznamIs2DataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="AispVypisSeznamIsV2ResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E265 externího rozhraní - typ pro odpověď. Služba umožňuje načítat z AISP nereferenční údaje, seznam AIS.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="AispOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="AispVypisSeznamIsV2DataResponse" type="z1:AispVypisSeznamIs2DataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

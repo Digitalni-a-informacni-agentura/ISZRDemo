@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRppVypisUkonNaZadost:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRppVypisUkonNaZadost:v1"
+	xmlns:e232="urn:cz:isvs:iszr:schemas:IszrRppVypisUkonNaZadost:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:pdo="urn:cz:isvs:rpp:schemas:RppDotazyData:v1"
+	xmlns:crob2="urn:cz:isvs:ruian:schemas:CtiProRob:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.4.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E232 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vytvoření nové služby, která vrátí vždy základní údaje úkonu, násobné údaje vedené úkonu vrací pouze v případě požadavku uživatele v řídící části služby. Služba na základě předaných dat vypíše Úkon na žádost včetně nových údajů plynoucích ze zák 251 a novely 111/2009, verze 1.3.3, 12.7.2018, Aleš Teplý -->
+	<!-- Verze po revizi 1.3.4, 14.10.2020, Aleš Teplý, RuianCtiProRobDataResponse v1 i v2 -->
+	<!-- Verze po revizi 1.3.5, 15.10.2021, Aleš Teplý, AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- Verze po revizi 1.4.0, 25.5.2022, Aleš Teplý, Response - AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rpp:schemas:RppDotazyData:v1" schemaLocation="../../rpp/xsd/RppDotazyData.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiProRob:v2" schemaLocation="ref/RuianCtiProRob2.xsd"/>
+
+	<xs:element name="RppVypisUkonNaZadost" type="RppVypisUkonNaZadostType"/>
+	<xs:element name="RppVypisUkonNaZadostResponse" type="RppVypisUkonNaZadostResponseType"/>
+	<xs:complexType name="RppVypisUkonNaZadostType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E232 externího rozhraní - typ pro žádost. Služba na základě předaných dat vypíše Úkon na žádost včetně nových údajů plynoucích ze zák 251 a novely 111/2009. RPP služba P73.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RppVypisUkonNaZadostData" type="pdo:RppVypisUkonNaZadostDataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RppVypisUkonNaZadostResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E232 externího rozhraní - typ pro odpověď. Služba na základě předaných dat vypíše Úkon na žádost včetně nových údajů plynoucích ze zák 251 a novely 111/2009. RPP služba P73.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedIdAdrAbstractType">
+				<xs:sequence>
+					<xs:element name="RppOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RppVypisUkonNaZadostDataResponse" type="pdo:RppVypisUkonNaZadostDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="RuianOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianCtiProRobDataResponse" type="crob2:RuianCtiProRobDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

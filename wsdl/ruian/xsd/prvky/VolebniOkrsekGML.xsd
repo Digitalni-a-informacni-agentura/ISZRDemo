@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:VolebniOkrsekGML:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:VolebniOkrsekGML:v1" xmlns:voGML="urn:cz:isvs:ruian:schemas:VolebniOkrsekGML:v1" xmlns:vo="urn:cz:isvs:ruian:schemas:VolebniOkrsek:v1" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:ob="urn:cz:isvs:ruian:schemas:Obec:v1" xmlns:mc="urn:cz:isvs:ruian:schemas:Momc:v1" elementFormDefault="qualified" version="1.1.1">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Aplikační schéma obsahuje prvek typu volební okrsek, včetně geometrie. </xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../ruian/xsd/typy/CommonTypy.xsd"/>
+	<xs:import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../../common/gml/3.2.1/gml.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:VolebniOkrsek:v1" schemaLocation="../../../ruian/xsd/prvky/VolebniOkrsek.xsd"/>
+	<xs:element name="VolebniOkrsek" type="voGML:VolebniOkrsekGMLType"/>
+	<xs:complexType name="VolebniOkrsekGMLType">
+		<xs:complexContent>
+			<xs:extension base="gml:AbstractFeatureType">
+				<xs:sequence>
+					<xs:element name="Geometrie" type="GeometrieVolebniOkrsekType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="GlobalniIdNavrhuZmeny" type="com:IdNavrhuZmenyType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="IdTransakce" type="com:IdTransakceType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="NespravneUdaje" type="com:NespravnyUdajListType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="PlatiOd" type="base:DatumCasType" minOccurs="0" maxOccurs="1"/>
+					<xs:group ref="vo:VolebniOkrsekGroup" minOccurs="1" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="GeometrieVolebniOkrsekType">
+		<xs:sequence>
+			<xs:element name="DefinicniBod" type="gml:PointPropertyType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Hranice" type="HraniceVolebniOkrsekType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="HraniceVolebniOkrsekType">
+		<xs:complexContent>
+			<xs:extension base="gml:MultiSurfacePropertyType">
+				<xs:sequence>
+					<xs:element name="StupenGeneralizace" type="com:StupenGeneralizaceType" minOccurs="1" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

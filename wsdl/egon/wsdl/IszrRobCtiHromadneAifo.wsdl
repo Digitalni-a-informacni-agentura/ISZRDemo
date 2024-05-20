@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRobCtiHromadneAifo:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRobCtiHromadneAifo:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRobCtiHromadneAifo:v1"
+	xmlns:e08="urn:cz:isvs:iszr:schemas:IszrRobCtiHromadneAifo:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRobCtiHromadneAifo">
+
+	<wsdl:documentation>Služba E08 externího rozhraní. Služba vydává požadované údaje osob z ROB ve formě opakované struktury požadovaných dat podle předaného seznamu AIFO. Služba skládá údaje ze základních registrů ROB (O08) a RUIAN (A28).</wsdl:documentation>
+
+	<!-- Vývojová verze 0.0.01, 15.09.2011, Aleš Teplý -->
+	<!-- Fixovaná verze 1.0.0, 16.09.2011, Aleš Teplý -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRobCtiHromadneAifo:v1" schemaLocation="../xsd/IszrRobCtiHromadneAifo.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="IszrRobCtiHromadneAifo">
+		<wsdl:part name="parametry" element="e08:RobCtiHromadneAifo"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRobCtiHromadneAifoResponse">
+		<wsdl:part name="vysledek" element="e08:RobCtiHromadneAifoResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRobCtiHromadneAifoPortType">
+		<wsdl:operation name="IszrRobCtiHromadneAifo">
+			<wsdl:input message="tns:IszrRobCtiHromadneAifo"/>
+			<wsdl:output message="tns:IszrRobCtiHromadneAifoResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRobCtiHromadneAifoBinding" type="tns:IszrRobCtiHromadneAifoPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRobCtiHromadneAifo">
+			<soap:operation soapAction="IszrRobCtiHromadneAifo"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRobCtiHromadneAifoService">
+		<wsdl:port name="IszrRobCtiHromadneAifoPortService" binding="tns:IszrRobCtiHromadneAifoBinding">
+			<soap:address location="IszrRobCtiHromadneAifo"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

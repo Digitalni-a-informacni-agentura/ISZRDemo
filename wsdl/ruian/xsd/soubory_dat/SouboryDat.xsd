@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:SouboryDat:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:SouboryDat:v1" xmlns:sdr="urn:cz:isvs:ruian:schemas:SouboryDat:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" elementFormDefault="qualified" version="0.0.1">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../ruian/xsd/typy/CommonTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../RegTypy.xsd"/>
+	<xs:element name="SouboryDatRequest" type="sdr:SouboryDatRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na seznam souborů celkové měsíční kopie dat RUIAN ve výměnném formátu</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="SouboryDatRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na seznam souborů celkové měsíční kopie dat RUIAN ve výměnném formátu</xs:documentation>
+		</xs:annotation>
+		<xs:sequence maxOccurs="1">
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Dotaz" type="SouboryDatDotazType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SouboryDatResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam souborů celkové měsíční kopie dat RUIAN ve výměnném formátu</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Odpoved" type="SouboryDatOdpovedType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="SouboryDatResponse" type="sdr:SouboryDatResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam souborů celkové měsíční kopie dat RUIAN ve výměnném formátu</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="SouboryDatDotazType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Parametry dotazu na seznam souborů</xs:documentation>
+		</xs:annotation>
+		<xs:sequence minOccurs="1" maxOccurs="1">
+			<xs:element name="TypVymennehoFormatu" type="com:TypVymennehoFormatuType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SouborDatSeznamType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam souborů</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Soubor" type="SouborDatType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SouborDatType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Informace o souboru</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="NazevSouboru" type="base:Nazev32Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Název souboru</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TypVymennehoFormatu" type="com:TypVymennehoFormatuType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="DatumGenerovani" type="base:DatumCasType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Datum generování souboru</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DatumDo" type="base:DatumCasType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Platnost dat do</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UrlSouboru" type="base:UrlType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SouboryDatOdpovedType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam soborů</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="SeznamSouboru" type="SouborDatSeznamType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

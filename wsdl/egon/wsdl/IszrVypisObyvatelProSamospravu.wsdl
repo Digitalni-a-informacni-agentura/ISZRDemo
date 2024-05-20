@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrVypisObyvatelProSamospravu:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrVypisObyvatelProSamospravu:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrVypisObyvatelProSamospravu:v1"
+	xmlns:e169="urn:cz:isvs:iszr:schemas:IszrVypisObyvatelProSamospravu:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrVypisObyvatelProSamospravu">
+
+	<wsdl:documentation>Výpisy z ROB, IS EO a AISC podle adresních bodů RUIAN pro účely samospráv. Služba E169 externího rozhraní.</wsdl:documentation>
+
+	<!-- Katalog.7.06 verze 1.6.0, 25.07.2013 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrVypisObyvatelProSamospravu:v1" schemaLocation="../xsd/IszrVypisObyvatelProSamospravu.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrVypisObyvatelProSamospravu">
+		<wsdl:part name="parametry" element="e169:IszrVypisObyvatelProSamospravu"/>
+	</wsdl:message>
+	<wsdl:message name="IszrVypisObyvatelProSamospravuResponse">
+		<wsdl:part name="vysledek" element="e169:IszrVypisObyvatelProSamospravuResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrVypisObyvatelProSamospravuPortType">
+		<wsdl:operation name="IszrVypisObyvatelProSamospravu">
+			<wsdl:input message="tns:IszrVypisObyvatelProSamospravu"/>
+			<wsdl:output message="tns:IszrVypisObyvatelProSamospravuResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrVypisObyvatelProSamospravuBinding" type="tns:IszrVypisObyvatelProSamospravuPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrVypisObyvatelProSamospravu">
+			<soap:operation soapAction="IszrVypisObyvatelProSamospravu"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrVypisObyvatelProSamospravuService">
+		<wsdl:port name="IszrVypisObyvatelProSamospravuPortService" binding="tns:IszrVypisObyvatelProSamospravuBinding">
+			<soap:address location="IszrVypisObyvatelProSamospravu"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

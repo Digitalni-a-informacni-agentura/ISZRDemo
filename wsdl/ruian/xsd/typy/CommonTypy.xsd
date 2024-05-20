@@ -1,0 +1,963 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" elementFormDefault="qualified" version="0.41.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Společné datové typy systémů RUIAN, ISUI a ISKN.</xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:simpleType name="NespravnyType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Indikator nespravneho zaznamu</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:boolean"/>
+	</xs:simpleType>
+	<xs:simpleType name="ObrazekType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Obrazek vlajky nebo znaku</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:base64Binary"/>
+	</xs:simpleType>
+	<xs:simpleType name="VymeraDiluType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Vymera dilu</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:long"/>
+	</xs:simpleType>
+	<xs:complexType name="BonitovaneDilySeznamType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam bonitovanych dilu</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="BonitovanyDil" type="BonitovanyDilType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ZpusobOchranySeznamType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam zpusobu ochrany pozemku</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZpusobOchrany" type="ZpusobOchranyType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ZpusobOchranyType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Zpusob ochrany</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod4Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="TypOchranyKod" type="base:Kod4Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="IdTransakce" type="IdTransakceType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="RizeniId" type="IdRizeniType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="NutsLauKodType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">NUTS nebo LAU kod</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="6"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="NespravnyUdajType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Nespravny udaj</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="NazevUdaje" type="UdajNazevType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="OznacenoDne" type="base:DatumCasType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="OznacenoInfo" type="base:Text500Type" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="UdajKodType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Kod udaje</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="UdajNazevType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Nazev udaje</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="60"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="NespravnyUdajListType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam nespravnych udaju</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="NespravnyUdaj" type="NespravnyUdajType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="ExistujeDigitalniMapaType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Existuje digitalni mapa</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:boolean"/>
+	</xs:simpleType>
+	<xs:simpleType name="CisloOrientacniType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Orientacni cislo</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:int">
+			<xs:maxInclusive value="999"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PscType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Postovni smerovaci cislo</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:int">
+			<xs:maxInclusive value="99999"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="IdTransakceType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Identifikace transakce zmeny</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:long">
+			<xs:maxInclusive value="999999999999999999"/>
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="RadekAdresyType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Radek adresy</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="4000"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CisloOrientacniPismenoType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Pismeno cisla orientacniho</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PripojkaElektrickeEnergieType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Pripojka elektricke energie</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:boolean"/>
+	</xs:simpleType>
+	<xs:simpleType name="SymbologieType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Symbologie</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="100"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TypPrvkuType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Typy prvku souboru</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ST">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Uzemi statu</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="RS">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Uzemi regionu soudrznosti</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="KR">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Uzemi kraje</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="VC">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Uzemi vyssiho uzemne samospravneho celku</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OK">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Uzemi okresu</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OP">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Spravni obvod obce s rozsirenou pusobnosti</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PU">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Spravni obvod obce s poverenym obecnim uradem</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OB">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Uzemi obce, uzemi vojenskeho ujezdu</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SP">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Spravni obvod v hlavnim meste Praze</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MP">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Uzemi mestskeho obvodu v hlavnim meste Praze</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MC">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Uzemi mestskeho obvodu nebo mestske casti uzemne cleneneho statutarniho mesta</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CO">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Cast obce</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="KU">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Katastralni uzemi</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ZJ">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Uzemi zakladni sidelni jednotky</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="UL">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Ulice nebo jine verejne prostranstvi</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PA">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Pozemek v podobe parcely</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SO">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Stavebni objekt</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="AD">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Adresni misto</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PO">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Adresni posta</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ZrusenyType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Zruseny</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:boolean"/>
+	</xs:simpleType>
+	<xs:simpleType name="FormatAdresyType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Format adresy</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="POLOZKOVY">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Položkový formát</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="RADKOVY">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Řádkový formát</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="VSECHNY">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Všechny dostupné formáty</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PoddeleniCislaType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Poddeleni cisla</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:int">
+			<xs:maxInclusive value="999"/>
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="VymeraType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Vymera</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:long">
+			<xs:maxInclusive value="999999999999999999"/>
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="IdNavrhuZmenyType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Identifikace navrhu zmeny</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:long">
+			<xs:maxInclusive value="999999999999999999"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PozadovanyUdajType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Pozadovany udaj</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:boolean"/>
+	</xs:simpleType>
+	<xs:simpleType name="NullovatHodnotuType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Nastavit hodnotu na NULL</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:boolean"/>
+	</xs:simpleType>
+	<xs:simpleType name="CisloDomovniType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Domovni cislo</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:int">
+			<xs:maxInclusive value="9999"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="KmenoveCisloType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Kmenove cislo</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:int">
+			<xs:maxInclusive value="99999"/>
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ObestavenyProstorType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Obestaveny prostor</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:int">
+			<xs:maxInclusive value="99999999"/>
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PocetBytuType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Pocet bytu</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:int">
+			<xs:maxInclusive value="9999"/>
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PocetPodlaziType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Pocet podlazi</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:int">
+			<xs:maxInclusive value="9999"/>
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PodlahovaPlochaType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Podlahova plocha</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:int">
+			<xs:maxInclusive value="999999"/>
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ZmenaGrafikyType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Zmena grafiky</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:boolean"/>
+	</xs:simpleType>
+	<xs:simpleType name="ZmenaDetailuType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Zmena grafiky</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:boolean"/>
+	</xs:simpleType>
+	<xs:simpleType name="TypZmenyNespravnostiType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Typ zmeny nespravnosti</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="DELETE"/>
+			<xs:enumeration value="INSERT"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="IdRizeniType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Identifikace rizeni</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:long">
+			<xs:maxInclusive value="999999999999999999"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="BonitovanyDilType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Bonitovany dil</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Vymera" type="VymeraDiluType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="BonitovanaJednotkaKod" type="base:Kod5Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="IdTranskace" type="IdTransakceType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="RizeniId" type="IdRizeniType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="PoradiType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Poradi</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:int">
+			<xs:maxInclusive value="99999999"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="CisloDomovniSeznamType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam zmen cisel domovnich</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CisloDomovni" type="CisloDomovniType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="ZastavenaPlochaType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Zastavena plocha</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:int">
+			<xs:maxInclusive value="999999"/>
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="TransakceType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Transakce</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Id" type="base:Id18Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Zapsano" type="base:DatumCasType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MluvnickeCharakteristikyType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Mluvnické charakteristiky 2.-7. pád.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Pad2" type="base:Nazev48Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Pad3" type="base:Nazev48Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Pad4" type="base:Nazev48Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Pad5" type="base:Nazev48Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Pad6" type="base:Nazev48Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Pad7" type="base:Nazev48Type" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="TypZmenyPrvkuType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Typ zmeny prvku</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="INSERT"/>
+			<xs:enumeration value="UPDATE"/>
+			<xs:enumeration value="DELETE"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TypEditaceType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Typ editace</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="EVIDENCNI"/>
+			<xs:enumeration value="KONSTITUTIVNI"/>
+			<xs:enumeration value="OPRAVNY"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AtributType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Atribut</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="KODU">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kod prvku ISUI</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="KODN">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kod prvku ISKN</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ID">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Identifikator prvku</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NPAU">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Nazev prvku ISUI</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NPAN">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Nazev prvku ISKN</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NST">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Nadrazeny stat</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NRS">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Nadrazeny region soudrznosti</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NKR">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Nadrazeny kraj z r. 1960</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NVC">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Nadrazeny vyssi uzemne spravni celek</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NPU">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Nadrazena obec s rozsirenou pusobnosti</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NOP">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Nadrazena obec s poverenym obecnim uradem</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NOK">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Nadrazeny okres</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NOB">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Nadrazena obec</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NMP">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Nadrazeny mestsky obvod v Hlavnim meste Praze</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NSP">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Nadrazeny spravni obvod ve statutarnim meste</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NKU">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Nadrazene katastralni uzemi ISUI</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NKN">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Nadrazene katastralni uzemi ISKN</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NUL">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Nadrazena ulice</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NCO">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Nadrazena cast obce</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NMC">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Nadrazeny mestsky obvod nebo mestska cast ve statutarnim meste</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NPA">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Nadrazena parcela</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NSO">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Nadrazeny stavebni objekt</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CDO">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Cislo domovni</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CORH">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Cislo orientacni hodnota</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CORP">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Cislo orientacni pismeno</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="TSO">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Typ staveniho objektu</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ZOSO">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Zpusob ochrany staveniho objektu</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ZVN">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Zpusob vyuziti nemovitosti</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DPO">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Druh pozemku</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ZOP">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Zpusob ochrany pozemnku</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ZVP">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Zpusob vyuziti pozemku</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="VPA">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Vymera parcely</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="BPP">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">BPEJ parcely</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DBPU">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Definicni bod prvku ISUI</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DBPN">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Definicni bod prvku ISKN</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="HRPU">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Hranice prvku ISUI</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="HRPN">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Hranice prvku ISKN</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DCU">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Definicni cara ulice</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TypZaznamuSouboruType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Typ zaznamu</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Historie"/>
+			<xs:enumeration value="Platne"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TypDavkySouboruType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Typ davky</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Prirustek"/>
+			<xs:enumeration value="Plna"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="OmezeniType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Omezujici podminka pro strankovani a trideni.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZaznamOd" type="xs:int" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="ZaznamDo" type="xs:int" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="TrideniKod" type="base:Nazev50Type" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="TypSTOKodType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Kod typu stavebniho objektu.
+1 = Budova s cislem popisnym
+2 = Budova s cislem evidencnim
+3 = Budova bez cisla popisneho ci evidencniho</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:int">
+			<xs:maxInclusive value="3"/>
+			<xs:minInclusive value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TypCislaDomovnihoKodType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Kod typu cisla domovniho.
+1 = Budova s cislem popisnym
+2 = Budova s cislem evidencnim</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="com:TypSTOKodType">
+			<xs:maxInclusive value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="NutsLauKod12Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">NUTS nebo LAU kod na 12 znaku</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="12"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ZmenaAtributuType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Zmena Atributu prvku</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NAZEV">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Změna názvu prvku
+[ST,RS,KR,VC,OK,OP,PU,OB,SP,MP,MC,CO,KU,ZJ,UL,PO]</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="STAT_KOD">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Změna nadřazeného statu
+[RS,KR]</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="REGSOUDR_KOD">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Změna nadřazeného regionu soudržnosti
+[VC]</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="KRAJ_1960_KOD">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Změna nadřazeného kraje 1960
+[OK]</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="VUSC_KOD">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Změna nadřazeného VÚSC
+[OP, OK]</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OKRES_KOD">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Změna nadřazeného okresu
+[OB]</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ORP_KOD">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Změna nadřazeného ORP
+[PU]</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="POU_KOD">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Změna nadřazeného POU
+[OB]</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OBEC_KOD">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Změna nadřazené obce
+[PU,SP,MP,MC,CO,KU,UL]</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SPRAVOBV_KOD">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Změna nadřazeného správního obvodu
+[MC]</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MOP_KOD">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Změna nadřazeného MOP
+[MC]</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MOMC_KOD">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Změna nadřazeného MOMC
+[SO]</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="COBCE_KOD">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Změna nadřazené části obce
+[SO]</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="KATUZ_KOD">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Změna přirazeného katastrálního území
+[ZJ,PA]</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ULICE_KOD">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Změna přirazené ulice
+[AD]</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="IDENTIFIKACNI_PARCELA_ID">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Změna přirazené parcely
+[SO]</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="STAVOBJ_KOD">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Změna přirazeného stavebního objektu
+[AD]</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="TEA">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Změna TEA
+[SO]</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ZMENA_GRAFIKY">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Změna grafiky prvku
+[ST,RS,KR,VC,OK,OP,PU,OB,SP,MP,MC,CO,KU,ZJ,UL,PA,SO,AD]</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SPRAVNI_OBEC_KOD">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Změna správní obce 
+[OP, PU]</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SPRAVNI_MOMC_KOD">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Změna správní MOMC 
+[SP]</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DRUH_POZEMKU_KOD">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Změna druhu pozemku parcely
+[PA]</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="VYMERA_PARCELY">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Změna na výměre parcely
+[PA]</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CISLO_DOMOVNI_HODNOTA">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Změna čísla domovního stavebního objektu
+[SO]</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="BONIT_DIL">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Změna bonitního dílu parcely
+[PA]</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ZPUSOB_OCHRANY">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Změna způsobu ochrany
+[PA. SO]</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="StupenGeneralizaceType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ORGINALNI"/>
+			<xs:enumeration value="STUPEN_1"/>
+			<xs:enumeration value="STUPEN_2"/>
+			<xs:enumeration value="STUPEN_3"/>
+			<xs:enumeration value="STUPEN_4"/>
+			<xs:enumeration value="STUPEN_5"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TypVymennehoFormatuType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Typ souboru:
+b_c_defg
+
+
+b může nabývat hodnot [ST - stát, OB - obec]
+c je kód prvku. Platí jen pro obec (v případě obce se jedná o kód obce). Stát nebude mít tento parametr.
+d je typ dat. Nabývá hodnot [U &amp;ndash; úplná data, Z - změny]
+e je typ datové sady [Z &amp;ndash; základní datová sada, K &amp;ndash; kompletní datová sada ]
+f označuje zdroj systému [S &amp;ndash; současná data RUIAN, H &amp;ndash; historická data ISUI]
+g označuje konkrétní složení dat prvků v souboru. [Z, G, H, O] 
+ČR, základní datová sada = Z
+ČR, kompletní datová sada, popisná data + generalizované hranice = G
+ČR, kompletní datová sada, popisná data + originální hranice = H
+ČR, kompletní datová sada, popisná data + obrázky = O. Jedná se o soubor XML obsahující obrázky.
+Obec, základní datová sada = Z
+Obec, kompletní datová sada, popisná data + originální hranice = H</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ST_UZSZ"/>
+			<xs:enumeration value="ST_UZHZ"/>
+			<xs:enumeration value="ST_UKSG"/>
+			<xs:enumeration value="ST_UKHG"/>
+			<xs:enumeration value="ST_UKSH"/>
+			<xs:enumeration value="ST_UKHH"/>
+			<xs:enumeration value="ST_UKSO"/>
+			<xs:enumeration value="ST_UKHO"/>
+			<xs:enumeration value="OB_UZSZ"/>
+			<xs:enumeration value="OB_UZHZ"/>
+			<xs:enumeration value="OB_UKSH"/>
+			<xs:enumeration value="OB_UKHH"/>
+			<xs:enumeration value="ST_ZZSZ"/>
+			<xs:enumeration value="ST_ZZHZ"/>
+			<xs:enumeration value="ST_ZKSG"/>
+			<xs:enumeration value="ST_ZKHG"/>
+			<xs:enumeration value="ST_ZKSH"/>
+			<xs:enumeration value="ST_ZKHH"/>
+			<xs:enumeration value="ST_ZKSO"/>
+			<xs:enumeration value="ST_ZKHO"/>
+			<xs:enumeration value="ST_ZKSZ"/>
+			<xs:enumeration value="ST_ZKHZ"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BonitovanaJednotkaType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Bonitovana jednotka type</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:int">
+			<xs:maxInclusive value="99999"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

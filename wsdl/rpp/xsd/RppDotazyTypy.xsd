@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:rpp:schemas:RppDotazyTypy:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:rpp="urn:cz:isvs:rpp:schemas:RppTypy:v1" xmlns:edi="urn:cz:isvs:rpp:schemas:RppEditaceTypy:v1" targetNamespace="urn:cz:isvs:rpp:schemas:RppDotazyTypy:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.1">
+    <xs:annotation>
+        <xs:documentation xml:lang="cs">Návrh XML schématu s definicemi společných datových prvků IS RPP.
+          Toto schéma obsahuje definice základních datových prvků používaných pro dotazy a odpovědi na dotazy
+          do registru práv a povinností (RPP).
+        </xs:documentation>
+    </xs:annotation>
+    <!-- Verze 1.0.0, 6.2.2012 -->
+    <!-- Verze 1.0.1, 23.2.2012 -->
+    <xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+    <xs:import namespace="urn:cz:isvs:rpp:schemas:RppTypy:v1" schemaLocation="RppTypy.xsd"/>
+    <xs:import namespace="urn:cz:isvs:rpp:schemas:RppEditaceTypy:v1" schemaLocation="RppEditaceTypy.xsd"/>
+    <xs:simpleType name="TypVypisuSeznamuPusobnostiOvmType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="ZAKLADNI">
+                <xs:annotation/>
+            </xs:enumeration>
+            <xs:enumeration value="ROZSIRENY">
+                <xs:annotation/>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="TypUdajeRppType">
+        <xs:restriction base="TypVypisuZmenType">
+            <xs:enumeration value="A">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Agenda
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="P">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Působnost
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="R">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Rozhodnutí
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="TypVypisuZmenType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="A">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Agenda
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="P">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Působnost
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="R">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Rozhodnutí
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="V">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Vše
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="ZmenaCasType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Datum a čas změny údaje v RPP.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:CasovaZnackaType"/>
+    </xs:simpleType>
+    <xs:simpleType name="ZpravaIdType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Jednoznačný identifikátor zprávy v RPP.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:int"/>
+    </xs:simpleType>
+    <xs:simpleType name="CasZpracovaniType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Čas zpracování informační služby. 
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:CasovaZnackaType"/>
+    </xs:simpleType>
+    <xs:complexType name="PusobnostOvmAbstractType" abstract="true">
+        <xs:annotation>
+            <xs:documentation>
+                Údaje o působnosti, předek.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Agenda" type="AgendaStavType"/>
+            <xs:element name="Ovm" type="rpp:OvmType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="PravniPredpisAbstractType" abstract="true">
+        <xs:annotation>
+            <xs:documentation>
+                Identifikace právního předpisu v dotazu, předek.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="edi:PravniPredpisEditAbstractType"/>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RozhodnutiAbstractType" abstract="true">
+        <xs:annotation>
+            <xs:documentation>
+                Údaje identifikace rozhodnutí v dotazu, předek.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="edi:RozhodnutiEditAbstractType"/>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="ZmenaAbstractType" abstract="true">
+        <xs:annotation>
+            <xs:documentation>
+                Informace o změně údaje, předek.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="CasZpracovani" type="CasZpracovaniType"/>
+            <xs:element name="IdZpravy" type="ZpravaIdType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SlaType">
+        <xs:sequence>
+            <xs:element name="Nazev" type="rpp:NazevSlaType"/>
+            <xs:element name="SeznamMetrik" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Metrika" type="MetrikaType" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="MetrikaType">
+        <xs:complexContent>
+            <xs:extension base="edi:MetrikaSlaEditType">
+                <xs:sequence>
+                    <xs:element name="Jednotka" type="rpp:NazevJednotkyMetrikyType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="SluzbaType">
+        <xs:annotation>
+            <xs:documentation>
+                Služba v odpovědích dotazů.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="edi:SluzbaEditAbstractType">
+                <xs:sequence>
+                    <xs:element name="PopisnySoubor" type="rpp:PopisnySouborSluzbyType" minOccurs="0"/>
+                    <xs:element name="Sla" type="SlaType"/>
+                    <xs:element name="PoskytujiciInformacniSystem">
+                        <xs:complexType>
+                            <xs:complexContent>
+                                <xs:extension base="rpp:InformacniSystemAbstractType"/>
+                            </xs:complexContent>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="SeznamUdajuAis" type="edi:SeznamUdajuAisSluzbyEditType" minOccurs="0"/>
+                    <xs:element name="PuvodniSluzba" minOccurs="0">
+                        <xs:complexType>
+                            <xs:complexContent>
+                                <xs:extension base="rpp:SluzbaAbstractType"/>
+                            </xs:complexContent>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="SeznamVolanychSluzeb" minOccurs="0">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="VolanaSluzba" maxOccurs="unbounded">
+                                    <xs:complexType>
+                                        <xs:complexContent>
+                                            <xs:extension base="rpp:SluzbaAbstractType">
+                                                <xs:sequence>
+                                                    <xs:element name="Poradi" type="rpp:PoradiSluzbyType"/>
+                                                    <xs:element name="MaxPocetVystup" type="rpp:MaxPocetVystupSluzbyType"/>
+                                                </xs:sequence>
+                                            </xs:extension>
+                                        </xs:complexContent>
+                                    </xs:complexType>
+                                </xs:element>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="SeznamCinnostiAgendyType">
+        <xs:annotation>
+            <xs:documentation>
+                Seznam činností agendy.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="edi:SeznamCinnostiAgendyEditType"/>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="IsAgendyStavType">
+        <xs:annotation>
+            <xs:documentation>
+                Informační systém ve vztahu k agendě včetně stavu vazby v odpovědích.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="edi:IsEditType">
+                <xs:attribute name="stav" type="rpp:StavRppType"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="AgendaStavType">
+        <xs:annotation>
+            <xs:documentation>
+                Agenda rozšířená o další údaje včetně stavů.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="rpp:AgendaAbstractType">
+                <xs:sequence>
+                    <xs:element name="Souhlas" type="xs:boolean"/>
+                </xs:sequence>
+                <xs:attribute name="stavAgenda" type="rpp:StavRppType" use="required"/>
+                <xs:attribute name="stavCeleAgendy" type="rpp:StavRppType" use="required"/>
+                <xs:attribute name="stavUstanoveniPp" type="rpp:StavRppType" use="required"/>
+                <xs:attribute name="stavCinnostiAgendy" type="rpp:StavRppType" use="required"/>
+                <xs:attribute name="stavAgendaAis" type="rpp:StavRppType" use="required"/>
+                <xs:attribute name="stavPovolenychOvm" type="rpp:StavRppType" use="required"/>
+                <xs:attribute name="stavPrirazeniCinnosti" type="rpp:StavRppType" use="required"/>
+                <xs:attribute name="stavOpravneniAis" type="rpp:StavRppType" use="required"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RozhodnutiStavType">
+        <xs:annotation>
+            <xs:documentation>
+                Údaje o rozhodnutí včetně stavu v odpovědích.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Identifikator" type="rpp:IdentifikatorRozhodnutiType"/>
+            <xs:element name="DatumPravniMoci" type="rpp:DatumPravniMociType" minOccurs="0"/>
+            <xs:sequence minOccurs="0">
+                <xs:element name="KodProvadejiciAgendy" type="reg:KodAgendyType"/>
+                <xs:element name="NazevProvadejiciAgendy" type="rpp:NazevAgendyType"/>
+            </xs:sequence>
+            <xs:element name="KodRozhodujicihoOvm" type="reg:KodOvmType" minOccurs="0"/>
+            <xs:element name="SeznamUstanoveni" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="UstanoveniPpRozhodnuti" type="rpp:PravniUstanoveniPredpisType" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="SeznamCinnosti" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="CinnostRozhodnuti" maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:complexContent>
+                                    <xs:extension base="rpp:CinnostAgendyAbstractType">
+                                        <xs:sequence>
+                                            <xs:element name="KodAgendy" type="reg:KodAgendyType"/>
+                                            <xs:element name="DatumPlatnostiAgendyOd" type="rpp:DatumPlatnostiOdType"/>
+                                        </xs:sequence>
+                                    </xs:extension>
+                                </xs:complexContent>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="SeznamPravPovinnosti" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="PravoPovinnost" type="rpp:PravoPovinnostOvmType" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="stavUdajuORozhodnuti" type="rpp:StavRppType" use="required"/>
+        <xs:attribute name="stavRozhodujicihoOvm" type="rpp:StavRppType" use="required"/>
+        <xs:attribute name="stavProvadejiciAgendy" type="rpp:StavRppType" use="required"/>
+        <xs:attribute name="stavPravaPovinnosti" type="rpp:StavRppType" use="required"/>
+        <xs:attribute name="stavUstanoveniPp" type="rpp:StavRppType" use="required"/>
+        <xs:attribute name="stavCelehoRozhodnuti" type="rpp:StavRppType" use="required"/>
+    </xs:complexType>
+    <xs:complexType name="IdentifikaceZaznamuTypAType">
+        <xs:annotation>
+            <xs:documentation>
+                Údaje s identifikací záznamu agendy v RPP.
+                Typ záznamu - A (agenda).
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="KodAgendy" type="reg:KodAgendyType"/>
+            <xs:element name="DatumPlatnostiAgendyOd" type="rpp:DatumPlatnostiOdType"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

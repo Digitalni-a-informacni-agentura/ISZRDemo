@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:VyhledejOrp:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:VyhledejOrp:v1" xmlns:vyhOp="urn:cz:isvs:ruian:schemas:VyhledejOrp:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:opPodm="urn:cz:isvs:ruian:schemas:OrpPodminka:v1" xmlns:opPolBase="urn:cz:isvs:ruian:schemas:OrpPolozkyBase:v1" xmlns:op="urn:cz:isvs:ruian:schemas:Orp:v1" elementFormDefault="qualified" version="0.40.0">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:Orp:v1" schemaLocation="../../../ruian/xsd/prvky/Orp.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:OrpPolozkyBase:v1" schemaLocation="../../../ruian/xsd/vyhledej/OrpPolozkyBase.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:OrpPodminka:v1" schemaLocation="../../../ruian/xsd/vyhledej/OrpPodminka.xsd"/>
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../RegTypy.xsd"/>
+	<xs:element name="VyhledejOrpRequest" type="vyhOp:VyhledejOrpRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na vyhledani ORP</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="VyhledejOrpResponse" type="vyhOp:VyhledejOrpResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved na vyhledani ORP</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="VyhledejOrpRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na vyhledani ORP</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Dotaz" type="VyhledejOrpDotazType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VyhledejOrpDotazType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Parametry ORP</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Podminka" type="opPodm:OrpPodminkaType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="PozadovaneUdaje" type="opPolBase:OrpPolozkyBaseType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VyhledejOrpResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved na vyhledani ORP</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Orp" type="OrpSeznamType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrpSeznamType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam ORP</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Orp" type="op:OrpType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

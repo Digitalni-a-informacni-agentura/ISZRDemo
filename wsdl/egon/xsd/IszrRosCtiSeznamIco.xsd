@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRosCtiSeznamIco:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRosCtiSeznamIco:v1"
+	xmlns:e29="urn:cz:isvs:iszr:schemas:IszrRosCtiSeznamIco:v1"
+	xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:sdo="urn:cz:isvs:ros:schemas:RosDotazyData:v2"
+	xmlns:rod="urn:cz:isvs:rob:schemas:RobDotazyData:v1"
+	xmlns:crob="urn:cz:isvs:ruian:schemas:CtiProRob:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.1.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E29 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vývojová verze 0.0.1, 12.10.2011, Jan Sluka -->
+	<!-- Vývojová verze 0.0.2, 12.10.2011, Aleš Teplý, formální úpravy -->
+	<!-- Fixovaná verze 1.0.0, 30.11.2011, Aleš Teplý -->
+	<!-- Verze po revizi 1.0.1, 14.02.2012 Aleš Teplý, doplnění OrgStatus do Response -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstractOrg.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ros:schemas:RosDotazyData:v2" schemaLocation="../../ros/xsd/RosDotazyData.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rob:schemas:RobDotazyData:v1" schemaLocation="../../rob/xsd/RobDotazyData.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiProRob:v1" schemaLocation="ref/RuianCtiProRob.xsd"/>
+
+	<xs:element name="RosCtiSeznamIco" type="RosCtiSeznamIcoType"/>
+	<xs:element name="RosCtiSeznamIcoResponse" type="RosCtiSeznamIcoResponseType"/>
+	<xs:complexType name="RosCtiSeznamIcoType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E29 externího rozhraní - typ pro žádost.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RosCtiSeznamIcoData" type="sdo:RosCtiSeznamIcoDataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RosCtiSeznamIcoResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E29 externího rozhraní - typ pro odpověď.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAifoStIdAdrAbstractType">
+				<xs:sequence>
+					<xs:element name="RosOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RosCtiSeznamIcoDataResponse" type="sdo:RosCtiSeznamIcoDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="RobOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RobCtiHromadneAifoDataResponse" type="rod:RobCtiHromadneAifoDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="RuianOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianCtiProRobDataResponse">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element ref="crob:SeznamAdres" minOccurs="0"/>
+											<xs:element ref="crob:SeznamLokalit" minOccurs="0"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns="urn:cz:isvs:iszr:services:IszrAispVypisSeznamIs:v1" xmlns:tns="urn:cz:isvs:iszr:services:IszrAispVypisSeznamIs:v1" xmlns:e235="urn:cz:isvs:iszr:schemas:IszrAispVypisSeznamIs:v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" name="IszrAispVypisSeznamIs" targetNamespace="urn:cz:isvs:iszr:services:IszrAispVypisSeznamIs:v1">
+	<wsdl:documentation>Služba E235 externího rozhraní - Služba umožňuje načítat z AISP nereferenční údaje o AIS.</wsdl:documentation>
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrAispVypisSeznamIs:v1" schemaLocation="../xsd/IszrAispVypisSeznamIs.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrAispVypisSeznamIs">
+		<wsdl:part name="parametry" element="e235:AispVypisSeznamIs"/>
+	</wsdl:message>
+	<wsdl:message name="IszrAispVypisSeznamIsResponse">
+		<wsdl:part name="vysledek" element="e235:AispVypisSeznamIsResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrAispVypisSeznamIsPortType">
+		<wsdl:operation name="IszrAispVypisSeznamIs">
+			<wsdl:input message="tns:IszrAispVypisSeznamIs"/>
+			<wsdl:output message="tns:IszrAispVypisSeznamIsResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrAispVypisSeznamIsBinding" type="tns:IszrAispVypisSeznamIsPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrAispVypisSeznamIs">
+			<soap:operation soapAction="IszrAispVypisSeznamIs"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrAispVypisSeznamIsService">
+		<wsdl:port name="IszrAispVypisSeznamIsPortService" binding="tns:IszrAispVypisSeznamIsBinding">
+			<soap:address location="IszrAispVypisSeznamIs"/>
+		</wsdl:port>
+	</wsdl:service>
+	<!-- Vznik 1.0.0, 07.01.2019, Pavel Odstrcil -->
+	<!-- AutoCont CZ a.s. -->
+</wsdl:definitions>

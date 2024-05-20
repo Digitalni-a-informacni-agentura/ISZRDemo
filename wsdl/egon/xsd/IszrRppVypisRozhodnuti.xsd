@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRppVypisRozhodnuti:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRppVypisRozhodnuti:v1"
+	xmlns:e112="urn:cz:isvs:iszr:schemas:IszrRppVypisRozhodnuti:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:pdo="urn:cz:isvs:rpp:schemas:RppDotazyData:v1"
+	xmlns:sdo="urn:cz:isvs:ros:schemas:RosDotazyData:v2"
+	xmlns:rod="urn:cz:isvs:rob:schemas:RobDotazyData:v1"
+	xmlns:crob2="urn:cz:isvs:ruian:schemas:CtiProRob:v2"
+	xmlns:ctiAd="urn:cz:isvs:ruian:schemas:CtiAdresniMisto:v1"
+	xmlns:ctiPa="urn:cz:isvs:ruian:schemas:CtiParcela:v1"
+	xmlns:ctiSo="urn:cz:isvs:ruian:schemas:CtiStavebniObjekt:v1"
+	xmlns:ctiAd2="urn:cz:isvs:ruian:schemas:CtiAdresniMisto:v2"
+	xmlns:ctiPa2="urn:cz:isvs:ruian:schemas:CtiParcela:v2"
+	xmlns:ctiSo2="urn:cz:isvs:ruian:schemas:CtiStavebniObjekt:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.4.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E112 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vývojová verze 0.0.1, 17.10.2011, Aleš Teplý -->
+	<!-- Vývojová verze 0.0.2, 13.12.2011, Aleš Teplý, formální úpravy -->
+	<!-- Vývojová verze 0.0.3, 04.01.2012, Aleš Teplý, rozšíření Response o data ROB, ROS, RUIAN -->
+	<!-- Vývojová verze 0.0.4, 05.01.2012, Aleš Teplý, rozšíření Response o SeznamIdAdres, RuianCtiProRob -->
+	<!-- Fixovaná verze 1.0.0, 11.01.2012, Aleš Teplý -->
+	<!-- Verze po revizi 1.0.1, 16.02.2012, Aleš Teplý, přejmenování z RppVypisRozhodnutiOvm na RppVypisRozhodnuti, přidán OrgStatus do Response -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- Verze po revizi 1.1.1, 14.10.2020, Aleš Teplý, RuianCtiProRobDataResponse v1 i v2 -->
+	<!-- Verze po revizi 1.2.0, 13.8.2021, Aleš Teplý, rozšíření struktury Response ROB v2.0.0, aplikačně zatím omezeno na kompatibilitu s ROB v1.0.9 -->
+	<!-- Verze po revizi 1.2.1, 15.10.2021, Aleš Teplý, AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- Verze po revizi 1.3.0, 19.5.2022 Aleš Teplý, rozšíření Response RUIAN -->
+	<!-- Verze po revizi 1.4.0, 25.5.2022, Aleš Teplý, Response - AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstractOrg.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rpp:schemas:RppDotazyData:v1" schemaLocation="../../rpp/xsd/RppDotazyData.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ros:schemas:RosDotazyData:v2" schemaLocation="../../ros/xsd/RosDotazyData.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rob:schemas:RobDotazyData:v1" schemaLocation="../../rob/xsd/RobDotazyData.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiProRob:v2" schemaLocation="ref/RuianCtiProRob2.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiAdresniMisto:v1" schemaLocation="ref/RuianCtiPrvekAdresniMisto.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiParcela:v1" schemaLocation="ref/RuianCtiPrvekParcela.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiStavebniObjekt:v1" schemaLocation="ref/RuianCtiPrvekStavebniObjekt.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiAdresniMisto:v2" schemaLocation="ref/RuianCtiPrvekAdresniMisto2.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiParcela:v2" schemaLocation="ref/RuianCtiPrvekParcela2.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiStavebniObjekt:v2" schemaLocation="ref/RuianCtiPrvekStavebniObjekt2.xsd"/>
+
+	<xs:element name="RppVypisRozhodnuti" type="RppVypisRozhodnutiType"/>
+	<xs:element name="RppVypisRozhodnutiResponse" type="RppVypisRozhodnutiResponseType"/>
+
+	<xs:complexType name="RppVypisRozhodnutiType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E112 externího rozhraní - typ pro žádost. Poskytnutí referenčního údaje o rozhodnutích vydaných konkrétním OVM v rámci konkrétní Agendy. RPP služba P09.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RppVypisRozhodnutiData" type="pdo:RppVypisRozhodnutiDataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="RppVypisRozhodnutiResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E112 externího rozhraní - typ pro odpověď. Poskytnutí referenčního údaje o rozhodnutích vydaných konkrétním OVM v rámci konkrétní Agendy. RPP služba P09.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAifoStIdAdrIcoPrvekAbstractType">
+				<xs:sequence>
+					<xs:element name="RppOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RppVypisRozhodnutiDataResponse" type="pdo:RppVypisRozhodnutiDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="RosOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RosCtiIcoDataResponse" type="sdo:RosCtiIcoDataResponseType" maxOccurs="unbounded"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="RobOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RobCtiHromadneAifoDataResponse" type="rod:RobCtiHromadneAifoDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="RuianOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianCtiProRobDataResponse" type="crob2:RuianCtiProRobDataResponseType"/>
+								<xs:element name="RuianCtiPrvekAdresniMistoDataResponse" minOccurs="0" maxOccurs="unbounded">
+									<xs:complexType>
+										<xs:sequence>
+										  <xs:element ref="ctiAd:AdresniMisto" minOccurs="0"/>
+										  <xs:element ref="ctiAd2:AdresniMisto" minOccurs="0"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+								<xs:element name="RuianCtiPrvekParcelaDataResponse" minOccurs="0" maxOccurs="unbounded">
+									<xs:complexType>
+										<xs:sequence>
+										  <xs:element ref="ctiPa:Parcela" minOccurs="0"/>
+										  <xs:element ref="ctiPa2:Parcela" minOccurs="0"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+								<xs:element name="RuianCtiPrvekStavebniObjektDataResponse" minOccurs="0" maxOccurs="unbounded">
+									<xs:complexType>
+									<xs:sequence>
+										<xs:element ref="ctiSo:StavebniObjekt" minOccurs="0"/>
+										<xs:element ref="ctiSo2:StavebniObjekt" minOccurs="0"/>
+									</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

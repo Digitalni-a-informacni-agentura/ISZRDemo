@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:isui:schemas:CuzkExtTypy:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:isui:schemas:CuzkExtTypy:v1" xmlns:cux="urn:cz:isvs:isui:schemas:CuzkExtTypy:v1" xmlns:eex="urn:cz:isvs:isui:schemas:EditaceExtTypy:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:osx="urn:cz:isvs:isui:schemas:ObecStuExtTypy:v1" elementFormDefault="qualified" version="1.0.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Aplikační schéma pro kontrolu a zplatnění návrhu změny v rámci agendy CUZK.</xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="urn:cz:isvs:isui:schemas:ObecStuExtTypy:v1" schemaLocation="../../../isui/xsd/externi_nz/ObecStuExtTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:isui:schemas:EditaceExtTypy:v1" schemaLocation="../../../isui/xsd/externi_nz/EditaceExtTypy.xsd"/>
+	<xs:element name="ZkontrolujNzCuzkRequest" type="cux:ZmenPrvkyCuzkRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Požadavek na kontrolu návrhu změny v rámci agendy CUZK.  </xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="PrvekListEditaceCuzkType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam editovaných prvků z agendy CUZK.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Prvek" type="PrvekEditaceCuzkType" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="EditaceCuzkType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Editace z agendy CUZK.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="HlavickaNZ" type="eex:HlavickaNzType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="PodkladyNZ" type="eex:PodkladNzSeznamType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Prvky" type="PrvekListEditaceCuzkType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ZmenPrvkyCuzkRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Požadavek na návrh změny v rámci agendy CUZK.  </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Dotaz" type="EditaceCuzkType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PrvekEditaceCuzkType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Editace prvku z agendy CUZK.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="VytvoreniUlice" type="osx:UliceVytvoreniExtNZType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="VytvoreniStavebniObjekt" type="osx:StavebniObjektVytvoreniExtNZType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="VytvoreniAdresniMisto" type="osx:AdresniMistoVytvoreniExtNZType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="VytvoreniDetailTEA" type="osx:DetailTEAVyvoreniExtNZType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ZmenaUlice" type="osx:UliceZmenaExtNZType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ZmenaStavebniObjekt" type="osx:StavebniObjektZmenaExtNZType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ZmenaAdresniMisto" type="osx:AdresniMistoZmenaExtNZType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ZmenaDetailTEA" type="osx:DetailTEAZmenaExtNZType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ZruseniUlice" type="osx:UliceZruseniExtNZType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ZruseniStavebniObjekt" type="osx:StavebniObjektZruseniExtNZType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ZruseniAdresniMisto" type="osx:AdresniMistoZruseniExtNZType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ZruseniDetailTEA" type="osx:DetailTEAZruseniExtNZType" minOccurs="0" maxOccurs="1"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:element name="ZplatniNzCuzkRequest" type="cux:ZmenPrvkyCuzkRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Požadavek na zplatnění návrhu změny v rámci agendy CUZK. </xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

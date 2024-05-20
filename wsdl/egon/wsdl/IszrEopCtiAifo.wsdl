@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns="urn:cz:isvs:iszr:services:IszrEopCtiAifo:v1" xmlns:tns="urn:cz:isvs:iszr:services:IszrEopCtiAifo:v1" xmlns:e188="urn:cz:isvs:iszr:schemas:IszrEopCtiAifo:v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" name="IszrEopCtiAifo" targetNamespace="urn:cz:isvs:iszr:services:IszrEopCtiAifo:v1">
+	<wsdl:documentation>Služba E188 externího rozhraní - Služba umožňuje načítat z AIS EOP nereferenční údaje, které nejsou uloženy v ROB.</wsdl:documentation>
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrEopCtiAifo:v1" schemaLocation="../xsd/IszrEopCtiAifo.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrEopCtiAifo">
+		<wsdl:part name="parametry" element="e188:EopCtiAifo"/>
+	</wsdl:message>
+	<wsdl:message name="IszrEopCtiAifoResponse">
+		<wsdl:part name="vysledek" element="e188:EopCtiAifoResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrEopCtiAifoPortType">
+		<wsdl:operation name="IszrEopCtiAifo">
+			<wsdl:input message="tns:IszrEopCtiAifo"/>
+			<wsdl:output message="tns:IszrEopCtiAifoResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrEopCtiAifoBinding" type="tns:IszrEopCtiAifoPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrEopCtiAifo">
+			<soap:operation soapAction="IszrEopCtiAifo"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrEopCtiAifoService">
+		<wsdl:port name="IszrEopCtiAifoPortService" binding="tns:IszrEopCtiAifoBinding">
+			<soap:address location="IszrEopCtiAifo"/>
+		</wsdl:port>
+	</wsdl:service>
+	<!-- Vznik 1.0.0, 17.04.2015, Pavel Odstrcil -->
+	<!-- Verze pro revizi 2.0.0, 13.11.2018, ales.teply@autocont.cz, změna namespace importovaného xsd urn:cz:isvs:ais3:schemas:Ais3EopCtiAifo:v1 na urn:cz:isvs:aiseop:schemas:AisEopCtiAifo:v2 a úložiště /ais3 na /aiseop -->
+	<!-- Verze 2.0.1, 18.3.2019, ales.teply@autocont.cz, Úprava EopOdpoved: AisAplikacniStatus-NevydanaPolozka -->
+	<!-- Verze po revizi 2.0.2, 14.10.2020, Aleš Teplý, RuianCtiProRobDataResponse v1 i v2-->
+	<!-- Verze po revizi 2.1.0, 13.8.2021, Aleš Teplý, rozšíření struktury Response ROB v2.0.0, aplikačně zatím omezeno na kompatibilitu s ROB v1.0.9 -->
+	<!-- AutoCont CZ a.s. -->
+</wsdl:definitions>

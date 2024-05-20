@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrAgendaVypisPocetSubjektuNaAdrese:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrAgendaVypisPocetSubjektuNaAdrese:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrAgendaVypisPocetSubjektuNaAdrese:v1"
+	xmlns:e307="urn:cz:isvs:iszr:schemas:IszrAgendaVypisPocetSubjektuNaAdrese:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrAgendaVypisPocetSubjektuNaAdrese">
+
+	<wsdl:documentation>Služba E307 externího rozhraní - Služba umožňuje načíst data z evidencí ROB a ROS.</wsdl:documentation>
+
+	<!-- Vychozi verze 1.0.0, 13.5.2022, Ales Teply -->
+	<!-- Verze po revizi 1.0.1, 26.5.2022, obsah odpovědi ROS nepovinny, Ales Teply -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrAgendaVypisPocetSubjektuNaAdrese:v1" schemaLocation="../xsd/IszrAgendaVypisPocetSubjektuNaAdrese.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrAgendaVypisPocetSubjektuNaAdrese">
+		<wsdl:part name="parametry" element="e307:AgendaVypisPocetSubjektuNaAdrese"/>
+	</wsdl:message>
+	<wsdl:message name="IszrAgendaVypisPocetSubjektuNaAdreseResponse">
+		<wsdl:part name="vysledek" element="e307:AgendaVypisPocetSubjektuNaAdreseResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrAgendaVypisPocetSubjektuNaAdresePortType">
+		<wsdl:operation name="IszrAgendaVypisPocetSubjektuNaAdrese">
+			<wsdl:input message="tns:IszrAgendaVypisPocetSubjektuNaAdrese"/>
+			<wsdl:output message="tns:IszrAgendaVypisPocetSubjektuNaAdreseResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrAgendaVypisPocetSubjektuNaAdreseBinding" type="tns:IszrAgendaVypisPocetSubjektuNaAdresePortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrAgendaVypisPocetSubjektuNaAdrese">
+			<soap:operation soapAction="IszrAgendaVypisPocetSubjektuNaAdrese"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrAgendaVypisPocetSubjektuNaAdreseService">
+		<wsdl:port name="IszrAgendaVypisPocetSubjektuNaAdresePortService" binding="tns:IszrAgendaVypisPocetSubjektuNaAdreseBinding">
+			<soap:address location="IszrAgendaVypisPocetSubjektuNaAdrese"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:iszr:schemas:IszrVypisSeznamRegistraciAis:v1" xmlns:e289="urn:cz:isvs:iszr:schemas:IszrVypisSeznamRegistraciAis:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" xmlns:i19="urn:cz:isvs:iszr:schemas:IszrDataVypisSeznamRegistraciAis:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:cz:isvs:iszr:schemas:IszrVypisSeznamRegistraciAis:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E289 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	<!-- Verze 1.0.0, 09.10.2021 Pavel Odstrčil, výchozí verze -->
+	<!-- AutoCont CZ a.s. -->
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstractOrg.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrDataVypisSeznamRegistraciAis:v1" schemaLocation="../../iszr/xsd/IszrDataVypisSeznamRegistraciAis.xsd"/>
+	<xs:element name="IszrVypisSeznamRegistraciAis" type="IszrVypisSeznamRegistraciAisType"/>
+	<xs:element name="IszrVypisSeznamRegistraciAisResponse" type="IszrVypisSeznamRegistraciAisResponseType"/>
+	<xs:complexType name="IszrVypisSeznamRegistraciAisType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba pro výpis registrací AIS v ISZR, typ pro žádost. Interní služba ISZR I19.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IszrVypisSeznamRegistraciAisData" type="i19:IszrVypisSeznamRegistraciAisDataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="IszrVypisSeznamRegistraciAisResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba pro výpis registrací AIS v ISZR, typ pro odpověď. Interní služba ISZR I19.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="IszrOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IszrVypisSeznamRegistraciAisDataResponse" type="i19:IszrVypisSeznamRegistraciAisDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

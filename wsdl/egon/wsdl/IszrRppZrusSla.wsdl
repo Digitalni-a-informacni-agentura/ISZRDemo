@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRppZrusSla:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRppZrusSla:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRppZrusSla:v1"
+	xmlns:e144="urn:cz:isvs:iszr:schemas:IszrRppZrusSla:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRppZrusSla">
+
+	<wsdl:documentation>Služba E144 externího rozhraní - Služba, kterou se zruší (logické rušení) záznam SLA - RPP služba P41.</wsdl:documentation>
+	
+	<!-- Vývojová verze 0.0.1, 02.02.2012, Aleš Teplý -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- Verze po revizi 1.1.1, 15.10.2021, Aleš Teplý, AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- Verze po revizi 1.2.0, 25.5.2022, Aleš Teplý, Response - AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- AutoCont CZ a.s. -->
+	
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRppZrusSla:v1" schemaLocation="../xsd/IszrRppZrusSla.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="IszrRppZrusSla">
+		<wsdl:part name="parametry" element="e144:RppZrusSla"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRppZrusSlaResponse">
+		<wsdl:part name="vysledek" element="e144:RppZrusSlaResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRppZrusSlaPortType">
+		<wsdl:operation name="IszrRppZrusSla">
+			<wsdl:input message="tns:IszrRppZrusSla"/>
+			<wsdl:output message="tns:IszrRppZrusSlaResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRppZrusSlaBinding" type="tns:IszrRppZrusSlaPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRppZrusSla">
+			<soap:operation soapAction="IszrRppZrusSla"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRppZrusSlaService">
+		<wsdl:port name="IszrRppZrusSlaPortService" binding="tns:IszrRppZrusSlaBinding">
+			<soap:address location="IszrRppZrusSla"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRosCtiAifo:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRosCtiAifo:v1"
+	xmlns:e21="urn:cz:isvs:iszr:schemas:IszrRosCtiAifo:v1"
+	xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:sdo="urn:cz:isvs:ros:schemas:RosDotazyData:v2"
+	xmlns:rod="urn:cz:isvs:rob:schemas:RobDotazyData:v1"
+	xmlns:crob="urn:cz:isvs:ruian:schemas:CtiProRob:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.1.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E21 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	
+	<!-- Vývojová verze 1.0.0, 18.10.2011, Aleš Teplý -->
+	<!-- Verze po revizi 1.0.1, 14.02.2012 Aleš Teplý, doplnění OrgStatus do Response -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstractOrg.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ros:schemas:RosDotazyData:v2" schemaLocation="../../ros/xsd/RosDotazyData.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rob:schemas:RobDotazyData:v1" schemaLocation="../../rob/xsd/RobDotazyData.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiProRob:v1" schemaLocation="ref/RuianCtiProRob.xsd"/>
+	
+	<xs:element name="RosCtiAifo" type="RosCtiAifoType"/>
+	<xs:element name="RosCtiAifoResponse" type="RosCtiAifoResponseType"/>
+
+	<xs:complexType name="RosCtiAifoType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E21 externího rozhraní - typ pro žádost. Služba na základě identifikace osoby pomocí Aifo vrací požadované referenční údaje.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostRAifoAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RosCtiAifoData" type="sdo:RosCtiAifoDataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="RosCtiAifoResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E21 externího rozhraní - typ pro odpověď. Služba skládá údaje ze základních registrů ROS (S06), ROB (O08) a RUIAN (A28). Pokud je ve výsledku AIFO, volá se ROB se seznamem povolených atributů. Pokud jsou ve výsledku adresy, volá se RUIAN. RUAIN vrací adresy jak pro ROS tak pro ROB.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAifoStIdAdrAbstractType">
+				<xs:sequence>
+					<xs:element name="RosOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RosCtiAifoDataResponse" type="sdo:RosCtiAifoDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="RobOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RobCtiHromadneAifoDataResponse" type="rod:RobCtiHromadneAifoDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="RuianOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianCtiProRobDataResponse">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element ref="crob:SeznamAdres" minOccurs="0"/>
+											<xs:element ref="crob:SeznamLokalit" minOccurs="0"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

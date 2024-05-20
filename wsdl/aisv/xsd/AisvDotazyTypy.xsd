@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:aisv:schemas:AisvDotazyTypy:v1"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+           xmlns:dt="urn:cz:isvs:aisv:schemas:AisvData:v1"
+           targetNamespace="urn:cz:isvs:aisv:schemas:AisvDotazyTypy:v1"
+           elementFormDefault="qualified"
+           attributeFormDefault="unqualified"
+           version="0.1.2">
+
+    <xs:annotation>
+        <xs:documentation xml:lang="cs">XML schéma s definicemi dat pro služby AISV.</xs:documentation>
+    </xs:annotation>
+
+    <!-- Vývojová verze 0.1.1, 20.10.2022, Vladimír Hudec  Úvodní verze -->
+    <!-- Vývojová verze 0.1.2, 31.10.2022, Revize pro externi rozhrani -->
+
+    <xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+    <xs:import namespace="urn:cz:isvs:aisv:schemas:AisvData:v1" schemaLocation="AisvData.xsd" />
+
+     <xs:complexType name="AisvEvidujZmenuDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Datovy typ pro data zadosti
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="PaisId" type="dt:PaisIdType"/>
+            <xs:element name="PaisZmenaId" type="dt:ZmenaIdType"/>
+            <xs:element name="PaisZmenaCas" type="reg:CasovaZnackaType"/>
+            <xs:element name="PuvodniAdresaPobytu" type="reg:KodAdresniMistoType" minOccurs="0"/>
+            <xs:element name="NovaAdresaPobytu" type="reg:KodAdresniMistoType" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+     <xs:complexType name="AisvEvidujZmenuDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Datovy typ pro data odpovedi
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="ZmenaId" type="dt:ZmenaIdType">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Jednoznačný identifikátor změny v AISV.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ZmenaCas" type="reg:CasovaZnackaType">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Datum/čas změny v AISV.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>

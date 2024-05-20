@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrEidentitaCtiProstredkyAifo:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrEidentitaCtiProstredkyAifo:v1"
+	xmlns:e306="urn:cz:isvs:iszr:schemas:IszrEidentitaCtiProstredkyAifo:v1"
+	xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:nia="urn:cz:isvs:nia:schemas:NiaTypy:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.1.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E306 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	
+	<!-- Vývojová verze 1.0.0, 26.4.2022, Aleš Teplý -->
+	<!-- Verze po revizi 1.1.0, 26.5.2022, Aleš Teplý, úprava názvu elementu a typu (sjednocení) -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstractOrg.xsd"/>
+	<xs:import namespace="urn:cz:isvs:nia:schemas:NiaTypy:v1" schemaLocation="../../nia/xsd/NiaTypy.xsd"/>
+	
+	<xs:element name="IszrEidentitaCtiProstredkyAifo" type="IszrEidentitaCtiProstredkyAifoType"/>
+	<xs:element name="IszrEidentitaCtiProstredkyAifoResponse" type="IszrEidentitaCtiProstredkyAifoResponseType"/>
+
+	<xs:complexType name="IszrEidentitaCtiProstredkyAifoType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E306 externího rozhraní - typ pro žádost. Služba pro zjištění vlastnictví obecného identifikačního prostředku vedeného v Národním bodu na základě znalosti AIFO.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostRAifoAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="EidentitaCtiProstredkyAifoData" type="nia:EidentitaCtiProstredkyAifoDataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="IszrEidentitaCtiProstredkyAifoResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E306 externího rozhraní - typ pro odpověď. Služba pro zjištění vlastnictví obecného identifikačního prostředku vedeného v Národním bodu na základě znalosti AIFO. Vrací počet platných identifikační prostředků.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAifoStIdAdrAbstractType">
+				<xs:sequence>
+					<xs:element name="EidentitaOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="EidentitaCtiProstredkyAifoDataResponse" type="nia:EidentitaCtiProstredkyAifoDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

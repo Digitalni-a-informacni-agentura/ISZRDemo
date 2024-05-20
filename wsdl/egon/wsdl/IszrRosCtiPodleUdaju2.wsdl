@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRosCtiPodleUdaju2:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRosCtiPodleUdaju2:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRosCtiPodleUdaju2:v1"
+	xmlns:e259="urn:cz:isvs:iszr:schemas:IszrRosCtiPodleUdaju2:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRosCtiPodleUdaju2">
+	<wsdl:documentation>Služba E259 externího rozhraní.</wsdl:documentation>
+
+	<!-- Vývojová verze 2.0.0, 21.9.2020, Aleš Teplý -->
+	<!-- Verze po revizi 2.0.1, 14.10.2020, Aleš Teplý, RuianCtiProRobDataResponse v1 i v2-->
+	<!-- Verze po revizi 2.1.1, 5.8.2021, Aleš Teplý, rozšíření Request o nepovinné KontaktniUdaje, rozšíření Response o nepovinné KontaktniUdaje -->
+	<!-- Verze po revizi 2.2.0, 13.8.2021, Aleš Teplý, rozšíření struktury Response ROB v2.0.0, aplikačně zatím omezeno na kompatibilitu s ROB v1.0.9 -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRosCtiPodleUdaju2:v1" schemaLocation="../xsd/IszrRosCtiPodleUdaju2.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="IszrRosCtiPodleUdaju2">
+		<wsdl:part name="parametry" element="e259:RosCtiPodleUdaju2"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRosCtiPodleUdaju2Response">
+		<wsdl:part name="vysledek" element="e259:RosCtiPodleUdaju2Response"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRosCtiPodleUdaju2PortType">
+		<wsdl:operation name="IszrRosCtiPodleUdaju2">
+			<wsdl:input message="IszrRosCtiPodleUdaju2"/>
+			<wsdl:output message="IszrRosCtiPodleUdaju2Response"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRosCtiPodleUdaju2Binding" type="tns:IszrRosCtiPodleUdaju2PortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRosCtiPodleUdaju2">
+			<soap:operation soapAction="IszrRosCtiPodleUdaju2"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRosCtiPodleUdaju2Service">
+		<wsdl:port name="IszrRosCtiPodleUdaju2PortService" binding="tns:IszrRosCtiPodleUdaju2Binding">
+			<soap:address location="IszrRosCtiPodleUdaju2"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

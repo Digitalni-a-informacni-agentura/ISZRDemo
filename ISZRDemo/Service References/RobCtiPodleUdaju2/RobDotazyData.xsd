@@ -1,0 +1,592 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:rob="urn:cz:isvs:rob:schemas:RobTypy:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns="urn:cz:isvs:rob:schemas:RobDotazyData:v1" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:cz:isvs:rob:schemas:RobDotazyData:v1" version="2.1.1" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="../../RegTypy.xsd" namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" />
+  <xs:import schemaLocation="RobTypy.xsd" namespace="urn:cz:isvs:rob:schemas:RobTypy:v1" />
+  <xs:annotation>
+    <xs:documentation xml:lang="cs">Návrh XML schématu s definicemi dat pro dotazování registru osob
+            (ROB).
+        </xs:documentation>
+  </xs:annotation>
+  <xs:element name="RobCtiAifoData" type="RobCtiAifoDataType" />
+  <xs:element name="RobCtiAifoDataResponse" type="RobCtiAifoDataResponseType" />
+  <xs:element name="RobCtiAifo2Data" type="RobCtiAifoDataType" />
+  <xs:element name="RobCtiAifo2DataResponse" type="RobCtiAifoDataResponseType" />
+  <xs:element name="RobAutentizaceData" type="RobAutentizaceDataType" />
+  <xs:element name="RobAutentizaceDataResponse" type="RobAutentizaceDataResponseType" />
+  <xs:element name="RobCtiEditoraData" type="RobCtiEditoraDataType" />
+  <xs:element name="RobCtiEditoraDataResponse" type="RobCtiEditoraDataResponseType" />
+  <xs:element name="RobCtiHromadneAifoData" type="RobCtiHromadneAifoDataType" />
+  <xs:element name="RobCtiHromadneAifoDataResponse" type="RobCtiHromadneAifoDataResponseType" />
+  <xs:element name="RobCtiHromadneAifo2Data" type="RobCtiHromadneAifoDataType" />
+  <xs:element name="RobCtiHromadneAifo2DataResponse" type="RobCtiHromadneAifoDataResponseType" />
+  <xs:element name="RobCtiPodleUdajuData" type="RobCtiPodleUdajuDataType" />
+  <xs:element name="RobCtiPodleUdajuDataResponse" type="RobCtiPodleUdajuDataResponseType" />
+  <xs:element name="RobCtiPodleUdaju2Data" type="RobCtiPodleUdaju2DataType" />
+  <xs:element name="RobCtiPodleUdaju2DataResponse" type="RobCtiPodleUdajuDataResponseType" />
+  <xs:element name="RobCtiPodleAdresyData" type="RobCtiPodleAdresyDataType" />
+  <xs:element name="RobCtiPodleAdresyDataResponse" type="RobCtiPodleAdresyDataResponseType" />
+  <xs:element name="RobCtiZmenyData" type="RobCtiZmenyDataType" />
+  <xs:element name="RobCtiZmenyDataResponse" type="RobCtiZmenyDataResponseType" />
+  <xs:element name="RobCtiZmenyZalozData" type="RobCtiZmenyZalozDataType" />
+  <xs:element name="RobCtiZmenyZalozDataResponse" type="RobCtiZmenyZalozDataResponseType" />
+  <xs:element name="RobVypisBlokaceData" type="RobVypisBlokaceDataType" />
+  <xs:element name="RobVypisBlokaceDataResponse" type="RobVypisBlokaceDataResponseType" />
+  <xs:element name="RobVypisVyuzitiPoskytnutiData" type="RobVypisVyuzitiPoskytnutiDataType" />
+  <xs:element name="RobVypisVyuzitiPoskytnutiDataResponse" type="RobVypisVyuzitiPoskytnutiDataResponseType" />
+  <xs:element name="RobOverHromadneAifoData" type="RobOverHromadneAifoDataType" />
+  <xs:element name="RobOverHromadneAifoDataResponse" type="RobOverHromadneAifoDataResponseType" />
+  <xs:element name="RobOverHromadneAifo2Data" type="RobOverHromadneAifo2DataType" />
+  <xs:element name="RobOverHromadneAifo2DataResponse" type="RobOverHromadneAifoDataResponseType" />
+  <xs:element name="RobVypisSouhlasuPoskytnutiData" type="RobVypisSouhlasuPoskytnutiDataType" />
+  <xs:element name="RobVypisSouhlasuPoskytnutiDataResponse" type="RobVypisSouhlasuPoskytnutiDataResponseType" />
+  <xs:element name="RobVypisSouhlasuPoskytnutiTretiOsobeData" type="RobVypisSouhlasuPoskytnutiTretiOsobeDataType" />
+  <xs:element name="RobVypisSouhlasuPoskytnutiTretiOsobeDataResponse" type="RobVypisSouhlasuPoskytnutiTretiOsobeDataResponseType" />
+  <xs:complexType name="RobDotazyDataResponseType" abstract="true">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Společný předek všech odpovědí na dotazy ROB.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="RobAplikacniStatus" type="rob:RobAplikacniStatusType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RobCtiAifoDataType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Čtení referenčních údajů podle AIFO.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Aifo" type="reg:LokalniAifoType" />
+      <xs:element name="VyuzitiPoskytnuti" type="rob:TypVyuzitiPoskytnutiType" />
+    </xs:sequence>
+    <xs:attribute name="znepristupniLog" type="xs:boolean" />
+  </xs:complexType>
+  <xs:complexType name="RobCtiAifoDataResponseType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Čtení referenčních údajů podle AIFO, odpověď.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="RobDotazyDataResponseType">
+        <xs:sequence minOccurs="0">
+          <xs:element minOccurs="0" name="AdresaPobytu" nillable="true" type="rob:AdresaPobytuStavType" />
+          <xs:element minOccurs="0" name="AifoKontrolaType" type="rob:AifoKontrolaType" />
+          <xs:element minOccurs="0" name="DatovaSchranka" nillable="true" type="rob:DatovaSchrankaStavType" />
+          <xs:element minOccurs="0" name="DatumNarozeni" nillable="true" type="rob:DatumNarozeniStavType" />
+          <xs:element minOccurs="0" name="DatumPravniMociUmrti" nillable="true" type="rob:DatumPravniMociUmrtiStavType" />
+          <xs:element minOccurs="0" name="DatumUmrti" nillable="true" type="rob:DatumUmrtiStavType" />
+          <xs:element minOccurs="0" name="DorucovaciAdresa" nillable="true" type="rob:DorucovaciAdresaStavType" />
+          <xs:element minOccurs="0" name="Jmeno" nillable="true" type="rob:JmenoStavType" />
+          <xs:element minOccurs="0" name="MistoNarozeni" nillable="true" type="rob:MistoNarozeniStavType" />
+          <xs:element minOccurs="0" name="MistoUmrti" nillable="true" type="rob:MistoUmrtiStavType" />
+          <xs:element minOccurs="0" name="Prijmeni" nillable="true" type="rob:PrijmeniStavType" />
+          <xs:element minOccurs="0" name="RodnePrijmeni" nillable="true" type="rob:RodnePrijmeniStavType" />
+          <xs:element minOccurs="0" name="OmezeniSvepravnosti" nillable="true" type="rob:OmezeniSvepravnostiStavType" />
+          <xs:element minOccurs="0" name="RodinnyStavPartnerstvi" nillable="true" type="rob:RodinnyStavPartnerstviStavType" />
+          <xs:element minOccurs="0" name="Pohlavi" nillable="true" type="rob:PohlaviStavType" />
+          <xs:element minOccurs="0" name="Telefon" nillable="true" type="rob:TelefonStavType" />
+          <xs:element minOccurs="0" name="Email" nillable="true" type="rob:EmailStavType" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Certifikaty" type="rob:CertifikatStavType" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Doklady" type="rob:DokladStavType" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Obcanstvi" type="rob:ObcanstviStavType" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="PoskytnutiJineOsobe" type="rob:PoskytnutiJineOsobeType" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="RobAutentizaceDataType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Zjištění identity fyzické osoby prostřednictvím elektronického
+                identifikačního dokladu.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Cislo" type="rob:DokladCisloType" />
+      <xs:element name="Druh" type="rob:DokladDruhType" />
+      <xs:element minOccurs="0" name="Bok" type="rob:BokType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RobAutentizaceDataResponseType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Zjištění identity fyzické osoby prostřednictvím elektronického
+                identifikačního dokladu, odpověď.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="RobDotazyDataResponseType">
+        <xs:sequence minOccurs="0">
+          <xs:element minOccurs="0" name="Aifo" type="reg:LokalniAifoType" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="RobCtiEditoraDataType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Vydání editora údaje podle AIFO.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Aifo" type="reg:LokalniAifoType" />
+      <xs:element name="Udaj" type="reg:RobUdajType" />
+      <xs:element minOccurs="0" name="Druh" type="rob:DokladDruhType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RobCtiEditoraDataResponseType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Vydání editora údaje podle AIFO, odpověď.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="RobDotazyDataResponseType">
+        <xs:sequence minOccurs="0">
+          <xs:element name="Udaj" type="reg:RobUdajType" />
+          <xs:element name="Editor" type="rob:EditorType" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="RobCtiHromadneAifoDataType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Vydání údajů osob z ROB podle seznamu AIFO v MapaAifo.
+                Na výstupu
+                vrací identickou mapu doplněnou o statusy.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="znepristupniLog" type="xs:boolean" />
+  </xs:complexType>
+  <xs:complexType name="RobCtiHromadneAifoDataResponseType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Vydání údajů osob z ROB podle seznamu AIFO, odpověď.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="RobDotazyDataResponseType">
+        <xs:sequence minOccurs="0">
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Osoba">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element minOccurs="0" name="AdresaPobytu" nillable="true" type="rob:AdresaPobytuStavType" />
+                <xs:element name="Aifo" type="rob:LokalniAifoStavType" />
+                <xs:element minOccurs="0" name="AifoKontrolaType" type="rob:AifoKontrolaType" />
+                <xs:element minOccurs="0" name="DatovaSchranka" nillable="true" type="rob:DatovaSchrankaStavType" />
+                <xs:element minOccurs="0" name="DatumNarozeni" nillable="true" type="rob:DatumNarozeniStavType" />
+                <xs:element minOccurs="0" name="DatumPravniMociUmrti" nillable="true" type="rob:DatumPravniMociUmrtiStavType" />
+                <xs:element minOccurs="0" name="DatumUmrti" nillable="true" type="rob:DatumUmrtiStavType" />
+                <xs:element minOccurs="0" name="DorucovaciAdresa" nillable="true" type="rob:DorucovaciAdresaStavType" />
+                <xs:element minOccurs="0" name="Jmeno" nillable="true" type="rob:JmenoStavType" />
+                <xs:element minOccurs="0" name="MistoNarozeni" nillable="true" type="rob:MistoNarozeniStavType" />
+                <xs:element minOccurs="0" name="MistoUmrti" nillable="true" type="rob:MistoUmrtiStavType" />
+                <xs:element minOccurs="0" name="Prijmeni" nillable="true" type="rob:PrijmeniStavType" />
+                <xs:element minOccurs="0" name="RodnePrijmeni" nillable="true" type="rob:RodnePrijmeniStavType" />
+                <xs:element minOccurs="0" name="OmezeniSvepravnosti" nillable="true" type="rob:OmezeniSvepravnostiStavType" />
+                <xs:element minOccurs="0" name="RodinnyStavPartnerstvi" nillable="true" type="rob:RodinnyStavPartnerstviStavType" />
+                <xs:element minOccurs="0" name="Pohlavi" nillable="true" type="rob:PohlaviStavType" />
+                <xs:element minOccurs="0" name="Telefon" nillable="true" type="rob:TelefonStavType" />
+                <xs:element minOccurs="0" name="Email" nillable="true" type="rob:EmailStavType" />
+                <xs:element minOccurs="0" maxOccurs="unbounded" name="Certifikaty" type="rob:CertifikatStavType" />
+                <xs:element minOccurs="0" maxOccurs="unbounded" name="Doklady" type="rob:DokladStavType" />
+                <xs:element minOccurs="0" maxOccurs="unbounded" name="Obcanstvi" type="rob:ObcanstviStavType" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="RobCtiPodleUdajuDataType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Čtení referenčních údajů z registru na základě vyhledání fyzické
+                osoby podle kombinace údajů.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AdresaPobytu" nillable="true" type="rob:AdresaPobytuType" />
+      <xs:element minOccurs="0" name="DatovaSchrankaId" nillable="true" type="reg:DatovaSchrankaIdType" />
+      <xs:element minOccurs="0" name="DatumNarozeni" nillable="true" type="rob:DatumNarozeniType" />
+      <xs:element minOccurs="0" name="DatumPravniMociUmrti" nillable="true" type="rob:DatumPravniMociUmrtiType" />
+      <xs:element minOccurs="0" name="DatumUmrti" nillable="true" type="rob:DatumUmrtiType" />
+      <xs:element minOccurs="0" name="Jmeno" nillable="true" type="rob:JmenoType" />
+      <xs:element minOccurs="0" name="MistoNarozeni" nillable="true" type="rob:MistoNarozeniType" />
+      <xs:element minOccurs="0" name="MistoUmrti" nillable="true" type="rob:MistoUmrtiType" />
+      <xs:element minOccurs="0" name="Prijmeni" nillable="true" type="rob:PrijmeniType" />
+      <xs:element minOccurs="0" name="Doklad" type="rob:DokladType" />
+      <xs:element minOccurs="0" name="Obcanstvi" type="rob:ObcanstviType" />
+    </xs:sequence>
+    <xs:attribute default="diakritika" name="typPorovnani" type="rob:TypPorovnaniType" />
+    <xs:attribute name="znepristupniLog" type="xs:boolean" />
+  </xs:complexType>
+  <xs:complexType name="RobCtiPodleUdajuDataResponseType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Čtení referenčních údajů z registru na základě vyhledání fyzické
+                osoby podle kombinace údajů, odpověď.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="RobDotazyDataResponseType">
+        <xs:sequence minOccurs="0">
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Osoba">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element minOccurs="0" name="AdresaPobytu" nillable="true" type="rob:AdresaPobytuStavType" />
+                <xs:element name="Aifo" type="rob:LokalniAifoStavType" />
+                <xs:element minOccurs="0" name="AifoKontrolaType" type="rob:AifoKontrolaType" />
+                <xs:element minOccurs="0" name="DatovaSchranka" nillable="true" type="rob:DatovaSchrankaStavType" />
+                <xs:element minOccurs="0" name="DatumNarozeni" nillable="true" type="rob:DatumNarozeniStavType" />
+                <xs:element minOccurs="0" name="DatumPravniMociUmrti" nillable="true" type="rob:DatumPravniMociUmrtiStavType" />
+                <xs:element minOccurs="0" name="DatumUmrti" nillable="true" type="rob:DatumUmrtiStavType" />
+                <xs:element minOccurs="0" name="DorucovaciAdresa" nillable="true" type="rob:DorucovaciAdresaStavType" />
+                <xs:element minOccurs="0" name="Jmeno" nillable="true" type="rob:JmenoStavType" />
+                <xs:element minOccurs="0" name="MistoNarozeni" nillable="true" type="rob:MistoNarozeniStavType" />
+                <xs:element minOccurs="0" name="MistoUmrti" nillable="true" type="rob:MistoUmrtiStavType" />
+                <xs:element minOccurs="0" name="Prijmeni" nillable="true" type="rob:PrijmeniStavType" />
+                <xs:element minOccurs="0" name="RodnePrijmeni" nillable="true" type="rob:RodnePrijmeniStavType" />
+                <xs:element minOccurs="0" name="OmezeniSvepravnosti" nillable="true" type="rob:OmezeniSvepravnostiStavType" />
+                <xs:element minOccurs="0" name="RodinnyStavPartnerstvi" nillable="true" type="rob:RodinnyStavPartnerstviStavType" />
+                <xs:element minOccurs="0" name="Pohlavi" nillable="true" type="rob:PohlaviStavType" />
+                <xs:element minOccurs="0" name="Telefon" nillable="true" type="rob:TelefonStavType" />
+                <xs:element minOccurs="0" name="Email" nillable="true" type="rob:EmailStavType" />
+                <xs:element minOccurs="0" maxOccurs="unbounded" name="Certifikaty" type="rob:CertifikatStavType" />
+                <xs:element minOccurs="0" maxOccurs="unbounded" name="Doklady" type="rob:DokladStavType" />
+                <xs:element minOccurs="0" maxOccurs="unbounded" name="Obcanstvi" type="rob:ObcanstviStavType" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="RobCtiPodleUdaju2DataType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Čtení referenčních údajů z registru na základě vyhledání fyzické
+                osoby podle kombinace údajů, verze 2.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="RobCtiPodleUdajuDataType">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="RodnePrijmeni" nillable="true" type="rob:RodnePrijmeniType" />
+          <xs:element minOccurs="0" name="OmezeniSvepravnosti" nillable="true" type="rob:OmezeniSvepravnostiType" />
+          <xs:element minOccurs="0" name="RodinnyStavPartnerstvi" nillable="true" type="rob:RodinnyStavPartnerstviType" />
+          <xs:element minOccurs="0" name="Pohlavi" nillable="true" type="rob:PohlaviType" />
+          <xs:element minOccurs="0" name="SerioveCisloCertifikatu" nillable="true" type="rob:SerioveCisloCertifikatuType" />
+          <xs:element minOccurs="0" name="VydavatelCertifikatu" nillable="true" type="rob:VydavatelCertifikatuType" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="RobCtiPodleAdresyDataType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Čtení referenčních údajů z registru na základě vyhledání fyzické
+                osoby podle adresy pobytu.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="AdresaPobytu" type="rob:AdresaPobytuType" />
+    </xs:sequence>
+    <xs:attribute name="seznamAifo" type="xs:boolean" />
+  </xs:complexType>
+  <xs:complexType name="RobCtiPodleAdresyDataResponseType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Čtení referenčních údajů z registru na základě vyhledání fyzické
+                osoby podle adresy pobytu, odpověď.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="RobDotazyDataResponseType">
+        <xs:sequence minOccurs="0">
+          <xs:element name="PocetCelkem" type="reg:KladneCeleCisloType" />
+          <xs:element maxOccurs="unbounded" name="EditorData">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Editor" type="reg:KodAgendyType" />
+                <xs:element name="EditorPocet" type="reg:KladneCeleCisloType" />
+                <xs:element minOccurs="0" maxOccurs="unbounded" name="Osoba">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="Aifo" type="rob:LokalniAifoStavType" />
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="RobCtiZmenyDataType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Vydání seznamu AIFO, u kterých došlo ke změně
+                referenčních údajů.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:choice>
+        <xs:element name="CasOd" type="rob:ZmenaCasType" />
+        <xs:element name="ZmenaId" type="rob:ZmenaIdType" />
+      </xs:choice>
+      <xs:element minOccurs="0" name="CasDo" type="rob:ZmenaCasType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RobCtiZmenyDataResponseType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Vydání seznamu AIFO, u kterých došlo ke změně referenčních
+                údajů, odpověď.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="RobDotazyDataResponseType">
+        <xs:sequence minOccurs="0">
+          <xs:element name="ZmenaCas" type="rob:ZmenaCasType" />
+          <xs:element name="ZmenaId" type="rob:ZmenaIdType" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="RobCtiZmenyZalozDataType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Vydání seznamu AIFO, která byla nově založena.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:choice>
+        <xs:element name="CasOd" type="rob:ZmenaCasType" />
+        <xs:element name="ZmenaId" type="rob:ZmenaIdType" />
+      </xs:choice>
+      <xs:element minOccurs="0" name="CasDo" type="rob:ZmenaCasType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RobCtiZmenyZalozDataResponseType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Vydání seznamu AIFO, která byla nově založena, odpověď.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="RobDotazyDataResponseType">
+        <xs:sequence minOccurs="0">
+          <xs:element name="ZmenaCas" type="rob:ZmenaCasType" />
+          <xs:element name="ZmenaId" type="rob:ZmenaIdType" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="RobVypisBlokaceDataType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Vydání údaje o znepřístupnění výdeje.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Aifo" type="reg:LokalniAifoType" />
+      <xs:element minOccurs="0" name="Subjekt" type="reg:SubjektType" />
+      <xs:element minOccurs="0" name="Agenda" type="reg:KodAgendyType" />
+      <xs:element minOccurs="0" name="Uzivatel" type="reg:UzivatelType" />
+      <xs:element minOccurs="0" name="DuvodUcel" type="reg:DuvodUcelType" />
+      <xs:element minOccurs="0" name="CasOd" type="rob:ZnepristupneniDatumCasType" />
+      <xs:element minOccurs="0" name="CasDo" type="rob:ZnepristupneniDatumCasType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RobVypisBlokaceDataResponseType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Vydání údaje o znepřístupnění výdeje, odpověď.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="RobDotazyDataResponseType">
+        <xs:sequence minOccurs="0">
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Blokace">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Aifo" type="reg:LokalniAifoType" />
+                <xs:element name="Subjekt" type="reg:SubjektType" />
+                <xs:element name="Agenda" type="reg:KodAgendyType" />
+                <xs:element name="Ovm" type="reg:KodOvmType" />
+                <xs:element name="Uzivatel" type="reg:UzivatelType" />
+                <xs:element name="CasBlokace" type="rob:ZnepristupneniDatumCasType" />
+                <xs:element name="DuvodUcel" type="reg:DuvodUcelType" />
+                <xs:element name="AgendaZadostId" type="reg:AgendaZadostIdType" />
+                <xs:element minOccurs="0" name="IszrZadostId" type="reg:IszrZadostIdType" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="RobVypisVyuzitiPoskytnutiDataType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Vydání údajů o využití a poskytnutí záznamů.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:choice>
+        <xs:element name="RocniVypisCislo" type="rob:CisloZaznamu" />
+        <xs:element name="Aifo" type="reg:LokalniAifoType" />
+      </xs:choice>
+      <xs:element name="CasOd" type="reg:CasovaZnackaType" />
+      <xs:element minOccurs="0" name="CasDo" type="reg:CasovaZnackaType" />
+    </xs:sequence>
+    <xs:attribute name="potlaceniZnepristupneni" type="xs:boolean" />
+    <xs:attribute name="zaznamOd" type="rob:CisloZaznamu" />
+    <xs:attribute name="hromadnyVydej" type="xs:boolean" />
+    <xs:attribute name="datumPodaniZadosti" type="xs:date" />
+  </xs:complexType>
+  <xs:complexType name="RobVypisVyuzitiPoskytnutiDataResponseType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Vydání údajů o využití a poskytnutí záznamů, odpověď.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="RobDotazyDataResponseType">
+        <xs:sequence minOccurs="0">
+          <xs:element minOccurs="0" name="DatovaSchranka" type="reg:DatovaSchrankaIdType" />
+          <xs:element minOccurs="0" name="Kontrola" type="rob:KontrolaType" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="VyuzitiPoskytnuti">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="VyuzitiPoskytnuti" type="rob:TypVyuzitiPoskytnutiType" />
+                <xs:element name="Agenda" type="reg:KodAgendyType" />
+                <xs:element minOccurs="0" name="Ais" type="reg:KodAisType" />
+                <xs:element name="Subjekt" type="reg:SubjektType" />
+                <xs:element name="Uzivatel" type="reg:UzivatelType" />
+                <xs:element name="Ovm" type="reg:KodOvmType" />
+                <xs:element name="CasVyuziti" type="reg:CasovaZnackaType" />
+                <xs:element name="DuvodUcel" type="reg:DuvodUcelType" />
+                <xs:element name="SeznamUdaju" type="rob:VyuzitiPoskytnutiSpecifikaceType" />
+                <xs:element name="AgendaZadostId" type="reg:AgendaZadostIdType" />
+                <xs:element name="IszrZadostId" type="reg:IszrZadostIdType" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="RobOverHromadneAifoDataType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Ověření jedné nebo více osob v ROB.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" name="Osoba">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Aifo" type="reg:LokalniAifoType" />
+            <xs:element minOccurs="0" name="AdresaPobytu" type="rob:AdresaPobytuType" />
+            <xs:element minOccurs="0" name="DatovaSchrankaId" type="reg:DatovaSchrankaIdType" />
+            <xs:element minOccurs="0" name="DatumNarozeni" type="rob:DatumNarozeniType" />
+            <xs:element minOccurs="0" name="DatumUmrti" type="rob:DatumUmrtiType" />
+            <xs:element minOccurs="0" name="DatumPravniMociUmrti" type="rob:DatumPravniMociUmrtiType" />
+            <xs:element minOccurs="0" name="DorucovaciAdresa" type="rob:DorucovaciAdresaType" />
+            <xs:element minOccurs="0" name="Jmeno" type="rob:JmenoType" />
+            <xs:element minOccurs="0" name="MistoNarozeni" type="rob:MistoNarozeniType" />
+            <xs:element minOccurs="0" name="MistoUmrti" type="rob:MistoUmrtiType" />
+            <xs:element minOccurs="0" name="Prijmeni" type="rob:PrijmeniType" />
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="Doklady" type="rob:DokladType" />
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="Obcanstvi" type="rob:ObcanstviType" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute default="diakritika" name="typPorovnani" type="rob:TypPorovnaniType" />
+    <xs:attribute name="znepristupniLog" type="xs:boolean" />
+  </xs:complexType>
+  <xs:complexType name="RobOverHromadneAifo2DataType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Ověření jedné nebo více osob v ROB.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" name="Osoba">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Aifo" type="reg:LokalniAifoType" />
+            <xs:element minOccurs="0" name="AdresaPobytu" type="rob:AdresaPobytuType" />
+            <xs:element minOccurs="0" name="DatovaSchrankaId" type="reg:DatovaSchrankaIdType" />
+            <xs:element minOccurs="0" name="DatumNarozeni" type="rob:DatumNarozeniType" />
+            <xs:element minOccurs="0" name="DatumUmrti" type="rob:DatumUmrtiType" />
+            <xs:element minOccurs="0" name="DatumPravniMociUmrti" type="rob:DatumPravniMociUmrtiType" />
+            <xs:element minOccurs="0" name="DorucovaciAdresa" type="rob:DorucovaciAdresaType" />
+            <xs:element minOccurs="0" name="Jmeno" type="rob:JmenoType" />
+            <xs:element minOccurs="0" name="MistoNarozeni" type="rob:MistoNarozeniType" />
+            <xs:element minOccurs="0" name="MistoUmrti" type="rob:MistoUmrtiType" />
+            <xs:element minOccurs="0" name="Prijmeni" type="rob:PrijmeniType" />
+            <xs:element minOccurs="0" name="RodnePrijmeni" type="rob:RodnePrijmeniType" />
+            <xs:element minOccurs="0" name="OmezeniSvepravnosti" type="rob:OmezeniSvepravnostiType" />
+            <xs:element minOccurs="0" name="RodinnyStavPartnerstvi" type="rob:RodinnyStavPartnerstviType" />
+            <xs:element minOccurs="0" name="Pohlavi" type="rob:PohlaviType" />
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="Doklady" type="rob:DokladType" />
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="Obcanstvi" type="rob:ObcanstviType" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute default="diakritika" name="typPorovnani" type="rob:TypPorovnaniType" />
+    <xs:attribute name="znepristupniLog" type="xs:boolean" />
+  </xs:complexType>
+  <xs:complexType name="RobOverHromadneAifoDataResponseType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Ověření jedné nebo více osob v ROB, odpověď.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="RobAplikacniStatus" type="rob:RobAplikacniStatusType" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Osoba">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Aifo" type="reg:LokalniAifoType" />
+            <xs:element minOccurs="0" name="OvereneUdaje" type="reg:RobSeznamUdajuType" />
+            <xs:element minOccurs="0" name="CastecneOvereneUdaje" type="reg:RobSeznamUdajuType" />
+            <xs:element minOccurs="0" name="NeovereneUdaje" type="reg:RobSeznamUdajuType" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RobVypisSouhlasuPoskytnutiDataType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Výpis záznamů o DS třetích stran, do kterých se
+                při změně mají
+                údaje odeslat.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Aifo" type="reg:LokalniAifoType" />
+    </xs:sequence>
+    <xs:attribute name="vydatNeaktivniZaznamy" type="xs:boolean" />
+  </xs:complexType>
+  <xs:complexType name="RobVypisSouhlasuPoskytnutiDataResponseType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Výpis záznamů o DS třetích stran, do kterých se
+                při změně mají
+                údaje odeslat, odpověď.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="RobDotazyDataResponseType">
+        <xs:sequence minOccurs="0">
+          <xs:element maxOccurs="unbounded" name="PoskytnutiJineOsobe" type="rob:PoskytnutiJineOsobeType" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="RobVypisSouhlasuPoskytnutiTretiOsobeDataType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Výpis záznamů souhlasů pro DS třetí strany, do které se
+                při změně
+                mají údaje odeslat.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="DatovaSchrankaPoskytnuti" type="reg:DatovaSchrankaIdType" />
+    </xs:sequence>
+    <xs:attribute name="vydatNeaktivniZaznamy" type="xs:boolean" />
+  </xs:complexType>
+  <xs:complexType name="RobVypisSouhlasuPoskytnutiTretiOsobeDataResponseType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Výpis záznamů souhlasů pro DS třetí strany, do které se
+                při změně
+                mají údaje odeslat, odpověď.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="RobDotazyDataResponseType">
+        <xs:sequence minOccurs="0">
+          <xs:element maxOccurs="unbounded" name="PoskytnutiTretiOsobe" type="rob:PoskytnutiTretiOsobeType" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:or="urn:cz:isvs:org:schemas:OrgRozhrani:v1" xmlns:ot="urn:cz:isvs:org:schemas:OrgTypy:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns="urn:cz:isvs:org:schemas:OrgRozhrani:v1" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:cz:isvs:org:schemas:OrgRozhrani:v1" version="1.5.1" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="../../../org/xsd/OrgTypy.xsd" namespace="urn:cz:isvs:org:schemas:OrgTypy:v1" />
+  <xs:import schemaLocation="../../../RegTypy.xsd" namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" />
+  <xs:annotation>
+    <xs:documentation xml:lang="cs">Rozšíření Org služeb o OrgStatus a další, definice potřebného elementu v namespace ORG.</xs:documentation>
+  </xs:annotation>
+  <xs:element name="OrgStatus" type="ot:OrgStatusType" />
+  <xs:element name="Hrany" type="ot:HranyType" />
+  <xs:element name="OrgDavka" type="ot:OrgDavkaType" />
+  <xs:element name="Soubory" type="reg:SouboryType" />
+  <xs:element name="SouboryMetadata" type="ot:OrgSouboryType" />
+  <xs:element name="OrgVazby" type="ot:OrgVazbyType" />
+  <xs:element name="OrgAgendaAis" type="ot:OrgAgendaAisType" />
+  <xs:complexType name="CtiZmenyAifoDataType">
+    <xs:sequence>
+      <xs:element name="CelyAis" type="ot:CelyAisType" />
+      <xs:element name="OrgOmezeni" type="ot:OrgOmezeniType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="VlozAisDataType">
+    <xs:sequence>
+      <xs:element name="OrgAgendaAis" type="ot:OrgAgendaAisType" />
+      <xs:element name="IdSa" type="ot:IdSaType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="VlozSkupinuDataType">
+    <xs:sequence>
+      <xs:element name="IdSa" type="ot:IdSaType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RozdelZifoDataType">
+    <xs:sequence>
+      <xs:element name="PocetZaznamu" type="reg:KladneCeleCisloType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RodokmenAifoDataType">
+    <xs:sequence>
+      <xs:element name="Od" type="reg:CasovaZnackaType" />
+      <xs:element name="Do" type="reg:CasovaZnackaType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CtiVazbyDataType">
+    <xs:sequence>
+      <xs:element name="FiltrVazby" type="ot:OrgFiltrVazbyType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ZjistiAisDataType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Agenda" type="reg:KodAgendyType" />
+      <xs:element minOccurs="0" name="AIS" type="reg:KodAisType" />
+      <xs:element minOccurs="0" name="JenPrihlasene" type="ot:JenPrihlaseneType" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

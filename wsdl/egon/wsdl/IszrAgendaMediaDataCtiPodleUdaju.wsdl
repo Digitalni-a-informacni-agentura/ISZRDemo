@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns="urn:cz:isvs:iszr:services:IszrAgendaMediaDataCtiPodleUdaju:v1" xmlns:tns="urn:cz:isvs:iszr:services:IszrAgendaMediaDataCtiPodleUdaju:v1" xmlns:e198="urn:cz:isvs:iszr:schemas:IszrAgendaMediaDataCtiPodleUdaju:v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" name="IszrAgendaMediaDataCtiPodleUdaju" targetNamespace="urn:cz:isvs:iszr:services:IszrAgendaMediaDataCtiPodleUdaju:v1">
+	<wsdl:documentation>Služba E198 externího rozhraní - Služba umožňuje načítat z AIS agend binární nereferenční údaje, které nejsou uloženy v ROB.</wsdl:documentation>
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrAgendaMediaDataCtiPodleUdaju:v1" schemaLocation="../xsd/IszrAgendaMediaDataCtiPodleUdaju.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrAgendaMediaDataCtiPodleUdaju">
+		<wsdl:part name="parametry" element="e198:AgendaMediaDataCtiPodleUdaju"/>
+	</wsdl:message>
+	<wsdl:message name="IszrAgendaMediaDataCtiPodleUdajuResponse">
+		<wsdl:part name="vysledek" element="e198:AgendaMediaDataCtiPodleUdajuResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrAgendaMediaDataCtiPodleUdajuPortType">
+		<wsdl:operation name="IszrAgendaMediaDataCtiPodleUdaju">
+			<wsdl:input message="tns:IszrAgendaMediaDataCtiPodleUdaju"/>
+			<wsdl:output message="tns:IszrAgendaMediaDataCtiPodleUdajuResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrAgendaMediaDataCtiPodleUdajuBinding" type="tns:IszrAgendaMediaDataCtiPodleUdajuPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrAgendaMediaDataCtiPodleUdaju">
+			<soap:operation soapAction="IszrAgendaMediaDataCtiPodleUdaju"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrAgendaMediaDataCtiPodleUdajuService">
+		<wsdl:port name="IszrAgendaMediaDataCtiPodleUdajuPortService" binding="tns:IszrAgendaMediaDataCtiPodleUdajuBinding">
+			<soap:address location="IszrAgendaMediaDataCtiPodleUdaju"/>
+		</wsdl:port>
+	</wsdl:service>
+	<!-- Vznik 1.0.0, 17.04.2015, Pavel Odstrcil -->
+	<!-- Verze 1.9.7, 18.3.2019, ales.teply@autocont.cz, Úprava EopOdpoved, EcdOdpoved: AisAplikacniStatus-NevydanaPolozka -->
+	<!-- Verze po revizi 1.9.8, 14.10.2020, Aleš Teplý, RuianCtiProRobDataResponse v1 i v2-->
+	<!-- Verze po revizi 1.10.0, 13.8.2021, Aleš Teplý, rozšíření struktury Response ROB v2.0.0, aplikačně zatím omezeno na kompatibilitu s ROB v1.0.9 -->
+	<!-- AutoCont CZ a.s. -->
+</wsdl:definitions>

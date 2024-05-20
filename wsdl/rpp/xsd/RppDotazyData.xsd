@@ -1,0 +1,1096 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:rpp:schemas:RppDotazyData:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:rpp="urn:cz:isvs:rpp:schemas:RppTypy:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:dot="urn:cz:isvs:rpp:schemas:RppDotazyTypy:v1" targetNamespace="urn:cz:isvs:rpp:schemas:RppDotazyData:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.1">
+    <xs:annotation>
+        <xs:documentation xml:lang="cs">Návrh XML schématu s definicemi dotazovacích datových prvků IS RPP.
+          Toto schéma obsahuje definice datových prvků vstupu a výstupu jednotlivých dotazovacích služeb
+          registru práv a povinností (RPP).
+        </xs:documentation>
+    </xs:annotation>
+    <!-- Verze 1.0.0, 6.2.2012 -->
+    <!-- Verze 1.0.1, 23.2.2012 -->
+    <xs:import namespace="urn:cz:isvs:rpp:schemas:RppTypy:v1" schemaLocation="RppTypy.xsd"/>
+    <xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+    <xs:import namespace="urn:cz:isvs:rpp:schemas:RppDotazyTypy:v1" schemaLocation="RppDotazyTypy.xsd"/>
+    <xs:element name="RppVypisVyuzitiRefUdajuData" type="RppVypisVyuzitiRefUdajuDataType"/>
+    <xs:element name="RppVypisVyuzitiRefUdajuDataResponse" type="RppVypisVyuzitiRefUdajuDataResponseType"/>
+    <xs:element name="RppCtiZmenyData" type="RppCtiZmenyDataType"/>
+    <xs:element name="RppCtiZmenyDataResponse" type="RppCtiZmenyDataResponseType"/>
+    <xs:element name="RppVypisSeznamAgendData" type="RppVypisSeznamAgendDataType"/>
+    <xs:element name="RppVypisSeznamAgendDataResponse" type="RppVypisSeznamAgendDataResponseType"/>
+    <xs:element name="RppVypisAgenduData" type="RppVypisAgenduDataType"/>
+    <xs:element name="RppVypisAgenduDataResponse" type="RppVypisAgenduDataResponseType"/>
+    <xs:element name="RppVypisRozhodnutiData" type="RppVypisRozhodnutiDataType"/>
+    <xs:element name="RppVypisRozhodnutiDataResponse" type="RppVypisRozhodnutiDataResponseType"/>
+    <xs:element name="RppVypisSeznamRozhodnutiData" type="RppVypisSeznamRozhodnutiDataType"/>
+    <xs:element name="RppVypisSeznamRozhodnutiDataResponse" type="RppVypisSeznamRozhodnutiDataResponseType"/>
+    <xs:element name="RppVypisSeznamProcesnichModeluData" type="RppVypisSeznamProcesnichModeluDataType"/>
+    <xs:element name="RppVypisSeznamProcesnichModeluDataResponse" type="RppVypisSeznamProcesnichModeluDataResponseType"/>
+    <xs:element name="RppVypisProcesniModelData" type="RppVypisProcesniModelDataType"/>
+    <xs:element name="RppVypisProcesniModelDataResponse" type="RppVypisProcesniModelDataResponseType"/>
+    <xs:element name="RppVypisSeznamPravnichPredpisuData" type="RppVypisSeznamPravnichPredpisuDataType"/>
+    <xs:element name="RppVypisSeznamPravnichPredpisuDataResponse" type="RppVypisSeznamPravnichPredpisuDataResponseType"/>
+    <xs:element name="RppVypisPravniPredpisData" type="RppVypisPravniPredpisDataType"/>
+    <xs:element name="RppVypisPravniPredpisDataResponse" type="RppVypisPravniPredpisDataResponseType"/>
+    <xs:element name="RppVypisSeznamPusobnostiOvmData" type="RppVypisSeznamPusobnostiOvmDataType"/>
+    <xs:element name="RppVypisSeznamPusobnostiOvmDataResponse" type="RppVypisSeznamPusobnostiOvmDataResponseType"/>
+    <xs:element name="RppVypisPusobnostOvmData" type="RppVypisPusobnostOvmDataType"/>
+    <xs:element name="RppVypisPusobnostOvmDataResponse" type="RppVypisPusobnostOvmDataResponseType"/>
+    <xs:element name="RppVypisSeznamSluzebData" type="RppVypisSeznamSluzebDataType"/>
+    <xs:element name="RppVypisSeznamSluzebDataResponse" type="RppVypisSeznamSluzebDataResponseType"/>
+    <xs:element name="RppVypisSluzbuData" type="RppVypisSluzbuDataType"/>
+    <xs:element name="RppVypisSluzbuDataResponse" type="RppVypisSluzbuDataResponseType"/>
+    <xs:element name="RppVypisSeznamSlaData" type="RppVypisSeznamSlaDataType"/>
+    <xs:element name="RppVypisSeznamSlaDataResponse" type="RppVypisSeznamSlaDataResponseType"/>
+    <xs:element name="RppVypisSlaData" type="RppVypisSlaDataType"/>
+    <xs:element name="RppVypisSlaDataResponse" type="RppVypisSlaDataResponseType"/>
+    <xs:element name="RppVypisOpravneniNaProvedeniSluzbyData" type="RppVypisOpravneniNaProvedeniSluzbyDataType"/>
+    <xs:element name="RppVypisOpravneniNaProvedeniSluzbyDataResponse" type="RppVypisOpravneniNaProvedeniSluzbyDataResponseType"/>
+    <xs:element name="RppVypisOpravneniData" type="RppVypisOpravneniDataType"/>
+    <xs:element name="RppVypisOpravneniDataResponse" type="RppVypisOpravneniDataResponseType"/>
+    <xs:element name="RppCtiEditoraData" type="RppCtiEditoraDataType"/>
+    <xs:element name="RppCtiEditoraDataResponse" type="RppCtiEditoraDataResponseType"/>
+    <xs:complexType name="RppDotazyDataResponseAbstractType" abstract="true">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Společný předek všech odpovědí na dotazy Rpp.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="AplikacniStatus" type="rpp:AplikacniStatusType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="RppVypisVyuzitiRefUdajuDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P01 - předběžná verze.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:choice>
+            <xs:sequence>
+                <xs:choice>
+                    <xs:element name="Ico" type="reg:IcoType"/>
+                    <xs:element name="Aifo" type="reg:LokalniAifoType"/>
+                </xs:choice>
+                <xs:element name="CasOd" type="reg:CasovaZnackaType"/>
+                <xs:element name="CasDo" type="reg:CasovaZnackaType"/>
+            </xs:sequence>
+            <xs:element name="PoradoveCislo" type="reg:KladneCeleCisloType"/>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="RppVypisVyuzitiRefUdajuDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P01, odpověď - předběžná verze.
+            </xs:documentation>
+            <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                OBECNA CHYBA SLUZBY
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+                VYUZITI NEEXISTUJE
+                CHYBA ROZSAHU
+                CHYBA MAPA AIFO
+                CHYBA SEZNAM ICO
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazyDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:sequence>
+                        <xs:choice>
+                            <xs:element name="Ico" type="reg:IcoType"/>
+                            <xs:sequence>
+                                <xs:element name="Aifo" type="reg:LokalniAifoType"/>
+                                <xs:element name="KodAgendy" type="reg:KodAgendyType"/>
+                                <xs:element name="KodAis" type="reg:KodAisType"/>
+                            </xs:sequence>
+                        </xs:choice>
+                        <xs:element name="PoradoveCislo" type="reg:KladneCeleCisloType"/>
+                        <xs:element name="Vyuziti" minOccurs="0">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="UdajeVyuziti" maxOccurs="unbounded">
+                                        <xs:complexType>
+                                            <xs:sequence>
+                                                <xs:element name="CasZpracovani" type="reg:CasovaZnackaType"/>
+                                                <xs:element name="IdZpravy" type="dot:ZpravaIdType"/>
+                                                <xs:element name="NazevAgendy" type="rpp:NazevAgendyType"/>
+                                                <xs:element name="AgendovaRole" type="reg:AgendovaRoleType"/>
+                                                <xs:element name="NazevOvm" type="rpp:NazevOvmType"/>
+                                                <xs:element name="NazevAis" type="rpp:NazevAisType" minOccurs="0"/>
+                                                <xs:element name="Subjekt" type="reg:SubjektType" minOccurs="0"/>
+                                                <xs:element name="Uzivatel" type="reg:UzivatelType" minOccurs="0"/>
+                                                <xs:element name="DuvodUcel" type="reg:DuvodUcelType" minOccurs="0"/>
+                                                <xs:element name="SeznamUdaju">
+                                                    <xs:complexType>
+                                                        <xs:sequence>
+                                                            <xs:element name="Udaj" type="rpp:NazevUdajeAisType" maxOccurs="unbounded"/>
+                                                        </xs:sequence>
+                                                    </xs:complexType>
+                                                </xs:element>
+                                                <xs:element name="SeznamIdentifikaciVet">
+                                                    <xs:complexType>
+                                                        <xs:choice maxOccurs="unbounded">
+                                                            <xs:element name="IdentifikaceZaznamuTypA" type="dot:IdentifikaceZaznamuTypAType"/>
+                                                            <xs:element name="IdentifikaceZaznamuTypP" type="rpp:IdentifikacePusobnostiType"/>
+                                                            <xs:element name="IdentifikaceZaznamuTypR">
+                                                                <xs:complexType>
+                                                                    <xs:complexContent>
+                                                                        <xs:extension base="dot:RozhodnutiAbstractType"/>
+                                                                    </xs:complexContent>
+                                                                </xs:complexType>
+                                                            </xs:element>
+                                                        </xs:choice>
+                                                    </xs:complexType>
+                                                </xs:element>
+                                            </xs:sequence>
+                                        </xs:complexType>
+                                    </xs:element>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppCtiZmenyDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P02.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:choice>
+                <xs:sequence>
+                    <xs:element name="CasZmenyOd" type="dot:ZmenaCasType"/>
+                    <xs:element name="CasZmenyDo" type="dot:ZmenaCasType" minOccurs="0"/>
+                </xs:sequence>
+                <xs:element name="IdZpravy" type="dot:ZpravaIdType"/>
+            </xs:choice>
+            <xs:element name="TypVypisu" type="dot:TypVypisuZmenType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="RppCtiZmenyDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P02, odpověď.
+            </xs:documentation>
+            <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                OBECNA CHYBA SLUZBY
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+                PRAZDNY SEZNAM
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazyDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element name="ZmenaTypA" minOccurs="0" maxOccurs="unbounded">
+                        <xs:complexType>
+                            <xs:complexContent>
+                                <xs:extension base="dot:ZmenaAbstractType">
+                                    <xs:sequence>
+                                        <xs:element name="KodAgendy" type="reg:KodAgendyType"/>
+                                        <xs:element name="DatumPlatnostiAgendyOd" type="rpp:DatumPlatnostiOdType"/>
+                                    </xs:sequence>
+                                </xs:extension>
+                            </xs:complexContent>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="ZmenaTypP" minOccurs="0" maxOccurs="unbounded">
+                        <xs:complexType>
+                            <xs:complexContent>
+                                <xs:extension base="dot:ZmenaAbstractType">
+                                    <xs:sequence>
+                                        <xs:element name="KodAgendy" type="reg:KodAgendyType"/>
+                                        <xs:element name="DatumPlatnostiAgendyOd" type="rpp:DatumPlatnostiOdType"/>
+                                        <xs:element name="KodOvm" type="reg:KodOvmType"/>
+                                    </xs:sequence>
+                                </xs:extension>
+                            </xs:complexContent>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="ZmenaTypR" minOccurs="0" maxOccurs="unbounded">
+                        <xs:complexType>
+                            <xs:complexContent>
+                                <xs:extension base="dot:ZmenaAbstractType">
+                                    <xs:sequence>
+                                        <xs:element name="KodAgendy" type="reg:KodAgendyType"/>
+                                        <xs:element name="KodOvm" type="reg:KodOvmType"/>
+                                        <xs:element name="IdentifikatorRozhodnuti" type="rpp:IdentifikatorRozhodnutiType"/>
+                                    </xs:sequence>
+                                </xs:extension>
+                            </xs:complexContent>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppVypisSeznamAgendDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P03.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="KodRegistrujicihoOvm" type="reg:KodOvmType" minOccurs="0"/>
+            <xs:element name="BudouciPlatnost" type="xs:boolean" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="RppVypisSeznamAgendDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P03, odpověď.
+              Atribut stav určuje stav celé agendy. Implicitní hodnota atributu stav je "spravny".
+            </xs:documentation>
+            <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                OBECNA CHYBA SLUZBY
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+                NEPOVOLENY KOD OVM
+                PRAZDNY SEZNAM
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazyDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element name="Agenda" maxOccurs="unbounded">
+                        <xs:complexType>
+                            <xs:complexContent>
+                                <xs:extension base="rpp:AgendaAbstractType">
+                                    <xs:sequence>
+                                        <xs:element name="KodRegistrujicihoOvm" type="reg:KodOvmType"/>
+                                    </xs:sequence>
+                                    <xs:attribute name="stavCeleAgendy" type="rpp:StavRppType" use="required"/>
+                                </xs:extension>
+                            </xs:complexContent>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppVypisAgenduDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P04.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="KodAgendy" type="reg:KodAgendyType"/>
+            <xs:element name="DatumPlatnostiOd" type="rpp:DatumPlatnostiOdType"/>
+            <xs:element name="BudouciPlatnost" type="xs:boolean" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="RppVypisAgenduDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P04, odpověď.
+              Implicitní hodnota stavových atributů je "spravny".
+            </xs:documentation>
+            <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                OBECNA CHYBA SLUZBY
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+                NEPOVOLENY KOD AGENDY
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazyDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element name="Agenda">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="Kod" type="reg:KodAgendyType" minOccurs="0"/>
+                                <xs:element name="Nazev" type="rpp:NazevAgendyType" minOccurs="0"/>
+                                <xs:element name="DatumPlatnostiOd" type="rpp:DatumPlatnostiOdType"/>
+                                <xs:element name="DatumPlatnostiDo" type="rpp:DatumPlatnostiDoType" minOccurs="0"/>
+                                <xs:element name="Souhlas" type="xs:boolean"/>
+                                <xs:element name="RegistrujiciOvm" type="rpp:OvmType" minOccurs="0"/>
+                                <xs:element name="SeznamIs" minOccurs="0">
+                                    <xs:complexType>
+                                        <xs:sequence>
+                                            <xs:element name="IsAgendy" type="dot:IsAgendyStavType" maxOccurs="unbounded"/>
+                                        </xs:sequence>
+                                    </xs:complexType>
+                                </xs:element>
+                                <!-- Alespoň jeden z následujících dvou elementů musí být vyplněn-->
+                                <xs:element name="SeznamPovolenychNazvuTypuOvm" type="rpp:SeznamNazvuTypuOvmType" minOccurs="0"/>
+                                <xs:element name="SeznamPovolenychOvm" type="rpp:SeznamOvmType" minOccurs="0"/>
+                                <xs:element name="SeznamUstanoveni" type="rpp:SeznamPravnichUstanoveniPredpisType" minOccurs="0"/>
+                                <xs:element name="SeznamCinnosti" type="dot:SeznamCinnostiAgendyType" minOccurs="0"/>
+                                <xs:element name="SeznamPusobnosti" minOccurs="0">
+                                    <xs:complexType>
+                                        <xs:sequence>
+                                            <xs:element name="PusobnostOvm" maxOccurs="unbounded">
+                                                <xs:complexType>
+                                                    <xs:sequence>
+                                                        <xs:element name="PocetUrednikuOvm" type="rpp:PocetUrednikuOvmType"/>
+                                                        <xs:element name="DatumPlatnostiOd" type="rpp:DatumPlatnostiOdType"/>
+                                                        <xs:element name="DatumPlatnostiDo" type="rpp:DatumPlatnostiDoType" minOccurs="0"/>
+                                                        <xs:element name="Ovm" type="rpp:OvmType"/>
+                                                    </xs:sequence>
+                                                    <xs:attribute name="stav" type="rpp:StavRppType" use="required"/>
+                                                </xs:complexType>
+                                            </xs:element>
+                                        </xs:sequence>
+                                    </xs:complexType>
+                                </xs:element>
+                            </xs:sequence>
+                            <xs:attribute name="stavAgenda" type="rpp:StavRppType" use="required"/>
+                            <xs:attribute name="stavCeleAgendy" type="rpp:StavRppType" use="required"/>
+                            <xs:attribute name="stavUstanoveniPp" type="rpp:StavRppType" use="required"/>
+                            <xs:attribute name="stavCinnostiAgendy" type="rpp:StavRppType" use="required"/>
+                            <xs:attribute name="stavAgendaAis" type="rpp:StavRppType" use="required"/>
+                            <xs:attribute name="stavPovolenychOvm" type="rpp:StavRppType" use="required"/>
+                            <xs:attribute name="stavPrirazeniCinnosti" type="rpp:StavRppType" use="required"/>
+                            <xs:attribute name="stavOpravneniAis" type="rpp:StavRppType" use="required"/>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppVypisRozhodnutiDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P09.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="IdentifikatorRozhodnuti" type="rpp:IdentifikatorRozhodnutiType"/>
+            <xs:element name="KodProvadejiciAgendy" type="reg:KodAgendyType"/>
+            <xs:element name="KodRozhodujicihoOvm" type="reg:KodOvmType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="RppVypisRozhodnutiDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P09, odpověď.
+            </xs:documentation>
+            <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                OBECNA CHYBA SLUZBY
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+                ROZHODNUTI NEEXISTUJE
+                CHYBA OPRAVNENI
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazyDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element name="Rozhodnuti" type="dot:RozhodnutiStavType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppVypisSeznamRozhodnutiDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P10.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="MaximalniPocet" type="reg:MaximalniPocetType" minOccurs="0"/>
+            <xs:element name="KodAgendy" type="reg:KodAgendyType" minOccurs="0"/>
+            <xs:element name="KodOvm" type="reg:KodOvmType" minOccurs="0"/>
+            <xs:element name="Ico" type="reg:IcoType" minOccurs="0"/>
+            <xs:element name="Aifo" type="reg:LokalniAifoType" minOccurs="0"/>
+            <xs:element name="IdentifikatorRuian" type="reg:IdentifikatorRuianType" minOccurs="0"/>
+            <xs:element name="PravniUstanoveniPredpis" type="rpp:PravniUstanoveniPredpisType" minOccurs="0"/>
+            <xs:element name="DatumPravniMociOd" type="rpp:DatumPravniMociType" minOccurs="0"/>
+            <xs:element name="DatumPravniMociDo" type="rpp:DatumPravniMociType" minOccurs="0"/>
+            <xs:element name="TextPravaPovinnosti" type="rpp:PopisPravaPovinnostiType" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="RppVypisSeznamRozhodnutiDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P10, odpověď.
+            </xs:documentation>
+            <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                OBECNA CHYBA SLUZBY
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+                CHYBA MAPA AIFO
+                CHYBA SEZNAM ICO
+                CHYBA SEZNAM ADRES
+                CHYBA SEZNAM PRVKU
+                PREKROCEN POCET
+                PRAZDNY SEZNAM
+                CHYBA ROZSAHU
+                NEPOVOLENY KOD OVM
+                NEPOVOLENY KOD AGENDY
+                PRAVNI PREDPIS NEEXISTUJE NEBO NENI PLATNY
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazyDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element name="Rozhodnuti" maxOccurs="unbounded">
+                        <xs:complexType>
+                            <xs:complexContent>
+                                <xs:extension base="dot:RozhodnutiAbstractType"/>
+                            </xs:complexContent>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppVypisSeznamProcesnichModeluDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P16.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="KodAgendy" type="reg:KodAgendyType" minOccurs="0"/>
+            <xs:element name="NazevKategorieModelu" type="rpp:NazevKategorieModeluType" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="RppVypisSeznamProcesnichModeluDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P16, odpověď.
+            </xs:documentation>
+            <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                OBECNA CHYBA SLUZBY
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+                NEPOVOLENY KOD AGENDY
+                NEPOVOLENY NAZEV KATEGORIE MODELU
+                PRAZDNY SEZNAM
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazyDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element name="ProcesniModel" maxOccurs="unbounded">
+                        <xs:complexType>
+                            <xs:complexContent>
+                                <xs:extension base="rpp:ProcesniModelAbstractType">
+                                    <xs:sequence>
+                                        <xs:element name="Nazev" type="rpp:NazevProcesnihoModeluType"/>
+                                        <xs:element name="NazevKategorieModelu" type="rpp:NazevKategorieModeluType"/>
+                                        <xs:sequence minOccurs="0">
+                                            <xs:element name="KodAgendy" type="reg:KodAgendyType"/>
+                                            <xs:element name="DatumPlatnostiAgendyOd" type="rpp:DatumPlatnostiOdType"/>
+                                            <xs:element name="KodCinnostiAgendy" type="rpp:KodCinnostiAgendyType" minOccurs="0"/>
+                                        </xs:sequence>
+                                    </xs:sequence>
+                                </xs:extension>
+                            </xs:complexContent>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppVypisProcesniModelDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P17.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="KodProcesnihoModelu" type="rpp:KodProcesnihoModeluType"/>
+            <xs:element name="VerzeProcesnihoModelu" type="rpp:NazevProcesnihoModeluType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="RppVypisProcesniModelDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P17, odpověď.
+            </xs:documentation>
+            <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                OBECNA CHYBA SLUZBY
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+                PROCESNI MODEL NEEXISTUJE NEBO NENI PLATNY
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazyDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element name="ProcesniModel">
+                        <xs:complexType>
+                            <xs:complexContent>
+                                <xs:extension base="rpp:ProcesniModelType"/>
+                            </xs:complexContent>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppVypisSeznamPravnichPredpisuDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P21.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="CisloPravnihoPredpisu" type="rpp:CisloPravnihoPredpisuType" minOccurs="0"/>
+            <xs:element name="RokPravnihoPredpisu" type="rpp:RokPravnihoPredpisuType" minOccurs="0"/>
+            <xs:element name="TypPravnihoPredpisu" type="rpp:TypPravnihoPredpisuType" minOccurs="0"/>
+            <xs:element name="DatumUcinnostiPravnihoPredpisu" type="rpp:DatumUcinnostiPravnihoPredpisuType" minOccurs="0"/>
+            <xs:element name="DatumVydaniPravnihoPredpisu" type="rpp:DatumVydaniPravnihoPredpisuType" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="RppVypisSeznamPravnichPredpisuDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P21, odpověď.
+            </xs:documentation>
+            <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                OBECNA CHYBA SLUZBY
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+                PRAZDNY SEZNAM
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazyDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element name="PravniPredpis" type="rpp:PravniPredpisType" maxOccurs="unbounded"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppVypisPravniPredpisDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P22.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="dot:PravniPredpisAbstractType"/>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppVypisPravniPredpisDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P22, odpověď.
+            </xs:documentation>
+            <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                OBECNA CHYBA SLUZBY
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+                PRAVNI PREDPIS NEEXISTUJE NEBO NENI PLATNY
+                PRAZDNY POVINNY PARAMETR
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazyDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element name="PravniPredpis">
+                        <xs:complexType>
+                            <xs:complexContent>
+                                <xs:extension base="rpp:PravniPredpisType">
+                                    <xs:sequence>
+                                        <xs:element name="DatumPlatnostiDo" type="rpp:DatumPlatnostiDoType" minOccurs="0"/>
+                                        <xs:element name="SeznamUstanoveni" type="rpp:SeznamUstanoveniType" minOccurs="0"/>
+                                    </xs:sequence>
+                                </xs:extension>
+                            </xs:complexContent>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppVypisSeznamPusobnostiOvmDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P26.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:choice>
+                <xs:choice>
+                    <xs:sequence>
+                        <xs:element name="KodAgendy" type="reg:KodAgendyType"/>
+                        <xs:element name="DatumPlatnostiAgendyOd" type="rpp:DatumPlatnostiOdType"/>
+                    </xs:sequence>
+                    <xs:element name="KodOvm" type="reg:KodOvmType"/>
+                </xs:choice>
+                <xs:element name="KompletniIdentifikace" type="rpp:IdentifikacePusobnostiType"/>
+            </xs:choice>
+            <xs:element name="TypVypisu" type="dot:TypVypisuSeznamuPusobnostiOvmType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="RppVypisSeznamPusobnostiOvmDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P26, odpověď.
+            </xs:documentation>
+            <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                OBECNA CHYBA SLUZBY
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+                NEPOVOLENY KOD AGENDY
+                NEPOVOLENY KOD OVM
+                PRAZDNY SEZNAM
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazyDataResponseAbstractType">
+                <xs:choice minOccurs="0">
+                    <xs:element name="SeznamPusobnostiOvmZakladni">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="PusobnostOvm" maxOccurs="unbounded">
+                                    <xs:complexType>
+                                        <xs:complexContent>
+                                            <xs:extension base="dot:PusobnostOvmAbstractType"/>
+                                        </xs:complexContent>
+                                    </xs:complexType>
+                                </xs:element>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="SeznamPusobnostiOvmRozsireny">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="PusobnostOvm" maxOccurs="unbounded">
+                                    <xs:complexType>
+                                        <xs:complexContent>
+                                            <xs:extension base="dot:PusobnostOvmAbstractType">
+                                                <xs:sequence>
+                                                    <xs:element name="SeznamCinnostiAgendy">
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element name="CinnostAgendyPusobnostiOvm" maxOccurs="unbounded">
+                                                                    <xs:complexType>
+                                                                        <xs:complexContent>
+                                                                            <xs:extension base="rpp:CinnostAgendyAbstractType"/>
+                                                                        </xs:complexContent>
+                                                                    </xs:complexType>
+                                                                </xs:element>
+                                                            </xs:sequence>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                </xs:sequence>
+                                            </xs:extension>
+                                        </xs:complexContent>
+                                    </xs:complexType>
+                                </xs:element>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:choice>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppVypisPusobnostOvmDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P27.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="KompletniIdentifikace" type="rpp:IdentifikacePusobnostiType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="RppVypisPusobnostOvmDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P27, odpověď.
+            </xs:documentation>
+            <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                OBECNA CHYBA SLUZBY
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+                NEPOVOLENY KOD AGENDY
+                NEPOVOLENY KOD OVM
+                PUSOBNOST NEEXISTUJE
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazyDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element name="PusobnostOvm">
+                        <xs:complexType>
+                            <xs:complexContent>
+                                <xs:extension base="dot:PusobnostOvmAbstractType">
+                                    <xs:sequence>
+                                        <xs:element name="PocetUrednikuOvm" type="rpp:PocetUrednikuOvmType"/>
+                                        <xs:element name="DatumPlatnostiOd" type="rpp:DatumPlatnostiOdType"/>
+                                        <xs:element name="DatumPlatnostiDo" type="rpp:DatumPlatnostiDoType" minOccurs="0"/>
+                                        <xs:element name="SeznamCinnostiAgendy">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="CinnostAgendyPusobnostiOvm" maxOccurs="unbounded">
+                                                        <xs:complexType>
+                                                            <xs:complexContent>
+                                                                <xs:extension base="rpp:CinnostAgendyAbstractType">
+                                                                    <xs:sequence>
+                                                                        <xs:element name="PocetUvazku" type="rpp:PocetUvazkuType"/>
+                                                                    </xs:sequence>
+                                                                </xs:extension>
+                                                            </xs:complexContent>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                    <xs:element name="CinnostAgendy" maxOccurs="unbounded">
+                                                        <xs:complexType>
+                                                            <xs:complexContent>
+                                                                <xs:extension base="rpp:CinnostAgendyAbstractType"/>
+                                                            </xs:complexContent>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                    <xs:attribute name="stav" type="rpp:StavRppType" use="required"/>
+                                </xs:extension>
+                            </xs:complexContent>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppVypisSeznamSluzebDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P32.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="NazevKategorieSluzby" type="rpp:NazevKategorieSluzbyType" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="RppVypisSeznamSluzebDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P32, odpověď.
+            </xs:documentation>
+            <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                OBECNA CHYBA SLUZBY
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+                NEPOVOLENY NAZEV KATEGORIE SLUZBY
+                PRAZDNY SEZNAM
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazyDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element name="Sluzba" maxOccurs="unbounded">
+                        <xs:complexType>
+                            <xs:complexContent>
+                                <xs:extension base="rpp:SluzbaAbstractType">
+                                    <xs:sequence>
+                                        <xs:element name="Nazev" type="reg:NazevSluzbyType"/>
+                                        <xs:element name="DatumPlatnostiOd" type="rpp:DatumPlatnostiOdType"/>
+                                        <xs:element name="DatumPlatnostiDo" type="rpp:DatumPlatnostiDoType" minOccurs="0"/>
+                                    </xs:sequence>
+                                </xs:extension>
+                            </xs:complexContent>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppVypisSluzbuDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P33.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="KodSluzby" type="reg:KodSluzbyType"/>
+            <xs:element name="VerzeSluzby" type="rpp:VerzeSluzbyType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="RppVypisSluzbuDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P33, odpověď.
+            </xs:documentation>
+            <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                OBECNA CHYBA SLUZBY
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+                SLUZBA NEEXISTUJE NEBO NENI PLATNA
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazyDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element name="Sluzba" type="dot:SluzbaType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppVypisSeznamSlaDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P37.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:complexType>
+    <xs:complexType name="RppVypisSeznamSlaDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P37, odpověď.
+            </xs:documentation>
+            <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                OBECNA CHYBA SLUZBY
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+                PRAZDNY SEZNAM
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazyDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element name="NazevSla" type="rpp:NazevSlaType" maxOccurs="unbounded"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppVypisSlaDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P38.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="NazevSla" type="rpp:NazevSlaType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="RppVypisSlaDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P38, odpověď.
+            </xs:documentation>
+            <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                OBECNA CHYBA SLUZBY
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+                NEPOVOLENY NAZEV SLA
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazyDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element name="Sla" type="dot:SlaType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppVypisOpravneniNaProvedeniSluzbyDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P44.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="KodAgendy" type="reg:KodAgendyType"/>
+            <xs:element name="DatumPlatnostiAgendyOd" type="rpp:DatumPlatnostiOdType"/>
+            <xs:element name="KodOvm" type="reg:KodOvmType"/>
+            <xs:element name="KodCinnostiAgendy" type="rpp:KodCinnostiAgendyType"/>
+            <xs:element name="KodSluzby" type="reg:KodSluzbyType"/>
+            <xs:element name="VerzeSluzby" type="rpp:VerzeSluzbyType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="RppVypisOpravneniNaProvedeniSluzbyDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P44, odpověď.
+            </xs:documentation>
+            <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                OBECNA CHYBA SLUZBY
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+                NEPOVOLENY KOD AGENDY
+                NEPOVOLENY KOD OVM
+                ZPOCHYBNENA AGENDA
+                NEPOVOLENY KOD CINNOSTI
+                SLUZBA NEEXISTUJE NEBO NENI PLATNA
+                VAZBA SLUZBA CINNOST AGENDY NEEXISTUJE
+                PRAZDNY SEZNAM
+                PUSOBNOST NEEXISTUJE
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazyDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element name="SeznamAis" minOccurs="0">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="Ais" maxOccurs="unbounded">
+                                    <xs:complexType>
+                                        <xs:sequence>
+                                            <xs:element name="Kod" type="reg:KodAisType"/>
+                                            <xs:element name="Opravneni" type="rpp:PopisOpravneniType" minOccurs="0"/>
+                                            <xs:element name="SeznamUdajuAis" type="rpp:SeznamUdajuAisOpravneniType" minOccurs="0"/>
+                                        </xs:sequence>
+                                    </xs:complexType>
+                                </xs:element>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppVypisOpravneniDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P45.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:choice>
+                <xs:choice>
+                    <xs:sequence>
+                        <xs:element name="KodAgendy" type="reg:KodAgendyType"/>
+                        <xs:element name="DatumPlatnostiAgendyOd" type="rpp:DatumPlatnostiOdType"/>
+                    </xs:sequence>
+                    <xs:element name="KodOvm" type="reg:KodOvmType"/>
+                </xs:choice>
+                <xs:element name="KompletniIdentifikace" type="rpp:IdentifikacePusobnostiType"/>
+            </xs:choice>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="RppVypisOpravneniDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P45, odpověď.
+            </xs:documentation>
+            <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                OBECNA CHYBA SLUZBY
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+                PRAZDNY SEZNAM
+                NEPOVOLENY KOD AGENDY
+                NEPOVOLENY KOD OVM
+                ZPOCHYBNENA AGENDA
+                UKONCENA PLATNOST AGENDY
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazyDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element name="Agenda" maxOccurs="unbounded">
+                        <xs:complexType>
+                            <xs:complexContent>
+                                <xs:extension base="rpp:AgendaAbstractType">
+                                    <xs:sequence>
+                                        <xs:element name="SeznamCinnosti" minOccurs="0">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="CinnostAgendyPusobnostiOvm" maxOccurs="unbounded">
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element name="KodCinnostiAgendy" type="rpp:KodCinnostiAgendyType"/>
+                                                                <xs:element name="SeznamSluzeb" minOccurs="0">
+                                                                    <xs:complexType>
+                                                                        <xs:sequence>
+                                                                            <xs:element name="Sluzba" maxOccurs="unbounded">
+                                                                                <xs:complexType>
+                                                                                    <xs:sequence>
+                                                                                        <xs:element name="KodSluzby" type="reg:KodSluzbyType"/>
+                                                                                        <xs:element name="VerzeSluzby" type="rpp:VerzeSluzbyType"/>
+                                                                                    </xs:sequence>
+                                                                                </xs:complexType>
+                                                                            </xs:element>
+                                                                        </xs:sequence>
+                                                                    </xs:complexType>
+                                                                </xs:element>
+                                                                <xs:element name="SeznamAis" minOccurs="0">
+                                                                    <xs:complexType>
+                                                                        <xs:sequence>
+                                                                            <xs:element name="Ais" maxOccurs="unbounded">
+                                                                                <xs:complexType>
+                                                                                    <xs:sequence>
+                                                                                        <xs:element name="Kod" type="reg:KodAisType"/>
+                                                                                        <xs:element name="Opravneni" type="rpp:PopisOpravneniType" minOccurs="0"/>
+                                                                                        <xs:element name="SeznamUdajuAis" type="rpp:SeznamUdajuAisOpravneniType" minOccurs="0"/>
+                                                                                    </xs:sequence>
+                                                                                </xs:complexType>
+                                                                            </xs:element>
+                                                                        </xs:sequence>
+                                                                    </xs:complexType>
+                                                                </xs:element>
+                                                            </xs:sequence>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:extension>
+                            </xs:complexContent>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppCtiEditoraDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P49.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:choice>
+            <xs:element name="IdentifikaceZaznamuTypA" type="dot:IdentifikaceZaznamuTypAType"/>
+            <xs:element name="IdentifikaceZaznamuTypP" type="rpp:IdentifikacePusobnostiType"/>
+            <xs:element name="IdentifikaceZaznamuTypR">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="dot:RozhodnutiAbstractType"/>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="RppCtiEditoraDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P49, odpověď.
+            </xs:documentation>
+            <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                OBECNA CHYBA SLUZBY
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+                PUSOBNOST NEEXISTUJE
+                ROZHODNUTI NEEXISTUJE
+                NEPOVOLENY KOD AGENDY
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazyDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element name="KodOvm" type="reg:KodOvmType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>

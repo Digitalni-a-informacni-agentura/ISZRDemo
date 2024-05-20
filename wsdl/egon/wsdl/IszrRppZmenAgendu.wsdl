@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRppZmenAgendu:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRppZmenAgendu:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRppZmenAgendu:v1"
+	xmlns:e109="urn:cz:isvs:iszr:schemas:IszrRppZmenAgendu:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRppZmenAgendu">
+
+	<wsdl:documentation>Služba E109 externího rozhraní - RPP služba P06.</wsdl:documentation>
+
+	<!-- Fixovaná verze 0.0.1, 28.02.2012, Jan Sluka -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- Úpravy RPP 1.5.0, 11.10.2019, Aleš Teplý -->
+	<!-- Úpravy RPP 1.7.0, 12.6.2020, Aleš Teplý -->
+	<!-- Úpravy RPP 1.8.0, 14.7.2020, Aleš Teplý, zmena predka datoveho typu NazevSluzbyVsType z IdentifikatorType na NonEmptyNormStringType -->
+	<!-- Verze po revizi 1.8.1, 15.10.2021, Aleš Teplý, AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- Verze po revizi 1.8.2, 16.3.2022, Aleš Teplý, RPP verze 1.11.5 -->
+	<!-- Verze po revizi 1.9.0, 25.5.2022, Aleš Teplý, Response - AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRppZmenAgendu:v1" schemaLocation="../xsd/IszrRppZmenAgendu.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="IszrRppZmenAgendu">
+		<wsdl:part name="parametry" element="e109:RppZmenAgendu"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRppZmenAgenduResponse">
+		<wsdl:part name="vysledek" element="e109:RppZmenAgenduResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRppZmenAgenduPortType">
+		<wsdl:operation name="IszrRppZmenAgendu">
+			<wsdl:input message="IszrRppZmenAgendu"/>
+			<wsdl:output message="IszrRppZmenAgenduResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRppZmenAgenduBinding" type="tns:IszrRppZmenAgenduPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRppZmenAgendu">
+			<soap:operation soapAction="IszrRppZmenAgendu"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRppZmenAgenduService">
+		<wsdl:port name="IszrRppZmenAgenduPortService" binding="tns:IszrRppZmenAgenduBinding">
+			<soap:address location="IszrRppZmenAgendu"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

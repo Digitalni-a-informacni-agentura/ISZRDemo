@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRuianVyhledejPrvekCastObce2:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRuianVyhledejPrvekCastObce2:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRuianVyhledejPrvekCastObce2:v1"
+	xmlns:e249c="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekCastObce2:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRuianVyhledejPrvekCastObce2">
+
+	<wsdl:documentation>Služba E249c externího rozhraní - Vyhledání časti obce z RUIAN. RUIAN služba, operace VyhledejCastObce.</wsdl:documentation>
+	
+	<!-- Výchozí verze 2.0.0, 29.09.2020 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+	
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekCastObce2:v1" schemaLocation="../xsd/IszrRuianVyhledejPrvekCastObce2.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrRuianVyhledejPrvekCastObce2">
+		<wsdl:part name="parametry" element="e249c:RuianVyhledejPrvekCastObce2"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRuianVyhledejPrvekCastObce2Response">
+		<wsdl:part name="vysledek" element="e249c:RuianVyhledejPrvekCastObce2Response"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRuianVyhledejPrvekCastObce2PortType">
+		<wsdl:operation name="IszrRuianVyhledejPrvekCastObce2">
+			<wsdl:input message="tns:IszrRuianVyhledejPrvekCastObce2"/>
+			<wsdl:output message="tns:IszrRuianVyhledejPrvekCastObce2Response"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRuianVyhledejPrvekCastObce2Binding" type="tns:IszrRuianVyhledejPrvekCastObce2PortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRuianVyhledejPrvekCastObce2">
+			<soap:operation soapAction="IszrRuianVyhledejPrvekCastObce2"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRuianVyhledejPrvekCastObce2Service">
+		<wsdl:port name="IszrRuianVyhledejPrvekCastObce2PortService" binding="tns:IszrRuianVyhledejPrvekCastObce2Binding">
+			<soap:address location="IszrRuianVyhledejPrvekCastObce2"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRuianVyhledejPrvekZsj2:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRuianVyhledejPrvekZsj2:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRuianVyhledejPrvekZsj2:v1"
+	xmlns:e249s="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekZsj2:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRuianVyhledejPrvekZsj2">
+
+	<wsdl:documentation>Služba E249s externího rozhraní - Vyhledání zsj z RUIAN. RUIAN služba, operace VyhledejZsj.</wsdl:documentation>
+	
+	<!-- Výchozí verze 2.0.0, 29.09.2020 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+	
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekZsj2:v1" schemaLocation="../xsd/IszrRuianVyhledejPrvekZsj2.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrRuianVyhledejPrvekZsj2">
+		<wsdl:part name="parametry" element="e249s:RuianVyhledejPrvekZsj2"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRuianVyhledejPrvekZsj2Response">
+		<wsdl:part name="vysledek" element="e249s:RuianVyhledejPrvekZsj2Response"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRuianVyhledejPrvekZsj2PortType">
+		<wsdl:operation name="IszrRuianVyhledejPrvekZsj2">
+			<wsdl:input message="tns:IszrRuianVyhledejPrvekZsj2"/>
+			<wsdl:output message="tns:IszrRuianVyhledejPrvekZsj2Response"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRuianVyhledejPrvekZsj2Binding" type="tns:IszrRuianVyhledejPrvekZsj2PortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRuianVyhledejPrvekZsj2">
+			<soap:operation soapAction="IszrRuianVyhledejPrvekZsj2"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRuianVyhledejPrvekZsj2Service">
+		<wsdl:port name="IszrRuianVyhledejPrvekZsj2PortService" binding="tns:IszrRuianVyhledejPrvekZsj2Binding">
+			<soap:address location="IszrRuianVyhledejPrvekZsj2"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

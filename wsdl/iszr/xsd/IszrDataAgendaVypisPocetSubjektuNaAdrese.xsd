@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrDataAgendaVypisPocetSubjektuNaAdrese:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrDataAgendaVypisPocetSubjektuNaAdrese:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+	xmlns:rob="urn:cz:isvs:rob:schemas:RobTypy:v1"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.0.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">XML schéma s definicemi dat pro služby ISZR</xs:documentation>
+	</xs:annotation>
+	<!-- Vychozi verze 1.0.0 - 10.5.2022 AutoCont CZ a.s., Ales Teply -->
+
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rob:schemas:RobTypy:v1" schemaLocation="../../rob/xsd/RobTypy.xsd" /> 
+
+	<!-- zakladni elementy -->
+	<xs:element name="IszrAgendaVypisPocetSubjektuNaAdreseData" type="IszrAgendaVypisPocetSubjektuNaAdreseDataType"/>
+
+	<!-- typy -->
+	<xs:complexType name="IszrAgendaVypisPocetSubjektuNaAdreseDataType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Společný datový typ pro žádost do připojených SPAIS.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="RobCti" type="RobCtiType" minOccurs="0" />
+			<xs:element name="RosCti" type="RosCtiType" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RobCtiType">
+		<xs:sequence>
+			<xs:element name="AdresaPobytu" type="rob:AdresaPobytuType" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RosCtiType">
+		<xs:sequence>
+			<xs:element name="OdkazRuian" type="reg:KodAdresniMistoType" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

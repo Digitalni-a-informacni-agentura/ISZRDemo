@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:iszr:schemas:IszrAutentizaceAis:v1" xmlns:e166="urn:cz:isvs:iszr:schemas:IszrAutentizaceAis:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" xmlns:i23="urn:cz:isvs:iszr:schemas:IszrDataAutentizaceAis:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:cz:isvs:iszr:schemas:IszrAutentizaceAis:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E166 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	<!-- Verze 1.0.0, 03.07.2013 Pavel Odstrčil, výchozí verze -->
+	<!-- AutoCont CZ a.s. -->
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstractOrg.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrDataAutentizaceAis:v1" schemaLocation="../../iszr/xsd/IszrDataAutentizaceAis.xsd"/>
+	<xs:element name="IszrAutentizaceAis" type="IszrAutentizaceAisType"/>
+	<xs:element name="IszrAutentizaceAisResponse" type="IszrAutentizaceAisResponseType"/>
+	<xs:complexType name="IszrAutentizaceAisType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba umožňuje ověření přístupu AIS, typ pro žádost.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IszrAutentizaceAisData" type="i23:IszrAutentizaceAisDataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="IszrAutentizaceAisResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba umožňuje ověření přístupu AIS, typ pro odpověď.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="IszrOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IszrAutentizaceAisDataResponse" type="i23:IszrAutentizaceAisDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

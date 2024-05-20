@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:rob:schemas:RobEditaceData:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:rob="urn:cz:isvs:rob:schemas:RobTypy:v1" targetNamespace="urn:cz:isvs:rob:schemas:RobEditaceData:v1"
+    elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.0">
+    <xs:annotation>
+        <xs:documentation xml:lang="cs">Návrh XML schématu s definicemi editačních datových prvků IS ROB.
+            Toto schéma obsahuje definice datových prvků, používaných pro editaci registru osob (ROB).
+        </xs:documentation>
+    </xs:annotation>
+
+    <!-- Vývojová verze 0.0.24, 27.5.2010, Vladimír Hudec -->
+    <!-- Vývojová verze 0.1.0, 19.8.2011, Vladimír Hudec -->
+    <!-- Vývojová verze 0.1.1, 29.8.2011, Vladimír Hudec -->
+    <!-- Vývojová verze 0.1.2, 30.8.2011, Vladimír Hudec -->
+    <!-- Vývojová verze 0.1.3, 31.8.2011, Vladimír Hudec -->
+    <!-- Vývojová verze 0.1.5, 5.9.2011, Vladimír Hudec -->
+    <!-- Vývojová verze 0.1.6, 16.9.2011, Vladimir.Hudec@i.cz -->
+    <!-- Vývojová verze 0.1.7, 23.9.2011, Albert.Sputa@i.cz -->
+    <!-- Vývojová verze 0.1.8, 3.10.2011, Albert.Sputa@i.cz -->
+    <!-- Vývojová verze 0.1.9, 10.11.2011, Jakub.Faryad@i.cz -->
+    <!-- Verze 1.0.0, 31.1.2012, Vladimir.Hudec@i.cz -->
+    <xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd" />
+    <xs:import namespace="urn:cz:isvs:rob:schemas:RobTypy:v1" schemaLocation="RobTypy.xsd" />
+
+    <xs:element name="RobVlozObyvateleData" type="RobVlozObyvateleDataType" />
+    <xs:element name="RobVlozObyvateleDataResponse" type="RobVlozObyvateleDataResponseType" />
+    <xs:element name="RobZmenObyvateleData" type="RobZmenObyvateleDataType" />
+    <xs:element name="RobZmenObyvateleDataResponse" type="RobZmenObyvateleDataResponseType" />
+    <xs:element name="RobVymazObyvateleData" type="RobVymazObyvateleDataType" />
+    <xs:element name="RobVymazObyvateleDataResponse" type="RobVymazObyvateleDataResponseType" />
+    <xs:element name="RobVytvorBlokaciData" type="RobVytvorBlokaciDataType" />
+    <xs:element name="RobVytvorBlokaciDataResponse" type="RobVytvorBlokaciDataResponseType" />
+    <xs:element name="RobZrusBlokaciData" type="RobZrusBlokaciDataType" />
+    <xs:element name="RobZrusBlokaciDataResponse" type="RobZrusBlokaciDataResponseType" />
+    <xs:element name="RobPoskytnutiJineOsobeData" type="RobPoskytnutiJineOsobeDataType" />
+    <xs:element name="RobPoskytnutiJineOsobeDataResponse" type="RobPoskytnutiJineOsobeDataResponseType" />
+
+    <xs:complexType name="RobEditaceDataResponseType" abstract="true">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Společný předek všech odpovědí na editační žádosti ROB.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="RobAplikacniStatus" type="rob:RobAplikacniStatusType" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="RobVlozObyvateleDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Zavedení záznamu fyzické osoby do ROB.</xs:documentation>
+        </xs:annotation>
+
+        <xs:sequence>
+            <xs:element name="AdresaPobytu" type="rob:AdresaPobytuStavType" minOccurs="0" nillable="true" />
+            <xs:element name="Aifo" type="rob:LokalniAifoStavType" />
+            <xs:element name="AifoKontrolaType" type="rob:AifoKontrolaType" minOccurs="0" />
+            <xs:element name="DatumNarozeni" type="rob:DatumNarozeniStavType" minOccurs="0" nillable="true" />
+            <xs:element name="DatumPravniMociUmrti" type="rob:DatumPravniMociUmrtiStavType" minOccurs="0"
+                nillable="true" />
+            <xs:element name="DatumUmrti" type="rob:DatumUmrtiStavType" minOccurs="0" nillable="true" />
+            <xs:element name="DorucovaciAdresa" type="rob:DorucovaciAdresaStavType" minOccurs="0" nillable="true" />
+            <xs:element name="Jmeno" type="rob:JmenoStavType" minOccurs="0" nillable="true" />
+            <xs:element name="MistoNarozeni" type="rob:MistoNarozeniStavType" minOccurs="0" nillable="true" />
+            <xs:element name="MistoUmrti" type="rob:MistoUmrtiStavType" minOccurs="0" nillable="true" />
+            <xs:element name="Prijmeni" type="rob:PrijmeniStavType" minOccurs="0" nillable="true" />
+            <xs:element name="TypOsoby" type="rob:TypOsobyType" />
+
+            <xs:element name="Doklady" type="rob:DokladStavType" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element name="Obcanstvi" type="rob:ObcanstviStavType" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="RobVlozObyvateleDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Zavedení záznamu fyzické osoby do ROB, odpověď.
+            </xs:documentation>
+        </xs:annotation>
+
+        <xs:complexContent>
+            <xs:extension base="RobEditaceDataResponseType">
+                <xs:sequence minOccurs="0">
+                    <xs:element name="ZmenaId" type="rob:ZmenaIdType" />
+                    <xs:element name="ZmenaCas" type="rob:ZmenaCasType" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+
+    <xs:complexType name="RobZmenObyvateleDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Oprava referenčních údajů fyzické osoby v ROB.
+            </xs:documentation>
+        </xs:annotation>
+
+        <xs:sequence>
+            <xs:element name="AdresaPobytu" type="rob:AdresaPobytuStavType" minOccurs="0" nillable="true" />
+            <xs:element name="Aifo" type="rob:LokalniAifoStavType" />
+            <xs:element name="AifoKontrolaType" type="rob:AifoKontrolaType" minOccurs="0" />
+            <xs:element name="DatovaSchranka" type="rob:DatovaSchrankaStavType" minOccurs="0" nillable="true" />
+            <xs:element name="DatumNarozeni" type="rob:DatumNarozeniStavType" minOccurs="0" nillable="true" />
+            <xs:element name="DatumPravniMociUmrti" type="rob:DatumPravniMociUmrtiStavType" minOccurs="0"
+                nillable="true" />
+            <xs:element name="DatumUmrti" type="rob:DatumUmrtiStavType" minOccurs="0" nillable="true" />
+            <xs:element name="DorucovaciAdresa" type="rob:DorucovaciAdresaStavType" minOccurs="0" nillable="true" />
+            <xs:element name="Jmeno" type="rob:JmenoStavType" minOccurs="0" nillable="true" />
+            <xs:element name="MistoNarozeni" type="rob:MistoNarozeniStavType" minOccurs="0" nillable="true" />
+            <xs:element name="MistoUmrti" type="rob:MistoUmrtiStavType" minOccurs="0" nillable="true" />
+            <xs:element name="Prijmeni" type="rob:PrijmeniStavType" minOccurs="0" nillable="true" />
+            <xs:element name="TypOsoby" type="rob:TypOsobyType" />
+
+            <xs:element name="Doklady" type="rob:DokladZmenaStavType" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element name="Obcanstvi" type="rob:ObcanstviZmenaStavType" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="RobZmenObyvateleDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Oprava referenčních údajů fyzické osoby v ROB, odpověď.
+            </xs:documentation>
+        </xs:annotation>
+
+        <xs:complexContent>
+            <xs:extension base="RobEditaceDataResponseType">
+                <xs:sequence minOccurs="0">
+                    <xs:element name="ZmenaId" type="rob:ZmenaIdType" />
+                    <xs:element name="ZmenaCas" type="rob:ZmenaCasType" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+
+    <xs:complexType name="RobVymazObyvateleDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Zrušení záznamu v ROB.</xs:documentation>
+        </xs:annotation>
+
+        <xs:sequence>
+            <xs:element name="Aifo" type="reg:LokalniAifoType" />
+            <xs:element name="AifoKontrolaType" type="rob:AifoKontrolaType" minOccurs="0" />
+            <xs:element name="TypOsoby" type="rob:TypOsobyType" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="RobVymazObyvateleDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Zrušení záznamu v ROB, odpověď.</xs:documentation>
+        </xs:annotation>
+
+        <xs:complexContent>
+            <xs:extension base="RobEditaceDataResponseType">
+                <xs:sequence minOccurs="0">
+                    <xs:element name="ZmenaId" type="rob:ZmenaIdType" />
+                    <xs:element name="ZmenaCas" type="rob:ZmenaCasType" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+
+    <xs:complexType name="RobVytvorBlokaciDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Znepřístupněni výdeje o využívání dat fyzické osoby.
+            </xs:documentation>
+        </xs:annotation>
+
+        <xs:sequence>
+            <xs:element name="DatumZadosti" type="rob:ZnepristupneniDatumType" />
+            <xs:element name="AgendaZadostId" type="reg:AgendaZadostIdType" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="RobVytvorBlokaciDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Znepřístupněni výdeje o využívání dat fyzické osoby, odpověď.
+            </xs:documentation>
+        </xs:annotation>
+
+        <xs:complexContent>
+            <xs:extension base="RobEditaceDataResponseType" />
+        </xs:complexContent>
+    </xs:complexType>
+
+
+    <xs:complexType name="RobZrusBlokaciDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Zrušení znepřístupněni výdeje o využívání dat fyzické osoby.
+            </xs:documentation>
+        </xs:annotation>
+
+        <xs:sequence>
+            <xs:element name="Aifo" type="reg:LokalniAifoType" minOccurs="0" />
+            <xs:element name="Subjekt" type="reg:SubjektType" minOccurs="0" />
+            <xs:element name="Agenda" type="reg:KodAgendyType" minOccurs="0" />
+            <xs:element name="Uzivatel" type="reg:UzivatelType" minOccurs="0" />
+            <xs:element name="DuvodUcel" type="reg:DuvodUcelType" minOccurs="0" />
+            <xs:element name="CasOd" type="rob:ZnepristupneniDatumCasType" minOccurs="0" />
+            <xs:element name="CasDo" type="rob:ZnepristupneniDatumCasType" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="RobZrusBlokaciDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Zrušení znepřístupněni výdeje o využívání dat fyzické osoby,
+                odpověď.
+            </xs:documentation>
+        </xs:annotation>
+
+        <xs:complexContent>
+            <xs:extension base="RobEditaceDataResponseType" />
+        </xs:complexContent>
+    </xs:complexType>
+
+
+    <xs:complexType name="RobPoskytnutiJineOsobeDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Aktivace nebo zrušení záznamů o DS třetích stran, do kterých se
+                při změně mají údaje odeslat.
+            </xs:documentation>
+        </xs:annotation>
+
+        <xs:sequence>
+            <xs:element name="Aifo" type="reg:LokalniAifoType" />
+            <xs:element name="PoskytnutiJineOsobe" type="rob:PoskytnutiJineOsobeType" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="RobPoskytnutiJineOsobeDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Zrušení znepřístupněni výdeje o využívání dat fyzické osoby,
+                odpověď.
+            </xs:documentation>
+        </xs:annotation>
+
+        <xs:complexContent>
+            <xs:extension base="RobEditaceDataResponseType">
+                <xs:sequence minOccurs="0">
+                    <xs:element name="IdSouhlasu" type="rob:PoskytnutiJineOsobeIdType" />
+                    <xs:element name="ZmenaId" type="rob:ZmenaIdType" />
+                    <xs:element name="ZmenaCas" type="rob:ZmenaCasType" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>
+

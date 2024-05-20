@@ -1,0 +1,362 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F990C1BD-84F5-47B6-A55A-1B7F5778E1C9}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Autocont.ISZRDemo</RootNamespace>
+    <AssemblyName>ISZRDemo</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Autocont.ISZRDemo.Program</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Cls\Config.cs" />
+    <Compile Include="Cls\E278ZadostData.cs" />
+    <Compile Include="Cls\EgonServices.cs" />
+    <Compile Include="Cls\Hlavicka.cs" />
+    <Compile Include="Cls\MessageInspector.cs" />
+    <Compile Include="Cls\Prostredi.cs" />
+    <Compile Include="Cls\ProxySetup.cs" />
+    <Compile Include="Cls\ReferenceROB.par.cs" />
+    <Compile Include="Cls\Volani.cs" />
+    <Compile Include="Frms\AutorizaceInfoF.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frms\AutorizaceInfoF.Designer.cs">
+      <DependentUpon>AutorizaceInfoF.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frms\MainF.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frms\MainF.Designer.cs">
+      <DependentUpon>MainF.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Cls\Program.cs" />
+    <Compile Include="Frms\NastaveniF.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frms\NastaveniF.Designer.cs">
+      <DependentUpon>NastaveniF.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ifc\ILog.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\IszrAsyncOdpovedZFronty\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\IszrAsyncVypisFronty\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\RobCtiPodleUdaju2\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\RosCtiIco2\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Frms\AutorizaceInfoF.resx">
+      <DependentUpon>AutorizaceInfoF.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frms\MainF.resx">
+      <DependentUpon>MainF.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frms\NastaveniF.resx">
+      <DependentUpon>NastaveniF.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="Service References\IszrAsyncOdpovedZFronty\Autocont.ISZRDemo.IszrAsyncOdpovedZFronty.IszrAsyncOdpovedZFrontyResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\IszrAsyncOdpovedZFronty\IszrAbstract1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\IszrAsyncOdpovedZFronty\IszrAsyncOdpovedZFronty1.wsdl" />
+    <None Include="Service References\IszrAsyncOdpovedZFronty\IszrAsyncOdpovedZFronty1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\IszrAsyncOdpovedZFronty\RegTypy1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\IszrAsyncOdpovedZFronty\XopInclude1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\IszrAsyncVypisFronty\Autocont.ISZRDemo.IszrAsyncVypisFronty.IszrAsyncVypisFrontyResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\IszrAsyncVypisFronty\IszrAbstract1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\IszrAsyncVypisFronty\IszrAsyncVypisFronty1.wsdl" />
+    <None Include="Service References\IszrAsyncVypisFronty\IszrAsyncVypisFronty1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\IszrAsyncVypisFronty\RegTypy1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\IszrAsyncVypisFronty\XopInclude1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RobCtiPodleUdaju2\Autocont.ISZRDemo.RobCtiPodleUdaju2.IszrRobCtiPodleUdaju2Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RobCtiPodleUdaju2\Autocont.ISZRDemo.RobCtiPodleUdaju2.RobCtiPodleUdaju2ResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RobCtiPodleUdaju2\BaseTypy.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RobCtiPodleUdaju2\CommonTypy.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RobCtiPodleUdaju2\CtiAdresa.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RobCtiPodleUdaju2\CtiProRob.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RobCtiPodleUdaju2\IszrAbstract.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RobCtiPodleUdaju2\IszrAbstractOrg.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RobCtiPodleUdaju2\IszrRobCtiPodleUdaju2.wsdl" />
+    <None Include="Service References\RobCtiPodleUdaju2\IszrRobCtiPodleUdaju2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RobCtiPodleUdaju2\OrgStatus.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RobCtiPodleUdaju2\OrgTypy.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RobCtiPodleUdaju2\RegTypy.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RobCtiPodleUdaju2\RobDotazyData.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RobCtiPodleUdaju2\RobTypy.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RobCtiPodleUdaju2\RuianCtiProRob2n.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RobCtiPodleUdaju2\XopInclude.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RosCtiIco2\Autocont.ISZRDemo.RosCtiIco2.IszrRosCtiIco2Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RosCtiIco2\Autocont.ISZRDemo.RosCtiIco2.RosCtiIco2ResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RosCtiIco2\BaseTypy.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RosCtiIco2\CommonTypy.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RosCtiIco2\CtiAdresa.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RosCtiIco2\CtiAdresa1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RosCtiIco2\CtiProRob.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RosCtiIco2\CtiProRob1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RosCtiIco2\IszrAbstract.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RosCtiIco2\IszrAbstractOrg.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RosCtiIco2\IszrRosCtiIco2.wsdl" />
+    <None Include="Service References\RosCtiIco2\IszrRosCtiIco2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RosCtiIco2\OrgStatus.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RosCtiIco2\OrgTypy.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RosCtiIco2\RegTypy.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RosCtiIco2\RobDotazyData.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RosCtiIco2\RobTypy.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RosCtiIco2\RosDotazyData.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RosCtiIco2\RosDotazyTypy.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RosCtiIco2\RosEditaceTypy.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RosCtiIco2\RosTypy.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RosCtiIco2\RuianCtiProRob.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RosCtiIco2\RuianCtiProRob2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RosCtiIco2\XopInclude.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\IszrAsyncOdpovedZFronty\" />
+    <WCFMetadataStorage Include="Service References\IszrAsyncVypisFronty\" />
+    <WCFMetadataStorage Include="Service References\RobCtiPodleUdaju2\" />
+    <WCFMetadataStorage Include="Service References\RosCtiIco2\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\IszrAsyncVypisFronty\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\IszrAsyncVypisFronty\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\IszrAsyncVypisFronty\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\IszrAsyncOdpovedZFronty\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\IszrAsyncOdpovedZFronty\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\IszrAsyncOdpovedZFronty\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\RobCtiPodleUdaju2\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\RobCtiPodleUdaju2\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\RobCtiPodleUdaju2\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\RosCtiIco2\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\RosCtiIco2\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\RosCtiIco2\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

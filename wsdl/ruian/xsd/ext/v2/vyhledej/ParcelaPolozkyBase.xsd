@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:ParcelaPolozkyBase:v2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:ParcelaPolozkyBase:v2" xmlns:paPolBase="urn:cz:isvs:ruian:schemas:ParcelaPolozkyBase:v2" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:kuPolBase="urn:cz:isvs:ruian:schemas:KatastralniUzemiPolozkyBase:v2" elementFormDefault="qualified" version="2.0.0">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:KatastralniUzemiPolozkyBase:v2" schemaLocation="KatastralniUzemiPolozkyBase.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../typy/CommonTypy.xsd"/>
+	<xs:complexType name="ParcelaPolozkyBaseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na parcely</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:group ref="ParcelaPolozkyGroup" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:group name="ParcelaPolozkyGroup">
+		<xs:sequence>
+			<xs:element name="VsechnyInformace" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Id" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Nespravny" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="KmenoveCislo" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PododdeleniCisla" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ZpusobyVyuzitiPozemku" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="DruhCislovaniKod" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="DruhPozemkuKod" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="VymeraParcely" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="KatastralniUzemi" type="kuPolBase:KatastralniUzemiPolozkyBaseType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:group>
+</xs:schema>

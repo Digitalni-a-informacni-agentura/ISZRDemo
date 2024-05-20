@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:MopPolozky:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:MopPolozky:v1" xmlns:mpPol="urn:cz:isvs:ruian:schemas:MopPolozky:v1" xmlns:mpPolBase="urn:cz:isvs:ruian:schemas:MopPolozkyBase:v1" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:obPolBase="urn:cz:isvs:ruian:schemas:ObecPolozkyBase:v1" elementFormDefault="qualified" version="0.40.0">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../ruian/xsd/typy/CommonTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:MopPolozkyBase:v1" schemaLocation="../../../ruian/xsd/vyhledej/MopPolozkyBase.xsd"/>
+	<xs:complexType name="MopPolozkyType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Pozadovane polozky MOP</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:group ref="mpPolBase:MopPolozkyGroup" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="PlatiOd" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="IdTransakce" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="GlobalniIdNavrhuZmeny" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="DefinicniBod" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Hranice" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

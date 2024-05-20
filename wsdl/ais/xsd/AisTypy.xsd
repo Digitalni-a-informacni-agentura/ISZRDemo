@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:ais:schemas:AisTypy:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:cz:isvs:ais:schemas:AisTypy:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.1.5">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi typů AIS. 
+       Toto schéma obsahuje definice datových prvků, 
+       používaných pro dotazy do AIS.
+    </xs:documentation>
+	</xs:annotation>
+	<!-- Vývojová verze 0.0.01, 11.01.2012, Vladimír Glasnák -->
+	<!-- Vývojová verze 0.0.02, 12.06.2012, Vladimír Glasnák -->
+	<!-- Doplněn seznam adres 0.0.03, 02.08.2012, Vladimír Glasnák -->
+	<!-- Katalog.7.4 verze 1.4.0, 31.10.2012 Aleš Teplý, IdentifikatorReklamace v Response nepovinný -->
+	<!-- Doplnění typů pro čtení změn AIS, 0.1.0, Pavel Odstrčil -->
+	<!-- Čtení změn AIS, doplněn element verze, 0.1.1, Pavel Odstrčil -->
+	<!-- Čtení změn AIS, na základě úpravy zadání doplněn element agenda, 0.1.2, Pavel Odstrčil -->
+	<!-- Čtení změn AIS, změna názvu typu pro ctení změn, 0.1.3, Pavel Odstrčil -->
+	<!-- Doplnění pro reklamace, 0.1.4, Pavel Odstrčil -->
+	<!-- Revize čtení změn, 0.1.5, Pavel Odstrčil -->
+	<!-- AutoCont CZ a.s. -->
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:complexType name="AisZadostAbstractType" abstract="true">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Společná část žádostí o službu AIS.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType"/>
+			<xs:element name="MapaAifo" type="reg:MapaAifoType" minOccurs="0"/>
+			<xs:element name="SeznamIdAdres" type="reg:SeznamIdAdresType" minOccurs="0"/>
+			<xs:element name="AutorizaceInfo" type="reg:AutorizaceType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AisOdpovedAbstractType" abstract="true">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Univerzální odpověd na žádost, obálka pro data.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType"/>
+			<!--  xs:element name="MapaAifo" type="reg:MapaAifoType" minOccurs="0"/>
+	<xs:element name="SeznamIdAdres" type="reg:SeznamIdAdresType" minOccurs="0"/ -->
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AisOdpovedAifoAbstractType" abstract="true">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Univerzální odpověd na žádost, obálka pro data.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType"/>
+			<xs:element name="MapaAifo" type="reg:MapaAifoType" minOccurs="0"/>
+			<!-- xs:element name="SeznamIdAdres" type="reg:SeznamIdAdresType" minOccurs="0"/ -->
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AisDotazyDataResponseType" abstract="true">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Společný předek všech aplikačních částí odpovědí na dotazy.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AisAplikacniStatus" type="AisAplikacniStatusType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AisAplikacniStatusType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Aplikační chyba, doplnění k StatusType 
+			   ze systémové části zprávy, odpověď.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="VysledekAisKod" type="reg:VysledekKodType"/>
+			<xs:element name="VysledekDetail" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="VysledekSubKod" type="VysledekSubKodAisType"/>
+						<xs:element name="VysledekPopis" type="reg:VysledekPopisType" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="VysledekSubKodAisType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Detailní kód výsledku, výčtový typ, pouze pro zachování 
+			         analogie s dalšími subkódy jiných systémů. Jinak bude vždy detailní 
+			         popis případné chyby, nebo varování uveden v popisu.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SPECIFIKACE V POPISU">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Detailní popis uveden v popisu.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NELZE ZPRACOVAT">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Volání služby nelze zpracovat. Detailní popis může být uveden v popisu.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CHYBA MAPA ADRES">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Neshoda mezi použitými kódy RUIAN v datové části a mapě nebo mapa chybí.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CHYBA MAPA AIFO">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Neshoda mezi použitými AIFO v datové části a mapě nebo mapa chybí.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CHYBA MAPA ICO">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Neshoda mezi použitými ICO v datové části a mapě nebo mapa chybí.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CHYBA MAPA PRVEK">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Neshoda mezi použitými prvky RUIAN v datové části a mapě nebo mapa chybí.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CHYBA ROZSAHU">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Údaj na vstupu nevyhovuje povolené délce.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CHYBA TYPU">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Chybný datový typ údaje vstupu.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NEVALIDNI DATA">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Aplikační data nejsou validní podle aplikačních omezení.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NEVALIDNI ZADOST">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód služby neodpovídá XML struktuře žádosti.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OBECNA CHYBA SLUZBY">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">
+						Službu nebylo možné provést z důvodu chyby na straně poskytovatele služby (chyba databázového nebo aplikačního serveru, ...).
+			        </xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PREKROCEN POCET">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Překročen počet povolených záznamů. Je nutno upřesnit podmínky pro vyhledání nebo pokračovat v dávce.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NEPOVOLENA KOMBINACE">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Vyhledávací dotaz neobsahuje žádnou z minimálních povolených kombinací parametrů dotazu</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NEPOVOLENY PARAMETR">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Vyhledávací dotaz obsahuje nepovolený parametr datazu.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ZAZNAM NENALEZEN">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Vstupní kombinaci údajů neodpovídá žádný záznam.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NENI OPRAVNENI">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Není oprávnění k požadované interní službě, rozhodnutí AIS.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NENI K DISPOZICI">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Služba není dočasně k dispozici.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NENI IMPLEMENTOVANO">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Služba není implementována.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="AisReklamujUdajeRosDataResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpověď na reklamaci.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="AisDotazyDataResponseType">
+				<xs:sequence>
+					<xs:element name="IdentifikatorReklamace" type="reg:NonEmptyStringType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">Přidělený identifikátor reklamace</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ReklamaceEditorId" type="reg:RegOdpovedIdType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">Přidělený identifikátor reklamace</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="AisInfoType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Informace o AIS</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Ais" type="reg:KodAisType"/>
+			<xs:element name="AisVerze" type="reg:VerzeType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Volitelně verze AIS.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AgendaCtiZmenyDataType">
+		<xs:annotation>
+			<xs:documentation>Univerzální data žádosti o poskytnutí změn v nereferenčních údajích vedených v AIS editora</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Agenda" type="reg:KodAgendyType">
+				<xs:annotation>
+					<xs:documentation>Ze které agendy jsou požadovány změny (pro případy, kdy publikující AIS implementuje více agend)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:choice>
+				<xs:element name="CasOd" type="xs:dateTime"/>
+				<xs:element name="ZmenaId" type="xs:long"/>
+				<xs:element name="ZmenaIdent" type="reg:IdentifikatorType"/>
+			</xs:choice>
+			<xs:element name="CasDo" type="xs:dateTime" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AgendaCtiZmenyDataResponseType">
+		<xs:sequence>
+			<xs:element name="AisInfo" type="AisInfoType">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Informace o AIS, který vydal data (kompležní odpověd se může skládat z odpovědí více AIS)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AisAplikacniStatus" type="AisAplikacniStatusType">
+				<xs:annotation>
+					<xs:documentation>
+						Aplikační status AIS - zpracování služby
+						Očekávané chování:
+							Systémový status=OK
+								Vydán kompletní požadovaný seznam změn
+									VysledkKodAisType=OK
+							Systémový status=VAROVANI
+								Neexistuje žádná změna
+									VysledkKodAisType=VAROVANI
+									VysledekSubKod=ZAZNAM NENALEZEN
+							Systémový status=VAROVANI
+								Nebyly vydány všechny změny
+									VysledkKodAisType=VAROVANI
+									VysledekSubKod=PREKROCEN POCET
+							Systémový status=CHYBA
+								Seznam změn nebylo možné vydat
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AisZmeny" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Informace o mzěnách v AIS</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ZmenaCas" type="xs:dateTime">
+							<xs:annotation>
+								<xs:documentation xml:lang="cs">Datum změny posledního vydaného záznamu</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="ZmenaId" type="xs:long" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation xml:lang="cs">
+									Identifikátor poslední vydané změny, pokud AIS lze převést na typ typ long.
+									Pro pokračování čtení volá konzument s hodnotou zvýšenou o 1.
+								</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="DalsiZmenaIdent" type="reg:IdentifikatorType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation xml:lang="cs">
+									Identifikátor pro pokračování čtení ze strany konzumenta, pokud AIS vede indentifikátor změny způsobem, kdy nelze převést na long.
+									Pro pokračování čtení volá konzument s touto hodnotou. Publikující AIS může volitelně vyplnit, i pokud vede typem převoditelným na long.
+								</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:iszr:schemas:IszrDataRobVypisSouhlasuPoskytnuti:v1" xmlns:i27="urn:cz:isvs:iszr:schemas:IszrDataRobVypisSouhlasuPoskytnuti:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:iszr="urn:cz:isvs:iszr:schemas:IszrTypy:v1" xmlns:iszd="urn:cz:isvs:iszr:schemas:IszrDotazyData:v1" xmlns:rob="urn:cz:isvs:rob:schemas:RobTypy:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" targetNamespace="urn:cz:isvs:iszr:schemas:IszrDataRobVypisSouhlasuPoskytnuti:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.6.1">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">XML schéma s definicemi dat pro služby ISZR</xs:documentation>
+	</xs:annotation>
+	<!-- Katalog.7.06 verze 1.6.1, 21.02.2014 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rob:schemas:RobTypy:v1" schemaLocation="../../rob/xsd/RobTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrTypy:v1" schemaLocation="IszrTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrDotazyData:v1" schemaLocation="IszrDotazyData.xsd"/>
+	<xs:element name="IszrVypisSouhlasuPoskytnutiDataResponse" type="IszrVypisSouhlasuPoskytnutiDataResponseType"/>
+	<xs:complexType name="IszrVypisSouhlasuPoskytnutiDataResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Vydání údajů o využití a poskytnutí záznamů z ROB - data ROS a FAIS, odpověď.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="iszd:IszrDotazyDataResponseType">
+				<xs:sequence>
+					<xs:element name="PoskytnutiJineOsobe" type="PoskytnutiJineOsobeType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">Přidělený identifikátor reklamace</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="PoskytnutiJineOsobeType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam záznamů o DS, do kterých se při změně mají údaje odeslat.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="IdSouhlasu" type="rob:PoskytnutiJineOsobeIdType">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Jednoznačný identifikátor poskytnutí jiné osobě.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ZpravaProPrijemce" type="xs:string" minOccurs="0"/>
+			<xs:element name="PlatnostSouhlasuDo" type="xs:date" minOccurs="0"/>
+			<xs:element name="DruhyDokladu" type="DruhyDokladuType" minOccurs="0"/>
+			<xs:element name="Osoba" type="OsobaType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DruhyDokladuType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam druhů dokladů, kterých se poskytnutí týká.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Druh" type="rob:DokladDruhType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OsobaType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Osoba z ROS, které se údaje poskytují.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="NazevOsoby" type="NazevOsobyType"/>
+			<xs:element name="Ico" type="reg:IcoType" minOccurs="0"/>
+			<xs:element name="DatumNarozeni" type="rob:DatumNarozeniType" minOccurs="0"/>
+			<xs:element name="DatoveSchranky" type="DatoveSchrankyType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="NazevOsobyType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Název osoby v ROS.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="reg:NonEmptyNormStringType">
+			<xs:maxLength value="2000"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="DatoveSchrankyType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam datových schránek osoby.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DatovaSchranka" type="reg:DatovaSchrankaType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

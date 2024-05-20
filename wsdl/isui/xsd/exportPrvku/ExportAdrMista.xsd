@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:isui:schemas:ExportAdrMista:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:isui:schemas:ExportAdrMista:v1" xmlns:gam="urn:cz:isvs:isui:schemas:ExportAdrMista:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" elementFormDefault="qualified" version="1.1.0">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../ruian/xsd/typy/CommonTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:complexType name="ExportAdrMistaType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Základní typ pro generování exportu seznamu adresních míst.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="NazevSestavy" type="base:Text200Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Název sestavy.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Generovano" type="base:DatumCasType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Datum a čas generování sestavy.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:choice minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Prvek, který generoval sestavu.</xs:documentation>
+				</xs:annotation>
+				<xs:element name="ObecKod" type="base:Kod6Type" minOccurs="1" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation xml:lang="cs">Kód území obce, území vojenského újezdu.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="CastObceKod" type="base:Kod6Type" minOccurs="1" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation xml:lang="cs">Kód části obce.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="MomcKod" type="base:Kod6Type" minOccurs="1" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation xml:lang="cs">Kód území městského obvodu nebo městské části územně členěného statutárního města.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="ObvodPrahyKod" type="base:Kod3Type" minOccurs="1" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation xml:lang="cs">Kód obvodu Prahy.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="SpravniObvodKod" type="base:Kod3Type" minOccurs="1" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation xml:lang="cs">Kód správní obvodu v hlavním městě Praze,.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="UliceKod" type="base:Kod7Type" minOccurs="1" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation xml:lang="cs">Kód ulice.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="VolebniOkrsekKod" type="base:Kod6Type" minOccurs="1" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation xml:lang="cs">Kód volebního okrsku.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="PscKod" type="com:PscType" minOccurs="1" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation xml:lang="cs">PSČ adresní pošty.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+			<xs:element name="SeznamAdrMista" type="AdrMistaSeznamType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Seznam exportovaných adresních míst.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ExportAdrMista" type="gam:ExportAdrMistaType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Generování exportu adresních míst.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="AdrMistaSeznamType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam generovaných adresních míst.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AdrMista" type="AdrMistaType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Seznam adresních míst.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AdrMistaType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Generované adresní místo.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod9Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód adresního místa.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CisloDomovni" type="com:CisloDomovniType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">číslo domovní.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CisloOrientacni" type="com:CisloOrientacniType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Číslo orientační.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CisloOrientacniPismeno" type="com:CisloOrientacniPismenoType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Písmeno čísla orientačního.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PSC" type="com:PscType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Poštovní směrovací číslo.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StavebniObjektKod" type="base:Kod9Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód stavebního objektu.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UliceKod" type="base:Kod7Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód ulice.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VolebniOkrsekKod" type="base:Kod6Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód volebního okrsku.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DatumZruseni" type="base:DatumCasType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Datum a čas zrušení adresního místa.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Nespravnost" type="xs:boolean" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Příznak nesprávnosti prvku (true, nic).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PublikovanoRuian" type="xs:boolean" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Příznak publikování v RÚIAN. (nic, false)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

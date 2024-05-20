@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRuianCtiPrvekStavebniObjekt:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRuianCtiPrvekStavebniObjekt:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRuianCtiPrvekStavebniObjekt:v1"
+	xmlns:e35p="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekStavebniObjekt:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRuianCtiPrvekStavebniObjekt">
+
+	<wsdl:documentation>Služba E35p externího rozhraní - Načtení Stavebního objektu z RUIAN. RUIAN služba A04, operace ctiStavebniObjekt.</wsdl:documentation>
+	
+	<!-- Vývojová verze 0.0.1, 28.06.2011, Pavel Kirchner -->
+	<!-- Vývojová verze 0.0.2, 26.07.2011, Pavel Kirchner -->
+	<!-- Fixovaná verze 1.0.0, 26.10.2011, Aleš Teplý -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+  <wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekStavebniObjekt:v1" schemaLocation="../xsd/IszrRuianCtiPrvekStavebniObjekt.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrRuianCtiPrvekStavebniObjekt">
+		<wsdl:part name="parametry" element="e35p:RuianCtiPrvekStavebniObjekt"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRuianCtiPrvekStavebniObjektResponse">
+		<wsdl:part name="vysledek" element="e35p:RuianCtiPrvekStavebniObjektResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRuianCtiPrvekStavebniObjektPortType">
+		<wsdl:operation name="IszrRuianCtiPrvekStavebniObjekt">
+			<wsdl:input message="tns:IszrRuianCtiPrvekStavebniObjekt"/>
+			<wsdl:output message="tns:IszrRuianCtiPrvekStavebniObjektResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRuianCtiPrvekStavebniObjektBinding" type="tns:IszrRuianCtiPrvekStavebniObjektPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRuianCtiPrvekStavebniObjekt">
+			<soap:operation soapAction="IszrRuianCtiPrvekStavebniObjekt"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRuianCtiPrvekStavebniObjektService">
+		<wsdl:port name="IszrRuianCtiPrvekStavebniObjektPortService" binding="tns:IszrRuianCtiPrvekStavebniObjektBinding">
+			<soap:address location="IszrRuianCtiPrvekStavebniObjekt"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

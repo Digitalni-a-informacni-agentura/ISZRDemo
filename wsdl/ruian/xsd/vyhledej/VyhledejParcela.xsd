@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:VyhledejParcela:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:VyhledejParcela:v1" xmlns:vyhPa="urn:cz:isvs:ruian:schemas:VyhledejParcela:v1" xmlns:paPodm="urn:cz:isvs:ruian:schemas:ParcelaPodminka:v1" xmlns:paPolBase="urn:cz:isvs:ruian:schemas:ParcelaPolozkyBase:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:pa="urn:cz:isvs:ruian:schemas:Parcela:v1" elementFormDefault="qualified" version="0.40.0">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:Parcela:v1" schemaLocation="../../../ruian/xsd/prvky/Parcela.xsd"/>
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ParcelaPolozkyBase:v1" schemaLocation="../../../ruian/xsd/vyhledej/ParcelaPolozkyBase.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ParcelaPodminka:v1" schemaLocation="../../../ruian/xsd/vyhledej/ParcelaPodminka.xsd"/>
+	<xs:complexType name="VyhledejParcelaDotazType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Parametry parcely</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Podminka" type="paPodm:ParcelaPodminkaType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="PozadovaneUdaje" type="paPolBase:ParcelaPolozkyBaseType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VyhledejParcelaResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved na vyhledani parcely</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Parcely" type="ParcelaSeznamType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VyhledejParcelaRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na vyhledani parcely</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Dotaz" type="VyhledejParcelaDotazType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ParcelaSeznamType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam parcel</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Parcela" type="pa:ParcelaType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="VyhledejParcelaRequest" type="vyhPa:VyhledejParcelaRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na vyhledani parcely</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="VyhledejParcelaResponse" type="vyhPa:VyhledejParcelaResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved na vyhledani parcely</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

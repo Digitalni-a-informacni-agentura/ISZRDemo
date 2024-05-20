@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRosZmenOsobu:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRosZmenOsobu:v1"
+	xmlns:e19="urn:cz:isvs:iszr:schemas:IszrRosZmenOsobu:v1"
+	xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:sed="urn:cz:isvs:ros:schemas:RosEditaceData:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.1.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E19 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vývojová verze 0.0.1, 20.06.2011, Aleš Teplý -->
+	<!-- Vývojová verze 0.0.2, 13.07.2011, Aleš Teplý, Response nemusí obsahovat data (async) -->
+	<!-- Vývojová verze 0.0.3, 21.07.2011, Aleš Teplý, ref na type (sjednocení), odstraneno PrvotniPlneni -->
+	<!-- Vývojová verze 0.0.4, 13.09.2011, Aleš Teplý, podadresáře registrů malými písmeny -->
+	<!-- Fixovaná verze 1.0.0, 18.09.2011, Aleš Teplý -->
+	<!-- Verze po revizi 1.0.1, 14.02.2012 Aleš Teplý, doplnění OrgStatus do Response -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstractOrg.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ros:schemas:RosEditaceData:v2" schemaLocation="../../ros/xsd/RosEditaceData.xsd"/>
+
+	<xs:element name="RosZmenOsobu" type="RosZmenOsobuType"/>
+	<xs:element name="RosZmenOsobuResponse" type="RosZmenOsobuResponseType"/>
+
+	<xs:complexType name="RosZmenOsobuType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E19 externího rozhraní - typ pro žádost. Služba provádí změnu referenčních údajů osoby - služba ROS S04. Vstupní údaje obsahují pouze měněné hodnoty referenčních údajů. Tato služba provádí i vytváření, opravy a rušení údajů souvisejících struktur osoby (statutárních zástupců a provozoven).</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAifoIdAdrAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RosZmenOsobuData" type="sed:RosZmenOsobuDataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="RosZmenOsobuResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E19 externího rozhraní - typ pro odpověď. Služba provádí změnu referenčních údajů osoby - služba ROS S04. V případě, že osoba se zadaným IČO neexistuje, nebo neexistuje související struktura se kterou má služba pracovat, vrátí chybový status.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAifoStIdAdrAbstractType">
+				<xs:sequence>
+					<xs:element name="RosOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RosZmenOsobuDataResponse" type="sed:RosZmenOsobuDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

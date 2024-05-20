@@ -1,0 +1,659 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:ros:schemas:RosDotazyTypy:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:ros="urn:cz:isvs:ros:schemas:RosTypy:v2" xmlns:edi="urn:cz:isvs:ros:schemas:RosEditaceTypy:v1" targetNamespace="urn:cz:isvs:ros:schemas:RosDotazyTypy:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.0">
+    <xs:annotation>
+        <xs:documentation xml:lang="cs">Návrh XML schématu s definicemi společných datových prvků IS ROS.
+          Toto schéma obsahuje definice základních datových prvků používaných pro dotazy a odpovědi na dotazy
+          do registru osob (ROS).
+        </xs:documentation>
+    </xs:annotation>
+    <!-- Verze 1.0.0, 9.2.2012 -->
+    <xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+    <xs:import namespace="urn:cz:isvs:ros:schemas:RosTypy:v2" schemaLocation="RosTypy.xsd"/>
+    <xs:import namespace="urn:cz:isvs:ros:schemas:RosEditaceTypy:v1" schemaLocation="RosEditaceTypy.xsd"/>
+    <xs:simpleType name="TypZmenyType">
+        <xs:annotation>
+            <xs:documentation>
+                Typ změny údajů osoby: I=insert (vložení); U=update (oprava); D=delete (zrušení),
+                V=všechny typy změny.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="1"/>
+            <xs:enumeration value="I">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Insert</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="U">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Update</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="D">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Delete</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="V">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Všechny</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="PravniStavStavResponseType">
+        <xs:annotation>
+            <xs:documentation>                
+                Právní stav v odpovědi z ROS včetně stavu.            
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="KodPravnihoStavu" type="ros:KodPravnihoStavuType"/>
+            <xs:element name="NazevPravnihoStavu" type="ros:NazevPravnihoStavuType" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute name="stav">
+            <xs:simpleType>
+                <xs:restriction base="ros:StavRosType">
+                    <xs:enumeration value="spravny"/>
+                    <xs:enumeration value="nespravny"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="PravniStavResponseType">
+        <xs:annotation>
+            <xs:documentation>                
+                Právní stav v odpovědi z ROS včetně stavu a provozních údajů o poslední změně.            
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="PravniStavStavResponseType">
+                <xs:sequence>
+                    <xs:element name="ProvozniUdaje" type="ros:UdajeZmenyType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="PravniFormaStavResponseType">
+        <xs:annotation>
+            <xs:documentation>
+                Právní forma v odpovědi z ROS včetně stavu.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="KodPravniFormy" type="ros:KodPravniFormyType"/>
+            <xs:element name="NazevPravniFormy" type="ros:NazevPravniFormyType" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute name="stav">
+            <xs:simpleType>
+                <xs:restriction base="ros:StavRosType">
+                    <xs:enumeration value="spravny"/>
+                    <xs:enumeration value="nespravny"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="PravniFormaResponseType">
+        <xs:annotation>
+            <xs:documentation>
+                Právní forma v odpovědi z ROS včetně stavu a provozních údajů o poslední změně.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="PravniFormaStavResponseType">
+                <xs:sequence>
+                    <xs:element name="ProvozniUdaje" type="ros:UdajeZmenyType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="NazevOsobyResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Název osoby v odpovědi z ROS včetně stavu a provozních údajů o poslední změně. 
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="NazevOsobyUdaj" type="edi:NazevOsobyStavType"/>
+            <xs:element name="ProvozniUdaje" type="ros:UdajeZmenyType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="DatovaSchrankaResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Datová schránka v odpovědi z ROS včetně stavu a provozních údajů o poslední změně. 
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="DatovaSchrankaUdaj" type="edi:DatovaSchrankaStavType"/>
+            <xs:element name="ProvozniUdaje" type="ros:UdajeZmenyType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="DatoveSchrankyResponseType">
+        <xs:annotation>
+            <xs:documentation>
+                Datové schránky osoby v odpovědi z ROS včetně stavu a provozních údajů
+                o poslední změně jednotlivých datových schránek.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="DatovaSchranka" type="DatovaSchrankaResponseType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="DatoveSchrankyStavResponseType">
+        <xs:annotation>
+            <xs:documentation>
+                Datové schránky osoby v odpovědi z ROS včetně stavu jednotlivých datových schránek.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="DatovaSchranka" type="edi:DatovaSchrankaStavType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="DatumVznikuOpravneniResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Datum vzniku oprávnění k činnosti osoby v agendě v odpovědi z ROS včetně stavu
+                a provozních údajů o poslední změně.
+                Vrácení prázného údaje je možné jen v případě hodnoty stavu = nedefinovany.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="DatumVznikuOpravneniUdaj" type="DatumVznikuOpravneniStavResponseType" nillable="true"/>
+            <xs:element name="ProvozniUdaje" type="ros:UdajeZmenyType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="DatumVznikuOpravneniStavResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Datum vzniku oprávnění k činnosti osoby v agendě v odpovědi z ROS včetně stavu. 
+            </xs:documentation>
+        </xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="ros:DatumVznikuOpravneniType">
+                <xs:attribute name="stav" type="ros:StavRosType"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="DatumZanikuOpravneniResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Datum zániku oprávnění k činnosti osoby v agendě v odpovědi z ROS včetně stavu
+                a provozních údajů o poslední změně.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="DatumZanikuOpravneniUdaj" type="DatumZanikuOpravneniStavResponseType" nillable="true" minOccurs="0"/>
+            <xs:element name="ProvozniUdaje" type="ros:UdajeZmenyType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="DatumZanikuOpravneniStavResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Datum zániku oprávnění k činnosti osoby v agendě v odpovědi z ROS včetně stavu. 
+            </xs:documentation>
+        </xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="ros:DatumZanikuOpravneniType">
+                <xs:attribute name="stav" type="ros:StavRosType"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="DatumZahajeniCinnostiResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Datum zahájení provozování činnosti v provozovně v odpovědi z ROS včetně stavu
+                a provozních údajů o poslední změně.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="DatumZahajeniCinnostiUdaj" type="edi:DatumZahajeniCinnostiStavType"/>
+            <xs:element name="ProvozniUdaje" type="ros:UdajeZmenyType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="DatumUkonceniCinnostiResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Datum ukončení provozování činnosti v provozovně v odpovědi z ROS včetně stavu
+                a provozních údajů o poslední změně.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="DatumUkonceniCinnostiUdaj" type="edi:DatumUkonceniCinnostiStavType" nillable="true" minOccurs="0"/>
+            <xs:element name="ProvozniUdaje" type="ros:UdajeZmenyType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="FoResponseType">
+        <xs:annotation>
+            <xs:documentation>
+                Fyzická osoba (obyvatel) s vazbou na statutární orgán nebo osobu v odpovědi z ROS 
+                včetně stavu jednotlivých údajů a provozních údajů o poslední změně.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="edi:FoStavType">
+                <xs:sequence>
+                    <xs:element name="ProvozniUdaje" type="ros:UdajeZmenyType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="AdresaResponseType">
+        <xs:annotation>
+            <xs:documentation>
+                Adresa v odpovědi z ROS včetně stavu a provozních údajů o poslední změně.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="edi:AdresaStavType">
+                <xs:sequence>
+                    <xs:element name="ProvozniUdaje" type="ros:UdajeZmenyType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="AdresaSidlaStavResponseType">
+        <xs:annotation>
+            <xs:documentation>
+                Adresa sídla v odpovědi z ROS včetně stavu, který může být i nedefinovaný.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="ros:AdresaType">
+                <xs:attribute name="stav" type="ros:StavRosType"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="AdresaSidlaResponseType">
+        <xs:annotation>
+            <xs:documentation>
+                Adresa sídla v odpovědi z ROS včetně stavu a a provozních údajů o poslední změně.
+                Vrácení prázného údaje adresy je možné jen v případě hodnoty stavu = nedefinovany.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="AdresaSidlaUdaj" type="AdresaSidlaStavResponseType" nillable="true"/>
+            <xs:element name="ProvozniUdaje" type="ros:UdajeZmenyType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="OsobaAgendyResponseType">
+        <xs:annotation>
+            <xs:documentation>
+                Osoba ve vztahu k agendě a jejímu agendovému místu v odpovědi z ROS
+                včetně stavu a provozních údajů o poslední změně jednotlivých údajů.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="KodAgendy" type="reg:KodAgendyType"/>
+            <xs:element name="KodOvm" type="reg:KodOvmType"/>
+            <xs:element name="NazevOsoby" type="NazevOsobyResponseType" minOccurs="0"/>
+            <xs:element name="DatumVznikuOpravneni" type="DatumVznikuOpravneniResponseType" minOccurs="0"/>
+            <xs:element name="DatumZanikuOpravneni" type="DatumZanikuOpravneniResponseType" minOccurs="0"/>
+            <xs:element name="AdresaSidla" type="AdresaSidlaResponseType" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="OsobaAgendyStavResponseType">
+        <xs:annotation>
+            <xs:documentation>
+                Osoba ve vztahu k agendě a jejímu agendovému místu v odpovědi z ROS
+                včetně stavu jednotlivých údajů.
+                Vrácení prázného údaje (nastaven atribut nil = true) je možné jen v případě
+                hodnoty stavu = nedefinovany.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="KodAgendy" type="reg:KodAgendyType"/>
+            <xs:element name="KodOvm" type="reg:KodOvmType"/>
+            <xs:element name="NazevOsoby" type="edi:NazevOsobyStavType"/>
+            <xs:element name="DatumVznikuOpravneni" type="DatumVznikuOpravneniStavResponseType" nillable="true"/>
+            <xs:element name="DatumZanikuOpravneni" type="DatumZanikuOpravneniStavResponseType" nillable="true" minOccurs="0"/>
+            <xs:element name="AdresaSidla" type="AdresaSidlaStavResponseType" nillable="true"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="OsobaAgendyHrStavResponseType">
+        <xs:annotation>
+            <xs:documentation>
+                Osoba ve vztahu k agendě a jejímu agendovému místu v odpovědi z ROS
+                včetně stavu jednotlivých údajů. Některé údaje osoby jsou nepovinné
+                (služby S07 a S14 mají možnost na vstupu vybírat požadované údaje).
+                Vrácení prázného údaje (nastaven atribut nil = true) je možné jen v případě
+                hodnoty stavu = nedefinovany.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="KodAgendy" type="reg:KodAgendyType"/>
+            <xs:element name="KodOvm" type="reg:KodOvmType"/>
+            <xs:element name="NazevOsoby" type="edi:NazevOsobyStavType" minOccurs="0"/>
+            <xs:element name="DatumVznikuOpravneni" type="DatumVznikuOpravneniStavResponseType" nillable="true" minOccurs="0"/>
+            <xs:element name="DatumZanikuOpravneni" type="DatumZanikuOpravneniStavResponseType" nillable="true" minOccurs="0"/>
+            <xs:element name="AdresaSidla" type="AdresaSidlaStavResponseType" nillable="true" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="OsobyAgendyResponseType">
+        <xs:annotation>
+            <xs:documentation>
+                Osoby ve vztahu k agendě a jejímu agendovému místu v odpovědi z ROS
+                včetně stavu a provozních údajů o poslední změně jednotlivých údajů osob agendy.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="OsobaAgendy" type="OsobaAgendyResponseType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="OsobyAgendyStavResponseType">
+        <xs:annotation>
+            <xs:documentation>
+                Osoby ve vztahu k agendě a jejímu agendovému místu v odpovědi z ROS
+                včetně stavu jednotlivých údajů osob agendy.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="OsobaAgendy" type="OsobaAgendyStavResponseType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="OsobyAgendyHrStavResponseType">
+        <xs:annotation>
+            <xs:documentation>
+                Osoby ve vztahu k agendě a jejímu agendovému místu v odpovědi z ROS
+                včetně stavu jednotlivých údajů osob agendy. Některé údaje osoby agendy jsou nepovinné
+                (služby S07 a S14 mají možnost na vstupu vybírat požadované údaje).
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="OsobaAgendy" type="OsobaAgendyHrStavResponseType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ProvozovnaResponseType">
+        <xs:annotation>
+            <xs:documentation>
+                Provozovna osoby v odpovědi z ROS včetně stavu a provozních údajů o poslední změně jednotlivých údajů.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Icp" type="reg:IcpType"/>
+            <xs:element name="DatumZahajeniCinnosti" type="DatumZahajeniCinnostiResponseType"/>
+            <xs:element name="DatumUkonceniCinnosti" type="DatumUkonceniCinnostiResponseType" minOccurs="0"/>
+            <xs:element name="AdresaProvozovny" type="AdresaResponseType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ProvozovnyResponseType">
+        <xs:annotation>
+            <xs:documentation>
+                Provozovny osoby v odpovědi z ROS včetně stavu a provozních údajů
+                o poslední změně jednotlivých údajů provozoven.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Provozovna" type="ProvozovnaResponseType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="StatutarniOrganResponseType">
+        <xs:annotation>
+            <xs:documentation>
+                Statutátní orgán v odpovědi z ROS včetně stavu a provozních údajů o poslední změně.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="edi:StatutarniOrganStavType">
+                <xs:sequence>
+                    <xs:element name="ProvozniUdaje" type="ros:UdajeZmenyType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="StatutarniOrganyResponseType">
+        <xs:annotation>
+            <xs:documentation>
+                Statutární orgány osoby v odpovědi z ROS včetně stavu a provozních údajů
+                o poslední změně jednotlivých statutárních orgánů.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="StatutarniOrgan" type="StatutarniOrganResponseType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="OsobaResponseAbstractType" abstract="true">
+        <xs:annotation>
+            <xs:documentation>
+                Společný předek pro fyzickou a právnickou osobu v odpovědi z ROS včetně stavu 
+                jednotlivých referenčních údajů, času a identifikátoru poslední změny osoby
+                a provozních údajů o poslední změně jednotlivých údajů osoby.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Ico" type="reg:IcoType"/>
+            <xs:element name="CasZmeny" type="ros:ZmenaCasType"/>
+            <xs:element name="IdZmeny" type="ros:ZmenaIdType"/>
+            <xs:element name="DatoveSchranky" type="DatoveSchrankyResponseType" minOccurs="0"/>
+            <xs:element name="PravniForma" type="PravniFormaResponseType" minOccurs="0"/>
+            <xs:element name="PravniStav" type="PravniStavResponseType" minOccurs="0"/>
+            <xs:element name="DatumZapisuRos" type="ros:DatumZapisuRosType"/>
+            <xs:element name="Provozovny" type="ProvozovnyResponseType" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="FyzickaOsobaResponseType">
+        <xs:annotation>
+            <xs:documentation>
+                Fyzická osoba (podnikatel) v odpovědi z ROS včetně stavu a provozních údajů
+                o poslední změně jednotlivých údajů.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="OsobaResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="OsobyAgendy" type="OsobyAgendyResponseType" minOccurs="0"/>
+                    <xs:element name="Fo" type="FoResponseType" minOccurs="0"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="PravnickaOsobaResponseType">
+        <xs:annotation>
+            <xs:documentation>
+                Právnická osoba v odpovědi z ROS včetně stavu a provozních údajů
+                o poslední změně jednotlivých údajů.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="OsobaResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="OsobaAgendy" type="OsobaAgendyResponseType" minOccurs="0"/>
+                    <xs:element name="StatutarniOrgany" type="StatutarniOrganyResponseType" minOccurs="0"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="OsobaStavResponseAbstractType" abstract="true">
+        <xs:annotation>
+            <xs:documentation>
+                Společný předek pro fyzickou a právnickou osobu v odpovědi z ROS včetně stavu jednotlivých údajů
+                a identifikátoru poslední změny osoby.
+                Odlišení povinných a nepovinných údajů (služby S05 a S06 nemají možnost na vstupu vybírat 
+                požadované údaje).
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Ico" type="reg:IcoType"/>
+            <xs:element name="IdZmeny" type="ros:ZmenaIdType"/>
+            <xs:element name="DatoveSchranky" type="DatoveSchrankyStavResponseType" minOccurs="0"/>
+            <xs:element name="PravniForma" type="PravniFormaStavResponseType"/>
+            <xs:element name="PravniStav" type="PravniStavStavResponseType" minOccurs="0"/>
+            <xs:element name="Provozovny" type="edi:ProvozovnyStavType" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="FyzickaOsobaStavResponseType">
+        <xs:annotation>
+            <xs:documentation>
+                Fyzická osoba (podnikatel) v odpovědi z ROS včetně stavu jednotlivých údajů.
+                Odlišení povinných a nepovinných údajů (služby S05 a S06 nemají možnost na vstupu vybírat 
+                požadované údaje).                
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="OsobaStavResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="OsobyAgendy" type="OsobyAgendyStavResponseType"/>
+                    <xs:element name="Fo" type="edi:FoStavType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="PravnickaOsobaStavResponseType">
+        <xs:annotation>
+            <xs:documentation>
+                Právnická osoba v odpovědi z ROS včetně stavu jednotlivých údajů.
+                Odlišení povinných a nepovinných údajů (služby S05 a S06 nemají možnost na vstupu vybírat 
+                požadované údaje).                
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="OsobaStavResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="OsobaAgendy" type="OsobaAgendyStavResponseType"/>
+                    <xs:element name="StatutarniOrgany" type="edi:StatutarniOrganyStavType" minOccurs="0"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="OsobaHrStavResponseAbstractType" abstract="true">
+        <xs:annotation>
+            <xs:documentation>
+                Společný předek pro fyzickou a právnickou osobu v odpovědi z ROS včetně stavu jednotlivých údajů
+                a identifikátoru poslední změny osoby.                
+                Jednotlivé údaje osoby jsou nepovinné (služby S07 a S14 mají možnost na vstupu vybírat 
+                požadované údaje).
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Ico" type="reg:IcoType"/>
+            <xs:element name="CasZmeny" type="ros:ZmenaCasType"/>
+            <xs:element name="IdZmeny" type="ros:ZmenaIdType"/>
+            <xs:element name="DatoveSchranky" type="DatoveSchrankyStavResponseType" minOccurs="0"/>
+            <xs:element name="PravniForma" type="PravniFormaStavResponseType" minOccurs="0"/>
+            <xs:element name="PravniStav" type="PravniStavStavResponseType" minOccurs="0"/>
+            <xs:element name="Provozovny" type="edi:ProvozovnyStavType" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="FyzickaOsobaHrStavResponseType">
+        <xs:annotation>
+            <xs:documentation>
+                Fyzická osoba (podnikatel) v odpovědi z ROS včetně stavu jednotlivých údajů.
+                Jednotlivé údaje osoby jsou nepovinné (služby S07 a S14 mají možnost na vstupu vybírat 
+                požadované údaje).                
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="OsobaHrStavResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="OsobyAgendy" type="OsobyAgendyHrStavResponseType" minOccurs="0"/>
+                    <xs:element name="Fo" type="edi:FoStavType" minOccurs="0"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="PravnickaOsobaHrStavResponseType">
+        <xs:annotation>
+            <xs:documentation>
+                Právnická osoba v odpovědi z ROS včetně stavu jednotlivých údajů.
+                Jednotlivé údaje osoby jsou nepovinné (služby S07 a S14 mají možnost na vstupu vybírat 
+                požadované údaje).
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="OsobaHrStavResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="OsobaAgendy" type="OsobaAgendyHrStavResponseType" minOccurs="0"/>
+                    <xs:element name="StatutarniOrgany" type="edi:StatutarniOrganyStavType" minOccurs="0"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="DatovaSchrankaFiltrType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Datová schránka v ROS pro vyhledávání podle libovolného údaje DS službou S07. 
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="IdDatoveSchranky" type="reg:DatovaSchrankaIdType" minOccurs="0"/>
+            <xs:element name="TypDatoveSchranky" type="reg:TypDatoveSchrankyType" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="StatutarniOrganFiltrType">
+        <xs:annotation>
+            <xs:documentation>
+                Statutární orgán v ROS pro vyhledávání podle libovolného údaje službou S07.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:choice>
+            <xs:element name="OsobaIco" type="reg:IcoType"/>
+            <xs:element name="NazevAdresa" type="NazevAdresaFiltrType"/>
+            <xs:element name="Aifo" type="reg:LokalniAifoType"/>
+            <xs:element name="FoTextemPobyt" type="FoTextemPobytFiltrType"/>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="ProvozovnaFiltrType">
+        <xs:annotation>
+            <xs:documentation>
+                Provozovna osoby v ROS pro vyhledávání podle libovolného údaje službou S07.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Icp" type="reg:IcpType" minOccurs="0"/>
+            <xs:element name="DatumZahajeniCinnosti" type="ros:DatumZahajeniCinnostiType" minOccurs="0"/>
+            <xs:element name="DatumUkonceniCinnosti" type="ros:DatumUkonceniCinnostiType" minOccurs="0"/>
+            <xs:element name="AdresaProvozovny" type="ros:AdresaType" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="OsobaAgendyFiltrType">
+        <xs:annotation>
+            <xs:documentation>
+                Osoba ve vztahu k agendě a jejímu agendovému místu v ROS pro vyhledávání
+                podle libovolného údaje službou S07.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="KodAgendy" type="reg:KodAgendyType" minOccurs="0"/>
+            <xs:element name="KodOvm" type="reg:KodOvmType" minOccurs="0"/>
+            <xs:element name="NazevOsoby" type="ros:NazevOsobyType" minOccurs="0"/>
+            <xs:element name="DatumVznikuOpravneni" type="ros:DatumVznikuOpravneniType" minOccurs="0"/>
+            <xs:element name="DatumZanikuOpravneni" type="ros:DatumZanikuOpravneniType" minOccurs="0"/>
+            <xs:element name="AdresaSidla" type="ros:AdresaType" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="NazevAdresaFiltrType">
+        <xs:annotation>
+            <xs:documentation>
+                Název a adresa statutárního orgánu, který je právnickou osobou neevidovanou v ROS (zahraniční osoba)
+                pro vyhledávání podle libovolného údaje službou S07.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Nazev" type="ros:NazevOsobyType" minOccurs="0"/>
+            <xs:element name="Adresa" type="ros:AdresaType" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="FoTextemPobytFiltrType">
+        <xs:annotation>
+            <xs:documentation>
+                Fyzická osoba (obyvatel) textem s adresou pobytu fyzické osoby (obyvatele) v ČR
+                v statutárním orgánu pro vyhledávání podle libovolného údaje službou S07.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="FoTextem" type="ros:FoTextemType" minOccurs="0"/>
+            <xs:element name="AdresaPobytu" type="ros:AdresaType" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="FoFiltrType">
+        <xs:annotation>
+            <xs:documentation>
+                Fyzická osoba (obyvatel) v ROS pro vyhledávání podle libovolného údaje službou S07.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:choice>
+            <xs:element name="Aifo" type="reg:LokalniAifoType"/>
+            <xs:element name="FoTextemPobyt" type="FoTextemPobytFiltrType"/>
+        </xs:choice>
+    </xs:complexType>
+</xs:schema>

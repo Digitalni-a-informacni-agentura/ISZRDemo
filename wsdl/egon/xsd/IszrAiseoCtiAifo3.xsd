@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrAiseoCtiAifo3:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrAiseoCtiAifo3:v1"
+	xmlns:e270="urn:cz:isvs:iszr:schemas:IszrAiseoCtiAifo3:v1"
+	xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:x31="urn:cz:isvs:aiseo:schemas:AiseoCtiAifo3:v1"
+	xmlns:rod="urn:cz:isvs:rob:schemas:RobDotazyData:v1"
+	xmlns:crob2="urn:cz:isvs:ruian:schemas:CtiProRob:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.1.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E270 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vývojová verze 1.0.0, 19.05.2021, Pavel Odstrcil -->
+	<!-- Verze po revizi 1.1.0, 13.8.2021, Aleš Teplý, rozšíření struktury Response ROB v2.0.0, aplikačně zatím omezeno na kompatibilitu s ROB v1.0.9 -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstractOrg.xsd"/>
+	<xs:import namespace="urn:cz:isvs:aiseo:schemas:AiseoCtiAifo3:v1" schemaLocation="../../aiseo/xsd/AiseoCtiAifo3.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rob:schemas:RobDotazyData:v1" schemaLocation="../../rob/xsd/RobDotazyData.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiProRob:v2" schemaLocation="ref/RuianCtiProRob2n.xsd"/>
+
+	<xs:element name="AiseoCtiAifo3" type="AiseoCtiAifo3Type"/>
+	<xs:element name="AiseoCtiAifo3Response" type="AiseoCtiAifo3ResponseType"/>
+
+	<xs:complexType name="AiseoCtiAifo3Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E270 externího rozhraní - typ pro žádost. Služba umožňuje načítat z AIS EO nereferenční údaje, které nejsou uloženy v ROB. Služba vrací údaje pouze tehdy, pokud existuje záznam v ROB.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostRAifoAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="AiseoCtiAifo3Data">
+									<xs:complexType>
+										<xs:attribute name="znepristupniLog" type="xs:boolean">
+											<xs:annotation>
+												<xs:documentation>Zapis do sledovani dotazu</xs:documentation>
+											</xs:annotation>
+										</xs:attribute>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="AiseoCtiAifo3ResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E270 externího rozhraní - typ pro odpověď. Služba umožňuje načítat z AIS EO nereferenční údaje, které nejsou uloženy v ROB. Služba vrací údaje pouze tehdy, pokud existuje záznam v ROB.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAifoStIdAdrAbstractType">
+				<xs:sequence>
+					<xs:element name="AiseoOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="AiseoCtiAifo3DataResponse" type="x31:AisEoCtiAifo3DataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="RobOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RobCtiAifoDataResponse" type="rod:RobCtiAifoDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="RuianOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianCtiProRobV2DataResponse" type="crob2:RuianCtiProRobV2DataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

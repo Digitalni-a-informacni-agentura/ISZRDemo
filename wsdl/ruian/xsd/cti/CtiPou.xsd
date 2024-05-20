@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:CtiPou:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:CtiPou:v1" xmlns:ctiPu="urn:cz:isvs:ruian:schemas:CtiPou:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:puGml="urn:cz:isvs:ruian:schemas:PouGML:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:puPol="urn:cz:isvs:ruian:schemas:PouPolozky:v1" elementFormDefault="qualified" version="0.40.1">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:PouPolozky:v1" schemaLocation="../../../ruian/xsd/cti/PouPolozky.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:PouGML:v1" schemaLocation="../../../ruian/xsd/prvky/PouGML.xsd"/>
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../RegTypy.xsd"/>
+	<xs:complexType name="CtiPouResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved na nacteni POU</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Pou" type="puGml:PouGMLType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CtiPouDotazType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Parametry dotazu na informace o POU.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod4Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód POU.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PozadovaneUdaje" type="puPol:PouPolozkyType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Seznam požadovaných údajů.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CtiPouRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na načtení informací o POU.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Standardní hlavička dotazu.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Dotaz" type="CtiPouDotazType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Parametry dotazu.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="CtiPouRequest" type="ctiPu:CtiPouRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na načtení informací o POU.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="CtiPouResponse" type="ctiPu:CtiPouResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved na nacteni POU</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

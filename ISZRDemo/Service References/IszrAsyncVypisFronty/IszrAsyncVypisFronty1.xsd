@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns="urn:cz:isvs:iszr:schemas:IszrAsyncVypisFronty:v1" xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:vypf="urn:cz:isvs:iszr:schemas:IszrAsyncVypisFronty:v1" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:cz:isvs:iszr:schemas:IszrAsyncVypisFronty:v1" version="1.1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="../../RegTypy.xsd" namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" />
+  <xs:import schemaLocation="IszrAbstract.xsd" namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" />
+  <xs:annotation>
+    <xs:documentation xml:lang="cs">V??pis fronty s v??sledky asynchronn??ch vol??n??.</xs:documentation>
+  </xs:annotation>
+  <xs:element name="IszrAsyncVypisFronty" type="vypf:IszrAsyncVypisFrontyType" />
+  <xs:element name="IszrAsyncVypisFrontyResponse" type="vypf:IszrAsyncVypisFrontyResponseType" />
+  <xs:complexType name="IszrAsyncVypisFrontyType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Dotaz na v??pis fronty.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="abs:IszrZadostAsyncAbstractType">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Zadost">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="IszrAsyncVypisFrontyData" type="vypf:OmezeniVypisuType" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="IszrAsyncVypisFrontyResponseType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Odpoved na v??pis fronty. Vrac?? seznam polo??ek.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="abs:IszrOdpovedAbstractType">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="IszrOdpoved">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="IszrAsyncVypisFrontyDataResponse">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="IszrAplikacniStatus" type="vypf:PokracovaniVypisuType" />
+                      <xs:element name="PolozkyFronty">
+                        <xs:complexType>
+                          <xs:sequence>
+                            <xs:element minOccurs="0" maxOccurs="unbounded" name="PolozkaFronty" type="abs:PolozkaFrontyType" />
+                          </xs:sequence>
+                        </xs:complexType>
+                      </xs:element>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="OmezeniVypisuType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Omezen?? v??pisu fronty. Od zadan??ho IdTransakce v??etn?? a od ??asu vytvo??en?? odpov??di v??etn??. Pokud jsou zad??ny ob?? hodnoty, jsou vraceny z??znamy vyhovuj??c?? ob??ma podm??nk??m sou??asn?? (logick?? AND).</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IdTransakceOd" type="vypf:IdTransakceType" />
+      <xs:element minOccurs="0" name="CasVytvoreniOd" type="reg:CasovaZnackaType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PokracovaniVypisuType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Indikace pokra??ov??n?? v??pisu. Hodnota VypisPokracuje=true signalizuje ne??plnost v??pisu, pro kompletaci v??pisu je t??eba pou????t dal???? vol??n?? slu??by. Hodnoty NasledujiciIdTransakce a NasledujiciCasVytvoreni je mo??n?? pou????t jako parametry pro pokra??ov??n?? v??pisu.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="VypisPokracuje" type="xs:boolean" />
+      <xs:element minOccurs="0" name="NasledujiciIdTransakce" type="vypf:IdTransakceType" />
+      <xs:element minOccurs="0" name="NasledujiciCasVytvoreni" type="reg:CasovaZnackaType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="IdTransakceType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Identifikace transakce ISZR, jej?? po??adov?? ????slo.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:unsignedLong" />
+  </xs:simpleType>
+</xs:schema>

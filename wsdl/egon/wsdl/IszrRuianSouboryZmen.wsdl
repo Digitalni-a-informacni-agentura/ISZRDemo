@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRuianSouboryZmen:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRuianSouboryZmen:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRuianSouboryZmen:v1"
+	xmlns:e39="urn:cz:isvs:iszr:schemas:IszrRuianSouboryZmen:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRuianSouboryZmen">
+
+	<wsdl:documentation>Služba E39 externího rozhraní. Služba pro poskytnutí odkazů na soubory se změnovými větami do zadaného data do současnosti. RUIAN služba A27.</wsdl:documentation>
+
+	<!-- Vývojová verze 0.0.1, 9.2.2011, Jan Sluka -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- Verze po revizi 1.4.3, 16.04.2013, Aleš Teplý, změna Request: TypVymennehoFormatu - zrušeny některé typy (např. ST_ZKHG, ST_ZKHH, ST_ZKHO...) -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRuianSouboryZmen:v1" schemaLocation="../xsd/IszrRuianSouboryZmen.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="IszrRuianSouboryZmen">
+		<wsdl:part name="parametry" element="e39:RuianSouboryZmen"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRuianSouboryZmenResponse">
+		<wsdl:part name="vysledek" element="e39:RuianSouboryZmenResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRuianSouboryZmenPortType">
+		<wsdl:operation name="IszrRuianSouboryZmen">
+			<wsdl:input message="IszrRuianSouboryZmen"/>
+			<wsdl:output message="IszrRuianSouboryZmenResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRuianSouboryZmenBinding" type="tns:IszrRuianSouboryZmenPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRuianSouboryZmen">
+			<soap:operation soapAction="IszrRuianSouboryZmen"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRuianSouboryZmenService">
+		<wsdl:port name="IszrRuianSouboryZmenPortService" binding="tns:IszrRuianSouboryZmenBinding">
+			<soap:address location="IszrRuianSouboryZmen"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

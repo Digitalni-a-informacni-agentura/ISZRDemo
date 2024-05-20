@@ -1,0 +1,577 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:ros:schemas:RosEditaceData:v2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:ros="urn:cz:isvs:ros:schemas:RosTypy:v2" xmlns:edi="urn:cz:isvs:ros:schemas:RosEditaceTypy:v1" xmlns:dot="urn:cz:isvs:ros:schemas:RosDotazyTypy:v1" targetNamespace="urn:cz:isvs:ros:schemas:RosEditaceData:v2" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.0">
+    <xs:annotation>
+        <xs:documentation xml:lang="cs">Návrh XML schématu s definicemi editačních datových prvků IS ROS.
+          Toto schéma obsahuje definice datových prvků vstupu a výstupu jednotlivých editačních služeb
+          registru osob (ROS).
+    </xs:documentation>
+    </xs:annotation>
+    <!-- Verze 1.0.0, 9.2.2012 -->
+    <xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+    <xs:import namespace="urn:cz:isvs:ros:schemas:RosTypy:v2" schemaLocation="RosTypy.xsd"/>
+    <xs:import namespace="urn:cz:isvs:ros:schemas:RosEditaceTypy:v1" schemaLocation="RosEditaceTypy.xsd"/>
+    <xs:import namespace="urn:cz:isvs:ros:schemas:RosDotazyTypy:v1" schemaLocation="RosDotazyTypy.xsd"/>
+    <xs:element name="RosPridelIcoData" type="RosPridelIcoDataType"/>
+    <xs:element name="RosPridelIcoDataResponse" type="RosPridelIcoDataResponseType"/>
+    <xs:element name="RosPridelIcpData" type="RosPridelIcpDataType"/>
+    <xs:element name="RosPridelIcpDataResponse" type="RosPridelIcpDataResponseType"/>
+    <xs:element name="RosVlozOsobuData" type="RosVlozOsobuDataType"/>
+    <xs:element name="RosVlozOsobuDataResponse" type="RosVlozOsobuDataResponseType"/>
+    <xs:element name="RosZmenOsobuData" type="RosZmenOsobuDataType"/>
+    <xs:element name="RosZmenOsobuDataResponse" type="RosZmenOsobuDataResponseType"/>
+    <xs:element name="RosVymazOsobuData" type="RosVymazOsobuDataType"/>
+    <xs:element name="RosVymazOsobuDataResponse" type="RosVymazOsobuDataResponseType"/>
+    <xs:element name="RosVlozProvozovnuData" type="RosVlozProvozovnuDataType"/>
+    <xs:element name="RosVlozProvozovnuDataResponse" type="RosVlozProvozovnuDataResponseType"/>
+    <xs:element name="RosZmenProvozovnuData" type="RosZmenProvozovnuDataType"/>
+    <xs:element name="RosZmenProvozovnuDataResponse" type="RosZmenProvozovnuDataResponseType"/>
+    <xs:element name="RosVymazProvozovnuData" type="RosVymazProvozovnuDataType"/>
+    <xs:element name="RosVymazProvozovnuDataResponse" type="RosVymazProvozovnuDataResponseType"/>
+    <xs:element name="RosZapisDatovouSchrankuData" type="RosZapisDatovouSchrankuDataType"/>
+    <xs:element name="RosZapisDatovouSchrankuDataResponse" type="RosZapisDatovouSchrankuDataResponseType"/>
+    <xs:element name="RosZapisPravniStavData" type="RosZapisPravniStavDataType"/>
+    <xs:element name="RosZapisPravniStavDataResponse" type="RosZapisPravniStavDataResponseType"/>
+    <xs:complexType name="RosEditaceDataResponseAbstractType" abstract="true">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Společný předek všech odpovědí na editační dotazy ROS.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="AplikacniStatus" type="ros:AplikacniStatusType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="RosEditaceOsobyAbstractType" abstract="true">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Společný předek všech editačních dotazů, které mění referenční údaje osoby.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="IdZmeny" type="ros:ZmenaIdType" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="RosEditaceOsobyResponseAbstractType" abstract="true">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Společný předek všech odpovědí na editační dotazy, které mění referenční údaje osoby.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RosEditaceDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element name="UdajeZmeny" type="ros:UdajeZmenyEditaceType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RosPridelIcoDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Žádost o přidělení IČO - služba S01.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="UdajeZadosti" type="ros:UdajeZadostiIcoType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="RosPridelIcoDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Žádost o přidělení IČO - služba S01, odpověď.
+                Pokud pro předaný obchodní název bylo již dříve více IČO přiděleno nebo zapsáno,
+                služba vrátí chybový status a seznam IČO. Jinak služba vrací přidělené IČO nebo chybový status.
+            </xs:documentation>
+            <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                OBECNA CHYBA SLUZBY                
+                ICO JIZ ZAPSANO
+                ICO PRIDELENO
+                CHYBA MAPA AIFO
+                CHYBA MAPA ADRES
+                ZAPSANO VICE OSOB
+                OPAKOVANE ZPRACOVANI (chyba pouze pro interní rozhraní)
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RosEditaceDataResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="Ico" type="reg:IcoType" minOccurs="0" maxOccurs="unbounded"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RosPridelIcpDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Žádost o přidělení IČP - služba S02.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="UdajeZadosti" type="ros:UdajeZadostiIcpType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="RosPridelIcpDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Žádost o přidělení IČP - služba S02, odpověď.
+                Služba vrací přidělené IČP nebo chybový status.
+            </xs:documentation>
+            <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                OBECNA CHYBA SLUZBY                
+                CHYBA MAPA AIFO
+                CHYBA MAPA ADRES
+                OPAKOVANE ZPRACOVANI (chyba pouze pro interní rozhraní)
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RosEditaceDataResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="Icp" type="reg:IcpType" minOccurs="0"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RosVlozOsobuDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Zavedení záznamu osoby do ROS - služba S03.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:choice>
+            <xs:element name="PravnickaOsoba">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="edi:OsobaStavAbstractType">
+                            <xs:sequence>
+                                <xs:element name="StatutarniOrgany" type="edi:StatutarniOrganyStavType" minOccurs="0"/>
+                            </xs:sequence>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="FyzickaOsoba">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="edi:OsobaStavAbstractType">
+                            <xs:sequence>
+                                <xs:element name="Fo" type="edi:FoStavType"/>
+                            </xs:sequence>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="RosVlozOsobuDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Zavedení záznamu osoby do ROS  - služba S03, odpověď.
+                Služba vrací identifikátor a čas změny v případě úspěšného zápisu osoby nebo očekávané údaje
+                podle přiděleného IČO (kód agendy v případě hromadně přiděleného IČO) a chybový status 
+                nebo jen chybový status.
+            </xs:documentation>
+            <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                OBECNA CHYBA SLUZBY                
+                NESHODA REZERVACE ICO
+                CHYBA MAPA AIFO
+                CHYBA MAPA ADRES
+                CHYBA OPRAVNENI
+                ICO JIZ ZAPSANO
+                ICO NEPRIDELENO
+                ICO NEEXISTUJE
+                ICO CHYBA MODULO
+                NEPOVOLENY KOD PRAVNI FORMY
+                DUPLICITA STATUTARA
+                NEEXISTUJE OSOBA STATUTARA
+                OSOBA SOBE STATUTAREM
+                OPAKOVANE ZPRACOVANI (chyba pouze pro interní rozhraní)
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+                CHYBA ROZSAHU
+             </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RosEditaceDataResponseAbstractType">
+                <xs:choice minOccurs="0">
+                    <xs:element name="UdajeZmeny" type="ros:UdajeZmenyEditaceType"/>
+                    <xs:element name="UdajeZadosti" type="ros:UdajeZadostiIcoResponseType"/>
+                    <xs:element name="KodAgendy" type="reg:KodAgendyType"/>
+                </xs:choice>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RosZmenOsobuDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Změna referenčních údajů osoby v ROS  - služba S04.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RosEditaceOsobyAbstractType">
+                <xs:sequence>
+                    <xs:element name="Ico" type="reg:IcoType"/>
+                    <xs:element name="NazevOsoby" type="edi:NazevOsobyStavType" minOccurs="0"/>
+                    <xs:element name="KodPravniFormy" type="edi:KodPravniFormyStavType" minOccurs="0"/>
+                    <xs:element name="DatumVznikuOpravneni" type="edi:DatumVznikuOpravneniStavType" minOccurs="0"/>
+                    <xs:element name="DatumZanikuOpravneni" type="edi:DatumZanikuOpravneniStavType" nillable="true" minOccurs="0"/>
+                    <xs:element name="AdresaSidla" type="edi:AdresaStavType" minOccurs="0"/>
+                    <xs:choice minOccurs="0">
+                        <xs:element name="Fo" type="edi:FoStavType"/>
+                        <xs:element name="StatutarniOrgany" type="edi:StatutarniOrganyUkonEditStavType"/>
+                    </xs:choice>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RosZmenOsobuDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Změna referenčních údajů osoby v ROS  - služba S04, odpověď.
+                Služba vrací identifikátor a čas změny v případě úspěšného provedení změny údajů osoby
+                nebo chybový status. Služba může vracet seznam nezapsaných (chybných) statutárních
+                orgánů s chybovým statusem každého z nich.
+            </xs:documentation>
+            <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                OBECNA CHYBA SLUZBY                
+                CHYBA MAPA AIFO
+                CHYBA MAPA ADRES
+                CHYBA OPRAVNENI
+                ICO NEEXISTUJE
+                ICO JIZ ZAPSANO
+                ICO PRIDELENO
+                NEPOVOLENA ZMENA PRAVNI FORMY
+                NEPOVOLENA ZMENA AIFO
+                NEPOVOLENY KOD PRAVNI FORMY
+                NEREGISTROVANO NA OVM
+                CHYBA STATUTARA
+                DUPLICITA STATUTARA
+                NEEXISTUJE OSOBA STATUTARA
+                NEIDENTIFIKOVANA ZADNA ZMENA
+                OSOBA SOBE STATUTAREM
+                OPAKOVANE ZPRACOVANI (chyba pouze pro interní rozhraní)
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+                NESHODA ID ZMENY
+                CHYBA ROZSAHU
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RosEditaceOsobyResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="NenalezeneStatutarniOrgany" minOccurs="0">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="NenalezenyStatutarniOrgan" type="ros:StatutarniOrganStatusType" maxOccurs="unbounded"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RosVymazOsobuDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Zrušení záznamu osoby v ROS  - služba S09.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RosEditaceOsobyAbstractType">
+                <xs:sequence>
+                    <xs:element name="Ico" type="reg:IcoType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RosVymazOsobuDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Zrušení záznamu osoby v ROS  - služba S09, odpověď.
+                Služba vrací identifikátor a čas změny v případě úspěšného zrušení osoby
+                nebo chybový status.
+            </xs:documentation>
+            <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                OBECNA CHYBA SLUZBY
+                ICO NEEXISTUJE
+                CHYBA OPRAVNENI
+                NEREGISTROVANO NA OVM
+                OPAKOVANE ZPRACOVANI (chyba pouze pro interní rozhraní)
+                OSOBA JE STATUTAR
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+                NESHODA ID ZMENY                
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RosEditaceOsobyResponseAbstractType"/>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RosVlozProvozovnuDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Zavedení záznamu provozovny (provozoven) do ROS  - služba S10.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RosEditaceOsobyAbstractType">
+                <xs:sequence>
+                    <xs:element name="Ico" type="reg:IcoType"/>
+                    <xs:element name="Provozovny" type="edi:ProvozovnyStavType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RosVlozProvozovnuDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Zavedení záznamu provozovny (provozoven) do ROS  - služba S10, odpověď.
+                Služba vrací identifikátor a čas změny v případě úspěšného zápisu alespoň jedné provozovny
+                nebo chybový status. Služba může vracet seznam nezapsaných (chybných) IČP s chybovým statusem
+                každého z nich.
+            </xs:documentation>
+            <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                OBECNA CHYBA SLUZBY
+                ICO NEEXISTUJE
+                CHYBA VAZBY ICO ICP
+                ICP JIZ ZAPSANO
+                ICP NEEXISTUJE
+                CHYBA MAPA ADRES
+                ICP CHYBA MODULO
+                DUPLICITA ICP
+                OPAKOVANE ZPRACOVANI (chyba pouze pro interní rozhraní)
+                NESHODA REZERVACE ICP                
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+                NESHODA ID ZMENY
+                CHYBA ROZSAHU
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RosEditaceOsobyResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="NenalezenaIcp" minOccurs="0">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="NenalezeneIcp" type="ros:IcpStatusType" maxOccurs="unbounded"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RosZmenProvozovnuDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Změna referenčních údajů provozovny (provozoven) v ROS - služba S11.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RosEditaceOsobyAbstractType">
+                <xs:sequence>
+                    <xs:element name="Ico" type="reg:IcoType"/>
+                    <xs:element name="Provozovny">
+                        <xs:complexType>
+                            <xs:annotation>
+                                <xs:documentation>
+                                    Provozovny v editačním dotazu (změna) do ROS včetně stavu.
+                                </xs:documentation>
+                            </xs:annotation>
+                            <xs:sequence>
+                                <xs:element name="Provozovna" type="edi:ProvozovnaEditStavType" maxOccurs="unbounded"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RosZmenProvozovnuDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Změna referenčních údajů provozovny (provozoven) v ROS - služba S11, odpověď.
+                Služba vrací identifikátor a čas změny v případě úspěšného provedení alespoň jedné změny
+                v provozovnách osoby nebo chybový status. Služba může vracet seznam nezapsaných (chybných) IČP
+                s chybovým statusem každého z nich.
+            </xs:documentation>
+            <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                OBECNA CHYBA SLUZBY
+                ICO NEEXISTUJE
+                CHYBA VAZBY ICO ICP
+                ICP NEEXISTUJE
+                CHYBA MAPA ADRES
+                ICP CHYBA MODULO
+                NEIDENTIFIKOVANA ZADNA ZMENA
+                OPAKOVANE ZPRACOVANI (chyba pouze pro interní rozhraní)
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+                NESHODA ID ZMENY
+                CHYBA ROZSAHU
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RosEditaceOsobyResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="NenalezenaIcp" minOccurs="0">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="NenalezeneIcp" type="ros:IcpStatusType" maxOccurs="unbounded"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RosVymazProvozovnuDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Zrušení záznamu provozovny v ROS - služba S12.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RosEditaceOsobyAbstractType">
+                <xs:sequence>
+                    <xs:element name="Ico" type="reg:IcoType"/>
+                    <xs:element name="Icp" type="reg:IcpType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RosVymazProvozovnuDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Zrušení záznamu provozovny v ROS  - služba S12, odpověď.
+                Služba vrací identifikátor a čas změny v případě úspěšného zrušení provozovny osoby
+                nebo chybový status.                
+            </xs:documentation>
+            <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                OBECNA CHYBA SLUZBY
+                ICO NEEXISTUJE
+                CHYBA VAZBY ICO ICP
+                ICP NEEXISTUJE
+                ICP CHYBA MODULO
+                OPAKOVANE ZPRACOVANI (chyba pouze pro interní rozhraní)
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+                NESHODA ID ZMENY                
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RosEditaceOsobyResponseAbstractType"/>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RosZapisDatovouSchrankuDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Změna referenčních údajů o datových schránkách osoby v ROS - služba S08.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RosEditaceOsobyAbstractType">
+                <xs:sequence>
+                    <xs:element name="Ico" type="reg:IcoType"/>
+                    <xs:element name="DatoveSchranky">
+                        <xs:complexType>
+                            <xs:annotation>
+                                <xs:documentation>
+                                    Datové schránky osoby v editačním dotazu do ROS včetně stavu.
+                                </xs:documentation>
+                            </xs:annotation>
+                            <xs:sequence>
+                                <xs:element name="DatovaSchranka" type="edi:DatovaSchrankaUkonEditStavType" maxOccurs="unbounded"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RosZapisDatovouSchrankuDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Změna referenčních údajů o datových schránkách osoby v ROS - služba S08, odpověď.
+                Služba vrací identifikátor a čas změny v případě úspěšného zápisu informací o datových schránkách
+                nebo chybový status. Služba může vracet seznam nezapsaných (chybných) datových schránek
+                s chybovým statusem každé z nich.
+            </xs:documentation>
+            <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                OBECNA CHYBA SLUZBY
+                ICO NEEXISTUJE
+                NEIDETIFIKOVANA ZADNA ZMENA
+                OPAKOVANE ZPRACOVANI (chyba pouze pro interní rozhraní)
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+                NESHODA ID ZMENY                
+                DUPLICITNI DS
+                NEEXISTUJICI DS
+                NEPOVOLENY TYP DS
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RosEditaceOsobyResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="NenalezeneDS" minOccurs="0">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="NenalezenaDS" type="ros:DatovaSchrankaStatusType" maxOccurs="unbounded"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RosZapisPravniStavDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Zapsání informace o právním stavu osoby do ROS - služba S17.
+                Umožňuje také zrušení právního stavu osoby.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RosEditaceOsobyAbstractType">
+                <xs:sequence>
+                    <xs:element name="Ico" type="reg:IcoType"/>
+                    <xs:element name="KodPravnihoStavu" type="edi:KodPravnihoStavuStavType" nillable="true"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RosZapisPravniStavDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Zapsání informace o právním stavu osoby do ROS - služba S17, odpověď.
+                Služba vrací identifikátor a čas změny v případě úspěšného zápisu informace o právním stavu
+                nebo chybový status.                                
+            </xs:documentation>
+            <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                OBECNA CHYBA SLUZBY
+                ICO NEEXISTUJE
+                NEPOVOLENY KOD PRAVNIHO STAVU
+                NEIDENTIFIKOVANA ZADNA ZMENA
+                OPAKOVANE ZPRACOVANI (chyba pouze pro interní rozhraní)
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+                NESHODA ID ZMENY                
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RosEditaceOsobyResponseAbstractType"/>
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>

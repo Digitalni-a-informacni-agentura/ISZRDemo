@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRuianCtiPrvekKatastralniUzemi2:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRuianCtiPrvekKatastralniUzemi2:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRuianCtiPrvekKatastralniUzemi2:v1"
+	xmlns:e250d="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekKatastralniUzemi2:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRuianCtiPrvekKatastralniUzemi2">
+
+	<wsdl:documentation>Služba E250d externího rozhraní - Načtení katastrálního území z RUIAN. RUIAN služba, operace ctiKatastralniUzemi.</wsdl:documentation>
+	
+	<!-- Výchozí verze 2.0.0, 6.10.2020 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekKatastralniUzemi2:v1" schemaLocation="../xsd/IszrRuianCtiPrvekKatastralniUzemi2.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrRuianCtiPrvekKatastralniUzemi2">
+		<wsdl:part name="parametry" element="e250d:RuianCtiPrvekKatastralniUzemi2"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRuianCtiPrvekKatastralniUzemi2Response">
+		<wsdl:part name="vysledek" element="e250d:RuianCtiPrvekKatastralniUzemi2Response"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRuianCtiPrvekKatastralniUzemi2PortType">
+		<wsdl:operation name="IszrRuianCtiPrvekKatastralniUzemi2">
+			<wsdl:input message="tns:IszrRuianCtiPrvekKatastralniUzemi2"/>
+			<wsdl:output message="tns:IszrRuianCtiPrvekKatastralniUzemi2Response"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRuianCtiPrvekKatastralniUzemi2Binding" type="tns:IszrRuianCtiPrvekKatastralniUzemi2PortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRuianCtiPrvekKatastralniUzemi2">
+			<soap:operation soapAction="IszrRuianCtiPrvekKatastralniUzemi2"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRuianCtiPrvekKatastralniUzemi2Service">
+		<wsdl:port name="IszrRuianCtiPrvekKatastralniUzemi2PortService" binding="tns:IszrRuianCtiPrvekKatastralniUzemi2Binding">
+			<soap:address location="IszrRuianCtiPrvekKatastralniUzemi2"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

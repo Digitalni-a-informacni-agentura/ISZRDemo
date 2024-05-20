@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:aiseop:schemas:AisEopCtiIdFoto:v1" 
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:aisse="urn:cz:isvs:aisse:schemas:AisSeTypy:v2" 
+           xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" 
+           xmlns:dt="urn:cz:isvs:aisse:schemas:DataTypy:v1"
+           targetNamespace="urn:cz:isvs:aiseop:schemas:AisEopCtiIdFoto:v1"
+           elementFormDefault="qualified" 
+           attributeFormDefault="unqualified" 
+           version="1.0.0">
+
+    <xs:annotation>
+        <xs:documentation xml:lang="cs">Definice prvků  pro AIS EOP pro službu AisEopCtiIdFoto.</xs:documentation>
+    </xs:annotation>
+
+    <!-- Úvodní verze pro atomické služby AIS ECD pro ZR v.1.0.0 pro výběr AIFO podle ID foto, xx.01.2021, KOMIX: Libor Málek  -->
+
+    <xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd" />
+    <xs:import namespace="urn:cz:isvs:aisse:schemas:AisSeTypy:v2" schemaLocation="../../aisse/xsd/AisSeTypyV2.xsd" />
+    <xs:import namespace="urn:cz:isvs:aisse:schemas:DataTypy:v1" schemaLocation="../../aisse/xsd/DataTypy.xsd" />
+
+    <xs:element name="AisEopSyncCtiIdFoto" type="AisEopCtiIdFotoType" />
+    <xs:element name="AisEopSyncCtiIdFotoResponse" type="AisEopCtiIdFotoResponseType" />
+
+    <xs:complexType name="AisEopCtiIdFotoType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz na data.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="ZadostInfo" type="reg:ZadostInfoType" />
+            <xs:element name="AutorizaceInfo" type="reg:AutorizaceType" minOccurs="0" />
+            <xs:element name="MapaAifo" type="reg:MapaAifoType" minOccurs="0" />
+            <xs:element name="SeznamIdAdres" type="reg:SeznamIdAdresType" minOccurs="0" />
+            <xs:element name="Dotaz" type="AisEopCtiIdFotoDataType" />
+        </xs:sequence>
+        <xs:attribute name="verzeZadosti" type="reg:VerzeType" />
+    </xs:complexType>
+
+    <xs:complexType name="AisEopCtiIdFotoResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověd na dotaz.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" />
+            <xs:element name="MapaAifo" type="reg:MapaAifoType" minOccurs="0" />
+            <xs:element name="SeznamIdAdres" type="reg:SeznamIdAdresType" minOccurs="0" />
+            <xs:element name="EopOdpoved" type="AisEopCtiIdFotoDataResponseType" minOccurs="0" />
+        </xs:sequence>
+        <xs:attribute name="verzeZadosti" type="reg:VerzeType" />
+    </xs:complexType>
+
+    <xs:complexType name="AisEopCtiIdFotoDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz na data - podle ID foto.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:sequence>  
+                <xs:element name="IdFoto" type="dt:IdFotoType" />  
+            </xs:sequence>     
+        </xs:sequence>
+        <xs:attribute name="verzeSluzby" type="dt:Text2" />
+    </xs:complexType>
+
+    <xs:complexType name="AisEopCtiIdFotoDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověd na dotaz - data AIS EOP.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="EopOdpovedV1" type="AisEopCtiIdFotoDataResponseTypeV1" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="AisEopCtiIdFotoDataResponseTypeV1">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověd na dotaz - data AIS EOP. Verze 1.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="aisse:AisSeDotazyDataResponseType">
+                <xs:sequence minOccurs="0">
+                    <xs:element name="Aifo" type="reg:LokalniAifoType" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+</xs:schema>

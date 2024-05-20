@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:Stat:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:Stat:v1" xmlns:st="urn:cz:isvs:ruian:schemas:Stat:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" elementFormDefault="qualified" version="0.40.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Aplikační schéma Stat obsahuje prvek typu: Stát se základními elementy a bez geometrie. </xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../ruian/xsd/typy/CommonTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:element name="Stat" type="st:StatType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Prvek představuje území státu.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="StatType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Prvek Stát se základními elementy a bez geometrie.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:group ref="StatGroup" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:group name="StatGroup">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Základní elelmenty prvku Stát.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod2Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Nazev" type="base:Nazev32Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Nespravny" type="com:NespravnyType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:group>
+</xs:schema>

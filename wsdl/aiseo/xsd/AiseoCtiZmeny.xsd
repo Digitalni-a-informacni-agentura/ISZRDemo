@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:aiseo:schemas:AiseoCtiZmeny:v1" xmlns:e07="urn:cz:isvs:aiseo:schemas:AiseoCtiZmeny:v1" xmlns:abs="urn:cz:isvs:aiseo:schemas:AiseoAbstract:v1" xmlns:rod="urn:cz:isvs:aiseo:schemas:AiseoDotazyData:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="urn:cz:isvs:aiseo:schemas:AiseoDotazyData:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" targetNamespace="urn:cz:isvs:aiseo:schemas:AiseoCtiZmeny:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.1.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků AIS EO - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	<!-- Vývojová verze 0.1.0, 11.06.2012, Kamil Jindra -->
+	<!-- Vývojová verze 0.1.1, 27.06.2012, Kamil Jindra  Prohozeny elementy ZmenaCas, ZmenaId -->
+	<!-- Komix s.r.o.-->
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:aiseo:schemas:AiseoDotazyData:v1" schemaLocation="../../aiseo/xsd/AiseoDotazyData.xsd"/>
+	<xs:element name="AiseoCtiZmeny" type="AiseoCtiZmenyType"/>
+	<xs:element name="AiseoCtiZmenyResponse" type="AiseoCtiZmenyResponseType"/>
+	<xs:complexType name="AiseoCtiZmenyType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba notifikace změn vydá seznam AIFO, ve kterých došlo ke změně referenčních údajů požadovaného typu od okamžiku definovaného časovým údajem nebo identifikátorem změny uvedeným ve vstupním parametru služby.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType"/>
+			<xs:element name="Zadost">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="AiseoCtiZmenyData" type="rod:AiseoCtiZmenyDataType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AiseoCtiZmenyResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Typ pro odpověď.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType"/>
+			<xs:element name="MapaAifo" type="reg:MapaAifoType" minOccurs="0"/>
+			<xs:element name="AiseoOdpoved" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="AiseoCtiZmenyDataResponse">
+							<xs:complexType>
+								<xs:complexContent>
+									<xs:extension base="ns1:AiseoDotazyDataResponseType">
+										<xs:sequence minOccurs="0">
+											<xs:element name="ZmenaCas" type="rod:ZmenaCasType"/>
+											<xs:element name="ZmenaId" type="rod:ZmenaIdType"/>
+										</xs:sequence>
+									</xs:extension>
+								</xs:complexContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

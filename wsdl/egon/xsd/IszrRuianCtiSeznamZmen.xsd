@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRuianCtiSeznamZmen:v1" 
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRuianCtiSeznamZmen:v1" 
+	xmlns:e38="urn:cz:isvs:iszr:schemas:IszrRuianCtiSeznamZmen:v1" 
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:zme="urn:cz:isvs:ruian:schemas:SeznamZmenTypy:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified" 
+	version="1.1.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E38 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	
+	<!-- Vývojová verze 0.0.1, 14.10.2011, Aleš Teplý -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:SeznamZmenTypy:v1" schemaLocation="ref/RuianCtiSeznamZmen.xsd"/>
+	
+	<xs:element name="RuianCtiSeznamZmen" type="RuianCtiSeznamZmenType"/>
+	<xs:element name="RuianCtiSeznamZmenResponse" type="RuianCtiSeznamZmenResponseType"/>
+	
+	<xs:complexType name="RuianCtiSeznamZmenType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E38 externího rozhraní - žádost. Služba pro získání seznamu identifikátorů a typů prvků, které se v zadaném časovém intervalu od minulosti do přítomnosti jakkoli změnily (změna, oprava, vznik, zánik). RUIAN služba A07.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+		 						<xs:element name="RuianCtiSeznamZmenData" type="zme:CtiSeznamZmenDotazType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RuianCtiSeznamZmenResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E38 externího rozhraní - odpověď. Služba pro získání seznamu identifikátorů a typů prvků, které se v zadaném časovém intervalu od minulosti do přítomnosti jakkoli změnily (změna, oprava, vznik, zánik) RUIAN služba A07.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="RuianOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianCtiSeznamZmenDataResponse">
+									<xs:complexType>
+										<xs:sequence>
+										  <xs:element ref="zme:Odpoved"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

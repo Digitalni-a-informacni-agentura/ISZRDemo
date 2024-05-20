@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns="urn:cz:isvs:iszr:services:IszrEidentitaCtiAifo:v1" xmlns:tns="urn:cz:isvs:iszr:services:IszrEidentitaCtiAifo:v1" xmlns:e226="urn:cz:isvs:iszr:schemas:IszrEidentitaCtiAifo:v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" name="IszrEidentitaCtiAifo" targetNamespace="urn:cz:isvs:iszr:services:IszrEidentitaCtiAifo:v1">
+	<wsdl:documentation>Služba E22ž pro externí rozhraní.</wsdl:documentation>
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrEidentitaCtiAifo:v1" schemaLocation="../xsd/IszrEidentitaCtiAifo.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrEidentitaCtiAifo">
+		<wsdl:part name="parametry" element="e226:IszrEidentitaCtiAifo"/>
+	</wsdl:message>
+	<wsdl:message name="IszrEidentitaCtiAifoResponse">
+		<wsdl:part name="vysledek" element="e226:IszrEidentitaCtiAifoResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrEidentitaCtiAifoPortType">
+		<wsdl:operation name="IszrEidentitaCtiAifo">
+			<wsdl:input message="IszrEidentitaCtiAifo"/>
+			<wsdl:output message="IszrEidentitaCtiAifoResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrEidentitaCtiAifoBinding" type="tns:IszrEidentitaCtiAifoPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrEidentitaCtiAifo">
+			<soap:operation soapAction="IszrEidentitaCtiAifo"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrEidentitaCtiAifoService">
+		<wsdl:port name="IszrEidentitaCtiAifoPortService" binding="tns:IszrEidentitaCtiAifoBinding">
+			<soap:address location="IszrEidentitaCtiAifo"/>
+		</wsdl:port>
+	</wsdl:service>
+	<!-- Verze 1.0.0, 27.10.2017 Pavel Odstrčil -->
+	<!-- AutoCont CZ a.s. -->
+</wsdl:definitions>

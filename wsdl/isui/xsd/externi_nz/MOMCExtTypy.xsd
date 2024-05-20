@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:isui:schemas:NavrhZmenyMCTypy:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:isui:schemas:NavrhZmenyMCTypy:v1" xmlns:nzmc="urn:cz:isvs:isui:schemas:NavrhZmenyMCTypy:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:eex="urn:cz:isvs:isui:schemas:EditaceExtTypy:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:gml="http://www.opengis.net/gml/3.2" elementFormDefault="qualified" version="0.0.1">
+	<xs:import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../../common/gml/3.2.1/gml.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:isui:schemas:EditaceExtTypy:v1" schemaLocation="../../../isui/xsd/externi_nz/EditaceExtTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../RegTypy.xsd"/>
+	<xs:element name="NavrhZmenyMOMCRequest" type="nzmc:NavrhZmenyMOMCRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Požadavek na vložení návrhu změny prvku MOMC</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="NavrhZmenyMOMCRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Požadavek na návrh změny prvku MOMC</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Dotaz" type="EditaceMOMCType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="EditaceMOMCType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Editace prvku MOMC</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="HlavickaNZ" type="eex:HlavickaNzType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="PodkladyNZ" type="eex:PodkladNzSeznamType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Prvky" type="PrvekListEditaceMOMCType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ZruseniDefinicniBodMOMCExtNZType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Zrušení definičního bodu k prvku MOMC.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="MOMCKod" type="base:Kod6Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód MOMC.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ZruseniHraniceMOMCExtNZType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Zrušení hranice k prvku MOMC.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="MOMCKod1" type="base:Kod6Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód MOMC - jedna strana okřídlené hrany.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MOMCKod2" type="base:Kod6Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód MOMC - druhá strana okřídlené hrany.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VytvoreniHraniceMOMCExtNZType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Vytvoření hranice k prvku MOMC.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="MOMCKod1" type="base:Kod6Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód MOMC - jedna strana okřídlené hrany.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MOMCKod2" type="base:Kod6Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód MOMC - druhá strana okřídlené hrany.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Geometrie" type="gml:LineStringType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs"></xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VytvoreniDefiniciniBodMOMCExtNZType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Vznik definičního bodu k prvku MOMC.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="MOMCKod" type="base:Kod6Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód MOMC.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DefinicniBod" type="gml:MultiPointPropertyType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PrvekEditaceMOMCType">
+		<xs:choice>
+			<xs:element name="VytvoreniHraniceMOMC" type="VytvoreniHraniceMOMCExtNZType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ZruseniHraniceMOMC" type="ZruseniHraniceMOMCExtNZType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="VytvoreniDefinicniBodMOMC" type="VytvoreniDefiniciniBodMOMCExtNZType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ZruseniDefinicniBodMOMC" type="ZruseniDefinicniBodMOMCExtNZType" minOccurs="0" maxOccurs="1"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="PrvekListEditaceMOMCType">
+		<xs:sequence>
+			<xs:element name="Prvek" type="PrvekEditaceMOMCType" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

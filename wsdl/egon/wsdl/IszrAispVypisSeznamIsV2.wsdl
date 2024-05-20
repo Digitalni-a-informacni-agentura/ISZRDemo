@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrAispVypisSeznamIsV2:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrAispVypisSeznamIsV2:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrAispVypisSeznamIsV2:v1"
+	xmlns:e265="urn:cz:isvs:iszr:schemas:IszrAispVypisSeznamIsV2:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrAispVypisSeznamIsV2">
+
+	<wsdl:documentation>Služba E265 externího rozhraní - Služba umožňuje načítat z AISP nereferenční údaje o AIS včetně neveřejných údajů.</wsdl:documentation>
+
+	<!-- Vytvoření nové verze služby 1.0.0, AISP 1.0.0, 30.11.2020, Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrAispVypisSeznamIsV2:v1" schemaLocation="../xsd/IszrAispVypisSeznamIsV2.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrAispVypisSeznamIsV2">
+		<wsdl:part name="parametry" element="e265:AispVypisSeznamIsV2"/>
+	</wsdl:message>
+	<wsdl:message name="IszrAispVypisSeznamIsV2Response">
+		<wsdl:part name="vysledek" element="e265:AispVypisSeznamIsV2Response"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrAispVypisSeznamIsV2PortType">
+		<wsdl:operation name="IszrAispVypisSeznamIsV2">
+			<wsdl:input message="IszrAispVypisSeznamIsV2"/>
+			<wsdl:output message="IszrAispVypisSeznamIsV2Response"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrAispVypisSeznamIsV2Binding" type="tns:IszrAispVypisSeznamIsV2PortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrAispVypisSeznamIsV2">
+			<soap:operation soapAction="IszrAispVypisSeznamIsV2"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrAispVypisSeznamIsV2Service">
+		<wsdl:port name="IszrAispVypisSeznamIsV2PortService" binding="tns:IszrAispVypisSeznamIsV2Binding">
+			<soap:address location="IszrAispVypisSeznamIsV2"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

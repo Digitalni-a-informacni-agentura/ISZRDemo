@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:ros:schemas:RosDotazyDataInt:v2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:rdd="urn:cz:isvs:ros:schemas:RosDotazyData:v2" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:ros="urn:cz:isvs:ros:schemas:RosTypy:v2" targetNamespace="urn:cz:isvs:ros:schemas:RosDotazyDataInt:v2" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.5.1">
+    <xs:annotation>
+        <xs:documentation xml:lang="cs">Návrh XML schématu s definicemi dotazovacích datových prvků IS ROS.
+          Toto schéma obsahuje definice datových prvků vstupu a výstupu jednotlivých výhradně interních dotazovacích služeb
+          registru osob (ROS).
+        </xs:documentation>
+    </xs:annotation>
+    <!-- Verze 1.0.0, 9.2.2012 -->
+    <!-- Verze 1.0.2, 24.8.2012 prechod na novou verzi RegTypy.xsd, pridana nova sluzba RosProbe-->
+    <!-- Verze 1.0.3, 28.7.2014 zmena v RosDotazyData.xsd-->
+    <!-- Verze 1.1.0, 23.10.2014 zmena v RosEditaceData.xsd-->
+    <!-- Verze 1.2.0, 29.6.2016 zmena v RosDotazy*.xsd, RosEditace*.xsd-->
+    <!-- Verze 2.4.0, 28.3.2022 pridana nova sluzba S36 - RosCtiPocetNaAdrese-->
+    <!-- Verze 2.5.0, 26.4.2022 vypusteni IcoKontrola z RosCtiPocetNaAdrese-->
+    <!-- Verze 2.5.1, 25.5.2022 zmena sekvence odpovedi S36 na nepovinnou-->    
+    <xs:import namespace="urn:cz:isvs:ros:schemas:RosDotazyData:v2" schemaLocation="RosDotazyData.xsd"/>
+    <xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+    <xs:import namespace="urn:cz:isvs:ros:schemas:RosTypy:v2" schemaLocation="RosTypy.xsd"/>
+    <xs:element name="RosOverIcoData" type="RosOverIcoDataType"/>
+    <xs:element name="RosOverIcoDataResponse" type="RosOverIcoDataResponseType"/>
+    <xs:element name="RosProbeData" type="RosProbeDataType"/>
+    <xs:element name="RosProbeDataResponse" type="RosProbeDataResponseType"/>
+    <xs:element name="RosCtiPocetNaAdreseData" type="RosCtiPocetNaAdreseDataType"/>
+    <xs:element name="RosCtiPocetNaAdreseDataResponse" type="RosCtiPocetNaAdreseDataResponseType"/>
+    <xs:complexType name="RosOverIcoDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Ověření existence zapsaného IČO v ROS - interní služba S21.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:complexType>
+    <xs:complexType name="RosOverIcoDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Ověření existence zapsaného IČO v ROS - interní služba S21, odpověď.
+            </xs:documentation>
+            <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                OBECNA CHYBA SLUZBY
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+                PREKROCEN INTERNI PARAMETR
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="rdd:RosDotazyDataResponseAbstractType"/>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RosProbeDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Zjištění dostupnosti rozhraní ROS - služba S23.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:complexType>
+    <xs:complexType name="RosProbeDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Služba S23, odpověď.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="OdpovedRozhrani" type="reg:OdpovedRozhraniType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="RosCtiPocetNaAdreseDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Zjištění počtu aktivních osob a provozoven na adrese - interní služba S36.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="OdkazRuian" type="reg:KodAdresniMistoType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="RosCtiPocetNaAdreseDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Zjištění počtu aktivních osob a provozoven na adrese - interní služba S36, odpověď.
+            </xs:documentation>
+            <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+                OBECNA CHYBA SLUZBY
+                CHYBA MAPA ADRES
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="rdd:RosDotazyDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element name="PocetRegistraciIco" type="reg:KladneCeleCisloType">
+                        <xs:annotation>
+                            <xs:documentation>Počet sídel/míst podnikání pro aktivní registraci osoby na uvedeném adresním místě.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="PocetProvozoven" type="reg:KladneCeleCisloType">
+                        <xs:annotation>
+                            <xs:documentation>Počet aktivních provozoven na adresním místě RUIAN.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>

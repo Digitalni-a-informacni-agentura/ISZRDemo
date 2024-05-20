@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRuianVyhledejPrvekOkres:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRuianVyhledejPrvekOkres:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRuianVyhledejPrvekOkres:v1"
+	xmlns:e34i="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekOkres:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRuianVyhledejPrvekOkres">
+
+	<wsdl:documentation>Služba E34i externího rozhraní - Vyhledání okresu z RUIAN. RUIAN služba A03, operace VyhledejOkres.</wsdl:documentation>
+	
+	<!-- Vývojová verze 0.0.1, 22.07.2011, Pavel Kirchner -->
+	<!-- Fixovaná verze 1.0.0, 25.10.2011, Aleš Teplý -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+	
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekOkres:v1" schemaLocation="../xsd/IszrRuianVyhledejPrvekOkres.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrRuianVyhledejPrvekOkres">
+		<wsdl:part name="parametry" element="e34i:RuianVyhledejPrvekOkres"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRuianVyhledejPrvekOkresResponse">
+		<wsdl:part name="vysledek" element="e34i:RuianVyhledejPrvekOkresResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRuianVyhledejPrvekOkresPortType">
+		<wsdl:operation name="IszrRuianVyhledejPrvekOkres">
+			<wsdl:input message="tns:IszrRuianVyhledejPrvekOkres"/>
+			<wsdl:output message="tns:IszrRuianVyhledejPrvekOkresResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRuianVyhledejPrvekOkresBinding" type="tns:IszrRuianVyhledejPrvekOkresPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRuianVyhledejPrvekOkres">
+			<soap:operation soapAction="IszrRuianVyhledejPrvekOkres"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRuianVyhledejPrvekOkresService">
+		<wsdl:port name="IszrRuianVyhledejPrvekOkresPortService" binding="tns:IszrRuianVyhledejPrvekOkresBinding">
+			<soap:address location="IszrRuianVyhledejPrvekOkres"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

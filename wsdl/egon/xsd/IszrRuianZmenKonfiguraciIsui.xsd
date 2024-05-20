@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:iszr:schemas:IszrRuianZmenKonfiguraciIsui:v1" xmlns:e241="urn:cz:isvs:iszr:schemas:IszrRuianZmenKonfiguraciIsui:v1" xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" xmlns:zpui="urn:cz:isvs:ruian:schemas:ZmenKonfiguraciIsui:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:cz:isvs:iszr:schemas:IszrRuianZmenKonfiguraciIsui:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E241 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	<!-- Vývojová verze 1.0.0, 31.05.2019, Pavel Odstrčil -->
+	<!-- AutoCont CZ a.s. -->
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenKonfiguraciIsui:v1" schemaLocation="ref/RuianZmenKonfiguraciIsui.xsd"/>
+	<xs:element name="RuianZmenKonfiguraciIsui" type="RuianZmenKonfiguraciIsuiType"/>
+	<xs:element name="RuianZmenKonfiguraciIsuiResponse" type="RuianZmenKonfiguraciIsuiResponseType"/>
+	<xs:complexType name="RuianZmenKonfiguraciIsuiType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E241 externího rozhraní - žádost. Služba pro uložení konfigurace ISUI do RUIAN. RUIAN služba A35.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element ref="zpui:Dotaz"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RuianZmenKonfiguraciIsuiResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E241 externího rozhraní - odpověď. Služba pro uložení konfigurace ISUI do RUIAN. RUIAN služba A35.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

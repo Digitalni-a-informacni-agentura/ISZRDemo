@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:StatGML:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:StatGML:v1" xmlns:stGml="urn:cz:isvs:ruian:schemas:StatGML:v1" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:st="urn:cz:isvs:ruian:schemas:Stat:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" elementFormDefault="qualified" version="0.40.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Aplikační schéma StatGML obsahuje prvek typu: Stát, včetně geometrie. </xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../ruian/xsd/typy/CommonTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:Stat:v1" schemaLocation="../../../ruian/xsd/prvky/Stat.xsd"/>
+	<xs:import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../../common/gml/3.2.1/gml.xsd"/>
+	<xs:element name="Stat" type="stGml:StatGMLType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Prvek představuje území státu.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="StatGMLType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Prvek Stát jako rozšíření gml:AbstractFeatureType.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="gml:AbstractFeatureType">
+				<xs:sequence>
+					<xs:group ref="st:StatGroup" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="PlatiOd" type="base:DatumCasType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="IdTransakce" type="com:IdTransakceType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="GlobalniIdNavrhuZmeny" type="com:IdNavrhuZmenyType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="NutsLau" type="com:NutsLauKodType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="Geometrie" type="GeometrieStatType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="NespravneUdaje" type="com:NespravnyUdajListType" minOccurs="0" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="GeometrieStatType">
+		<xs:sequence>
+			<xs:element name="DefinicniBod" type="gml:PointPropertyType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Geometrie definičního bodu státu  (Povolený typ geometrie je Point).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Hranice" type="HraniceStatType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Geometrie hranice státu (Povolený typ geometrie je MultiSurface).
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="HraniceStatType">
+		<xs:complexContent>
+			<xs:extension base="gml:MultiSurfacePropertyType">
+				<xs:sequence>
+					<xs:element name="StupenGeneralizace" type="com:StupenGeneralizaceType" minOccurs="1" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

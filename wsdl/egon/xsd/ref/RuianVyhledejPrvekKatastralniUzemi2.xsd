@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+	targetNamespace="urn:cz:isvs:ruian:schemas:VyhledejKatastralniUzemi:v2"
+	xmlns="urn:cz:isvs:ruian:schemas:VyhledejKatastralniUzemi:v2"
+	xmlns:vyhKu="urn:cz:isvs:ruian:schemas:VyhledejKatastralniUzemi:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified" 
+	version="2.0.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Rozšíření VyhledejKatastralniUzemi, definice potřebného elementu v namespace RUIAN.</xs:documentation>
+	</xs:annotation>
+	
+	<!-- Výchozí verze 2.0.0, 29.09.2020 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:include schemaLocation="../../../ruian/xsd/ext/v2/vyhledej/VyhledejKatastralniUzemi.xsd"/>
+
+	<xs:element name="KatastralniUzemi" type="vyhKu:KatastralniUzemiSeznamType"/>
+
+</xs:schema>

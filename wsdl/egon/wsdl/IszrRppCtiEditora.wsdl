@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRppCtiEditora:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRppCtiEditora:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRppCtiEditora:v1"
+	xmlns:e157="urn:cz:isvs:iszr:schemas:IszrRppCtiEditora:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRppCtiEditora">
+
+	<wsdl:documentation>Služba E157 externího rozhraní - Služba, kterou se zavádí záznamy do Katalogu služeb - RPP služba P49.</wsdl:documentation>
+
+	<!-- Vývojová verze 0.0.1, 27.02.2012, Jan Sluka -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- Verze po revizi 1.1.1, 15.10.2021, Aleš Teplý, AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- Verze po revizi 1.2.0, 25.5.2022, Aleš Teplý, Response - AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRppCtiEditora:v1" schemaLocation="../xsd/IszrRppCtiEditora.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="IszrRppCtiEditora">
+		<wsdl:part name="parametry" element="e157:RppCtiEditora"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRppCtiEditoraResponse">
+		<wsdl:part name="vysledek" element="e157:RppCtiEditoraResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRppCtiEditoraPortType">
+		<wsdl:operation name="IszrRppCtiEditora">
+			<wsdl:input message="IszrRppCtiEditora"/>
+			<wsdl:output message="IszrRppCtiEditoraResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRppCtiEditoraBinding" type="tns:IszrRppCtiEditoraPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRppCtiEditora">
+			<soap:operation soapAction="IszrRppCtiEditora"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRppCtiEditoraService">
+		<wsdl:port name="IszrRppCtiEditoraPortService" binding="tns:IszrRppCtiEditoraBinding">
+			<soap:address location="IszrRppCtiEditora"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

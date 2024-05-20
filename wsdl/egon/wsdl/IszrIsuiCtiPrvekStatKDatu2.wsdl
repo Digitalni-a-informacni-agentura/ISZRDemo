@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrIsuiCtiPrvekStatKDatu2:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrIsuiCtiPrvekStatKDatu2:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrIsuiCtiPrvekStatKDatu2:v1"
+	xmlns:e252o="urn:cz:isvs:iszr:schemas:IszrIsuiCtiPrvekStatKDatu2:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrIsuiCtiPrvekStatKDatu2">
+
+	<wsdl:documentation>Služba E252O externího rozhraní.</wsdl:documentation>
+
+	<!-- Výchozí verze 2.0.0, 14.10.2020 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrIsuiCtiPrvekStatKDatu2:v1" schemaLocation="../xsd/IszrIsuiCtiPrvekStatKDatu2.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="IszrIsuiCtiPrvekStatKDatu2">
+		<wsdl:part name="parametry" element="e252o:IsuiCtiPrvekStatKDatu2"/>
+	</wsdl:message>
+	<wsdl:message name="IszrIsuiCtiPrvekStatKDatu2Response">
+		<wsdl:part name="vysledek" element="e252o:IsuiCtiPrvekStatKDatu2Response"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrIsuiCtiPrvekStatKDatu2PortType">
+		<wsdl:operation name="IszrIsuiCtiPrvekStatKDatu2">
+			<wsdl:input message="IszrIsuiCtiPrvekStatKDatu2"/>
+			<wsdl:output message="IszrIsuiCtiPrvekStatKDatu2Response"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrIsuiCtiPrvekStatKDatu2Binding" type="tns:IszrIsuiCtiPrvekStatKDatu2PortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrIsuiCtiPrvekStatKDatu2">
+			<soap:operation soapAction="IszrIsuiCtiPrvekStatKDatu2"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrIsuiCtiPrvekStatKDatu2Service">
+		<wsdl:port name="IszrIsuiCtiPrvekStatKDatu2PortService" binding="tns:IszrIsuiCtiPrvekStatKDatu2Binding">
+			<soap:address location="IszrIsuiCtiPrvekStatKDatu2"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

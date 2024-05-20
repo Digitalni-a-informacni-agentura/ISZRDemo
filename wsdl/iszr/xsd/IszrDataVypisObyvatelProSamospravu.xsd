@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrDataVypisObyvatelProSamospravu:v1" 
+	xmlns="urn:cz:isvs:iszr:schemas:IszrDataVypisObyvatelProSamospravu:v1"
+	xmlns:i24="urn:cz:isvs:iszr:schemas:IszrDataVypisObyvatelProSamospravu:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	xmlns:iszr="urn:cz:isvs:iszr:schemas:IszrTypy:v1" 
+	xmlns:iszd="urn:cz:isvs:iszr:schemas:IszrDotazyData:v1" 
+	xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" 
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.6.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">XML schéma s definicemi dat pro služby ISZR</xs:documentation>
+	</xs:annotation>
+
+	<!-- Katalog.7.06 verze 1.6.0, 26.07.2013, Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrTypy:v1" schemaLocation="IszrTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrDotazyData:v1" schemaLocation="IszrDotazyData.xsd"/>
+
+	<xs:element name="IszrVypisObyvatelProSamospravuData" type="IszrVypisObyvatelProSamospravuDataType"/>
+	<xs:element name="IszrVypisObyvatelProSamospravuDataResponse" type="IszrVypisObyvatelProSamospravuDataResponseType"/>
+
+	<xs:complexType name="IszrVypisObyvatelProSamospravuDataType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Výpisy z ROB, IS EO a AISC podle adresních bodů RUIAN pro účely samospráv.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Identifikace">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Formular" type="FormularType" fixed="ZRDS11"/>
+						<xs:element name="Zadatel" type="ZadatelType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:choice>
+				<xs:element name="IdStorno" type="IdStornoType"/>
+				<xs:element name="IdStatus" type="IdStatusType" nillable="true"/>
+				<xs:element name="Parametry" type="ParametryType"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="IszrVypisObyvatelProSamospravuDataResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Výpisy z ROB, IS EO a AISC podle adresních bodů RUIAN pro účely samospráv, odpověď.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="iszd:IszrDotazyDataResponseType">
+				<xs:sequence>
+					<xs:element name="SouboryData" type="reg:SouboryType" minOccurs="0"/>
+					<xs:element name="DatumySnapshotu" type="DatumySnapshotuType" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="ZadatelType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Původní žadatel výdeje dat, ne FAIS.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CasZadosti" type="reg:CasovaZnackaType"/>
+			<xs:element name="Agenda" type="reg:KodAgendyType"/>
+			<xs:element name="AgendovaRole" type="reg:AgendovaRoleType"/>
+			<xs:element name="Ovm" type="reg:KodOvmType"/>
+			<xs:element name="Ais" type="reg:KodAisType"/>
+			<xs:element name="Subjekt" type="reg:SubjektType"/>
+			<xs:element name="Uzivatel" type="reg:UzivatelType"/>
+			<xs:element name="DuvodUcel" type="reg:DuvodUcelType"/>
+			<xs:element name="AgendaZadostId" type="reg:AgendaZadostIdType"/>
+			<xs:element name="IszrZadostId" type="reg:IszrZadostIdType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ParametryType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Parametry žádosti - které údaje se mají vrátit (definovány v elementu SeznamUdaju) a podle jakých kritérií budou údaje vyhledány.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PozadovanyDenZpracovani" type="PozadovanyDenZpracovaniType"/>
+			<xs:element name="SeznamUdaju" type="reg:AisSeznamUdajuType"/>
+			<xs:element name="KodUzemnihoCelku" type="reg:KodUzemnihoCelkuType"/>
+			<xs:element name="TypUzemnihoCelku" type="reg:TypUzemnihoCelkuType"/>
+			<xs:element name="CasoveObdobi" type="CasoveObdobiType"/>
+			<xs:element name="StatniObcanstvi" type="StatniObcanstviType"/>
+			<xs:element name="PouzeZijiciOsoby" type="PouzeZijiciOsobyType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CasoveObdobiType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Kritérium, podle kterého budou údaje vyhledány. Pokud bude element CasovyUdaj prázdný, musí být i elementy CasOd a CasDo prázdné. Pokud element CasovyUdaj bude vyplněn, musí být elementy CasOd a CasDo správně vyplněné.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CasovyUdaj" type="CasovyUdajType" nillable="true"/>
+			<xs:element name="CasOd" type="DateOrEmptyType" nillable="true"/>
+			<xs:element name="CasDo" type="DateOrEmptyType" nillable="true"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DatumySnapshotuType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Datumy snapshotu dat, na základě kterých je proveden výběr.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DatumRob" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Datum snapshotu ROB, na základě kterého je proveden výběr.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DatumRobRuian" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Datum snapshotu RUIAN v ROB, na základě kterého je proveden výběr.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DatumAiseo" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Datum snapshotu AISEO, na základě kterého je proveden výběr.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DatumAiseoRuian" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Datum snapshotu RUIAN v AISEO, na základě kterého je proveden výběr.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DatumAisc" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Datum snapshotu AISC, na základě kterého je proveden výběr.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DatumAiscRuian" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Datum snapshotu RUIAN v AISC, na základě kterého je proveden výběr.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:simpleType name="FormularType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Identifikace agendy podávané žádosti.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="IdStornoType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Identifikátor výpisu, jehož storno je požadováno.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="IdStatusType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Identifikátor, že je požadováno jen výpis zpracování v ISZR.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="EmptyType"/>
+	</xs:simpleType>
+	<xs:simpleType name="PozadovanyDenZpracovaniType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Požadovaný den zpracování (nejméně 15 pracovních dní předem).</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="CasovyUdajType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Konstanta udávající kritérium vyhledání (Umrti, Narozeni, Pristehovani, Odstehovani). Ve formuláři se tato konstanta vybere z Radio buttonu.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Umrti"/>
+			<xs:enumeration value="Narozeni"/>
+			<xs:enumeration value="Pristehovani"/>
+			<xs:enumeration value="Odstehovani"/>
+			<xs:enumeration value=""/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DateOrEmptyType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Typ umožňující zadat datum nebo prázdný řetězec.</xs:documentation>
+		</xs:annotation>
+		<xs:union memberTypes="xs:date EmptyType"/>
+	</xs:simpleType>
+	<xs:simpleType name="EmptyType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Typ umožňující zadat jen prázdný řetězec.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="StatniObcanstviType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Státní občanství (logické hodnoty: Všechny/Cizinci/CZ)</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="StatniObcanstviVsichni"/>
+			<xs:enumeration value="StatniObcanstviObcan"/>
+			<xs:enumeration value="StatniObcanstviCizinec"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PouzeZijiciOsobyType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Pouze žijící osoby (logické hodnoty: NE/ANO)</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="VsechnyFyzickeOsoby"/>
+			<xs:enumeration value="FyzickeOsobyZijici"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

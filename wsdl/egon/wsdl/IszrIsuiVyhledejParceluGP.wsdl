@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrIsuiVyhledejParceluGP:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrIsuiVyhledejParceluGP:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrIsuiVyhledejParceluGP:v1"
+	xmlns:e234="urn:cz:isvs:iszr:schemas:IszrIsuiVyhledejParceluGP:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrIsuiVyhledejParceluGP">
+
+	<wsdl:documentation>Služba E234 externího rozhraní.</wsdl:documentation>
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrIsuiVyhledejParceluGP:v1" schemaLocation="../xsd/IszrIsuiVyhledejParceluGP.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="IszrIsuiVyhledejParceluGP">
+		<wsdl:part name="parametry" element="e234:IsuiVyhledejParceluGP"/>
+	</wsdl:message>
+	<wsdl:message name="IszrIsuiVyhledejParceluGPResponse">
+		<wsdl:part name="vysledek" element="e234:IsuiVyhledejParceluGPResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrIsuiVyhledejParceluGPPortType">
+		<wsdl:operation name="IszrIsuiVyhledejParceluGP">
+			<wsdl:input message="IszrIsuiVyhledejParceluGP"/>
+			<wsdl:output message="IszrIsuiVyhledejParceluGPResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrIsuiVyhledejParceluGPBinding" type="tns:IszrIsuiVyhledejParceluGPPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrIsuiVyhledejParceluGP">
+			<soap:operation soapAction="IszrIsuiVyhledejParceluGP"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrIsuiVyhledejParceluGPService">
+		<wsdl:port name="IszrIsuiVyhledejParceluGPPortService" binding="tns:IszrIsuiVyhledejParceluGPBinding">
+			<soap:address location="IszrIsuiVyhledejParceluGP"/>
+		</wsdl:port>
+	</wsdl:service>
+  
+	<!-- Vznik, 1.0.0, 25.10.2018 -->
+	<!-- AutoCont CZ a.s. -->
+  
+</wsdl:definitions>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRuianSouboryDat:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRuianSouboryDat:v1"
+	xmlns:e40="urn:cz:isvs:iszr:schemas:IszrRuianSouboryDat:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:sdr="urn:cz:isvs:ruian:schemas:SouboryDat:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.4.3">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E40 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vývojová verze 0.0.1, 9.2.2012, Jan Sluka -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- Verze po revizi 1.4.3, 16.04.2013, Aleš Teplý, změna Request: TypVymennehoFormatu - zrušeny některé typy (např. ST_ZKHG, ST_ZKHH, ST_ZKHO...) -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:SouboryDat:v1" schemaLocation="ref/RuianSouboryDat.xsd"/>
+
+	<xs:element name="RuianSouboryDat" type="RuianSouboryDatType"/>
+	<xs:element name="RuianSouboryDatResponse" type="RuianSouboryDatResponseType"/>
+
+	<xs:complexType name="RuianSouboryDatType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E40 externího rozhraní - žádost. Služba pro poskytnutí odkazů na soubory s kompletními daty RUIAN. RUIAN služba A26.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianSouboryDatData" type="sdr:SouboryDatDotazType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RuianSouboryDatResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E40 externího rozhraní - odpověď. Služba pro poskytnutí odkazů na soubory s kompletními daty RUIAN. RUIAN služba A26.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="RuianOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianSouboryDatDataResponse">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element ref="sdr:Odpoved"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

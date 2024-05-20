@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+	targetNamespace="urn:cz:isvs:ruian:schemas:VyhledejVolebniOkrsek:v1" 
+	xmlns="urn:cz:isvs:ruian:schemas:VyhledejVolebniOkrsek:v1"
+	xmlns:vyhVo="urn:cz:isvs:ruian:schemas:VyhledejVolebniOkrsek:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified" 
+	version="1.4.5">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Rozšíření VyhledejVolebniOkrsek, definice potřebného elementu v namespace RUIAN.</xs:documentation>
+	</xs:annotation>
+	
+	<!-- Vývojová verze 1.4.4, 25.10.2013, Aleš Teplý -->
+	<!-- Vývojová verze 1.4.5, 8.1.2014, Pavel Odstrčil -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:include schemaLocation="../../../ruian/xsd/vyhledej/VyhledejVolebniOkrsek.xsd"/>
+
+	<xs:element name="VolebniOkrsek" type="vyhVo:VolebniOkrsekSeznamType"/>
+
+</xs:schema>

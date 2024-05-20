@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+	targetNamespace="urn:cz:isvs:ruian:schemas:CtiVO:v1" 
+	xmlns="urn:cz:isvs:ruian:schemas:CtiVO:v1" 
+	xmlns:ctiVo="urn:cz:isvs:ruian:schemas:CtiVO:v1"
+	xmlns:adGml="urn:cz:isvs:ruian:schemas:VolebniOkrsekGML:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified" 
+	version="1.4.4">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Rozšíření CtiVolebniOkrsek, definice potřebného elementu v namespace RUIAN.</xs:documentation>
+	</xs:annotation>
+	
+	<!-- Vývojová verze 1.4.4, 25.10.2013, Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:VolebniOkrsekGML:v1" schemaLocation="../../../ruian/xsd/prvky/VolebniOkrsekGML.xsd"/>
+
+	<xs:element name="VolebniOkrsek" type="adGml:VolebniOkrsekGMLType"/>
+
+</xs:schema>

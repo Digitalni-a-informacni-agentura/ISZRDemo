@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRppVypisSeznamPusobnostiOvm3:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRppVypisSeznamPusobnostiOvm3:v1"
+	xmlns:e298="urn:cz:isvs:iszr:schemas:IszrRppVypisSeznamPusobnostiOvm3:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:pdo="urn:cz:isvs:rpp:schemas:RppDotazyData:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.1.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E298 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Výchozí verze 1.0.0, 13.12.2012, Aleš Teplý -->
+	<!-- Verze po revizi 1.0.1, 16.3.2022, Aleš Teplý, RPP verze 1.11.5 -->
+	<!-- Verze po revizi 1.1.0, 25.5.2022, Aleš Teplý, Response - AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rpp:schemas:RppDotazyData:v1" schemaLocation="../../rpp/xsd/RppDotazyData.xsd"/>
+	<xs:element name="RppVypisSeznamPusobnostiOvm3" type="RppVypisSeznamPusobnostiOvm3Type"/>
+	<xs:element name="RppVypisSeznamPusobnostiOvm3Response" type="RppVypisSeznamPusobnostiOvm3ResponseType"/>
+	<xs:complexType name="RppVypisSeznamPusobnostiOvm3Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E298 externího rozhraní - typ pro žádost. Poskytnutí informací o působnostech definovaných v katalogu působností na základě vstupních parametrů ve struktuře po novele zákona 111/2009. RPP služba P97.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RppVypisSeznamPusobnostiOvm3Data" type="pdo:RppVypisSeznamPusobnostiOvm3DataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RppVypisSeznamPusobnostiOvm3ResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E298 externího rozhraní - typ pro odpověď. Poskytnutí informací o působnostech definovaných v katalogu působností na základě vstupních parametrů ve struktuře po novele zákona 111/2009. RPP služba P97.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="RppOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RppVypisSeznamPusobnostiOvm3DataResponse" type="pdo:RppVypisSeznamPusobnostiOvm3DataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

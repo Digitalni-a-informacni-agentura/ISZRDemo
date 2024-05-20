@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:AdresniMistoPolozky:v2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:AdresniMistoPolozky:v2" xmlns:adPol="urn:cz:isvs:ruian:schemas:AdresniMistoPolozky:v2" xmlns:adPolBase="urn:cz:isvs:ruian:schemas:AdresniMistoPolozkyBase:v2" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:upPolBase="urn:cz:isvs:ruian:schemas:UupPolozkyBase:v2" xmlns:soPolBase="urn:cz:isvs:ruian:schemas:StavebniObjektPolozkyBase:v2" xmlns:ulPolBase="urn:cz:isvs:ruian:schemas:UlicePolozkyBase:v2" elementFormDefault="qualified" version="2.1.0">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:UupPolozkyBase:v2" schemaLocation="../vyhledej/UupPolozkyBase.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../typy/CommonTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:AdresniMistoPolozkyBase:v2" schemaLocation="../vyhledej/AdresniMistoPolozkyBase.xsd"/>
+	<xs:complexType name="AdresniMistoPolozkyType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na adresni misto</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:group ref="adPolBase:AdresniMistoPolozkyGroup" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="PlatiOd" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="IdTransakce" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="GlobalniIdNavrhuZmeny" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="DefinicniBod" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="NavazaneUUP" type="upPolBase:UupPolozkyBaseType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

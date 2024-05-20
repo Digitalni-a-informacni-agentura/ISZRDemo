@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:ZmenDetailniTea:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:ZmenDetailniTea:v1" xmlns:ztea="urn:cz:isvs:ruian:schemas:ZmenDetailniTea:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:zt="urn:cz:isvs:ruian:schemas:ZmenaTypy:v1" elementFormDefault="qualified" version="0.40.3">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenaTypy:v1" schemaLocation="../../../ruian/xsd/typy/ZmenaTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:complexType name="DetailTEAZmenaType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Zmena detailnich tecnickoekonomickych atributu (TEA)</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod8Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="StavebniObjektKod" type="zt:Kod9ZmenaType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Nespravny" type="zt:NespravnyZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PocetBytu" type="zt:PocetBytuZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PocetPodlazi" type="zt:PocetPodlaziZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="DruhKonstrukceKod" type="zt:Kod4ZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PripojeniKanalizaceKod" type="zt:Kod4ZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PripojeniPlynKod" type="zt:Kod4ZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PripojeniVodovodKod" type="zt:Kod4ZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ZpusobVytapeniKod" type="zt:Kod4ZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="AdresniMistoKod" type="zt:Kod9SeznamZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PlatiOd" type="zt:DatumCasZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="GlobalniIdNavrhuZmeny" type="zt:IdNavrhuZmenyZmenaType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

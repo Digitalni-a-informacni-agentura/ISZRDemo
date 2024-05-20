@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRuianVyhledejPrvekUlice:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRuianVyhledejPrvekUlice:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRuianVyhledejPrvekUlice:v1"
+	xmlns:e34q="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekUlice:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRuianVyhledejPrvekUlice">
+
+	<wsdl:documentation>Služba E34q externího rozhraní - Vyhledání Ulice z RUIAN. RUIAN služba A03, operace VyhledejUlice.</wsdl:documentation>
+	
+	<!-- Vývojová verze 0.0.1, 22.07.2011, Pavel Kirchner -->
+	<!-- Fixovaná verze 1.0.0, 25.10.2011, Aleš Teplý -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekUlice:v1" schemaLocation="../xsd/IszrRuianVyhledejPrvekUlice.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrRuianVyhledejPrvekUlice">
+		<wsdl:part name="parametry" element="e34q:RuianVyhledejPrvekUlice"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRuianVyhledejPrvekUliceResponse">
+		<wsdl:part name="vysledek" element="e34q:RuianVyhledejPrvekUliceResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRuianVyhledejPrvekUlicePortType">
+		<wsdl:operation name="IszrRuianVyhledejPrvekUlice">
+			<wsdl:input message="tns:IszrRuianVyhledejPrvekUlice"/>
+			<wsdl:output message="tns:IszrRuianVyhledejPrvekUliceResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRuianVyhledejPrvekUliceBinding" type="tns:IszrRuianVyhledejPrvekUlicePortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRuianVyhledejPrvekUlice">
+			<soap:operation soapAction="IszrRuianVyhledejPrvekUlice"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRuianVyhledejPrvekUliceService">
+		<wsdl:port name="IszrRuianVyhledejPrvekUlicePortService" binding="tns:IszrRuianVyhledejPrvekUliceBinding">
+			<soap:address location="IszrRuianVyhledejPrvekUlice"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

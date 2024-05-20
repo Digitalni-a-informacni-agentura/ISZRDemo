@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:CtiAdresniMisto:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:CtiAdresniMisto:v1" xmlns:ctiAd="urn:cz:isvs:ruian:schemas:CtiAdresniMisto:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:adPol="urn:cz:isvs:ruian:schemas:AdresniMistoPolozky:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:adGml="urn:cz:isvs:ruian:schemas:AdresniMistoGML:v1" elementFormDefault="qualified" version="0.40.1">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:AdresniMistoGML:v1" schemaLocation="../../../ruian/xsd/prvky/AdresniMistoGML.xsd"/>
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:AdresniMistoPolozky:v1" schemaLocation="../../../ruian/xsd/cti/AdresniMistoPolozky.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:complexType name="CtiAdresniMistoDotazType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Parametry dotazu na informace o adresním místu.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod9Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód adresního místa.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PozadovaneUdaje" type="adPol:AdresniMistoPolozkyType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Seznam požadovaných údajů.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CtiAdresniMistoRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na načtení informací o adresním místu.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Standardní hlavička dotazu.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Dotaz" type="CtiAdresniMistoDotazType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Parametry dotazu.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CtiAdresniMistoResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Typ odpovedi nacitani adresniho mista</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="AdresniMisto" type="adGml:AdresniMistoGMLType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="CtiAdresniMistoRequest" type="ctiAd:CtiAdresniMistoRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na načtení informací o adresním místu.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="CtiAdresniMistoResponse" type="ctiAd:CtiAdresniMistoResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Typ odpovedi nacitani adresniho mista</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

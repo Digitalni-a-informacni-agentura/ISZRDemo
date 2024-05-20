@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:ros:schemas:RosEditaceData:v2"
+	xmlns="urn:cz:isvs:ros:schemas:RosEditaceData:v2"
+	xmlns:sed="urn:cz:isvs:ros:schemas:RosEditaceData:v2"
+	xmlns:edi="urn:cz:isvs:ros:schemas:RosEditaceTypy:v1"
+	xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="2.0.0">
+
+    <xs:annotation>
+        <xs:documentation xml:lang="cs">Rozšíření RosEditaceData.xsd, definice potřebného elementu v namespace ROS.</xs:documentation>
+    </xs:annotation>
+
+	<!-- Výchozí verze 2.0.0, 24.09.2020, dočasné doplnění zrušeného RosZapisStatusVerejneProspesnosti, Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:include schemaLocation="../../../ros/xsd/RosEditaceData.xsd"/>
+	
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../RegTypy.xsd" /> 
+	<xs:import namespace="urn:cz:isvs:ros:schemas:RosEditaceTypy:v1" schemaLocation="../../../ros/xsd/RosEditaceTypy.xsd" /> 
+
+    <xs:complexType name="RosZapisStatusVerejneProspesnostiDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Zapsání informace o statusu veřejné prospěšnosti osoby do ROS - služba S27.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RosEditaceOsobyAbstractType">
+                <xs:sequence>
+                    <xs:element name="Ico" type="reg:IcoType"/>
+                    <xs:element name="VerejnaProspesnost" type="edi:VerejnaProspesnostStavType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RosZapisStatusVerejneProspesnostiDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Zapsání informace o statusu veřejné prospěšnosti osoby do ROS - služba S27, odpověď.
+                Služba vrací identifikátor a čas změny v případě úspěšného zápisu informace o statusu veřejné prospěšnosti
+                nebo chybový status.                                
+            </xs:documentation>
+            <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                OBECNA CHYBA SLUZBY
+                ICO NEEXISTUJE
+                NEIDENTIFIKOVANA ZADNA ZMENA
+                OPAKOVANE ZPRACOVANI (chyba pouze pro interní rozhraní)
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+                NESHODA ID ZMENY                
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RosEditaceOsobyResponseAbstractType"/>
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>

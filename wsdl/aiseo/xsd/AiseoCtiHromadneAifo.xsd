@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:aiseo:schemas:AiseoCtiHromadneAifo:v1" xmlns:x11="urn:cz:isvs:aiseo:schemas:AiseoCtiHromadneAifo:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:aiseo="urn:cz:isvs:aiseo:schemas:AiseoTypy:v1" xmlns:iszd="urn:cz:isvs:aiseo:schemas:AiseoDotazyData:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:ns1="urn:cz:isvs:aiseo:schemas:AiseoCtiHromadneAifo:v1" xmlns:ns2="urn:cz:isvs:aiseo:schemas:AiseoTypy:v1" xmlns:ns3="urn:cz:isvs:aiseo:schemas:AiseoDotazyData:v1" targetNamespace="urn:cz:isvs:aiseo:schemas:AiseoCtiHromadneAifo:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.1.2">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">XML schéma s definicemi dat pro služby Aiseo, služba AiseoCtiHromadneAifo.</xs:documentation>
+	</xs:annotation>
+	<!-- Vývojová verze 0.1.0, 01.06.2012, Kamil Jindra  -->
+	<!-- Vývojová verze 0.1.1, 13.06.2012, Kamil Jindra  Povinna AutorizaceInfo v requestu -->
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:aiseo:schemas:AiseoTypy:v1" schemaLocation="AiseoTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:aiseo:schemas:AiseoDotazyData:v1" schemaLocation="AiseoDotazyData.xsd"/>
+	<xs:element name="AiseoSyncCtiHromadneAifo" type="AiseoSyncCtiHromadneAifoType"/>
+	<xs:element name="AiseoSyncCtiHromadneAifoResponse" type="AiseoSyncCtiHromadneAifoResponseType"/>
+	<xs:element name="AiseoCtiHromadneAifoData" type="AiseoCtiHromadneAifoDataType"/>
+	<xs:element name="AiseoCtiHromadneAifoDataResponseV01" type="AiseoCtiHromadneAifoDataResponseV01Type"/>
+	<xs:complexType name="AiseoSyncCtiHromadneAifoType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Synchronní dotaz.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType"/>
+			<xs:element name="AutorizaceInfo" type="reg:AutorizaceType" minOccurs="1"/>
+			<xs:element name="MapaAifo" type="reg:MapaAifoType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AiseoSyncCtiHromadneAifoResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Synchronní odpověd na dotaz.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType"/>
+			<xs:element name="MapaAifo" type="reg:MapaAifoType" minOccurs="0"/>
+			<xs:element name="AiseoOdpoved" type="AiseoSyncDotazDataResponseType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AiseoCtiHromadneAifoDataType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba umožňuje přijmout definovanou žádost na čtení dle AIFO.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence/>
+	</xs:complexType>
+	<xs:complexType name="AiseoSyncDotazDataResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Obecná definice datové části Response.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AiseoCtiHromadneAifoDataResponseV01" type="AiseoCtiHromadneAifoDataResponseV01Type"/>
+		</xs:sequence>
+		<!-- 
+		<xs:sequence>
+			<xs:any namespace="urn:cz:isvs:aiseo:schemas:AiseoCtiHromadneAifo:v1" processContents="lax"/>
+		</xs:sequence>
+		 -->
+	</xs:complexType>
+	<xs:complexType name="AiseoCtiHromadneAifoDataResponseV01Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba umožňuje přijmout definovanou žádost na čtení dle AIFO vytvořit výpis vhodný pro technické zpracování. Datová část Response.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="iszd:AiseoDotazyDataResponseType">
+				<xs:sequence minOccurs="0" maxOccurs="unbounded">
+					<xs:element name="Osoba">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="Aifo" type="reg:LokalniAifoType"/>
+								<xs:element name="OsobaEO" type="aiseo:OsobaEOType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:VyhledejCastObce:v2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:VyhledejCastObce:v2" xmlns:vyhCo="urn:cz:isvs:ruian:schemas:VyhledejCastObce:v2" xmlns:co="urn:cz:isvs:ruian:schemas:CastObce:v2" xmlns:coPodm="urn:cz:isvs:ruian:schemas:CastObcePodminka:v2" xmlns:coPolBase="urn:cz:isvs:ruian:schemas:CastObcePolozkyBase:v2" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" elementFormDefault="qualified" version="2.0.0">
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CastObcePolozkyBase:v2" schemaLocation="CastObcePolozkyBase.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CastObcePodminka:v2" schemaLocation="CastObcePodminka.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CastObce:v2" schemaLocation="../prvky/CastObce.xsd"/>
+	<xs:complexType name="CastObceSeznamType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam casti obci</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CastObce" type="co:CastObceType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VyhledejCastObceDotazType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Parametry casti obce</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Podminka" type="coPodm:CastObcePodminkaType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="PozadovaneUdaje" type="coPolBase:CastObcePolozkyBaseType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="VyhledejCastObceRequest" type="vyhCo:VyhledejCastObceRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na vyhledani casti obci</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="VyhledejCastObceRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na vyhledani casti obci</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Dotaz" type="VyhledejCastObceDotazType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="VyhledejCastObceResponse" type="vyhCo:VyhledejCastObceResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved na vyhledani casti obci</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="VyhledejCastObceResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved na vyhledani casti obci</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="CastiObci" type="CastObceSeznamType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

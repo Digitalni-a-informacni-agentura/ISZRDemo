@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRobCtiPodleUdaju:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRobCtiPodleUdaju:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRobCtiPodleUdaju:v1"
+	xmlns:e05="urn:cz:isvs:iszr:schemas:IszrRobCtiPodleUdaju:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRobCtiPodleUdaju">
+
+	<wsdl:documentation>Služba E05.</wsdl:documentation>
+
+	<!-- Vývojová verze 0.0.1, 22.09.2011, Jan Sluka -->
+	<!-- Fixovaná verze 1.0.0, 22.09.2011, Aleš Teplý -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRobCtiPodleUdaju:v1" schemaLocation="../xsd/IszrRobCtiPodleUdaju.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="IszrRobCtiPodleUdaju">
+		<wsdl:part name="parametry" element="e05:RobCtiPodleUdaju"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRobCtiPodleUdajuResponse">
+		<wsdl:part name="vysledek" element="e05:RobCtiPodleUdajuResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRobCtiPodleUdajuPortType">
+		<wsdl:operation name="IszrRobCtiPodleUdaju">
+			<wsdl:input message="IszrRobCtiPodleUdaju"/>
+			<wsdl:output message="IszrRobCtiPodleUdajuResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRobCtiPodleUdajuBinding" type="tns:IszrRobCtiPodleUdajuPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRobCtiPodleUdaju">
+			<soap:operation soapAction="IszrRobCtiPodleUdaju"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRobCtiPodleUdajuService">
+		<wsdl:port name="IszrRobCtiPodleUdajuPortService" binding="tns:IszrRobCtiPodleUdajuBinding">
+			<soap:address location="IszrRobCtiPodleUdaju"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

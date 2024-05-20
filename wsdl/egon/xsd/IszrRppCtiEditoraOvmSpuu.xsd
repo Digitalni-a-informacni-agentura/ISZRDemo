@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:iszr:schemas:IszrRppCtiEditoraOvmSpuu:v1" xmlns:e219="urn:cz:isvs:iszr:schemas:IszrRppCtiEditoraOvmSpuu:v1" xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" xmlns:pdo="urn:cz:isvs:rpp:schemas:RppDotazyData:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:cz:isvs:iszr:schemas:IszrRppCtiEditoraOvmSpuu:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.1.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E219 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation> 
+
+	<!-- Novela zakona 111, verze 1.0.0, 21.12.2016 - nová sluzba RPP ROVM -->
+	<!-- Verze po revizi 1.0.1, 15.10.2021, Aleš Teplý, AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- Verze po revizi 1.1.0, 25.5.2022, Aleš Teplý, Response - AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rpp:schemas:RppDotazyData:v1" schemaLocation="../../rpp/xsd/RppDotazyData.xsd"/>
+	<xs:element name="RppCtiEditoraOvmSpuu" type="RppCtiEditoraOvmSpuuType"/>
+	<xs:element name="RppCtiEditoraOvmSpuuResponse" type="RppCtiEditoraOvmSpuuResponseType"/>
+	<xs:complexType name="RppCtiEditoraOvmSpuuType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E219 externího rozhraní - typ pro žádost. Služba vrací agendu editora a OVM editora pro požadovaný objekt (OVM, SPUU, kategorii OVM, kategorii SPUU. RPP služba P68.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RppCtiEditoraOvmSpuuData" type="pdo:RppCtiEditoraOvmSpuuDataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RppCtiEditoraOvmSpuuResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E219 externího rozhraní - typ pro odpověď. Služba vrací agendu editora a OVM editora pro požadovaný objekt (OVM, SPUU, kategorii OVM, kategorii SPUU. RPP služba P68.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="RppOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RppCtiEditoraOvmSpuuDataResponse" type="pdo:RppCtiEditoraOvmSpuuDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

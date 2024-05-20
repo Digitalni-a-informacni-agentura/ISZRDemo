@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRuianCtiPrvekAdresniMisto2:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRuianCtiPrvekAdresniMisto2:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRuianCtiPrvekAdresniMisto2:v1"
+	xmlns:e250a="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekAdresniMisto2:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRuianCtiPrvekAdresniMisto2">
+
+	<wsdl:documentation>Služba E250a externího rozhraní - Načtení adresního místa z RUIAN. RUIAN služba, operace ctiAdresniMisto.</wsdl:documentation>
+	
+	<!-- Výchozí verze 2.0.0, 6.10.2020 Aleš Teplý -->
+	<!-- Verze po revizi 2.0.1, 15.9.2021, Aleš Teplý, rozšíření Request, rozšíření Response -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekAdresniMisto2:v1" schemaLocation="../xsd/IszrRuianCtiPrvekAdresniMisto2.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrRuianCtiPrvekAdresniMisto2">
+		<wsdl:part name="parametry" element="e250a:RuianCtiPrvekAdresniMisto2"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRuianCtiPrvekAdresniMisto2Response">
+		<wsdl:part name="vysledek" element="e250a:RuianCtiPrvekAdresniMisto2Response"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRuianCtiPrvekAdresniMisto2PortType">
+		<wsdl:operation name="IszrRuianCtiPrvekAdresniMisto2">
+			<wsdl:input message="tns:IszrRuianCtiPrvekAdresniMisto2"/>
+			<wsdl:output message="tns:IszrRuianCtiPrvekAdresniMisto2Response"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRuianCtiPrvekAdresniMisto2Binding" type="tns:IszrRuianCtiPrvekAdresniMisto2PortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRuianCtiPrvekAdresniMisto2">
+			<soap:operation soapAction="IszrRuianCtiPrvekAdresniMisto2"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRuianCtiPrvekAdresniMisto2Service">
+		<wsdl:port name="IszrRuianCtiPrvekAdresniMisto2PortService" binding="tns:IszrRuianCtiPrvekAdresniMisto2Binding">
+			<soap:address location="IszrRuianCtiPrvekAdresniMisto2"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekMomc:v1" 
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekMomc:v1" 
+	xmlns:e35f="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekMomc:v1" 
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:ctiMc="urn:cz:isvs:ruian:schemas:CtiMomc:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified" 
+	version="1.1.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E35f externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	
+	<!-- Vývojová verze 0.0.1, 24.06.2011, Aleš Teplý -->
+	<!-- Vývojová verze 0.0.2, 13.07.2011, Aleš Teplý, Response nemusí obsahovat data (async) -->
+	<!-- Vývojová verze 0.0.3, 27.06.2011, Pavel Kirchner -->
+	<!-- Vývojová verze 0.0.4, 28.07.2011, Pavel Kirchner, převzetí datového elementu Response pomocí ref (deklaruje AC) -->
+	<!-- Vývojová verze 0.0.5, 14.09.2011, Aleš Teplý, podadresáře registrů malými písmeny -->
+	<!-- Fixovaná verze 1.0.0, 26.10.2011, Aleš Teplý -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiMomc:v1" schemaLocation="../../ruian/xsd/cti/CtiMomc.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiMomc:v1" schemaLocation="ref/RuianCtiPrvekMomc.xsd"/>
+
+	<xs:element name="RuianCtiPrvekMomc" type="RuianCtiPrvekMomcType"/>
+	<xs:element name="RuianCtiPrvekMomcResponse" type="RuianCtiPrvekMomcResponseType"/>
+	
+	<xs:complexType name="RuianCtiPrvekMomcType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E35f externího rozhraní - žádost. Načtení Momc z RUIAN. RUIAN služba A04, operace ctiMomc.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianCtiPrvekMomcData" type="ctiMc:CtiMomcDotazType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="RuianCtiPrvekMomcResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E35f externího rozhraní - odpověď. Načtení Momc z RUIAN. RUIAN služba A04, operace ctiMomc.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+				  <xs:element name="RuianOdpoved" minOccurs="0">
+					<xs:complexType>
+					  <xs:sequence>
+						<xs:element name="RuianCtiPrvekMomcDataResponse">
+						  <xs:complexType>
+							<xs:sequence>
+							  <xs:element ref="ctiMc:Momc"/>
+							</xs:sequence>
+						  </xs:complexType>
+						</xs:element>
+					  </xs:sequence>
+					</xs:complexType>
+				  </xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

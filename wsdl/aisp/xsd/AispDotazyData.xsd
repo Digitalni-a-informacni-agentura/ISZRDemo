@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:aisp:schemas:AispDotazyData:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:rpp="urn:cz:isvs:rpp:schemas:RppTypy:v1" xmlns:aisp="urn:cz:isvs:aisp:schemas:AispTypy:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:rdt="urn:cz:isvs:rpp:schemas:RppDotazyTypy:v1" targetNamespace="urn:cz:isvs:aisp:schemas:AispDotazyData:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.0">
+    <xs:annotation>
+        <xs:documentation xml:lang="cs">Seznam informačních systémů pro ISZR.</xs:documentation>
+    </xs:annotation>
+    <!-- Vývojová verze 0.0.1, 10.10.2018, Petr Roušar -->
+    <!-- Vývojová verze 0.0.2, 18.10.2018, Petr Roušar doplneni novych sluzeb-->
+    <!-- Vývojová verze 0.0.3, 5.11.2018, Petr Roušar doplneni aplikacnich statusu sluzeb-->
+    <!-- Vývojová verze 1.0.0, 18.9.2020, Petr Roušar doplneni novych sluzeb-->
+    <xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+    <xs:import namespace="urn:cz:isvs:rpp:schemas:RppTypy:v1" schemaLocation="../../rpp/xsd/RppTypy.xsd"/>
+    <xs:import namespace="urn:cz:isvs:aisp:schemas:AispTypy:v1" schemaLocation="AispTypy.xsd"/>
+    <xs:import namespace="urn:cz:isvs:rpp:schemas:RppDotazyTypy:v1" schemaLocation="../../rpp/xsd/RppDotazyTypy.xsd"/>
+    <xs:simpleType name="VysledekSubKodAispType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Detailní kód výsledku, výčtový typ.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="OBECNA CHYBA SLUZBY">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Službu nebylo možné provést z důvodu chyby na straně poskytovatel služby (chyba databázového nebo aplikačního serveru, ...).</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="PRAZDNY POVINNY PARAMETR">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Chybí povinný vstupní parametr služby (status není propagován do externího rozhraní).</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEVALIDNI DATA">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Aplikační data nejsou validní podle XSD dokumentů.</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEVALIDNI ZADOST">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Kód služby neodpovídá XML struktuře žádosti.</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEPOVOLENY KOD OVM">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Kód OVM není uveden nebo není platný v aktuálním seznamu OVM nebo není povolený pro agendu. </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEPOVOLENY IDENTIFIKATOR OVM_SPUU">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Identifikátor OVM/SPUU není uveden nebo není platný v aktuálním seznamu OVM/SPUU. </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEEXISTUJICI IDENTIFIKATOR IS">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Identifikátor informačního systému neexistuje v aktuálním seznamu.</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEPOVOLENY DATUM PLATNOSTI">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Chyba porovnání data platnosti s původní hodnotou nebo jinou závislou hodnotou data platnosti.</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEPOVOLENA KOMBINACE PARAMETRU">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Nepovolená kombinace parametrů.</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="PRAZDNY SEZNAM">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Pro zadané vstupní parametry nebyl nalezen žádný vyhovující záznam.</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="PREKROCEN POCET">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Překročen počet povolených záznamů.</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="ZadostAbstractType" abstract="true">
+        <xs:sequence>
+            <xs:element name="ZadostInfo" type="reg:ZadostInfoType"/>
+            <xs:element name="AutorizaceInfo" type="reg:AutorizaceType" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="OdpovedAbstractType" abstract="true">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Univerzální odpověd na žádost, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="OdpovedInfo" type="reg:OdpovedInfoType"/>
+            <xs:element name="MapaAifo" type="reg:MapaAifoType" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="AispAplikacniStatusType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Aplikační chyba, doplnění k StatusType ze systémové části zprávy, odpověď.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="VysledekAispKodType" type="reg:VysledekKodType"/>
+            <xs:element name="VysledekDetail" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="VysledekSubKod" type="VysledekSubKodAispType"/>
+                        <xs:element name="VysledekPopis" type="reg:VysledekPopisType" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="AispDotazyDataResponseType" abstract="true">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Společný předek všech odpovědí na dotazy AISP.      </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="AispAplikacniStatus" type="AispAplikacniStatusType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="AispSeznamIsProIszrDataType">
+        <xs:annotation>
+            <xs:documentation>Vstupní parametry služby.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="IdentifikatorIs" type="reg:KodAisType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Identifikátor informačního systému.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="CasPosledniZmeny" type="rdt:ZmenaCasType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Vrátí záznamy, které byly monifikovány po zadaném časovém okamžiku.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="KDatu" type="rpp:DatumPlatnostiOdType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Platné k datu, pokud není uveden, jde o záznamy platné ke dni zpracování služby.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Platne" type="xs:boolean" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Příznak, zda vypisovat pouze neukončené IS k požadovanému datu.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="KodOvmSpravce" type="reg:KodOvmType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Identifikátor OVM správce.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="OdIdentifikatoruIs" type="reg:KodAisType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Vypis IS s identifikátorem vyšším než toto číslo (pokud jich je více než MaxPocet - stránkování).</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="AispSeznamIsProIszrDataResponseType">
+        <xs:annotation>
+            <xs:documentation>Definice výstupu - seznam informačních systémů setříděný podle identifikátoru.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="AispDotazyDataResponseType">
+                <xs:sequence>
+                    <xs:element name="SeznamInformacnichSystemu" type="aisp:SeznamInformacnichSystemuProIszrType" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Seznam IS pro ISZR.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="AispVypisSeznamIsDataType">
+        <xs:annotation>
+            <xs:documentation>Vstupní parametry služby.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="IdentifikatorIs" type="reg:KodAisType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Identifikátor informačního systému.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="KategorieIs" type="aisp:KategorieIsType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Kategorie informačního systému.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="KDatu" type="rpp:DatumPlatnostiOdType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Platné k datu, pokud není uveden, jde o záznamy platné ke dni zpracování služby.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="KodOvmSpravce" type="reg:KodOvmType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Identifikátor Ovm správce.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="OdIdentifikatoru" type="reg:KodAisType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Vypis IS s identifikátorem vyšším než toto číslo (pokud jich je více než MaxPocet - stránkování).</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Platne" type="xs:boolean" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Příznak, zda vypisovat pouze neukončené IS k požadovanému datu.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="AispVypisSeznamIsDataResponseType">
+        <xs:annotation>
+            <xs:documentation>Definice výstupu.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="AispDotazyDataResponseType">
+                <xs:sequence>
+                    <xs:element name="SeznamInformacnichSystemu" type="aisp:SeznamInformacnichSystemuZakladType" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Seznam základních údajů o IS.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="AispCtiZmenyIsDataType">
+        <xs:annotation>
+            <xs:documentation>Vstupní parametry pro službu AisCtiZmenyIs.</xs:documentation>
+        </xs:annotation>
+        <xs:choice>
+            <xs:element name="IdZmenyIs" type="aisp:ZmenaIdType">
+                <xs:annotation>
+                    <xs:documentation>Počáteční číslo změny.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:sequence>
+                <xs:element name="CasZmenyOd" type="rpp:CasZmenyOdType">
+                    <xs:annotation>
+                        <xs:documentation>Počátek období.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="CasZmenyDo" type="rpp:CasZmenyDoType" minOccurs="0">
+                    <xs:annotation>
+                        <xs:documentation>Konec období.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="AispCtiZmenyIsDataResponseType">
+        <xs:annotation>
+            <xs:documentation>Definice výstupu.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="AispDotazyDataResponseType">
+                <xs:sequence minOccurs="0">
+                    <xs:element name="ZmenaIs" minOccurs="0" maxOccurs="unbounded">
+                        <xs:annotation>
+                            <xs:documentation>Změny informačních systémů.</xs:documentation>
+                        </xs:annotation>
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="CasZpracovani" type="rpp:CasZpracovaniType">
+                                    <xs:annotation>
+                                        <xs:documentation>Čas dokončení zpracování zprávy.</xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                                <xs:element name="IdentifikatorIs" type="reg:KodAisType">
+                                    <xs:annotation>
+                                        <xs:documentation>Kód AIS.</xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                                <xs:element name="IdZmenyIs" type="aisp:ZmenaIdType">
+                                    <xs:annotation>
+                                        <xs:documentation>Identifikátor změny.</xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                                <xs:element name="TypZmeny" type="aisp:TypZmenyIsType">
+                                    <xs:annotation>
+                                        <xs:documentation>I - insert, U - update, D - ukončení platnosti IS.</xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="AispVypisDetailIsDataType">
+        <xs:annotation>
+            <xs:documentation>Identifikace IS pro výpis.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="IdentifikatorIs" type="reg:KodAisType">
+                <xs:annotation>
+                    <xs:documentation>Identifikátor informačního systému.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="KDatu" type="rpp:DatumPlatnostiOdType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Datum, ke kterému je výpis požadován, může být pouze vyšší než aktuální datum. Pokud není uveden, pak je proveden výpis údajů RPP k aktuálnímu dni.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="AispVypisDetailIsDataResponseType">
+        <xs:annotation>
+            <xs:documentation>Definice výstupu služby.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="AispDotazyDataResponseType">
+                <xs:sequence>
+                    <xs:element name="SeznamInformacnichSystemu" type="aisp:SeznamInformacnichSystemuType" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Seznam informačních systémů.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="AispVypisSeznamIs2DataType">
+        <xs:annotation>
+            <xs:documentation>Vstupní parametry služby.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="IdentifikatorIs" type="reg:KodAisType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Identifikátor informačního systému.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="IdentifikatorSpravce" type="rpp:KodOsType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Identifikátor Ovm/SPUU správce.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="IdentifikatorProvozovatele" type="rpp:KodOsType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Identifikace provozovatele.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="OdIdentifikatoruIs" type="reg:KodAisType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Vypis IS s identifikátorem vyšším než toto číslo (pokud jich je více než MaxPocet - stránkování).</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="IcoDodavatele" type="reg:IcoType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>IČO dodavatele.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Typ" type="rpp:TypIsType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Typ informačního systému - ISVS/SSVU (enum).</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="KodCinnosti" type="rpp:KodCinnostiAgendyType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Kód činnosti, která informační systém využívá.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="KDatu" type="rpp:DatumPlatnostiOdType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Platné k datu, pokud není uveden, jde o záznamy platné ke dni zpracování služby.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Platne" type="xs:boolean" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Příznak, zda vypisovat pouze neukončené IS k požadovanému datu.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="MaGdpr" type="xs:boolean" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>IS má řešeno GDPR.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="UrcenySystem" type="xs:boolean" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Příznak, zda se jedná o určený systém.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Agendovost" type="aisp:AgendovostType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Kód agendy, která systém využívá, popř. číselníková definice agendovosti.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Pocet" type="reg:MaximalniPocetType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Počet záznamů v odpovědi.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="AispVypisSeznamIs2DataResponseType">
+        <xs:annotation>
+            <xs:documentation>Definice výstupu.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="AispDotazyDataResponseType">
+                <xs:sequence>
+                    <xs:sequence>
+                        <xs:element name="InformacniSystem" type="aisp:InformacniSystemZaklad2Type" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="AispVypisDetailIs2DataType">
+        <xs:annotation>
+            <xs:documentation>Identifikace IS pro výpis.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="IdentifikatorIs" type="reg:KodAisType">
+                <xs:annotation>
+                    <xs:documentation>Identifikátor informačního systému.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="KDatu" type="rpp:DatumPlatnostiOdType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Datum, ke kterému je výpis požadován, může být pouze vyšší než aktuální datum. Pokud není uveden, pak je proveden výpis údajů RPP k aktuálnímu dni.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="AispVypisDetailIs2DataResponseType">
+        <xs:annotation>
+            <xs:documentation>Definice výstupu služby.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="AispDotazyDataResponseType">
+                <xs:sequence>
+                    <xs:element name="Isvs" type="aisp:IsvsType" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Nalezený ISVS.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="Ssvu" type="aisp:SsvuType" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>SSVU - data.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>

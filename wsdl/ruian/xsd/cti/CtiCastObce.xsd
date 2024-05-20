@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:CtiCastObce:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:CtiCastObce:v1" xmlns:ctiCo="urn:cz:isvs:ruian:schemas:CtiCastObce:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:coGml="urn:cz:isvs:ruian:schemas:CastObceGML:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:coPol="urn:cz:isvs:ruian:schemas:CastObcePolozky:v1" elementFormDefault="qualified" version="0.40.1">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CastObcePolozky:v1" schemaLocation="../../../ruian/xsd/cti/CastObcePolozky.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CastObceGML:v1" schemaLocation="../../../ruian/xsd/prvky/CastObceGML.xsd"/>
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../RegTypy.xsd"/>
+	<xs:complexType name="CtiCastObceRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na načtení informací o části obce.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Standardní hlavička dotazu.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Dotaz" type="CtiCastObceDotazType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Parametry dotazu.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CtiCastObceResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved na nacteni casti obce</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="CastObce" type="coGml:CastObceGMLType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CtiCastObceDotazType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Parametry dotazu na informace o obci.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod6Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód části obce.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PozadovaneUdaje" type="coPol:CastObcePolozkyType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Seznam požadovaných údajů.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="CtiCastObceResponse" type="ctiCo:CtiCastObceResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved na nacteni casti obce</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="CtiCastObceRequest" type="ctiCo:CtiCastObceRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na načtení informací o části obce.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

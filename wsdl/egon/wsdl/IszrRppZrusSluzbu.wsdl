@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRppZrusSluzbu:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRppZrusSluzbu:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRppZrusSluzbu:v1"
+	xmlns:e139="urn:cz:isvs:iszr:schemas:IszrRppZrusSluzbu:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRppZrusSluzbu">
+
+	<wsdl:documentation>Služba E139 externího rozhraní - Služba, kterou se provádí zrušení záznamu v Katalogu služeb - RPP služba P36.</wsdl:documentation>
+	
+	<!-- Vývojová verze 0.0.1, 05.01.2012, Aleš Teplý -->
+	<!-- Fixovaná verze 1.0.0, 11.01.2012, Aleš Teplý -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+	
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRppZrusSluzbu:v1" schemaLocation="../xsd/IszrRppZrusSluzbu.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="IszrRppZrusSluzbu">
+		<wsdl:part name="parametry" element="e139:RppZrusSluzbu"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRppZrusSluzbuResponse">
+		<wsdl:part name="vysledek" element="e139:RppZrusSluzbuResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRppZrusSluzbuPortType">
+		<wsdl:operation name="IszrRppZrusSluzbu">
+			<wsdl:input message="tns:IszrRppZrusSluzbu"/>
+			<wsdl:output message="tns:IszrRppZrusSluzbuResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRppZrusSluzbuBinding" type="tns:IszrRppZrusSluzbuPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRppZrusSluzbu">
+			<soap:operation soapAction="IszrRppZrusSluzbu"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRppZrusSluzbuService">
+		<wsdl:port name="IszrRppZrusSluzbuPortService" binding="tns:IszrRppZrusSluzbuBinding">
+			<soap:address location="IszrRppZrusSluzbu"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,643 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:rpp:schemas:RppEditaceData2:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:rpp="urn:cz:isvs:rpp:schemas:RppTypy:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:edi="urn:cz:isvs:rpp:schemas:RppEditaceTypy:v1" xmlns:edid="urn:cz:isvs:rpp:schemas:RppEditaceData:v1" targetNamespace="urn:cz:isvs:rpp:schemas:RppEditaceData2:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.11.5">
+    <xs:annotation>
+        <xs:documentation xml:lang="cs">Návrh XML schématu s definicemi dotazovacích datových prvků IS RPP.
+          Toto schéma obsahuje definice datových prvků vstupu a výstupu druhé verze jednotlivých dotazovacích služeb
+          registru práv a povinností (RPP).
+        </xs:documentation>
+    </xs:annotation>
+    <!-- Verze 1.0.0, 26.10.2016 -->
+    <!-- Verze 1.1.0, 7.11.2016 doplneni chybovych statusu, doplneni elementu TypOperace na vstup sluzby RppZmenAgendu a RppZmenPusobnost-->
+    <!-- Verze 1.1.1, 14.12.2016 nova verze sluzby RppSpravaCiselniku-->
+    <!-- Verze 1.1.2, 9.1.2017 uprava RppZmenAgenduDataType -->
+    <!-- Verze 1.2.0, 4.10.2017 uprava RppVlozAgenduDataType,  RppZmenAgenduDataType-->
+    <!-- Verze 1.3.0, 2.5.2018 uprava sluzeb RppVlozAgenduDataType,  RppZmenAgenduDataType, RppVlozPusobnostOvm, RppZmenPusobnostOvm-->
+    <!-- Verze 1.4.0, 12.6.2019 vypusteni povinneho choice elementu SeznamCinnostiVAgende a SeznamCinnostiSpuu u RppVlozPusobnostOvm-->
+    <!-- Verze 1.5.0, 26.9.2019 uprava sluzeb RppVlozAgendu,  RppZmenAgendu-->
+    <!-- Verze 1.6.0, 13.1.2020 uprava sluzeb RppVlozPusobnostOvm, RppZmenPusobnostOvm, RppVlozAgendu, RppZmenAgendu-->
+    <!-- Verze 1.7.0, 12.6.2020 zmena sluzeb RppVlozPusobnostOvm, RppZmenPusobnostOvm, RppVlozAgendu, RppZmenAgendu-->
+    <!-- Verze 1.9.0, 11.8.2020 zmena sluzeb RppVlozPusobnostOvm, RppZmenPusobnostOvm-->
+    <!-- Verze 1.11.2, 30.9.2021 uprava editacnich sluzeb pro DD3-->
+    <!-- Verze 1.11.4, 6.1.2022 upravy sluzeb sluzeb DD3, vyrazeni nekterych sluzeb-->
+    <!-- Verze 1.11.5, 2.3.2022 oprava chyb a upravy sluzeb sluzeb DD3-->    
+    <xs:import namespace="urn:cz:isvs:rpp:schemas:RppTypy:v1" schemaLocation="RppTypy.xsd"/>
+    <xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+    <xs:import namespace="urn:cz:isvs:rpp:schemas:RppEditaceTypy:v1" schemaLocation="RppEditaceTypy.xsd"/>
+    <xs:import namespace="urn:cz:isvs:rpp:schemas:RppEditaceData:v1" schemaLocation="RppEditaceData.xsd"/>
+    <xs:element name="RppVlozAgenduData" type="RppVlozAgenduDataType"/>
+    <xs:element name="RppVlozAgenduDataResponse" type="RppVlozAgenduDataResponseType"/>
+    <xs:element name="RppZmenAgenduData" type="RppZmenAgenduDataType"/>
+    <xs:element name="RppZmenAgenduDataResponse" type="RppZmenAgenduDataResponseType"/>
+    <xs:element name="RppVlozPusobnostOvmData" type="RppVlozPusobnostOvmDataType"/>
+    <xs:element name="RppVlozPusobnostOvmDataResponse" type="RppVlozPusobnostOvmDataResponseType"/>
+    <xs:element name="RppZmenPusobnostOvmData" type="RppZmenPusobnostOvmDataType"/>
+    <xs:element name="RppZmenPusobnostOvmDataResponse" type="RppZmenPusobnostOvmDataResponseType"/>
+    <xs:element name="RppSpravaCiselnikuData" type="RppSpravaCiselnikuDataType"/>
+    <xs:element name="RppSpravaCiselnikuDataResponse" type="RppSpravaCiselnikuDataResponseType"/>
+    <xs:complexType name="RppVlozAgenduDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P05.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="KodAgendy" type="reg:KodAgendyType">
+                <xs:annotation>
+                    <xs:documentation>Kód agendy.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Agenda" type="edi:AgendaEditType">
+                <xs:annotation>
+                    <xs:documentation>Název Agendy dle zákona č.111/2009 Sb. §51/1/a.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="MaUdaje" type="edi:MaUdajType">
+                <xs:annotation>
+                    <xs:documentation>Agenda poskytuje údaje.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="MaSluzbyVs" type="edi:MaSluzbyVsType">
+                <xs:annotation>
+                    <xs:documentation>Agenda poskytuje služby VS.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamUstanoveni" type="rpp:SeznamUstanoveniPpType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Předpisy ustanovující agendu.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamPovolenychOvm" type="rpp:SeznamKoduOvmType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Seznam oprávněných subjektů - OVM, které agendu vykonávají.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamPovolenychSpuu" type="rpp:SeznamKoduSpuuType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Seznam oprávněných subjektů - SPUU, které agendu vykonávají.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamPovolenychKatOvm" type="rpp:SeznamKoduKategoriiOvmType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Seznam oprávněných subjektů - kategorie OVM, které agendu vykonávají.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamPovolenychKatSpuu" type="rpp:SeznamKoduKategoriiSpuuType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Seznam oprávněných subjektů - kategorie SPUU, které agendu vykonávají.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamPrurezovychCinnosti" type="edi:SeznamPrurezovychCinnostiEditType" minOccurs="0"/>
+            <xs:element name="SeznamCinnosti" type="edi:SeznamCinnostiEditType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Seznam činností agendy.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamRoli" type="edi:SeznamRoliType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Seznam definovaných rolí a IS, které používají.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamRoliGlIs" type="edi:SeznamRoliGlIsType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Globální AIS definované pro role.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamObjektySubjekty" type="edi:SeznamObjektSubjektEditType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Seznam objektů/subjektů údajů definovaných v agendě.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamUdaju" type="edi:SeznamUdajuEditType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Seznam údajů v objektech údajů vedených v agendě.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamSluzebVs" type="edi:SeznamSluzebVsEditType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Seznam služeb poskytovaných agendou.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamOpravneniPristupu" type="edi:SeznamOpravneniPristupuEditType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Seznam definovaných oprávnění přístupu a jejich úrovní jednotlivých rolí k údajům.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="stavPp" type="rpp:StavRppType" use="optional">
+            <xs:annotation>
+                <xs:documentation>Stav právních předpisů k agendě.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="RppVlozAgenduDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P05, odpověď.
+            </xs:documentation>
+            <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                OBECNA CHYBA SLUZBY
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+                CHYBI CINNOST
+                CHYBI OPRAVNENY SUBJEKT
+                CHYBI USTANOVENI PRAVNIHO PREDPISU
+                DUPLICITA KODU OBJEKTU
+                DUPLICITA KODU UDAJE
+                DUPLICITA KODU CINNOSTI
+                NEPOVOLENY KOD AIS
+                NEPOVOLENY KOD OVM
+                NEPOVOLENY KOD KATEGORIE OVM
+                NEPOVOLENY KOD SPUU
+                NEPOVOLENY KOD KATEGORIE SPUU
+                NEPOVOLENY TYP OPRAVNENI
+                NEPOVOLENY TYP PRAVNIHO PREDPISU
+                NEPOVOLENY TYP CINNOSTI
+                NEPOVOLENY DATUM PLATNOSTI 
+                NEPOVOLENA CINNOSTNI ROLE
+                PRAZDNY POVINNY PARAMETR
+                DUPLICITA KODU UKONU
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="edid:RppEditaceDataResponseAbstractType"/>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppZmenAgenduDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P06.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="KodAgendy" type="reg:KodAgendyType">
+                <xs:annotation>
+                    <xs:documentation>Kód agendy.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="UkonceniAgendy" type="rpp:DatumUkonceniType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Datum ukončení celé agendy. </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SekcePrurezCinnost" type="edi:AkceSekceType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Akce na průřezových činnostech a oprávněních.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SekceGlis" type="edi:AkceSekceType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Akce na globálních IS k rolím.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SekceObjektUdaj" type="edi:AkceSekceType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Úprava agendy - základní údaje k agendě.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SekceSluzbyVs" type="edi:AkceSekceType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Akce na službách VS.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SekceStatut" type="edi:AkceSekceType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Akce na statutárních městech.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Agenda" type="edi:AgendaEditType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Název Agendy dle zákona č.111/2009 Sb. §51/1/a.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="MaSluzbyVs" type="edi:MaSluzbyVsType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Agenda poskytuje služby VS.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="MaUdaje" type="edi:MaUdajType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Agenda má údaje.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamSekceOpraveni" type="edi:SeznamSekceOpraveniType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Seznam akcí na oprávněních.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamUstanoveni" type="rpp:SeznamUstanoveniPpType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Předpisy ustanovující agendu.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamPovolenychOvm" type="rpp:SeznamKoduOvmType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Seznam oprávněných subjektů - OVM, které agendu vykonávají.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamPovolenychSpuu" type="rpp:SeznamKoduSpuuType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Seznam oprávněných subjektů - SPUU, které agendu vykonávají.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamPovolenychKatOvm" type="rpp:SeznamKoduKategoriiOvmType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Seznam oprávněných subjektů - kategorie OVM, které agendu vykonávají.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamPovolenychKatSpuu" type="rpp:SeznamKoduKategoriiSpuuType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Seznam oprávněných subjektů - kategorie SPUU, které agendu vykonávají.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamPrurezovychCinnosti" type="edi:SeznamPrurezovychCinnostiEditType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Seznam průřezových činností a jejich oprávnění.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamCinnosti" type="edi:SeznamCinnostiEditType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Seznam činností agendy.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamRoli" type="edi:SeznamRoliType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Seznam definovaných rolí a IS, které používají.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamRoliGlIs" type="edi:SeznamRoliGlIsType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Globální AIS definované pro role.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamObjektySubjekty" type="edi:SeznamObjektSubjektEditType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Seznam objektů/subjektů údajů definovaných v agendě.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamUdaju" type="edi:SeznamUdajuEditType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Seznam údajů v objektech údajů vedených v agendě.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamSluzebVs" type="edi:SeznamSluzebVsEditType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Seznam služeb poskytovaných agendou.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamOpravneniPristupu" type="edi:SeznamOpravneniPristupuEditType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Seznam definovaných oprávnění přístupu a jejich úrovní jednotlivých rolí k údajům.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamStatutuPovoleneOvm" type="edi:SeznamStatutuPovoleneOvmType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Definice statutu za jedno statutární město - povolené OVM.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamStatutuRole" type="edi:SeznamStatutuRoleType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Definice statutu za jedno statutární město - role.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamStatutuRoleGlIs" type="edi:SeznamStatutuRoleGlIsType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Definice statutu za jedno statutární město - globální IS role.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamStatutuSluzbyVs" type="edi:SeznamStatutuSluzbyVsType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Definice statutu za jedno statutární město - služby VS.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamStatutuOpraveni" type="edi:SeznamStatutuOpraveniType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Definice statutu za jedno statutární město - oprávnění</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="stavPp" type="rpp:StavRppType" use="optional">
+            <xs:annotation>
+                <xs:documentation>Stav právních předpisů k agendě.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="RppZmenAgenduDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P06, odpověď.
+            </xs:documentation>
+            <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                OBECNA CHYBA SLUZBY
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+                CHYBI CINNOST
+                CHYBI OPRAVNENY SUBJEKT
+                CHYBI USTANOVENI PRAVNIHO PREDPISU
+                NEPOVOLENY KOD OVM
+                NEPOVOLENY DATUM PLATNOSTI 
+                NEPOVOLENY DATUM ZANIKU
+                NEPOVOLENY TYP CINNOSTI
+                NEPOVOLENY TYP OPERACE
+                NEPOVOLENY ZPOCHYBNENY CLEN
+                PRAZDNY POVINNY PARAMETR
+                DUPLICITA KODU UKONU
+                NEIDENTIFIKOVANA ZADNA ZMENA
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="edid:RppEditaceDataResponseAbstractType"/>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppVlozPusobnostOvmDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P28.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="PusobnostOvm">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="KodAgendy" type="reg:KodAgendyType">
+                            <xs:annotation>
+                                <xs:documentation>Kód agendy dle zákona č. 111/2009 Sb. § 51 odst. 5 písm. a). Spolu s atributem platnostOd tvoří jednoznačný identifikátor záznamu.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="IdentifikatorOvm" type="reg:KodOvmType" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Identifikátor OVM.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="IdentifikatorSpuu" type="rpp:KodSpuuType" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Identifikátor SPUU.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="IdentifikatorOvmPredavajici" type="reg:KodOvmType" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Identifikator OVM, který předal působnost.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="IdDokumentu" type="edi:IdDokumentuType" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Identifikace dokumentu, na základě kterého došlo k převodu působnosti.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="PlatnostOd" type="rpp:DatumPlatnostiOdType">
+                            <xs:annotation>
+                                <xs:documentation>Počátek platnosti působnosti OVM/SPUU v agendě.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="PlatnostDo" type="rpp:DatumPlatnostiDoType" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Konec platnosti působnosti OVM v agendě.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="SeznamCinnostiVAgende" type="edi:SeznamCinnostiVAgendeType" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Činnosti v agendě pro OVM.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="SeznamSluzebVsPracoviste" type="edi:SeznamSluzebPracovisteType" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Služby veřejné správy a pracoviště ke službě.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="SeznamPrevedenychCinnosti" type="edi:SeznamPrevedenychCinnostiType" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Přenesené činnosti, které byly na OVM převedeny z předávajícího OVM.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="SeznamPrevedenychSluzeb" type="edi:SeznamPrevedenychSluzebType" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Seznam přenesených služeb, které byly na OVM převedeny z předávajícího OVM.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="RppVlozPusobnostOvmDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P28, odpověď.
+            </xs:documentation>
+            <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                OBECNA CHYBA SLUZBY
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+                NEPOVOLENY KOD AGENDY
+                NEPOVOLENY KOD OVM
+                NEPOVOLENY KOD CINNOSTI
+                NEPOVOLENY DATUM PLATNOSTI
+                NEPOVOLENY KOD AIS
+                DUPLICITA KODU CINNOSTI
+                DUPLICITA KODU AIS
+                PRAZDNY POVINNY PARAMETR
+                CHYBI CINNOST
+                SPUU NEMA SLUZBY
+                SPUU NEMA PREVEDENI
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="edid:RppEditaceDataResponseAbstractType"/>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppZmenPusobnostOvmDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P29.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="PusobnostOvm">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="KodAgendy" type="reg:KodAgendyType">
+                            <xs:annotation>
+                                <xs:documentation>Kód agendy dle zákona č. 111/2009 Sb. § 51 odst. 5 písm. a). Spolu s atributem platnostOd tvoří jednoznačný identifikátor záznamu.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="IdentifikatorOvm" type="reg:KodOvmType" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Identifikátor OVM.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="IdentifikatorSpuu" type="rpp:KodSpuuType" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>IdentifikátorSPUU</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="IdentifikatorOvmPredavajici" type="reg:KodOvmType" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Identifikátor OVM, které předává působnost.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="IdDokumentu" type="edi:IdDokumentuType" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Dokument, na základě kterého je převod proveden.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="TypOperace" type="edi:TypOperaceType">
+                            <xs:annotation>
+                                <xs:documentation>Typ změnové operace (Změna/Ukončení/Zpochybnění)</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="PlatnostOd" type="rpp:DatumPlatnostiOdType">
+                            <xs:annotation>
+                                <xs:documentation>Počátek planosti působnosti OVM v agendě.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="PlatnostDo" type="rpp:DatumPlatnostiDoType" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Konec platnosti působnosti OVM v agendě.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="SeznamSluzebVsPracoviste" type="edi:SeznamSluzebPracovisteType" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>SLužby - její obslužné kanály a pracoviště.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="SeznamCinnostiVAgende" type="edi:SeznamCinnostiVAgendeType" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Seznam činností v Agendě.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="SeznamPrevedenychCinnosti" type="edi:SeznamPrevedenychCinnostiType" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Přenesené činnosti na jiné OVM.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="SeznamPrevedenychSluzeb" type="edi:SeznamPrevedenychSluzebType" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Identifikátory převedených služeb předávajícího OVM.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                    <xs:attribute name="stavAis" type="rpp:StavRppType" use="optional">
+                        <xs:annotation>
+                            <xs:documentation>Příznak správnosti Ais.</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="stavSluzeb" type="rpp:StavRppType" use="optional">
+                        <xs:annotation>
+                            <xs:documentation>Příznak správnosti služeb.</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="stavCinnosti" type="rpp:StavRppType" use="optional">
+                        <xs:annotation>
+                            <xs:documentation>Příznak správnosti činností k působnosti.</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="stavPusobnosti" type="rpp:StavRppType" use="optional">
+                        <xs:annotation>
+                            <xs:documentation>Stav působnosti (zpochybnění) v agendě</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="RppZmenPusobnostOvmDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P29, odpověď.
+            </xs:documentation>
+            <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                OBECNA CHYBA SLUZBY
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+                NEPOVOLENY DATUM PLATNOSTI 
+                DUPLICITA VSTUPNIHO PARAMETRU
+                NEPOVOLENY KOD AGENDY
+                NEPOVOLENY KOD OVM
+                NEPOVOLENY KOD CINNOSTI
+                PUSOBNOST NEEXISTUJE
+                NEIDENTIFIKOVANA ZADNA ZMENA
+                SPUU NEMA SLUZBY
+                SPUU NEMA PREVEDENI
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="edid:RppEditaceDataResponseAbstractType"/>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSpravaCiselnikuDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P48.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="TypOperace" type="edi:TypOperaceCisType"/>
+            <xs:element name="NazevCiselniku" type="edi:NazevCiselnikuType"/>
+            <xs:choice minOccurs="0">
+                <xs:element name="SeznamPolozekCiselnikuOperaceI" type="edi:SeznamyPolozekCiselnikuType"/>
+                <xs:element name="SeznamPolozekCiselnikuOperaceU" type="edi:SeznamyPolozekCiselnikuOperaceUType"/>
+                <xs:element name="SeznamPolozekCiselnikuOperaceT">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="SeznamPolozekCiselnikuOperaceI" type="edi:SeznamyPolozekCiselnikuType"/>
+                            <xs:element name="SeznamPolozekCiselnikuOperaceU" type="edi:SeznamyPolozekCiselnikuOperaceUType"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:choice>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="RppSpravaCiselnikuDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P48, odpověď.
+            </xs:documentation>
+            <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                OBECNA CHYBA SLUZBY
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+                PRAZDNY SEZNAM
+                DUPLICITA VSTUPNIHO PARAMETRU
+                NEIDENTIFIKOVANA ZADNA ZMENA
+                NEPOVOLENY NAZEV REZIMU SLUZBY
+                NEPOVOLENY NAZEV KATEGORIE SLUZBY
+                NEPOVOLENY NAZEV TYPU SLUZBY
+                NEPOVOLENY NAZEV INICIALIZACE SLUZBY
+                NEPOVOLENY NAZEV OPERACE SLUZBY
+                NEPOVOLENY NAZEV MNOZINY SLUZBY
+                NEPOVOLENY NAZEV TYPU ODPOVEDI SLUZBY
+                NEPOVOLENY NAZEV UDAJE
+                NEPOVOLENY NAZEV TYPU OVM
+                NEPOVOLENY NAZEV METRIKY
+                NEPOVOLENY KOD OVM
+                NEPOVOLENY KOD IS
+                VAZBA TYP OVM OVM NEEXISTUJE
+                DUPLICITA NAZVU REZIMU SLUZBY
+                DUPLICITA NAZVU KATEGORIE SLUZBY
+                DUPLICITA NAZVU TYPU SLUZBY
+                DUPLICITA NAZVU INICIALIZACE SLUZBY
+                DUPLICITA NAZVU OPERACE SLUZBY
+                DUPLICITA NAZVU MNOZINY SLUZBY
+                DUPLICITA NAZVU TYPU ODPOVEDI
+                DUPLICITA NAZVU UDAJE AIS
+                DUPLICITA NAZVU TYPU OVM
+                DUPLICITA NAZVU METRIKY
+                DUPLICITA NAZVU TYPU CINNOSTI
+                DUPLICITA KODU IS
+                DUPLICITA KODU OVM
+                DUPLICITA VAZBY TYP OVM OVM
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="edid:RppEditaceDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element name="SeznamPolozekCiselnikuOperaceR" type="edi:SeznamyPolozekCiselnikuType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>

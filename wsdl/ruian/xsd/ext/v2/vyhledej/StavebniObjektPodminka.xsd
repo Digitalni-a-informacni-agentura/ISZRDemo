@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:StavebniObjektPodminka:v2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:StavebniObjektPodminka:v2" xmlns:soPodm="urn:cz:isvs:ruian:schemas:StavebniObjektPodminka:v2" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:pa="urn:cz:isvs:ruian:schemas:Parcela:v2" xmlns:co="urn:cz:isvs:ruian:schemas:CastObce:v2" xmlns:mc="urn:cz:isvs:ruian:schemas:Momc:v2" xmlns:gml="http://www.opengis.net/gml/3.2" elementFormDefault="qualified" version="2.0.0">
+	<xs:import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../../../../common/gml/3.2.1/gml.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:Momc:v2" schemaLocation="../prvky/Momc.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CastObce:v2" schemaLocation="../prvky/CastObce.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:Parcela:v2" schemaLocation="../prvky/Parcela.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../typy/CommonTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../typy/BaseTypy.xsd"/>
+	<xs:complexType name="StavebniObjektPodminkaType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Stavebni objekt</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod9Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="CisloDomovni" type="com:CisloDomovniType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="IdentifikacniParcela" type="pa:ParcelaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="TypStavebnihoObjektuKod" type="com:TypSTOKodType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="CastObce" type="co:CastObceType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Momc" type="mc:MomcType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Ohrada" type="gml:MultiSurfacePropertyType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

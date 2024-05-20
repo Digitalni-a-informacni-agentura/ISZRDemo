@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:isui:schemas:ReklamaceCommon:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:isui:schemas:ReklamaceCommon:v1" xmlns:rcom="urn:cz:isvs:isui:schemas:ReklamaceCommon:v1" xmlns:icom="urn:cz:isvs:isui:schemas:IsuiCommon:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:eex="urn:cz:isvs:isui:schemas:EditaceExtTypy:v1" elementFormDefault="qualified" version="1.1.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Společné typy pro reklamace</xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="urn:cz:isvs:isui:schemas:EditaceExtTypy:v1" schemaLocation="../../../isui/xsd/externi_nz/EditaceExtTypy.xsd"/>
+	<xs:import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../../common/gml/3.2.1/gml.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:isui:schemas:IsuiCommon:v1" schemaLocation="../common/IsuiCommon.xsd"/>
+	<xs:simpleType name="StavReklamaceKodType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Kód stavu reklamace v ISUI.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="5"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TypReklamaceKodType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Kód typu reklamace v ISUI.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="4"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ExterniIdReklamaceType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Externí id reklamace</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="65"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="DUPRekType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Data reklamace typu DUP - Doplnění účelového prvku</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="TypUUPKod" type="base:Kod4Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód typu účelového prvku</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SubtypUUPKod" type="base:Kod4Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód subtypu účelového prvku</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Cislo" type="base:Nazev50Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Číslo účelového prvku</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Nazev" type="base:Nazev50Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Název účelového prvku</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DefinicniBod" type="gml:MultiPointPropertyType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Definiční bod účelového prvku</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Popis" type="base:Text2000Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Slovní popis reklamace</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OUPRekType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Data reklamace typu OUP - Oprava účelového prvku</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod9Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód účelového prvku</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TypUUPKod" type="base:Kod4Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód typu účelového prvku</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SubtypUUPKod" type="eex:Kod4ZmenaExType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód subtypu účelového prvku</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Cislo" type="eex:Nazev50ZmenaExType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Číslo účelového prvku</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Nazev" type="base:Nazev50Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Název účelového prvku</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DefinicniBod" type="eex:MultiPointPropertyZmenaExType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Definiční bod účelového prvku</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Popis" type="base:Text2000Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Slovní popis reklamace</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ZUPRekType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Data reklamace typu ZUP - Zrušení účelového prvku</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod9Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód účelového prvku</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Popis" type="base:Text2000Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Slovní popis reklamace</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DVUPRekType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Data reklamace typu DVUP - Doplnění vazby účelového prvku</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="KodUUP" type="base:Kod9Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód účelového prvku</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:group ref="icom:IdPrvkuVeVazbeNaUup" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Popis" type="base:Text2000Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Slovní popis reklamace</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ZVUPRekType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Data reklamace typu ZVUP - Zrušení vazby účelového prvku</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="KodUUP" type="base:Kod9Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód účelového prvku</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:group ref="icom:IdPrvkuVeVazbeNaUup" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Popis" type="base:Text2000Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Slovní popis reklamace</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

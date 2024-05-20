@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:AdresniPosta:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:AdresniPosta:v1" xmlns:ap="urn:cz:isvs:ruian:schemas:AdresniPosta:v1" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" elementFormDefault="qualified" version="0.40.2">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Aplikační schéma AdresniPosta obsahuje prvek typu adresní pošta se základními elementy a bez geometrie. </xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../ruian/xsd/typy/CommonTypy.xsd"/>
+	<xs:complexType name="AdresniPostaType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Prvek adresní pošta se základními elementy.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Psc" type="com:PscType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">PSČ adresní pošty.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Nazev" type="base:Nazev48Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Název adresní pošty.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="AdresniPosta" type="ap:AdresniPostaType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Prvek představuje adresní poštu.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

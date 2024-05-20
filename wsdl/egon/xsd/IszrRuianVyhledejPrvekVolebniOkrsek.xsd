@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekVolebniOkrsek:v1" 
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekVolebniOkrsek:v1" 
+	xmlns:e34t="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekVolebniOkrsek:v1" 
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:vyhVo="urn:cz:isvs:ruian:schemas:VyhledejVolebniOkrsek:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified" 
+	version="1.9.6">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E34t externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	
+	<!-- Vývojová verze 1.4.4, 25.10.2013, Aleš Teplý -->
+	<!-- Vývojová verze 1.4.5, 8.1.2014, Pavel Odstrčil -->
+	<!-- Verze po revizi 1.9.6, 27.07.2016, ales.teply@autocont.cz, Úprava Request: přidán nepovinný element /RuianVyhledejPrvekVolebniOkrsek/Zadost/RuianVyhledejPrvekVolebniOkrsekData/Podminka/Ohrada -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:VyhledejVolebniOkrsek:v1" schemaLocation="ref/RuianVyhledejPrvekVolebniOkrsek.xsd"/>
+	
+	<xs:element name="RuianVyhledejPrvekVolebniOkrsek" type="RuianVyhledejPrvekVolebniOkrsekType"/>
+	<xs:element name="RuianVyhledejPrvekVolebniOkrsekResponse" type="RuianVyhledejPrvekVolebniOkrsekResponseType"/>
+	
+	<xs:complexType name="RuianVyhledejPrvekVolebniOkrsekType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E34t externího rozhraní - žádost. Vyhledání volebního okrsku z RUIAN. RUIAN služba A03, operace VyhledejVolebniOkrsek.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+		 						<xs:element name="RuianVyhledejPrvekVolebniOkrsekData" type="vyhVo:VyhledejVolebniOkrsekDotazType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="RuianVyhledejPrvekVolebniOkrsekResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E34t externího rozhraní - odpověď. Vyhledání volebního okrsku z RUIAN. RUIAN služba A03, operace VyhledejVolebniOkrsek.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="RuianOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianVyhledejPrvekVolebniOkrsekDataResponse">
+									<xs:complexType>
+										<xs:sequence>
+										  <xs:element ref="vyhVo:VolebniOkrsek"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

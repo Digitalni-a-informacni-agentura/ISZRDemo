@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:Pou:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:Pou:v1" xmlns:pu="urn:cz:isvs:ruian:schemas:Pou:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:op="urn:cz:isvs:ruian:schemas:Orp:v1" elementFormDefault="qualified" version="0.40.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Aplikační schéma Pou obsahuje prvek typu: POU se základními elementy a bez geometrie. </xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:Orp:v1" schemaLocation="../../../ruian/xsd/prvky/Orp.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../ruian/xsd/typy/CommonTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:group name="PouGroup">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Základní elementy prvku POU.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod4Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Nazev" type="base:Nazev48Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Nespravny" type="com:NespravnyType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="SpravniObecKod" type="base:Kod6Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Orp" type="op:OrpType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:group>
+	<xs:element name="Pou" type="pu:PouType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Prvek představuje sprání obvod obce s pověřeným obecním úřadem (POU).</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="PouType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Prvek POU se základními elementy a bez geometrie.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:group ref="PouGroup" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

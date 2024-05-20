@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:iszr:schemas:IszrIsknReklamujPrvek:v1" xmlns:e94="urn:cz:isvs:iszr:schemas:IszrIsknReklamujPrvek:v1" xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" xmlns:rt="urn:cz:isvs:iskn:schemas:Reklamace:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:cz:isvs:iszr:schemas:IszrIsknReklamujPrvek:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E94 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	<!-- Vývojová verze 1.0.0, 26.10.2017 -->
+	<!-- AutoCont CZ a.s. -->
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iskn:schemas:Reklamace:v1" schemaLocation="ref/IsknReklamujPrvek.xsd"/>
+	<xs:element name="IsknReklamujPrvek" type="IsknReklamujPrvekType"/>
+	<xs:element name="IsknReklamujPrvekResponse" type="IsknReklamujPrvekResponseType"/>
+	<xs:complexType name="IsknReklamujPrvekType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E94 externího rozhraní - žádost. Služba, prostřednictvím které AIS reklamuje v ISKN údaje
+. ISKN služba A13.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IsknReklamujPrvekData" type="rt:ReklamaceType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="IsknReklamujPrvekResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E94 externího rozhraní - odpověď. Služba, prostřednictvím které AIS reklamuje v ISKN údaje. ISKN služba A13.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="IsknOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IsknReklamujPrvekDataResponse">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element ref="rt:Odpoved"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

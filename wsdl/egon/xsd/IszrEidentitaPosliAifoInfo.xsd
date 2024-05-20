@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:iszr:schemas:IszrEidentitaPosliAifoInfo:v1" xmlns:e267="urn:cz:isvs:iszr:schemas:IszrEidentitaPosliAifoInfo:v1" xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" xmlns:nia="urn:cz:isvs:nia:schemas:NiaTypy:v1" xmlns:or="urn:cz:isvs:org:schemas:OrgRozhrani:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:cz:isvs:iszr:schemas:IszrEidentitaPosliAifoInfo:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E267 interního rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	<!-- Verze 1.0.0, 22.02.2021 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="../../egon/xsd/IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:nia:schemas:NiaTypy:v1" schemaLocation="../../nia/xsd/NiaTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:org:schemas:OrgRozhrani:v1" schemaLocation="../../egon/xsd/ref/OrgStatus.xsd" /> 
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:element name="IszrEidentitaPosliAifoInfo" type="IszrEidentitaPosliAifoInfoType"/>
+	<xs:element name="IszrEidentitaPosliAifoInfoResponse" type="IszrEidentitaPosliAifoInfoResponseType"/>
+	<xs:complexType name="IszrEidentitaPosliAifoInfoType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E267 interního rozhraní - typ pro žádost. Služba poskytuje agendovým infomačním systémům možnost zasílat informační zprávy občanům.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostRAifoAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="EidentitaPosliAifoInfoData" type="nia:EidentitaPosliAifoInfoDataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="IszrEidentitaPosliAifoInfoResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E267 interního rozhraní - typ pro odpověď.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="OrgOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="OrgCtiAifoDataResponse">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element ref="or:OrgStatus"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="EidentitaOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="EidentitaPosliAifoInfoDataResponse" type="nia:EidentitaPosliAifoInfoDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

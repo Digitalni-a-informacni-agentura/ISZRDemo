@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns="urn:cz:isvs:iszr:services:IszrRppVlozKategoriiOvmSpuu:v1" xmlns:tns="urn:cz:isvs:iszr:services:IszrRppVlozKategoriiOvmSpuu:v1" xmlns:e216="urn:cz:isvs:iszr:schemas:IszrRppVlozKategoriiOvmSpuu:v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:ns="http://www.w3.org/2004/08/xop/include" xmlns:ns1="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" xmlns:ns2="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:ns3="urn:cz:isvs:rpp:schemas:RppDotazyData:v1" xmlns:ns4="urn:cz:isvs:rpp:schemas:RppDotazyTypy:v1" xmlns:ns5="urn:cz:isvs:rpp:schemas:RppEditaceTypy:v1" xmlns:ns6="urn:cz:isvs:rpp:schemas:RppTypy:v1" name="IszrRppVlozKategoriiOvmSpuu" targetNamespace="urn:cz:isvs:iszr:services:IszrRppVlozKategoriiOvmSpuu:v1">
+	<wsdl:documentation>Služba E216 externího rozhraní - Služba provádí zápis nové kategorie OVM nebo SPUU. - RPP služba P66.</wsdl:documentation>
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRppVlozKategoriiOvmSpuu:v1" schemaLocation="../xsd/IszrRppVlozKategoriiOvmSpuu.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrRppVlozKategoriiOvmSpuu">
+		<wsdl:part name="parametry" element="e216:RppVlozKategoriiOvmSpuu"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRppVlozKategoriiOvmSpuuResponse">
+		<wsdl:part name="vysledek" element="e216:RppVlozKategoriiOvmSpuuResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRppVlozKategoriiOvmSpuuPortType">
+		<wsdl:operation name="IszrRppVlozKategoriiOvmSpuu">
+			<wsdl:input message="IszrRppVlozKategoriiOvmSpuu"/>
+			<wsdl:output message="IszrRppVlozKategoriiOvmSpuuResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRppVlozKategoriiOvmSpuuBinding" type="tns:IszrRppVlozKategoriiOvmSpuuPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRppVlozKategoriiOvmSpuu">
+			<soap:operation soapAction="IszrRppVlozKategoriiOvmSpuu"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRppVlozKategoriiOvmSpuuService">
+		<wsdl:port name="IszrRppVlozKategoriiOvmSpuuPortService" binding="tns:IszrRppVlozKategoriiOvmSpuuBinding">
+			<soap:address location="IszrRppVlozKategoriiOvmSpuu"/>
+		</wsdl:port>
+	</wsdl:service>
+
+	<!-- Novela zákona 1.0.0, 21.12.2016 Pavel Odstrčil -->
+	<!-- Verze po revizi 1.0.1, 15.10.2021, Aleš Teplý, AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- Verze po revizi 1.1.0, 25.5.2022, Aleš Teplý, Response - AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- AutoCont CZ a.s. -->
+
+</wsdl:definitions>

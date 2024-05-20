@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:VyhledejZsj:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:VyhledejZsj:v1" xmlns:vyhZj="urn:cz:isvs:ruian:schemas:VyhledejZsj:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:zjPodm="urn:cz:isvs:ruian:schemas:ZsjPodminka:v1" xmlns:zjPolBase="urn:cz:isvs:ruian:schemas:ZsjPolozkyBase:v1" xmlns:zj="urn:cz:isvs:ruian:schemas:Zsj:v1" elementFormDefault="qualified" version="0.40.0">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:Zsj:v1" schemaLocation="../../../ruian/xsd/prvky/Zsj.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZsjPolozkyBase:v1" schemaLocation="../../../ruian/xsd/vyhledej/ZsjPolozkyBase.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZsjPodminka:v1" schemaLocation="../../../ruian/xsd/vyhledej/ZsjPodminka.xsd"/>
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../RegTypy.xsd"/>
+	<xs:complexType name="VyhledejZsjRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na vyhledani ZSJ</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Dotaz" type="VyhledejZsjDotazType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VyhledejZsjResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved na vyhledani ZSJ</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Zsj" type="ZsjSeznamType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VyhledejZsjDotazType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Parametry ZSJ</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Podminka" type="zjPodm:ZsjPodminkaType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="PozadovaneUdaje" type="zjPolBase:ZsjPolozkyBaseType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ZsjSeznamType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam ZSJ</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Zsj" type="zj:ZsjType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="VyhledejZsjRequest" type="vyhZj:VyhledejZsjRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na vyhledani ZSJ</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="VyhledejZsjResponse" type="vyhZj:VyhledejZsjResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved na vyhledani ZSJ</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

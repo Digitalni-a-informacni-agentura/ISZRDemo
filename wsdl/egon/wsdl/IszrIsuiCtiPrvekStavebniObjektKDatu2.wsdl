@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrIsuiCtiPrvekStavebniObjektKDatu2:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrIsuiCtiPrvekStavebniObjektKDatu2:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrIsuiCtiPrvekStavebniObjektKDatu2:v1"
+	xmlns:e252p="urn:cz:isvs:iszr:schemas:IszrIsuiCtiPrvekStavebniObjektKDatu2:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrIsuiCtiPrvekStavebniObjektKDatu2">
+
+	<wsdl:documentation>Služba E252P externího rozhraní.</wsdl:documentation>
+
+	<!-- Výchozí verze 2.0.0, 14.10.2020 Aleš Teplý -->
+	<!-- Verze po revizi 2.1.0, 19.5.2022 Aleš Teplý, rozšíření Response -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrIsuiCtiPrvekStavebniObjektKDatu2:v1" schemaLocation="../xsd/IszrIsuiCtiPrvekStavebniObjektKDatu2.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="IszrIsuiCtiPrvekStavebniObjektKDatu2">
+		<wsdl:part name="parametry" element="e252p:IsuiCtiPrvekStavebniObjektKDatu2"/>
+	</wsdl:message>
+	<wsdl:message name="IszrIsuiCtiPrvekStavebniObjektKDatu2Response">
+		<wsdl:part name="vysledek" element="e252p:IsuiCtiPrvekStavebniObjektKDatu2Response"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrIsuiCtiPrvekStavebniObjektKDatu2PortType">
+		<wsdl:operation name="IszrIsuiCtiPrvekStavebniObjektKDatu2">
+			<wsdl:input message="IszrIsuiCtiPrvekStavebniObjektKDatu2"/>
+			<wsdl:output message="IszrIsuiCtiPrvekStavebniObjektKDatu2Response"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrIsuiCtiPrvekStavebniObjektKDatu2Binding" type="tns:IszrIsuiCtiPrvekStavebniObjektKDatu2PortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrIsuiCtiPrvekStavebniObjektKDatu2">
+			<soap:operation soapAction="IszrIsuiCtiPrvekStavebniObjektKDatu2"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrIsuiCtiPrvekStavebniObjektKDatu2Service">
+		<wsdl:port name="IszrIsuiCtiPrvekStavebniObjektKDatu2PortService" binding="tns:IszrIsuiCtiPrvekStavebniObjektKDatu2Binding">
+			<soap:address location="IszrIsuiCtiPrvekStavebniObjektKDatu2"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Verze 1.0, 30.9.2011: Implementace procesů pro fázi BASE -->
+<!-- Verze 1.1, 7.11.2011: Přidán proces orgZjistiAis -->
+<!-- Verze 1.2, 11.11.2011: Přidána MapaAifo do OrgZkontrolujAifoResponseType -->
+<!-- Verze 1.3, 10.2.2012: Přidána MapaAifo do výstupu operací OrgPrihlasAifo, OrgOdhlasAifo a OrgZneplatniZifo -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:org:schemas:OrgRozhrani:v1" xmlns:rt="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:ot="urn:cz:isvs:org:schemas:OrgTypy:v1" targetNamespace="urn:cz:isvs:org:schemas:OrgRozhrani:v1" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:org:schemas:OrgTypy:v1" schemaLocation="OrgTypy.xsd"/>
+	<!-- Definice vstupnich a vystupnich typu pro operace webove sluzby -->
+	<xs:complexType name="OrgZalozAifoPeRequestType">
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="rt:ZadostInfoType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgZalozAifoRequestType">
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="rt:ZadostInfoType"/>
+			<xs:element name="MapaAifo" type="rt:MapaAifoType"/>
+			<xs:element name="OrgAgendaAis" type="ot:OrgAgendaAisType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgCtiAifoRequestType">
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="rt:ZadostInfoType"/>
+			<xs:element name="MapaAifo" type="rt:MapaAifoType"/>
+			<xs:element name="OrgAgendaAis" type="ot:OrgAgendaAisType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgCtiZruseneAifoRequestType">
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="rt:ZadostInfoType"/>
+			<xs:element name="MapaAifo" type="rt:MapaAifoType"/>
+			<xs:element name="OrgAgendaAis" type="ot:OrgAgendaAisType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgPresifrujAifoRequestType">
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="rt:ZadostInfoType"/>
+			<xs:element name="MapaAifo" type="rt:MapaAifoType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgZneplatniZifoRequestType">
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="rt:ZadostInfoType"/>
+			<xs:element name="MapaAifo" type="rt:MapaAifoType"/>
+			<xs:element name="OrgAgendaAis" type="ot:OrgAgendaAisType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgSpojZifoRequestType">
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="rt:ZadostInfoType"/>
+			<xs:element name="MapaAifo" type="rt:MapaAifoType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgRozdelZifoRequestType">
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="rt:ZadostInfoType"/>
+			<xs:element name="MapaAifo" type="rt:MapaAifoType"/>
+			<xs:element name="PocetZaznamu" type="rt:KladneCeleCisloType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgZkontrolujAifoRequestType">
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="rt:ZadostInfoType"/>
+			<xs:element name="MapaAifo" type="rt:MapaAifoType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgPrihlasAifoRequestType">
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="rt:ZadostInfoType"/>
+			<xs:element name="MapaAifo" type="rt:MapaAifoType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgOdhlasAifoRequestType">
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="rt:ZadostInfoType"/>
+			<xs:element name="MapaAifo" type="rt:MapaAifoType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgKompromitujAifoRequestType">
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="rt:ZadostInfoType"/>
+			<xs:element name="MapaAifo" type="rt:MapaAifoType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgKompromitujAisRequestType">
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="rt:ZadostInfoType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgPotvrdRequestType">
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="rt:ZadostInfoType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgCtiDavkuAifoRequestType">
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="rt:ZadostInfoType"/>
+			<xs:element name="OrgDavka" type="ot:OrgDavkaType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgPredchudciAifoRequestType">
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="rt:ZadostInfoType"/>
+			<xs:element name="MapaAifo" type="rt:MapaAifoType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgRodokmenAifoRequestType">
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="rt:ZadostInfoType"/>
+			<xs:element name="MapaAifo" type="rt:MapaAifoType"/>
+			<xs:element name="Od" type="rt:CasovaZnackaType"/>
+			<xs:element name="Do" type="rt:CasovaZnackaType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgCtiNotifikaceAifoRequestType">
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="rt:ZadostInfoType"/>
+			<xs:element name="MapaAifo" type="rt:MapaAifoType"/>
+			<xs:element name="OrgAgendaAis" type="ot:OrgAgendaAisType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgCtiZmenyAifoRequestType">
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="rt:ZadostInfoType"/>
+			<xs:element name="CelyAis" type="ot:CelyAisType"/>
+			<xs:element name="OrgOmezeni" type="ot:OrgOmezeniType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgVlozSkupinuRequestType">
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="rt:ZadostInfoType"/>
+			<xs:element name="IdSa" type="ot:IdSaType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgVlozAisRequestType">
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="rt:ZadostInfoType"/>
+			<xs:element name="OrgAgendaAis" type="ot:OrgAgendaAisType"/>
+			<xs:element name="IdSa" type="ot:IdSaType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgZrusAisRequestType">
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="rt:ZadostInfoType"/>
+			<xs:element name="OrgAgendaAis" type="ot:OrgAgendaAisType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgEvidujCertifikatRequestType">
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="rt:ZadostInfoType"/>
+			<xs:element name="OrgAgendaAis" type="ot:OrgAgendaAisType"/>
+			<xs:element name="SeznamCertifikatu" type="ot:SeznamCertifikatuType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgCtiKnihovnuRequestType">
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="rt:ZadostInfoType"/>
+			<xs:element name="Platforma" type="ot:PlatformaType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgCtiVerziKnihovnyRequestType">
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="rt:ZadostInfoType"/>
+			<xs:element name="Platforma" type="ot:PlatformaType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgZmenKnihovnuRequestType">
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="rt:ZadostInfoType"/>
+			<xs:element name="KnihovnaPouzivana" type="ot:KnihovnaType"/>
+			<xs:element name="KnihovnaPozadovana" type="ot:KnihovnaType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgZmenaNastaveniRequestType">
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="rt:ZadostInfoType"/>
+			<xs:element name="OrgSifrovani" type="ot:OrgSifrovaniType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgZjistiAisRequestType">
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="rt:ZadostInfoType"/>
+			<xs:element name="MapaAifo" type="rt:MapaAifoType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgZalozAifoPeResponseType">
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="rt:OdpovedInfoType"/>
+			<xs:element name="MapaAifo" type="rt:MapaAifoType"/>
+			<xs:element name="OrgStatus" type="ot:OrgStatusType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgZalozAifoResponseType">
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="rt:OdpovedInfoType"/>
+			<xs:element name="MapaAifo" type="rt:MapaAifoType"/>
+			<xs:element name="OrgStatus" type="ot:OrgStatusType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgCtiAifoResponseType">
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="rt:OdpovedInfoType"/>
+			<xs:element name="MapaAifo" type="rt:MapaAifoType"/>
+			<xs:element name="OrgStatus" type="ot:OrgStatusType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgCtiZruseneAifoResponseType">
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="rt:OdpovedInfoType"/>
+			<xs:element name="MapaAifo" type="rt:MapaAifoType"/>
+			<xs:element name="OrgStatus" type="ot:OrgStatusType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgPresifrujAifoResponseType">
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="rt:OdpovedInfoType"/>
+			<xs:element name="MapaAifo" type="rt:MapaAifoType"/>
+			<xs:element name="OrgStatus" type="ot:OrgStatusType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgZneplatniZifoResponseType">
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="rt:OdpovedInfoType"/>
+			<xs:element name="MapaAifo" type="rt:MapaAifoType" minOccurs="0" />
+			<xs:element name="OrgStatus" type="ot:OrgStatusType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgSpojZifoResponseType">
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="rt:OdpovedInfoType"/>
+			<xs:element name="MapaAifo" type="rt:MapaAifoType"/>
+			<xs:element name="OrgStatus" type="ot:OrgStatusType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgRozdelZifoResponseType">
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="rt:OdpovedInfoType"/>
+			<xs:element name="MapaAifo" type="rt:MapaAifoType"/>
+			<xs:element name="OrgStatus" type="ot:OrgStatusType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgZkontrolujAifoResponseType">
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="rt:OdpovedInfoType"/>
+			<xs:element name="MapaAifo" type="rt:MapaAifoType"/>
+			<xs:element name="OrgStatus" type="ot:OrgStatusType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgPrihlasAifoResponseType">
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="rt:OdpovedInfoType"/>
+			<xs:element name="MapaAifo" type="rt:MapaAifoType" minOccurs="0"/>
+			<xs:element name="OrgStatus" type="ot:OrgStatusType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgOdhlasAifoResponseType">
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="rt:OdpovedInfoType"/>
+			<xs:element name="MapaAifo" type="rt:MapaAifoType" minOccurs="0"/>
+			<xs:element name="OrgStatus" type="ot:OrgStatusType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgKompromitujAifoResponseType">
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="rt:OdpovedInfoType"/>
+			<xs:element name="MapaAifo" type="rt:MapaAifoType"/>
+			<xs:element name="OrgStatus" type="ot:OrgStatusType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgKompromitujAisResponseType">
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="rt:OdpovedInfoType"/>
+			<xs:element name="OrgStatus" type="ot:OrgStatusType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgPotvrdResponseType">
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="rt:OdpovedInfoType"/>
+			<xs:element name="OrgStatus" type="ot:OrgStatusType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgCtiDavkuAifoResponseType">
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="rt:OdpovedInfoType"/>
+			<xs:element name="MapaAifo" type="rt:MapaAifoType"/>
+			<xs:element name="Hrany" type="ot:HranyType"/>
+			<xs:element name="OrgStatus" type="ot:OrgStatusType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgPredchudciAifoResponseType">
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="rt:OdpovedInfoType"/>
+			<xs:element name="MapaAifo" type="rt:MapaAifoType"/>
+			<xs:element name="OrgStatus" type="ot:OrgStatusType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgRodokmenAifoResponseType">
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="rt:OdpovedInfoType"/>
+			<xs:element name="MapaAifo" type="rt:MapaAifoType"/>
+			<xs:element name="Hrany" type="ot:HranyType"/>
+			<xs:element name="OrgStatus" type="ot:OrgStatusType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgCtiNotifikaceAifoResponseType">
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="rt:OdpovedInfoType"/>
+			<xs:element name="MapaAifo" type="rt:MapaAifoType"/>
+			<xs:element name="OrgStatus" type="ot:OrgStatusType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgCtiZmenyAifoResponseType">
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="rt:OdpovedInfoType"/>
+			<xs:element name="MapaAifo" type="rt:MapaAifoType"/>
+			<xs:element name="Hrany" type="ot:HranyType"/>
+			<xs:element name="OrgStatus" type="ot:OrgStatusType" minOccurs="0"/>
+			<xs:element name="OrgDavka" type="ot:OrgDavkaType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgVlozSkupinuResponseType">
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="rt:OdpovedInfoType"/>
+			<xs:element name="OrgStatus" type="ot:OrgStatusType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgVlozAisResponseType">
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="rt:OdpovedInfoType"/>
+			<xs:element name="OrgStatus" type="ot:OrgStatusType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgZrusAisResponseType">
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="rt:OdpovedInfoType"/>
+			<xs:element name="OrgStatus" type="ot:OrgStatusType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgEvidujCertifikatResponseType">
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="rt:OdpovedInfoType"/>
+			<xs:element name="OrgStatus" type="ot:OrgStatusType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgCtiKnihovnuResponseType">
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="rt:OdpovedInfoType"/>
+			<xs:element name="Platforma" type="ot:PlatformaType"/>
+			<xs:element name="Knihovna" type="ot:KnihovnaType"/>
+			<xs:element name="OrgStatus" type="ot:OrgStatusType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgCtiVerziKnihovnyResponseType">
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="rt:OdpovedInfoType"/>
+			<xs:element name="KnihovnaPouzivana" type="ot:KnihovnaType"/>
+			<xs:element name="KnihovnaNova" type="ot:KnihovnaType"/>
+			<xs:element name="OrgStatus" type="ot:OrgStatusType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgZmenKnihovnuResponseType">
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="rt:OdpovedInfoType"/>
+			<xs:element name="OrgStatus" type="ot:OrgStatusType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgZmenaNastaveniResponseType">
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="rt:OdpovedInfoType"/>
+			<xs:element name="OrgStatus" type="ot:OrgStatusType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgZjistiAisResponseType">
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="rt:OdpovedInfoType"/>
+			<xs:sequence minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="OrgAgendaAis" type="ot:OrgAgendaAisType"/>
+			</xs:sequence>
+			<xs:element name="OrgStatus" type="ot:OrgStatusType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- Testovaci typ pro request a response operace Echo -->
+	<xs:complexType name="OrgEchoType">
+		<xs:sequence>
+			<xs:element name="Echo">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:whiteSpace value="collapse"/>
+						<xs:minLength value="1"/>
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- root elementy pro validni vstupni dokumenty -->
+	<xs:element name="OrgEchoRequest" type="OrgEchoType"/>
+	<xs:element name="OrgZalozAifoPeRequest" type="OrgZalozAifoPeRequestType"/>
+	<xs:element name="OrgZalozAifoRequest" type="OrgZalozAifoRequestType"/>
+	<xs:element name="OrgCtiAifoRequest" type="OrgCtiAifoRequestType"/>
+	<xs:element name="OrgCtiZruseneAifoRequest" type="OrgCtiZruseneAifoRequestType"/>
+	<xs:element name="OrgPresifrujAifoRequest" type="OrgPresifrujAifoRequestType"/>
+	<xs:element name="OrgZneplatniZifoRequest" type="OrgZneplatniZifoRequestType"/>
+	<xs:element name="OrgSpojZifoRequest" type="OrgSpojZifoRequestType"/>
+	<xs:element name="OrgRozdelZifoRequest" type="OrgRozdelZifoRequestType"/>
+	<xs:element name="OrgZkontrolujAifoRequest" type="OrgZkontrolujAifoRequestType"/>
+	<xs:element name="OrgPrihlasAifoRequest" type="OrgPrihlasAifoRequestType"/>
+	<xs:element name="OrgOdhlasAifoRequest" type="OrgOdhlasAifoRequestType"/>
+	<xs:element name="OrgKompromitujAifoRequest" type="OrgKompromitujAifoRequestType"/>
+	<xs:element name="OrgKompromitujAisRequest" type="OrgKompromitujAisRequestType"/>
+	<xs:element name="OrgPotvrdRequest" type="OrgPotvrdRequestType"/>
+	<xs:element name="OrgCtiDavkuAifoRequest" type="OrgCtiDavkuAifoRequestType"/>
+	<xs:element name="OrgPredchudciAifoRequest" type="OrgPredchudciAifoRequestType"/>
+	<xs:element name="OrgRodokmenAifoRequest" type="OrgRodokmenAifoRequestType"/>
+	<xs:element name="OrgCtiNotifikaceAifoRequest" type="OrgCtiNotifikaceAifoRequestType"/>
+	<xs:element name="OrgCtiZmenyAifoRequest" type="OrgCtiZmenyAifoRequestType"/>
+	<xs:element name="OrgVlozSkupinuRequest" type="OrgVlozSkupinuRequestType"/>
+	<xs:element name="OrgVlozAisRequest" type="OrgVlozAisRequestType"/>
+	<xs:element name="OrgZrusAisRequest" type="OrgZrusAisRequestType"/>
+	<xs:element name="OrgEvidujCertifikatRequest" type="OrgEvidujCertifikatRequestType"/>
+	<xs:element name="OrgCtiKnihovnuRequest" type="OrgCtiKnihovnuRequestType"/>
+	<xs:element name="OrgCtiVerziKnihovnyRequest" type="OrgCtiVerziKnihovnyRequestType"/>
+	<xs:element name="OrgZmenKnihovnuRequest" type="OrgZmenKnihovnuRequestType"/>
+	<xs:element name="OrgZmenaNastaveniRequest" type="OrgZmenaNastaveniRequestType"/>
+	<xs:element name="OrgZjistiAisRequest" type="OrgZjistiAisRequestType"/>
+	<!-- root elementy pro validni odpovedni dokumenty-->
+	<xs:element name="OrgEchoResponse" type="OrgEchoType"/>
+	<xs:element name="OrgZalozAifoPeResponse" type="OrgZalozAifoPeResponseType"/>
+	<xs:element name="OrgZalozAifoResponse" type="OrgZalozAifoResponseType"/>
+	<xs:element name="OrgCtiAifoResponse" type="OrgCtiAifoResponseType"/>
+	<xs:element name="OrgCtiZruseneAifoResponse" type="OrgCtiZruseneAifoResponseType"/>
+	<xs:element name="OrgPresifrujAifoResponse" type="OrgPresifrujAifoResponseType"/>
+	<xs:element name="OrgZneplatniZifoResponse" type="OrgZneplatniZifoResponseType"/>
+	<xs:element name="OrgSpojZifoResponse" type="OrgSpojZifoResponseType"/>
+	<xs:element name="OrgRozdelZifoResponse" type="OrgRozdelZifoResponseType"/>
+	<xs:element name="OrgZkontrolujAifoResponse" type="OrgZkontrolujAifoResponseType"/>
+	<xs:element name="OrgPrihlasAifoResponse" type="OrgPrihlasAifoResponseType"/>
+	<xs:element name="OrgOdhlasAifoResponse" type="OrgOdhlasAifoResponseType"/>
+	<xs:element name="OrgKompromitujAifoResponse" type="OrgKompromitujAifoResponseType"/>
+	<xs:element name="OrgKompromitujAisResponse" type="OrgKompromitujAisResponseType"/>
+	<xs:element name="OrgPotvrdResponse" type="OrgPotvrdResponseType"/>
+	<xs:element name="OrgCtiDavkuAifoResponse" type="OrgCtiDavkuAifoResponseType"/>
+	<xs:element name="OrgPredchudciAifoResponse" type="OrgPredchudciAifoResponseType"/>
+	<xs:element name="OrgRodokmenAifoResponse" type="OrgRodokmenAifoResponseType"/>
+	<xs:element name="OrgCtiNotifikaceAifoResponse" type="OrgCtiNotifikaceAifoResponseType"/>
+	<xs:element name="OrgCtiZmenyAifoResponse" type="OrgCtiZmenyAifoResponseType"/>
+	<xs:element name="OrgVlozSkupinuResponse" type="OrgVlozSkupinuResponseType"/>
+	<xs:element name="OrgVlozAisResponse" type="OrgVlozAisResponseType"/>
+	<xs:element name="OrgZrusAisResponse" type="OrgZrusAisResponseType"/>
+	<xs:element name="OrgEvidujCertifikatResponse" type="OrgEvidujCertifikatResponseType"/>
+	<xs:element name="OrgCtiKnihovnuResponse" type="OrgCtiKnihovnuResponseType"/>
+	<xs:element name="OrgCtiVerziKnihovnyResponse" type="OrgCtiVerziKnihovnyResponseType"/>
+	<xs:element name="OrgZmenKnihovnuResponse" type="OrgZmenKnihovnuResponseType"/>
+	<xs:element name="OrgZmenaNastaveniResponse" type="OrgZmenaNastaveniResponseType"/>
+	<xs:element name="OrgZjistiAisResponse" type="OrgZjistiAisResponseType"/>
+</xs:schema>

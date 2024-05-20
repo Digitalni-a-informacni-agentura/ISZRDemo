@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekAdresniMisto2:v1" 
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekAdresniMisto2:v1" 
+	xmlns:e250a="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekAdresniMisto2:v1" 
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:ctiAd="urn:cz:isvs:ruian:schemas:CtiAdresniMisto:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified" 
+	version="2.0.1">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E250a externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	
+	<!-- Výchozí verze 2.0.0, 6.10.2020 Aleš Teplý -->
+	<!-- Verze po revizi 2.0.1, 15.9.2021, Aleš Teplý, rozšíření Request, rozšíření Response -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiAdresniMisto:v2" schemaLocation="../../ruian/xsd/ext/v2/cti/CtiAdresniMisto.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiAdresniMisto:v2" schemaLocation="ref/RuianCtiPrvekAdresniMisto2.xsd"/>
+
+	<xs:element name="RuianCtiPrvekAdresniMisto2" type="RuianCtiPrvekAdresniMisto2Type"/>
+	<xs:element name="RuianCtiPrvekAdresniMisto2Response" type="RuianCtiPrvekAdresniMisto2ResponseType"/>
+	
+	<xs:complexType name="RuianCtiPrvekAdresniMisto2Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E250a externího rozhraní - žádost. Načtení adresního místa z RUIAN. RUIAN služba, operace ctiAdresniMisto.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+		 						<xs:element name="RuianCtiPrvekAdresniMisto2Data" type="ctiAd:CtiAdresniMistoDotazType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="RuianCtiPrvekAdresniMisto2ResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E250a externího rozhraní - odpověď. Načtení adresního místa z RUIAN. RUIAN služba, operace ctiAdresniMisto.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="RuianOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianCtiPrvekAdresniMisto2DataResponse">
+									<xs:complexType>
+										<xs:sequence>
+										  <xs:element ref="ctiAd:AdresniMisto"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

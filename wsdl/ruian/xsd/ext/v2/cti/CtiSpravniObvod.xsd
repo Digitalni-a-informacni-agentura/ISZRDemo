@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:CtiSpravniObvod:v2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:CtiSpravniObvod:v2" xmlns:ctiSp="urn:cz:isvs:ruian:schemas:CtiSpravniObvod:v2" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:spPol="urn:cz:isvs:ruian:schemas:SpravniObvodPolozky:v2" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:spGml="urn:cz:isvs:ruian:schemas:SpravniObvodGML:v2" elementFormDefault="qualified" version="2.0.0">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:SpravniObvodGML:v2" schemaLocation="../prvky/SpravniObvodGML.xsd"/>
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:SpravniObvodPolozky:v2" schemaLocation="SpravniObvodPolozky.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../typy/BaseTypy.xsd"/>
+	<xs:complexType name="CtiSpravniObvodDotazType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Parametry dotazu na informace o správním obvodu.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod3Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód správního obvodu.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PozadovaneUdaje" type="spPol:SpravniObvodPolozkyType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Seznam požadovaných údajů.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="CtiSpravniObvodRequest" type="ctiSp:CtiSpravniObvodRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na načtení informací o správním obvodu.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="CtiSpravniObvodRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na načtení informací o správním obvodu.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Standardní hlavička dotazu.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Dotaz" type="CtiSpravniObvodDotazType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Parametry dotazu.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="CtiSpravniObvodResponse" type="ctiSp:CtiSpravniObvodResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved nacteni spravniho obvodu</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="CtiSpravniObvodResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved nacteni spravniho obvodu</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="SpravniObvod" type="spGml:SpravniObvodGMLType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

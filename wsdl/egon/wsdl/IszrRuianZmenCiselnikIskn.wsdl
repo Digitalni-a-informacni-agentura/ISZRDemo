@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRuianZmenCiselnikIskn:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRuianZmenCiselnikIskn:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRuianZmenCiselnikIskn:v1"
+	xmlns:e92="urn:cz:isvs:iszr:schemas:IszrRuianZmenCiselnikIskn:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRuianZmenCiselnikIskn">
+
+	<wsdl:documentation>Služba E92 externího rozhraní.</wsdl:documentation>
+
+	<!-- Vývojová verze 0.0.1, 9.2.2011, Jan Sluka -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRuianZmenCiselnikIskn:v1" schemaLocation="../xsd/IszrRuianZmenCiselnikIskn.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="IszrRuianZmenCiselnikIskn">
+		<wsdl:part name="parametry" element="e92:RuianZmenCiselnikIskn"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRuianZmenCiselnikIsknResponse">
+		<wsdl:part name="vysledek" element="e92:RuianZmenCiselnikIsknResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRuianZmenCiselnikIsknPortType">
+		<wsdl:operation name="IszrRuianZmenCiselnikIskn">
+			<wsdl:input message="IszrRuianZmenCiselnikIskn"/>
+			<wsdl:output message="IszrRuianZmenCiselnikIsknResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRuianZmenCiselnikIsknBinding" type="tns:IszrRuianZmenCiselnikIsknPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRuianZmenCiselnikIskn">
+			<soap:operation soapAction="IszrRuianZmenCiselnikIskn"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRuianZmenCiselnikIsknService">
+		<wsdl:port name="IszrRuianZmenCiselnikIsknPortService" binding="tns:IszrRuianZmenCiselnikIsknBinding">
+			<soap:address location="IszrRuianZmenCiselnikIskn"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

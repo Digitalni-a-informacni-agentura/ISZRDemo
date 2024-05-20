@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+    targetNamespace="urn:cz:isvs:ruian:schemas:CtiHraniceKatUzemi:v1" 
+    xmlns="urn:cz:isvs:ruian:schemas:CtiHraniceKatUzemi:v1" 
+    xmlns:hrku="urn:cz:isvs:ruian:schemas:CtiHraniceKatUzemi:v1" 
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"     
+    elementFormDefault="unqualified" 
+    attributeFormDefault="unqualified" 
+    version="1.1.1">
+    
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Rozšíření CtiHranicekatUzemi. Definice potřebného elementu ve jmenném prostoru RUIAN.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vývojová verze 0.0.1, 20.03.2012, Jan Sluka -->
+	<!-- Vývojová verze 0.0.2, 27.03.2012, Aleš Teplý, úrpava alias, názvu elementu -->
+	<!-- Katalog.7.2 verze 1.1.1, 28.06.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+        
+	<xs:include schemaLocation="../../../ruian/xsd/cti_hranice_kat_uzemi/CtiHraniceKatUzemi.xsd"/>
+    
+	<xs:element name="Odpoved" type="hrku:CtiHraniceKatUzemiOdpovedType"/>
+    
+</xs:schema>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+	targetNamespace="urn:cz:isvs:ruian:schemas:CtiPou:v2" 
+	xmlns="urn:cz:isvs:ruian:schemas:CtiPou:v2" 
+	xmlns:ctiPu="urn:cz:isvs:ruian:schemas:CtiPou:v2"
+	xmlns:puGml="urn:cz:isvs:ruian:schemas:PouGML:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified" 
+	version="2.0.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Rozšíření CtiPou, definice potřebného elementu v namespace RUIAN.</xs:documentation>
+	</xs:annotation>
+	
+	<!-- Výchozí verze 2.0.0, 6.10.2020 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:PouGML:v2" schemaLocation="../../../ruian/xsd/ext/v2/prvky/PouGML.xsd"/>
+
+	<xs:element name="Pou" type="puGml:PouGMLType"/>
+
+</xs:schema>

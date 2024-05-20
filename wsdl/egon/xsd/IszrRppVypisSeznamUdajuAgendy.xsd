@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRppVypisSeznamUdajuAgendy:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRppVypisSeznamUdajuAgendy:v1"
+	xmlns:e248="urn:cz:isvs:iszr:schemas:IszrRppVypisSeznamUdajuAgendy:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:pdo="urn:cz:isvs:rpp:schemas:RppDotazyData:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.6.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E248 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Nová služba, RPP 1.5.0, 11.10.2019, Aleš Teplý -->
+	<!-- Verze po revizi 1.5.1, 15.10.2021, Aleš Teplý, AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- Verze po revizi 1.6.0, 25.5.2022, Aleš Teplý, Response - AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rpp:schemas:RppDotazyData:v1" schemaLocation="../../rpp/xsd/RppDotazyData.xsd"/>
+
+	<xs:element name="RppVypisSeznamUdajuAgendy" type="RppVypisSeznamUdajuAgendyType"/>
+	<xs:element name="RppVypisSeznamUdajuAgendyResponse" type="RppVypisSeznamUdajuAgendyResponseType"/>
+
+	<xs:complexType name="RppVypisSeznamUdajuAgendyType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E248 externího rozhraní - typ pro žádost. RPP služba P80.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RppVypisSeznamUdajuAgendyData" type="pdo:RppVypisSeznamUdajuAgendyDataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RppVypisSeznamUdajuAgendyResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E248 externího rozhraní - typ pro odpověď. RPP služba P80.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="RppOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RppVypisSeznamUdajuAgendyDataResponse" type="pdo:RppVypisSeznamUdajuAgendyDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

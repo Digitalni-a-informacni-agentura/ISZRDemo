@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:MomcGML:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:MomcGML:v1" xmlns:mcGml="urn:cz:isvs:ruian:schemas:MomcGML:v1" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:mc="urn:cz:isvs:ruian:schemas:Momc:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:mp="urn:cz:isvs:ruian:schemas:Mop:v1" xmlns:ob="urn:cz:isvs:ruian:schemas:Obec:v1" xmlns:sp="urn:cz:isvs:ruian:schemas:SpravniObvod:v1" elementFormDefault="qualified" version="0.40.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Aplikační schéma MomcGML obsahuje prvek typu: MOMC, včetně geometrie. </xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../ruian/xsd/typy/CommonTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:Momc:v1" schemaLocation="../../../ruian/xsd/prvky/Momc.xsd"/>
+	<xs:import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../../common/gml/3.2.1/gml.xsd"/>
+	<xs:element name="Momc" type="mcGml:MomcGMLType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Prvek představuje území městského obvodu nebo městské části územně členěného statutárního města (MOMC).
+Prvek rozšiřuje gml:AbstractFeatureType a obsahuje geometrii. 	</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="MomcGMLType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Prvek MOMC jako rozšíření gml:AbstractFeatureType.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="gml:AbstractFeatureType">
+				<xs:sequence>
+					<xs:group ref="mc:MomcGroup" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="PlatiOd" type="base:DatumCasType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="IdTransakce" type="com:IdTransakceType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="GlobalniIdNavrhuZmeny" type="com:IdNavrhuZmenyType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="VlajkaText" type="base:Text4000Type" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="VlajkaObrazek" type="com:ObrazekType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="MluvnickeCharakteristiky" type="com:MluvnickeCharakteristikyType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="ZnakText" type="base:Text4000Type" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="ZnakObrazek" type="com:ObrazekType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="Geometrie" type="GeometrieMomcType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="NespravneUdaje" type="com:NespravnyUdajListType" minOccurs="0" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="GeometrieMomcType">
+		<xs:sequence>
+			<xs:element name="DefinicniBod" type="gml:PointPropertyType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Geometrie definičního bodu prvku.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Hranice" type="HraniceMomcType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Geometrie hranice prvku.			</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="HraniceMomcType">
+		<xs:complexContent>
+			<xs:extension base="gml:MultiSurfacePropertyType">
+				<xs:sequence>
+					<xs:element name="StupenGeneralizace" type="com:StupenGeneralizaceType" minOccurs="1" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

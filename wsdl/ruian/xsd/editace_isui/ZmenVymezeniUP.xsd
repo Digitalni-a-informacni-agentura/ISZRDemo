@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:ZmenVymezeniUP:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:ZmenVymezeniUP:v1" xmlns:zpup="urn:cz:isvs:ruian:schemas:ZmenVymezeniUP:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:zt="urn:cz:isvs:ruian:schemas:ZmenaTypy:v1" elementFormDefault="qualified" version="1.0.0">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenaTypy:v1" schemaLocation="../../../ruian/xsd/typy/ZmenaTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:complexType name="VymezeniUPZmenaType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Změna vymezení účelového prvku</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Id" type="base:Id18Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="UcelovyPrvekKod" type="base:Kod9Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Geometrie" type="zt:SdoGeometryType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="PlatiOd" type="zt:DatumCasZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="GlobalniIdNavrhuZmeny" type="zt:IdNavrhuZmenyZmenaType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

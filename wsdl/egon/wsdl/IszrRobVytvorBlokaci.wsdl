@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRobVytvorBlokaci:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRobVytvorBlokaci:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRobVytvorBlokaci:v1"
+	xmlns:e11="urn:cz:isvs:iszr:schemas:IszrRobVytvorBlokaci:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRobVytvorBlokaci">
+
+	<wsdl:documentation>Služba E11.</wsdl:documentation>
+
+	<!-- Vývojová verze 0.0.01, 12.10.2011, Jan Sluka -->
+	<!-- Fixovaná verze 1.0.0, 30.11.2011, Aleš Teplý -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRobVytvorBlokaci:v1" schemaLocation="../xsd/IszrRobVytvorBlokaci.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="IszrRobVytvorBlokaci">
+		<wsdl:part name="parametry" element="e11:RobVytvorBlokaci"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRobVytvorBlokaciResponse">
+		<wsdl:part name="vysledek" element="e11:RobVytvorBlokaciResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRobVytvorBlokaciPortType">
+		<wsdl:operation name="IszrRobVytvorBlokaci">
+			<wsdl:input message="IszrRobVytvorBlokaci"/>
+			<wsdl:output message="IszrRobVytvorBlokaciResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRobVytvorBlokaciBinding" type="tns:IszrRobVytvorBlokaciPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRobVytvorBlokaci">
+			<soap:operation soapAction="IszrRobVytvorBlokaci"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRobVytvorBlokaciService">
+		<wsdl:port name="IszrRobVytvorBlokaciPortService" binding="tns:IszrRobVytvorBlokaciBinding">
+			<soap:address location="IszrRobVytvorBlokaci"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

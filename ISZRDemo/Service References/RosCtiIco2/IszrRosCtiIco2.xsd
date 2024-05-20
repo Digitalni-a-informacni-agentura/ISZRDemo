@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:crob2="urn:cz:isvs:ruian:schemas:CtiProRob:v2" xmlns:sdo="urn:cz:isvs:ros:schemas:RosDotazyData:v2" xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" xmlns:e256="urn:cz:isvs:iszr:schemas:IszrRosCtiIco2:v1" xmlns:rod="urn:cz:isvs:rob:schemas:RobDotazyData:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns="urn:cz:isvs:iszr:schemas:IszrRosCtiIco2:v1" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:cz:isvs:iszr:schemas:IszrRosCtiIco2:v1" version="2.2.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="../../RegTypy.xsd" namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" />
+  <xs:import schemaLocation="IszrAbstractOrg.xsd" namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" />
+  <xs:import schemaLocation="../../ros/xsd/RosDotazyData.xsd" namespace="urn:cz:isvs:ros:schemas:RosDotazyData:v2" />
+  <xs:import schemaLocation="../../rob/xsd/RobDotazyData.xsd" namespace="urn:cz:isvs:rob:schemas:RobDotazyData:v1" />
+  <xs:import schemaLocation="ref/RuianCtiProRob2.xsd" namespace="urn:cz:isvs:ruian:schemas:CtiProRob:v2" />
+  <xs:annotation>
+    <xs:documentation xml:lang="cs">N??vrh XML sch??matu s definicemi datov??ch prvk?? ISZR. Slu??ba E256 extern??ho rozhran?? - dotaz a odpov????.</xs:documentation>
+  </xs:annotation>
+  <xs:element name="RosCtiIco2" type="e256:RosCtiIco2Type" />
+  <xs:element name="RosCtiIco2Response" type="e256:RosCtiIco2ResponseType" />
+  <xs:complexType name="RosCtiIco2Type">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Slu??ba E256 extern??ho rozhran?? - typ pro ????dost. Slu??ba na z??klad?? identifikace osoby pomoc?? I??O vrac?? po??adovan?? referen??n?? ??daje.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="abs:IszrZadostAbstractType">
+        <xs:sequence>
+          <xs:element name="Zadost">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="RosCtiIco2Data" type="sdo:RosCtiIco2DataType" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="RosCtiIco2ResponseType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Slu??ba E256 extern??ho rozhran?? - typ pro odpov????. Slu??ba skl??d?? ??daje ze z??kladn??ch registr?? ROS (S05), ROB (O08) a RUIAN (A28). Pokud je ve v??sledku AIFO, vol?? se ROB se seznamem povolen??ch atribut??. Pokud jsou ve v??sledku adresy, vol?? se RUIAN. RUAIN vrac?? adresy jak pro ROS tak pro ROB.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="abs:IszrOdpovedAifoStIdAdrAbstractType">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="RosOdpoved">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="RosCtiIco2DataResponse" type="sdo:RosCtiIco2DataResponseType" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element minOccurs="0" name="RobOdpoved">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="RobCtiHromadneAifoDataResponse" type="rod:RobCtiHromadneAifoDataResponseType" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element minOccurs="0" name="RuianOdpoved">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="RuianCtiProRobDataResponse" type="crob2:RuianCtiProRobDataResponseType" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>

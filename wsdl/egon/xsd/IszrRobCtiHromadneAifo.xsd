@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRobCtiHromadneAifo:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRobCtiHromadneAifo:v1"
+	xmlns:e08="urn:cz:isvs:iszr:schemas:IszrRobCtiHromadneAifo:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:rod="urn:cz:isvs:rob:schemas:RobDotazyData:v1"
+	xmlns:crob="urn:cz:isvs:ruian:schemas:CtiProRob:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.1.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E08 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vývojová verze 0.0.1, 15.09.2011, Aleš Teplý -->
+	<!-- Fixovaná verze 1.0.0, 16.09.2011, Aleš Teplý -->
+	<!-- Verze po revizi 1.0.1, 30.11.2011, Aleš Teplý, RobCtiHromadneAifoData: přidán nepovinný atribut "znepristupniLog" -->
+	<!-- Verze po revizi 1.0.2, 14.02.2012 Aleš Teplý, doplnění OrgStatus do Response -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstractOrg.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rob:schemas:RobDotazyData:v1" schemaLocation="../../rob/xsd/RobDotazyData.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiProRob:v1" schemaLocation="ref/RuianCtiProRob.xsd"/>
+
+	<xs:element name="RobCtiHromadneAifo" type="RobCtiHromadneAifoType"/>
+	<xs:element name="RobCtiHromadneAifoResponse" type="RobCtiHromadneAifoResponseType"/>
+
+	<xs:complexType name="RobCtiHromadneAifoType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E08 externího rozhraní - typ pro žádost. Služba vydává požadované údaje osob z ROB ve formě opakované struktury požadovaných dat podle předaného seznamu AIFO.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostRAifoAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RobCtiHromadneAifoData" type="rod:RobCtiHromadneAifoDataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="RobCtiHromadneAifoResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E08 externího rozhraní - typ pro odpověď. Služba skládá údaje ze základních registrů ROB (O08) a RUIAN (A28).</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAifoStIdAdrAbstractType">
+				<xs:sequence>
+					<xs:element name="RobOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RobCtiHromadneAifoDataResponse" type="rod:RobCtiHromadneAifoDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="RuianOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianCtiProRobDataResponse">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element ref="crob:SeznamAdres" minOccurs="0"/>
+											<xs:element ref="crob:SeznamLokalit" minOccurs="0"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

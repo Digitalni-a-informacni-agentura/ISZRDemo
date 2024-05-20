@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:CtiSeznamAdres:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:CtiSeznamAdres:v1" xmlns:ctiSeAd="urn:cz:isvs:ruian:schemas:CtiSeznamAdres:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" elementFormDefault="qualified" version="1.2.0">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../RegTypy.xsd"/>
+	<xs:complexType name="CtiSeznamAdresRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na načtení seznamu kódů adres.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Dotaz" type="CtiSeznamAdresDotazType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="CtiSeznamAdresRequest" type="ctiSeAd:CtiSeznamAdresRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na načtení seznamu kódů adres.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="CtiSeznamAdresDotazType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Parametry dotazu na seznam adres. Pro statutární města členěná na městské části/obvody musí být zadán kód MOMC nebo kód části obce.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="KodObec" type="base:Kod6Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="KodMomc" type="base:Kod6Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="KodCastObce" type="base:Kod6Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="KodUlice" type="base:Kod7Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="KodVO" type="base:Kod6Type" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="CtiSeznamAdresResponse" type="ctiSeAd:CtiSeznamAdresResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved na informace o seznamu adres.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="CtiSeznamAdresResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved na informace o seznamu adres.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="SeznamAdres" type="SeznamAdresMistType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="SeznamAdresMistType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam kódů adres (oddělených mezerou), které mají vazbu k zadaným prvkům.</xs:documentation>
+		</xs:annotation>
+		<xs:list itemType="xs:int"/>
+	</xs:simpleType>
+</xs:schema>

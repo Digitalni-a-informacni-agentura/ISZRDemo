@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRosVymazOsobu:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRosVymazOsobu:v1"
+	xmlns:e24="urn:cz:isvs:iszr:schemas:IszrRosVymazOsobu:v1"
+	xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:sed="urn:cz:isvs:ros:schemas:RosEditaceData:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.1.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E24 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vývojová verze 0.0.1, 28.06.2011, Aleš Teplý -->
+	<!-- Vývojová verze 0.0.2, 13.07.2011, Aleš Teplý, Response nemusí obsahovat data (async) -->
+	<!-- Vývojová verze 0.0.3, 21.07.2011, Aleš Teplý, ref na type (sjednocení), odstraneno PrvotniPlneni -->
+	<!-- Vývojová verze 0.0.4, 13.09.2011, Aleš Teplý, podadresáře registrů malými písmeny -->
+	<!-- Fixovaná verze 1.0.0, 18.09.2011, Aleš Teplý -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ros:schemas:RosEditaceData:v2" schemaLocation="../../ros/xsd/RosEditaceData.xsd"/>
+
+	<xs:element name="RosVymazOsobu" type="RosVymazOsobuType"/>
+	<xs:element name="RosVymazOsobuResponse" type="RosVymazOsobuResponseType"/>
+
+	<xs:complexType name="RosVymazOsobuType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E24 externího rozhraní - typ pro žádost. Služba provede definovaným způsobem výmaz záznamu osoby s uvedeným IČO z ROS - služba ROS S09. Slouží pro korekci chybného zápisu do registru.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RosVymazOsobuData" type="sed:RosVymazOsobuDataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="RosVymazOsobuResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E24 externího rozhraní - typ pro odpověď. Služba provede definovaným způsobem výmaz záznamu osoby s uvedeným IČO z ROS - služba ROS S09. Vrátí status o úspěšném výmazu. V případě, že osoba se zadaným IČO neexistuje, vrátí chybový status.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="RosOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RosVymazOsobuDataResponse" type="sed:RosVymazOsobuDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

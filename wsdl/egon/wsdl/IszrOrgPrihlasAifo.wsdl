@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrOrgPrihlasAifo:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrOrgPrihlasAifo:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrOrgPrihlasAifo:v1"
+	xmlns:e45="urn:cz:isvs:iszr:schemas:IszrOrgPrihlasAifo:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrOrgPrihlasAifo">
+
+	<wsdl:documentation>Služba E45 externího rozhraní - zaevidování AIFO k notifikaci změn v ROB pro volající AIS.</wsdl:documentation>
+
+	<!-- Vývojová verze 0.0.1, 13.07.2011, Jan Sluka -->
+	<!-- Vývojová verze 0.0.2, 19.07.2011, Aleš Teplý, formální úpravy -->
+	<!-- Vývojová verze 0.0.3, 14.09.2011, Aleš Teplý, ponechání jen nezbytných namespace -->
+	<!-- Vývojová verze 0.0.4, 11.11.2011, Aleš Teplý, oprava "name" -->
+	<!-- Fixovaná verze 1.0.0, 30.11.2011, Aleš Teplý -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrOrgPrihlasAifo:v1" schemaLocation="../xsd/IszrOrgPrihlasAifo.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="IszrOrgPrihlasAifo">
+		<wsdl:part name="parametry" element="e45:OrgPrihlasAifo"/>
+	</wsdl:message>
+	<wsdl:message name="IszrOrgPrihlasAifoResponse">
+		<wsdl:part name="vysledek" element="e45:OrgPrihlasAifoResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrOrgPrihlasAifoPortType">
+		<wsdl:operation name="IszrOrgPrihlasAifo">
+			<wsdl:input message="IszrOrgPrihlasAifo"/>
+			<wsdl:output message="IszrOrgPrihlasAifoResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrOrgPrihlasAifoBinding" type="tns:IszrOrgPrihlasAifoPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrOrgPrihlasAifo">
+			<soap:operation soapAction="IszrOrgPrihlasAifo"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrOrgPrihlasAifoService">
+		<wsdl:port name="IIszrOrgPrihlasAifoPortService" binding="tns:IszrOrgPrihlasAifoBinding">
+			<soap:address location="IszrOrgPrihlasAifo"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

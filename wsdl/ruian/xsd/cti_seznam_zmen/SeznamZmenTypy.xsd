@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:SeznamZmenTypy:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:SeznamZmenTypy:v1" xmlns:zme="urn:cz:isvs:ruian:schemas:SeznamZmenTypy:v1" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" elementFormDefault="qualified" version="0.40.0">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../ruian/xsd/typy/CommonTypy.xsd"/>
+	<xs:complexType name="AtributSeznamType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam atributU změn</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Atribut" type="com:ZmenaAtributuType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CtiSeznamZmenOdpovedType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved nacitani seznamu zmen</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Zacatek" type="CtiSeznamZmenVerzeType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Konec" type="CtiSeznamZmenVerzeType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ExistujiDalsiZmeny" type="ExistujiDalsiDataType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Zmeny" type="ZmenaSeznamType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="ExistujiDalsiDataType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Priznak, existuji-li dalsi data</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:boolean"/>
+	</xs:simpleType>
+	<xs:complexType name="CtiSeznamZmenRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Precteni seznamu zmen</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Dotaz" type="CtiSeznamZmenDotazType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="CtiSeznamZmenRequest" type="zme:CtiSeznamZmenRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Precteni seznamu zmen</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="CtiSeznamZmenResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved precteni seznamu zmen</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Odpoved" type="CtiSeznamZmenOdpovedType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="CtiSeznamZmenResponse" type="zme:CtiSeznamZmenResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved precteni seznamu zmen</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="CtiSeznamZmenDotazType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Parametry dotazu zmen</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Zacatek" type="CtiSeznamZmenVerzeType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="TypPrvkuKod" type="com:TypPrvkuType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="OmezeniNaZmenuAtributu" type="AtributSeznamType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CtiSeznamZmenVerzeType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Verze nacitani seznamu zmen</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="DatumOd" type="base:DatumCasType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="IdTransakce" type="com:IdTransakceType" minOccurs="1" maxOccurs="1"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="ZmenaSeznamType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam zmen</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Zmena" type="ZmenaType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ZmenaType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Zmena</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="TypPrvku" type="com:TypPrvkuType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="PrvekId" type="base:Id18Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="IdTranskace" type="com:IdTransakceType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="DatumZmeny" type="base:DatumCasType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="TypZmeny" type="com:TypZmenyPrvkuType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

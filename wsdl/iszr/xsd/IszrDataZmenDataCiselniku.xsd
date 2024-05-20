@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:iszr:schemas:IszrDataZmenDataCiselniku:v1" xmlns:i11="urn:cz:isvs:iszr:schemas:IszrDataZmenDataCiselniku:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:iszr="urn:cz:isvs:iszr:schemas:IszrTypy:v1" xmlns:iszd="urn:cz:isvs:iszr:schemas:IszrDotazyData:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" targetNamespace="urn:cz:isvs:iszr:schemas:IszrDataZmenDataCiselniku:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.0.1">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">XML schéma s definicemi dat pro službu ISZR</xs:documentation>
+	</xs:annotation>
+	<!-- Vývojová verze 0.0.1, 25.00.2014, Pavel Odstrčil -->
+	<!-- AutoCont CZ a.s. -->
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrTypy:v1" schemaLocation="IszrTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrDotazyData:v1" schemaLocation="IszrDotazyData.xsd"/>
+	<xs:element name="IszrZmenDataCiselnikuData" type="IszrZmenDataCiselnikuDataType"/>
+	<xs:element name="IszrZmenDataCiselnikuDataResponse" type="IszrZmenDataCiselnikuDataResponseType"/>
+	<xs:complexType name="IszrZmenDataCiselnikuDataType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Zápis dat číselníku.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="KodCiselniku" type="iszr:CiselnikKodType"/>
+			<xs:element name="Verze" type="reg:VerzeType"/>
+			<xs:element name="DatumZmeny" type="reg:CasovaZnackaType"/>
+			<xs:element name="Popis" type="iszr:CiselnikPopisType" minOccurs="0"/>
+			<xs:element name="Format" type="iszr:SouborCiselnikuFormatType" minOccurs="0"/>
+			<xs:choice>
+				<xs:element name="UmisteniURL" type="xs:anyURI"/>
+				<xs:element name="Data" type="iszr:CiselnikData"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="IszrZmenDataCiselnikuDataResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Zápis dat číselníku, odpověď.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="iszd:IszrDotazyDataResponseType">
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

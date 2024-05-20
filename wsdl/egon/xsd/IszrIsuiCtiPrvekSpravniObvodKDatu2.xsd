@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrIsuiCtiPrvekSpravniObvodKDatu2:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrIsuiCtiPrvekSpravniObvodKDatu2:v1"
+	xmlns:e252n="urn:cz:isvs:iszr:schemas:IszrIsuiCtiPrvekSpravniObvodKDatu2:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:ctiSpKD="urn:cz:isvs:isui:schemas:CtiSpravniObvodKDatu:v2"
+	xmlns:ctiSp="urn:cz:isvs:ruian:schemas:CtiSpravniObvod:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="2.0.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E252N externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Výchozí verze 2.0.0, 14.10.2020 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:isui:schemas:CtiSpravniObvodKDatu:v2" schemaLocation="../../isui/xsd/ext/v2/cti_historii/CtiSpravniObvodKDatu.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiSpravniObvod:v2" schemaLocation="ref/RuianCtiPrvekSpravniObvod2.xsd"/>
+
+	<xs:element name="IsuiCtiPrvekSpravniObvodKDatu2" type="IsuiCtiPrvekSpravniObvodKDatu2Type"/>
+	<xs:element name="IsuiCtiPrvekSpravniObvodKDatu2Response" type="IsuiCtiPrvekSpravniObvodKDatu2ResponseType"/>
+
+	<xs:complexType name="IsuiCtiPrvekSpravniObvodKDatu2Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E252N externího rozhraní - žádost. Služba která vrátí požadované atributy prvku RUIAN editovaného v ISUI k požadovanému datu. ISUI služba, operace ctiSpravniObvodKDatu.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IsuiCtiPrvekSpravniObvodKDatu2Data" type="ctiSpKD:CtiSpravniObvodKDatuDotazType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="IsuiCtiPrvekSpravniObvodKDatu2ResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E252N externího rozhraní - odpověď. Služba která vrátí požadované atributy prvku RUIAN editovaného v ISUI k požadovanému datu. ISUI služba, operace ctiSpravniObvodKDatu.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="IsuiOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IsuiCtiPrvekSpravniObvodKDatu2DataResponse">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element ref="ctiSp:SpravniObvod"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

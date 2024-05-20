@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:AdresniMistoGML:v2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:AdresniMistoGML:v2" xmlns:adGml="urn:cz:isvs:ruian:schemas:AdresniMistoGML:v2" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:ad="urn:cz:isvs:ruian:schemas:AdresniMisto:v2" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:up="urn:cz:isvs:ruian:schemas:Uup:v2" xmlns:so="urn:cz:isvs:ruian:schemas:StavebniObjekt:v2" xmlns:ul="urn:cz:isvs:ruian:schemas:Ulice:v2" elementFormDefault="qualified" version="2.1.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Prvek typu adresní místo včetně geometrie.</xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:Uup:v2" schemaLocation="Uup.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../typy/CommonTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../typy/BaseTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:AdresniMisto:v2" schemaLocation="AdresniMisto.xsd"/>
+	<xs:import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../../../../common/gml/3.2.1/gml.xsd"/>
+	<xs:complexType name="AdresniMistoGMLType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Prvek Adresní místo jako rozšíření gml:AbstractFeatureType.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="gml:AbstractFeatureType">
+				<xs:sequence>
+					<xs:group ref="ad:AdresniMistoGroup" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="PlatiOd" type="base:DatumCasType" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">Začátek platnosti.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="IdTransakce" type="com:IdTransakceType" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">ID transakce v RUIAN.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="GlobalniIdNavrhuZmeny" type="com:IdNavrhuZmenyType" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">ID návrhu změny v ISUI.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Geometrie" type="GeometrieAdresniMistoType" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">Geometrické údaje adresního místa.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="NespravneUdaje" type="com:NespravnyUdajListType" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">Seznam nesprávných referenčních údajů.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="VazbyNaUcelovePrvky" type="up:VazbaNaUupSeznamType" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">Vazby na účelové prvky.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="GeometrieAdresniMistoType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Geometrické údaje adresního místa.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DefinicniBod" type="DefinicniBodAdmType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Geometrie definičního bodu adresního místa.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="AdresniMisto" type="adGml:AdresniMistoGMLType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Adresní místo s geometrií (GML).</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="DefinicniBodAdmType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Geometrie definičního bodu adresního místa.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AdresniBod" type="gml:PointPropertyType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Definiční bod typu Adresní bod.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Zachranka" type="gml:PointPropertyType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Definiční bod typu Přístup pro záchrannou službu.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Hasici" type="gml:PointPropertyType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Definiční bod typu Přístup pro hasiče.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

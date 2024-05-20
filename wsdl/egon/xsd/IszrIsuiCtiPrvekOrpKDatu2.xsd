@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrIsuiCtiPrvekOrpKDatu2:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrIsuiCtiPrvekOrpKDatu2:v1"
+	xmlns:e252j="urn:cz:isvs:iszr:schemas:IszrIsuiCtiPrvekOrpKDatu2:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:ctiOpKD="urn:cz:isvs:isui:schemas:CtiOrpKDatu:v2"
+	xmlns:ctiOp="urn:cz:isvs:ruian:schemas:CtiOrp:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="2.0.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E252J externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Výchozí verze 2.0.0, 14.10.2020 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:isui:schemas:CtiOrpKDatu:v2" schemaLocation="../../isui/xsd/ext/v2/cti_historii/CtiOrpKDatu.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiOrp:v2" schemaLocation="ref/RuianCtiPrvekOrp2.xsd"/>
+
+	<xs:element name="IsuiCtiPrvekOrpKDatu2" type="IsuiCtiPrvekOrpKDatu2Type"/>
+	<xs:element name="IsuiCtiPrvekOrpKDatu2Response" type="IsuiCtiPrvekOrpKDatu2ResponseType"/>
+
+	<xs:complexType name="IsuiCtiPrvekOrpKDatu2Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E252J externího rozhraní - žádost. Služba která vrátí požadované atributy prvku RUIAN editovaného v ISUI k požadovanému datu. ISUI služba, operace ctiOrpKDatu.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IsuiCtiPrvekOrpKDatu2Data" type="ctiOpKD:CtiOrpKDatuDotazType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="IsuiCtiPrvekOrpKDatu2ResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E252J externího rozhraní - odpověď. Služba která vrátí požadované atributy prvku RUIAN editovaného v ISUI k požadovanému datu. ISUI služba, operace ctiOrpKDatu.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="IsuiOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IsuiCtiPrvekOrpKDatu2DataResponse">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element ref="ctiOp:Orp"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

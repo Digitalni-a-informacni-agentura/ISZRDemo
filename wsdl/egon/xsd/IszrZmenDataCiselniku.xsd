@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrZmenDataCiselniku:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrZmenDataCiselniku:v1"
+	xmlns:e182="urn:cz:isvs:iszr:schemas:IszrZmenDataCiselniku:v1"
+	xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:i11="urn:cz:isvs:iszr:schemas:IszrDataZmenDataCiselniku:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="0.0.1">
+	
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Čtení číselníku.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vývojová verze 0.0.1, 25.02.2014, Pavel Odstrčil, vznik -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrDataZmenDataCiselniku:v1" schemaLocation="../../iszr/xsd/IszrDataZmenDataCiselniku.xsd"/>
+
+	<xs:element name="IszrZmenDataCiselniku" type="IszrZmenDataCiselnikuType"/>
+	<xs:element name="IszrZmenDataCiselnikuResponse" type="IszrZmenDataCiselnikuResponseType"/>
+
+	<xs:complexType name="IszrZmenDataCiselnikuType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Zápois dat číselníku.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAsyncAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IszrZmenDataCiselnikuData" type="i11:IszrZmenDataCiselnikuDataType" />
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="IszrZmenDataCiselnikuResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpověd na zápis číselníku. Vrací status zápisu.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="IszrOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IszrZmenDataCiselnikuDataResponse" type="i11:IszrZmenDataCiselnikuDataResponseType">
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

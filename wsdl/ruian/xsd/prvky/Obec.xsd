@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:Obec:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:Obec:v1" xmlns:ob="urn:cz:isvs:ruian:schemas:Obec:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:ok="urn:cz:isvs:ruian:schemas:Okres:v1" xmlns:pu="urn:cz:isvs:ruian:schemas:Pou:v1" elementFormDefault="qualified" version="0.40.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Aplikační schéma Obec obsahuje prvek typu: Obec se základními elementy a bez geometrie. 
+		</xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:Pou:v1" schemaLocation="../../../ruian/xsd/prvky/Pou.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:Okres:v1" schemaLocation="../../../ruian/xsd/prvky/Okres.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../ruian/xsd/typy/CommonTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:element name="Obec" type="ob:ObecType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Prvek představuje území obce a území vojenského újezdu.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="ObecType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Prvek Obec se základními elementy a bez geometrie.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:group ref="ObecGroup" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:group name="ObecGroup">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Základní elementy prvku Obec.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod6Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Nazev" type="base:Nazev48Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Nespravny" type="com:NespravnyType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="StatusKod" type="base:Kod2Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Okres" type="ok:OkresType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Pou" type="pu:PouType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:group>
+</xs:schema>

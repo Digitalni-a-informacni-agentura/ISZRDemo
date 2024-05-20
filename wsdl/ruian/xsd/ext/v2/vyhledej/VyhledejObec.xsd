@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:VyhledejObec:v2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:VyhledejObec:v2" xmlns:vyhOb="urn:cz:isvs:ruian:schemas:VyhledejObec:v2" xmlns:ob="urn:cz:isvs:ruian:schemas:Obec:v2" xmlns:obPodm="urn:cz:isvs:ruian:schemas:ObecPodminka:v2" xmlns:obPolBase="urn:cz:isvs:ruian:schemas:ObecPolozkyBase:v2" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" elementFormDefault="qualified" version="2.0.0">
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ObecPolozkyBase:v2" schemaLocation="ObecPolozkyBase.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ObecPodminka:v2" schemaLocation="ObecPodminka.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:Obec:v2" schemaLocation="../prvky/Obec.xsd"/>
+	<xs:complexType name="ObecSeznamType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam obci</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Obec" type="ob:ObecType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VyhledejObecDotazType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Parametry obci</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Podminka" type="obPodm:ObecPodminkaType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="PozadovaneUdaje" type="obPolBase:ObecPolozkyBaseType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="VyhledejObecRequest" type="vyhOb:VyhledejObecRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na vyhledani obci</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="VyhledejObecRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na vyhledani obci</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Dotaz" type="VyhledejObecDotazType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="VyhledejObecResponse" type="vyhOb:VyhledejObecResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved vyhledani obci</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="VyhledejObecResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved vyhledani obci</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Obce" type="ObecSeznamType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

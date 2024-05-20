@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns="urn:cz:isvs:iszr:services:IszrAgendaCtiZmeny:v1" xmlns:tns="urn:cz:isvs:iszr:services:IszrAgendaCtiZmeny:v1" xmlns:e187="urn:cz:isvs:iszr:schemas:IszrAgendaCtiZmeny:v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" name="IszrAgendaCtiZmeny" targetNamespace="urn:cz:isvs:iszr:services:IszrAgendaCtiZmeny:v1">
+	<wsdl:documentation>Služba e187 externího rozhraní.</wsdl:documentation>
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrAgendaCtiZmeny:v1" schemaLocation="../xsd/IszrAgendaCtiZmeny.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrAgendaCtiZmeny">
+		<wsdl:part name="parametry" element="e187:AgendaCtiZmeny"/>
+	</wsdl:message>
+	<wsdl:message name="IszrAgendaCtiZmenyResponse">
+		<wsdl:part name="vysledek" element="e187:AgendaCtiZmenyResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrAgendaCtiZmenyPortType">
+		<wsdl:operation name="IszrAgendaCtiZmeny">
+			<wsdl:input message="IszrAgendaCtiZmeny"/>
+			<wsdl:output message="IszrAgendaCtiZmenyResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrAgendaCtiZmenyBinding" type="tns:IszrAgendaCtiZmenyPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrAgendaCtiZmeny">
+			<soap:operation soapAction="IszrAgendaCtiZmeny"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrAgendaCtiZmenyService">
+		<wsdl:port name="IszrAgendaCtiZmenyPortService" binding="tns:IszrAgendaCtiZmenyBinding">
+			<soap:address location="IszrAgendaCtiZmeny"/>
+		</wsdl:port>
+	</wsdl:service>
+	<!-- Verze 1.0.0, 1.11.2014 Pavel Odstrčil -->
+	<!-- AutoCont CZ a.s. -->
+</wsdl:definitions>

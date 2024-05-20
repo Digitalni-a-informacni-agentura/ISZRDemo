@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:gmd="http://www.isotc211.org/2005/gmd" targetNamespace="http://www.opengis.net/gml/3.2" elementFormDefault="qualified" version="3.2.1.2">
+	<annotation>
+		<documentation>Redirect to GML 3.2.1.2 in "local" subdirectory</documentation>
+	</annotation>
+
+	<!-- include schemaLocation="http://schemas.opengis.net/gml/3.2.1/gml.xsd"/ -->
+	<include schemaLocation="local/gml.xsd"/>
+</schema>

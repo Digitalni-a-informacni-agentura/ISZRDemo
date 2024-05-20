@@ -1,0 +1,662 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ros="urn:cz:isvs:ros:schemas:RosTypy:v2" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns="urn:cz:isvs:ros:schemas:RosEditaceTypy:v1" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:cz:isvs:ros:schemas:RosEditaceTypy:v1" version="2.4.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="../../RegTypy.xsd" namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" />
+  <xs:import schemaLocation="RosTypy.xsd" namespace="urn:cz:isvs:ros:schemas:RosTypy:v2" />
+  <xs:annotation>
+    <xs:documentation xml:lang="cs">Návrh XML schématu s definicemi editačních datových prvků IS ROS.
+          Toto schéma obsahuje definice datových prvků, používaných pro editační dotazy a odpovědi na editační
+          dotazy registru osob (ROS).
+        </xs:documentation>
+  </xs:annotation>
+  <xs:complexType name="KodPravnihoStavuStavType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">
+                Kód právního stavu osoby v editačním dotazu do ROS včetně stavu.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="ros:KodPravnihoStavuType">
+        <xs:attribute name="stav">
+          <xs:simpleType>
+            <xs:restriction base="ros:StavRosType">
+              <xs:enumeration value="spravny" />
+              <xs:enumeration value="nespravny" />
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="KodPravniFormyStavType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">
+                Kód právní formy osoby v editačním dotazu do ROS včetně stavu.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="ros:KodPravniFormyType">
+        <xs:attribute name="stav">
+          <xs:simpleType>
+            <xs:restriction base="ros:StavRosType">
+              <xs:enumeration value="spravny" />
+              <xs:enumeration value="nespravny" />
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="NazevOsobyStavType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">
+                Název osoby v editačním dotazu do ROS včetně stavu. 
+            </xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="ros:NazevOsobyType">
+        <xs:attribute name="stav">
+          <xs:simpleType>
+            <xs:restriction base="ros:StavRosType">
+              <xs:enumeration value="spravny" />
+              <xs:enumeration value="nespravny" />
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="DatovaSchrankaStavType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">
+                Datová schránka osoby v editačním dotazu do ROS včetně stavu.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="reg:DatovaSchrankaType">
+        <xs:attribute name="stav">
+          <xs:simpleType>
+            <xs:restriction base="ros:StavRosType">
+              <xs:enumeration value="spravny" />
+              <xs:enumeration value="nespravny" />
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="DatovaSchrankaUkonEditStavType">
+    <xs:annotation>
+      <xs:documentation>
+                Datová schránka osoby v editačním dotazu (pouze vložení a výmaz) do ROS včetně stavu jednotlivých údajů
+                a s rozlišením vložení a výmazu.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:choice>
+      <xs:element name="UdajeDatoveSchrankyVlozeni" type="DatovaSchrankaStavType" />
+      <xs:element name="UdajeDatoveSchrankyVymaz" type="reg:DatovaSchrankaType" />
+    </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="DatumVznikuOpravneniStavType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">
+                Datum vzniku oprávnění k činnosti osoby v agendě v editačním dotazu do ROS včetně stavu.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="ros:DatumVznikuOpravneniType">
+        <xs:attribute name="stav">
+          <xs:simpleType>
+            <xs:restriction base="ros:StavRosType">
+              <xs:enumeration value="spravny" />
+              <xs:enumeration value="nespravny" />
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="DatumZanikuOpravneniStavType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">
+                Datum zániku oprávnění k činnosti osoby v agendě v editačním dotazu do ROS včetně stavu.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="ros:DatumZanikuOpravneniType">
+        <xs:attribute name="stav">
+          <xs:simpleType>
+            <xs:restriction base="ros:StavRosType">
+              <xs:enumeration value="spravny" />
+              <xs:enumeration value="nespravny" />
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="DatumZahajeniCinnostiStavType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">
+                Datum zahájení provozování činnosti v provozovně v editačním dotazu do ROS včetně stavu.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="ros:DatumZahajeniCinnostiType">
+        <xs:attribute name="stav">
+          <xs:simpleType>
+            <xs:restriction base="ros:StavRosType">
+              <xs:enumeration value="spravny" />
+              <xs:enumeration value="nespravny" />
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="DatumUkonceniCinnostiStavType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">
+                Datum ukončení provozování činnosti v provozovně v editačním dotazu do ROS včetně stavu.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="ros:DatumUkonceniCinnostiType">
+        <xs:attribute name="stav">
+          <xs:simpleType>
+            <xs:restriction base="ros:StavRosType">
+              <xs:enumeration value="spravny" />
+              <xs:enumeration value="nespravny" />
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="FoStavType">
+    <xs:annotation>
+      <xs:documentation>
+                Fyzická osoba (obyvatel) v ROS s vazbou na statutární orgán v editačním dotazu do ROS
+                včetně stavu jednotlivých údajů.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="ros:FoType">
+        <xs:attribute name="stav">
+          <xs:simpleType>
+            <xs:restriction base="ros:StavRosType">
+              <xs:enumeration value="spravny" />
+              <xs:enumeration value="nespravny" />
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="AdresaStavType">
+    <xs:annotation>
+      <xs:documentation>
+                Adresa v editačním dotazu do ROS včetně stavu.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="ros:AdresaType">
+        <xs:attribute name="stav">
+          <xs:simpleType>
+            <xs:restriction base="ros:StavRosType">
+              <xs:enumeration value="spravny" />
+              <xs:enumeration value="nespravny" />
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="AdresaDorucovaciStavType">
+    <xs:annotation>
+      <xs:documentation>
+                Adresa doručovací včetně stavu.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="ros:AdresaDorucovaciType">
+        <xs:attribute name="stav">
+          <xs:simpleType>
+            <xs:restriction base="ros:StavRosType">
+              <xs:enumeration value="spravny" />
+              <xs:enumeration value="nespravny" />
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ProvozovnaStavType">
+    <xs:annotation>
+      <xs:documentation>
+                Provozovna v editačním dotazu do ROS včetně stavu jednotlivých údajů.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Icp" type="reg:IcpType" />
+      <xs:element name="DatumZahajeniCinnosti" type="DatumZahajeniCinnostiStavType" />
+      <xs:element minOccurs="0" name="DatumUkonceniCinnosti" type="DatumUkonceniCinnostiStavType" />
+      <xs:element name="AdresaProvozovny" type="AdresaStavType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ProvozovnaStav2Type">
+    <xs:annotation>
+      <xs:documentation>
+                Provozovna v editačním dotazu do ROS včetně stavu jednotlivých údajů pro druhou verzi služeb.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="ProvozovnaStavType">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="DorucovaciAdresaProvozovny" type="AdresaDorucovaciStavType" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ProvozovnyStavType">
+    <xs:annotation>
+      <xs:documentation>
+                Provozovny osoby v editačním dotazu (pouze vložení) do ROS 
+                včetně stavu jednotlivých údajů provozoven.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" name="Provozovna" type="ProvozovnaStavType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ProvozovnyStav2Type">
+    <xs:annotation>
+      <xs:documentation>
+        <!--doplnit text-->
+                Provozovny osoby v editačním dotazu (pouze vložení) do ROS 
+                včetně stavu jednotlivých údajů provozoven.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" name="Provozovna" type="ProvozovnaStav2Type" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ProvozovnaEditStavType">
+    <xs:annotation>
+      <xs:documentation>
+                Provozovna v editačním dotazu do ROS (pouze změny) včetně stavu jednotlivých údajů.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Icp" type="reg:IcpType" />
+      <xs:element minOccurs="0" name="DatumZahajeniCinnosti" type="DatumZahajeniCinnostiStavType" />
+      <xs:element minOccurs="0" name="DatumUkonceniCinnosti" nillable="true" type="DatumUkonceniCinnostiStavType" />
+      <xs:element minOccurs="0" name="AdresaProvozovny" type="AdresaStavType" />
+      <xs:element minOccurs="0" name="DorucovaciAdresaProvozovny" nillable="true" type="AdresaDorucovaciStavType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="StatutarniOrganStavType">
+    <xs:annotation>
+      <xs:documentation>
+                Statutární orgán osoby v ROS v editačním dotazu do ROS včetně jeho stavu.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="ros:StatutarniOrganType">
+        <xs:attribute name="stav">
+          <xs:simpleType>
+            <xs:restriction base="ros:StavRosType">
+              <xs:enumeration value="spravny" />
+              <xs:enumeration value="nespravny" />
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="StatutarniOrganyStavType">
+    <xs:annotation>
+      <xs:documentation>
+                Statutární orgány osoby v editačním dotazu (pouze vložení) do ROS
+                včetně stavu jednotlivých statutárních orgánů. 
+            </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" name="StatutarniOrgan" type="StatutarniOrganStavType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="StatutarniOrganUkonEditStavType">
+    <xs:annotation>
+      <xs:documentation>
+                Statutární orgán osoby v editačním dotazu (pouze změny) do ROS včetně stavu jednotlivých údajů
+                a typu úkonu.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:choice>
+      <xs:element name="UdajeStatutarnihoOrganuVlozeni" type="StatutarniOrganStavType" />
+      <xs:element name="UdajeStatutarnihoOrganuVymaz" type="ros:StatutarniOrganType" />
+    </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="StatutarniOrganyUkonEditStavType">
+    <xs:annotation>
+      <xs:documentation>
+                Statutární orgány osoby v editačním dotazu (pouze změny) do ROS.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" name="StatutarniOrgan" type="StatutarniOrganUkonEditStavType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OsobaStavAbstractType" abstract="true">
+    <xs:annotation>
+      <xs:documentation>
+                Společný předek pro fyzickou a právnickou osobu v editačním dotazu (pouze vložení) do ROS včetně stavu
+                jednotlivých údajů.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Ico" type="reg:IcoType" />
+      <xs:element minOccurs="0" name="IcoKontrola" type="ros:IcoKontrolaType" />
+      <xs:element name="NazevOsoby" type="NazevOsobyStavType" />
+      <xs:element name="KodPravniFormy" type="KodPravniFormyStavType" />
+      <xs:element name="DatumVznikuOpravneni" type="DatumVznikuOpravneniStavType" />
+      <xs:element minOccurs="0" name="DatumZanikuOpravneni" type="DatumZanikuOpravneniStavType" />
+      <xs:element name="AdresaSidla" type="AdresaStavType" />
+      <xs:element minOccurs="0" name="PozastaveniPreruseni" type="PozastaveniPreruseniStavType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OsobaStavAbstract2Type" abstract="true">
+    <xs:annotation>
+      <xs:documentation>
+                Společný předek pro fyzickou a právnickou osobu v editačním dotazu (pouze vložení) do ROS včetně stavu
+                jednotlivých údajů pro druhou verzi služeb.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="OsobaStavAbstractType">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AdresaDorucovaci" type="AdresaDorucovaciStavType" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="VerejnaProspesnostStavType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">
+                Příznak veřejné prospěšnosti v ROS včetně stavu.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="ros:VerejnaProspesnostType">
+        <xs:attribute name="stav">
+          <xs:simpleType>
+            <xs:restriction base="ros:StavRosType">
+              <xs:enumeration value="spravny" />
+              <xs:enumeration value="nespravny" />
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="PozastaveniPreruseniStavType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">
+                Příznak pozastavení/přerušení činnosti osoby v ROS včetně stavu.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="ros:PozastaveniPreruseniType">
+        <xs:attribute name="stav">
+          <xs:simpleType>
+            <xs:restriction base="ros:StavRosType">
+              <xs:enumeration value="spravny" />
+              <xs:enumeration value="nespravny" />
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="LikvidatorStavType">
+    <xs:annotation>
+      <xs:documentation>
+                Likvidátor v editačním dotazu do ROS včetně jeho stavu.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="ros:AngazovanaOsobaAbstractType">
+        <xs:attribute name="stav">
+          <xs:simpleType>
+            <xs:restriction base="ros:StavRosType">
+              <xs:enumeration value="spravny" />
+              <xs:enumeration value="nespravny" />
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="LikvidatorStav2Type">
+    <xs:annotation>
+      <xs:documentation>
+                Likvidátor v editačním dotazu do ROS včetně jeho stavu ve druhé verzi služeb.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="ros:AngazovanaOsobaAbstract2Type">
+        <xs:attribute name="stav">
+          <xs:simpleType>
+            <xs:restriction base="ros:StavRosType">
+              <xs:enumeration value="spravny" />
+              <xs:enumeration value="nespravny" />
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="OpatrovnikStavType">
+    <xs:annotation>
+      <xs:documentation>
+                Opatrovník v editačním dotazu do ROS včetně jeho stavu.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="ros:AngazovanaOsobaAbstractType">
+        <xs:attribute name="stav">
+          <xs:simpleType>
+            <xs:restriction base="ros:StavRosType">
+              <xs:enumeration value="spravny" />
+              <xs:enumeration value="nespravny" />
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="OpatrovnikStav2Type">
+    <xs:annotation>
+      <xs:documentation>
+                Opatrovník v editačním dotazu do ROS včetně jeho stavu ve druhé verzi služeb.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="ros:AngazovanaOsobaAbstract2Type">
+        <xs:attribute name="stav">
+          <xs:simpleType>
+            <xs:restriction base="ros:StavRosType">
+              <xs:enumeration value="spravny" />
+              <xs:enumeration value="nespravny" />
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="NucenySpravceStavType">
+    <xs:annotation>
+      <xs:documentation>
+                Nucený správce v editačním dotazu do ROS včetně jeho stavu.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="ros:AngazovanaOsobaAbstractType">
+        <xs:attribute name="stav">
+          <xs:simpleType>
+            <xs:restriction base="ros:StavRosType">
+              <xs:enumeration value="spravny" />
+              <xs:enumeration value="nespravny" />
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="NucenySpravceStav2Type">
+    <xs:annotation>
+      <xs:documentation>
+                Nucený správce v editačním dotazu do ROS včetně jeho stavu ve druhé verzi služeb.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="ros:AngazovanaOsobaAbstract2Type">
+        <xs:attribute name="stav">
+          <xs:simpleType>
+            <xs:restriction base="ros:StavRosType">
+              <xs:enumeration value="spravny" />
+              <xs:enumeration value="nespravny" />
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="InsolvencniSpravceStavType">
+    <xs:annotation>
+      <xs:documentation>
+                Insolvenční správce v editačním dotazu do ROS včetně jeho stavu.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="ros:AngazovanaOsobaAbstractType">
+        <xs:attribute name="stav">
+          <xs:simpleType>
+            <xs:restriction base="ros:StavRosType">
+              <xs:enumeration value="spravny" />
+              <xs:enumeration value="nespravny" />
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="InsolvencniSpravceStav2Type">
+    <xs:annotation>
+      <xs:documentation>
+                Insolvenční správce v editačním dotazu do ROS včetně jeho stavu ve druhé verzi služeb.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="ros:AngazovanaOsobaAbstract2Type">
+        <xs:attribute name="stav">
+          <xs:simpleType>
+            <xs:restriction base="ros:StavRosType">
+              <xs:enumeration value="spravny" />
+              <xs:enumeration value="nespravny" />
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="LikvidatoriStav2Type">
+    <xs:annotation>
+      <xs:documentation>
+                Likvidátoři osoby v editačním dotazu do ROS
+                včetně stavu jednotlivých likvidátorů ve druhé verzi služeb. 
+            </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" name="Likvidator" type="LikvidatorStav2Type" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OpatrovniciStav2Type">
+    <xs:annotation>
+      <xs:documentation>
+                Opatrovnici osoby v editačním dotazu do ROS
+                včetně stavu jednotlivých opatrovníků ve druhé verzi služeb. 
+            </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" name="Opatrovnik" type="OpatrovnikStav2Type" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="NuceniSpravciStav2Type">
+    <xs:annotation>
+      <xs:documentation>
+                Nucení správci osoby v editačním dotazu do ROS
+                včetně stavu jednotlivých nucených správců ve druhé verzi služeb. 
+            </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" name="NucenySpravce" type="NucenySpravceStav2Type" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="InsolvencniSpravciStav2Type">
+    <xs:annotation>
+      <xs:documentation>
+                Insolvenční správci osoby v editačním dotazu do ROS
+                včetně stavu jednotlivých Insolvenčních správců ve druhé verzi služeb. 
+            </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" name="InsolvencniSpravce" type="InsolvencniSpravceStav2Type" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ZastupciStavType">
+    <xs:annotation>
+      <xs:documentation>
+                Seznam zástupců statutárního orgánu. 
+            </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" name="Zastupce" type="ros:FoStav2Type" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="StatOrganZastupceStavType">
+    <xs:annotation>
+      <xs:documentation>
+                Statutární orgán osoby v ROS v editačním dotazu do ROS včetně jeho stavu a seznamu zástupců se stavem.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:choice>
+      <xs:sequence>
+        <xs:choice>
+          <xs:element name="OsobaIco" type="reg:IcoType" />
+          <xs:element name="NazevAdresa" type="ros:NazevAdresaType" />
+        </xs:choice>
+        <xs:element minOccurs="0" name="Zastupci" type="ZastupciStavType" />
+      </xs:sequence>
+      <xs:element name="FyzickaOsoba" type="ros:FoAngazovaneOsobyStav2Type" />
+    </xs:choice>
+    <xs:attribute name="stav">
+      <xs:simpleType>
+        <xs:restriction base="ros:StavRosType">
+          <xs:enumeration value="spravny" />
+          <xs:enumeration value="nespravny" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="StatOrganyZastupceStavType">
+    <xs:annotation>
+      <xs:documentation>
+               Statutární orgány osoby v editačním dotazu do ROS
+               včetně stavu jednotlivých statutárních orgánů a seznamu zástupců se stavem. 
+            </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" name="StatutarniOrganZastupce" type="StatOrganZastupceStavType" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

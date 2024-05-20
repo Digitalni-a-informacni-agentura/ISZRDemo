@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:iszr:schemas:IszrDataZmenDataPristup:v1" xmlns:i11="urn:cz:isvs:iszr:schemas:IszrDataZmenDataPristup:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:iszr="urn:cz:isvs:iszr:schemas:IszrTypy:v1" xmlns:iszd="urn:cz:isvs:iszr:schemas:IszrDotazyData:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" targetNamespace="urn:cz:isvs:iszr:schemas:IszrDataZmenDataPristup:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">XML schéma s definicemi dat pro službu ISZR</xs:documentation>
+	</xs:annotation>
+	<!-- Vývojová verze 1.0.0, 01.04.2019, Pavel Odstrčil -->
+	<!-- AutoCont CZ a.s. -->
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrTypy:v1" schemaLocation="IszrTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrDotazyData:v1" schemaLocation="IszrDotazyData.xsd"/>
+	<xs:element name="IszrZmenDataPristupData" type="IszrZmenDataPristupDataType"/>
+	<xs:element name="IszrZmenDataPristupDataResponse" type="IszrZmenDataPristupDataResponseType"/>
+	<xs:complexType name="IszrZmenDataPristupDataType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Zápis dat.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Operace" type="OperaceType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Typ operace</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Klic" type="KlicType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Autorizacni klic pro provedeni typu operace</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Ticket" type="TicketType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Cislo pozadavku, ke kteremu se operace vztauje</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DataTyp" type="DataTypType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Typ importovanych dat. Vyplnuje se pro vsechny typy operaci, pro operace cteni stavu musi odpovidat zadosti pro zadany Ticket</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Base64Data" type="xs:base64Binary" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Vstupni data (jako base64, soubor CSV nebo ZIP)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="IszrZmenDataPristupDataResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Zápis dat, odpověď.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="iszd:IszrDotazyDataResponseType">
+				<xs:sequence>
+					<xs:element name="Ticket" type="TicketType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="Base64Data" type="xs:base64Binary" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">Vystupni soubor (pro typ operace GetStatusWithResultData)</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- simple typy -->
+	<xs:simpleType name="OperaceType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="UpdateFull">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Aktualizovat (prepise existujici stav)</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="UpdateIncrement">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Pridat profily (doplni existuji stav)</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Check">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kontrola (overeni bez aktualizace)</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="GetStatus">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Dotaz na stav (bez dat vysledku)</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="GetStatusWithResultData">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Dotaz na stav (s daty vysledku)</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DataTypType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="MaticeBP"/>
+			<xs:enumeration value="MaticeIP"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TicketType">
+		<xs:restriction base="reg:IdentifikatorType"/>
+	</xs:simpleType>
+	<xs:simpleType name="KlicType">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+</xs:schema>

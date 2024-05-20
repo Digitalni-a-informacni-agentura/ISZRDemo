@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrVypisObyvatelProSamospravu:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrVypisObyvatelProSamospravu:v1"
+	xmlns:e169="urn:cz:isvs:iszr:schemas:IszrVypisObyvatelProSamospravu:v1"
+	xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:i24="urn:cz:isvs:iszr:schemas:IszrDataVypisObyvatelProSamospravu:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.6.0">
+	
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Výpisy z ROB, IS EO a AISC podle adresních bodů RUIAN pro účely samospráv. Služba E169 externího rozhraní.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Katalog.7.06 verze 1.6.0, 25.07.2013 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrDataVypisObyvatelProSamospravu:v1" schemaLocation="../../iszr/xsd/IszrDataVypisObyvatelProSamospravu.xsd"/>
+
+	<xs:element name="IszrVypisObyvatelProSamospravu" type="IszrVypisObyvatelProSamospravuType"/>
+	<xs:element name="IszrVypisObyvatelProSamospravuResponse" type="IszrVypisObyvatelProSamospravuResponseType"/>
+
+	<xs:complexType name="IszrVypisObyvatelProSamospravuType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Výpisy z ROB, IS EO a AISC podle adresních bodů RUIAN pro účely samospráv.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAsyncAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IszrVypisObyvatelProSamospravuData" type="i24:IszrVypisObyvatelProSamospravuDataType" />
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="IszrVypisObyvatelProSamospravuResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Výpisy z ROB, IS EO a AISC podle adresních bodů RUIAN pro účely samospráv, odpověď.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="IszrOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IszrVypisObyvatelProSamospravuDataResponse" type="i24:IszrVypisObyvatelProSamospravuDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

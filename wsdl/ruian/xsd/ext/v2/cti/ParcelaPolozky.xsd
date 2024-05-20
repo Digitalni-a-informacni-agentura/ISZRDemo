@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:ParcelaPolozky:v2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:ParcelaPolozky:v2" xmlns:paPol="urn:cz:isvs:ruian:schemas:ParcelaPolozky:v2" xmlns:paPolBase="urn:cz:isvs:ruian:schemas:ParcelaPolozkyBase:v2" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:upPolBase="urn:cz:isvs:ruian:schemas:UupPolozkyBase:v2" xmlns:kuPolBase="urn:cz:isvs:ruian:schemas:KatastralniUzemiPolozkyBase:v2" elementFormDefault="qualified" version="2.1.0">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:UupPolozkyBase:v2" schemaLocation="../vyhledej/UupPolozkyBase.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../typy/CommonTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ParcelaPolozkyBase:v2" schemaLocation="../vyhledej/ParcelaPolozkyBase.xsd"/>
+	<xs:complexType name="ParcelaPolozkyType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na parcely</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:group ref="paPolBase:ParcelaPolozkyGroup" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="PlatiOd" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="IdTransakce" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="RizeniId" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="BonitovaneDily" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ZpusobyOchranyPozemku" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="DefinicniBod" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Hranice" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="HraniceOmpv" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Hranice OMP-V.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NavazaneUUP" type="upPolBase:UupPolozkyBaseType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:iszr:schemas:IszrEidentitaCtiAifo:v1" xmlns:e226="urn:cz:isvs:iszr:schemas:IszrEidentitaCtiAifo:v1" xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" xmlns:nia="urn:cz:isvs:nia:schemas:NiaTypy:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:ot="urn:cz:isvs:org:schemas:OrgTypy:v1" xmlns:or="urn:cz:isvs:org:schemas:OrgRozhrani:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:cz:isvs:iszr:schemas:IszrEidentitaCtiAifo:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E226 interního rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	<!-- Verze 1.0.0, 13.02.2017 Pavel Odstrčil -->
+	<!-- AutoCont CZ a.s. -->
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="../../egon/xsd/IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:nia:schemas:NiaTypy:v1" schemaLocation="../../nia/xsd/NiaTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:org:schemas:OrgTypy:v1" schemaLocation="../../org/xsd/OrgTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:org:schemas:OrgRozhrani:v1" schemaLocation="../../egon/xsd/ref/OrgStatus.xsd"/>
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:element name="IszrEidentitaCtiAifo" type="IszrEidentitaCtiAifoType"/>
+	<xs:element name="IszrEidentitaCtiAifoResponse" type="IszrEidentitaCtiAifoResponseType"/>
+	<xs:complexType name="IszrEidentitaCtiAifoType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E226 interního rozhraní - typ pro žádost.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostBsiAbstractType"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="IszrEidentitaCtiAifoResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E226 interního rozhraní - typ pro odpověď.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAifoAbstractType">
+				<xs:sequence>
+					<xs:element name="OrgOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="OrgZalozAifoDataResponse">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element ref="or:OrgStatus" minOccurs="0"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="EidentitaOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="EidentitaCtiAifoDataResponse">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element name="AplikacniStatus" type="nia:NiaAplikacniStatusType"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

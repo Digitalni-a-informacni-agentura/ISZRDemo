@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRppCtiZmenyOpravneni:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRppCtiZmenyOpravneni:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRppCtiZmenyOpravneni:v1"
+	xmlns:e290="urn:cz:isvs:iszr:schemas:IszrRppCtiZmenyOpravneni:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRppCtiZmenyOpravneni">
+
+	<wsdl:documentation>Služba E290 externího rozhraní - Služba, kterou se zavádí záznamy do Katalogu služeb - RPP služba P89.</wsdl:documentation>
+
+	<!-- Výchozí verze 1.0.0, 13.12.2012, Aleš Teplý -->
+	<!-- Verze po revizi 1.1.0, 25.5.2022, Aleš Teplý, Response - AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRppCtiZmenyOpravneni:v1" schemaLocation="../xsd/IszrRppCtiZmenyOpravneni.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="IszrRppCtiZmenyOpravneni">
+		<wsdl:part name="parametry" element="e290:RppCtiZmenyOpravneni"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRppCtiZmenyOpravneniResponse">
+		<wsdl:part name="vysledek" element="e290:RppCtiZmenyOpravneniResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRppCtiZmenyOpravneniPortType">
+		<wsdl:operation name="IszrRppCtiZmenyOpravneni">
+			<wsdl:input message="IszrRppCtiZmenyOpravneni"/>
+			<wsdl:output message="IszrRppCtiZmenyOpravneniResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRppCtiZmenyOpravneniBinding" type="tns:IszrRppCtiZmenyOpravneniPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRppCtiZmenyOpravneni">
+			<soap:operation soapAction="IszrRppCtiZmenyOpravneni"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRppCtiZmenyOpravneniService">
+		<wsdl:port name="IszrRppCtiZmenyOpravneniPortService" binding="tns:IszrRppCtiZmenyOpravneniBinding">
+			<soap:address location="IszrRppCtiZmenyOpravneni"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

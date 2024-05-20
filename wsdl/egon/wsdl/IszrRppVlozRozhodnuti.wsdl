@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRppVlozRozhodnuti:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRppVlozRozhodnuti:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRppVlozRozhodnuti:v1"
+	xmlns:e115="urn:cz:isvs:iszr:schemas:IszrRppVlozRozhodnuti:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRppVlozRozhodnuti">
+
+	<wsdl:documentation>Služba E115 externího rozhraní - Služba na základě předaných dat zapíše rozhodnutí do RPP - RPP služba P12.</wsdl:documentation>
+	
+	<!-- Vývojová verze 0.0.1, 20.12.2011, Aleš Teplý -->
+	<!-- Fixovaná verze 1.0.0, 11.01.2012, Aleš Teplý -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+	
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRppVlozRozhodnuti:v1" schemaLocation="../xsd/IszrRppVlozRozhodnuti.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="IszrRppVlozRozhodnuti">
+		<wsdl:part name="parametry" element="e115:RppVlozRozhodnuti"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRppVlozRozhodnutiResponse">
+		<wsdl:part name="vysledek" element="e115:RppVlozRozhodnutiResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRppVlozRozhodnutiPortType">
+		<wsdl:operation name="IszrRppVlozRozhodnuti">
+			<wsdl:input message="tns:IszrRppVlozRozhodnuti"/>
+			<wsdl:output message="tns:IszrRppVlozRozhodnutiResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRppVlozRozhodnutiBinding" type="tns:IszrRppVlozRozhodnutiPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRppVlozRozhodnuti">
+			<soap:operation soapAction="IszrRppVlozRozhodnuti"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRppVlozRozhodnutiService">
+		<wsdl:port name="IszrRppVlozRozhodnutiPortService" binding="tns:IszrRppVlozRozhodnutiBinding">
+			<soap:address location="IszrRppVlozRozhodnuti"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

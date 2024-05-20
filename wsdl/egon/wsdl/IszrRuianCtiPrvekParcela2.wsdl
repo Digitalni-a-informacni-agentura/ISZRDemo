@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRuianCtiPrvekParcela2:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRuianCtiPrvekParcela2:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRuianCtiPrvekParcela2:v1"
+	xmlns:e250k="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekParcela2:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRuianCtiPrvekParcela2">
+
+	<wsdl:documentation>Služba E250k externího rozhraní - Načtení parcely z RUIAN. RUIAN služba, operace ctiParcela.</wsdl:documentation>
+	
+	<!-- Výchozí verze 2.0.0, 6.10.2020 Aleš Teplý -->
+	<!-- Verze po revizi 2.0.1, 15.9.2021, Aleš Teplý, rozšíření Request, rozšíření Response -->
+	<!-- AutoCont CZ a.s. -->
+
+  <wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekParcela2:v1" schemaLocation="../xsd/IszrRuianCtiPrvekParcela2.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrRuianCtiPrvekParcela2">
+		<wsdl:part name="parametry" element="e250k:RuianCtiPrvekParcela2"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRuianCtiPrvekParcela2Response">
+		<wsdl:part name="vysledek" element="e250k:RuianCtiPrvekParcela2Response"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRuianCtiPrvekParcela2PortType">
+		<wsdl:operation name="IszrRuianCtiPrvekParcela2">
+			<wsdl:input message="tns:IszrRuianCtiPrvekParcela2"/>
+			<wsdl:output message="tns:IszrRuianCtiPrvekParcela2Response"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRuianCtiPrvekParcela2Binding" type="tns:IszrRuianCtiPrvekParcela2PortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRuianCtiPrvekParcela2">
+			<soap:operation soapAction="IszrRuianCtiPrvekParcela2"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRuianCtiPrvekParcela2Service">
+		<wsdl:port name="IszrRuianCtiPrvekParcela2PortService" binding="tns:IszrRuianCtiPrvekParcela2Binding">
+			<soap:address location="IszrRuianCtiPrvekParcela2"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

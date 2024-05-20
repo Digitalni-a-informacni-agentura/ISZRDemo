@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:ZmenGenPolygonyKatastralniUzemi:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:ZmenGenPolygonyKatastralniUzemi:v1" xmlns:zgpku="urn:cz:isvs:ruian:schemas:ZmenGenPolygonyKatastralniUzemi:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:zt="urn:cz:isvs:ruian:schemas:ZmenaTypy:v1" elementFormDefault="qualified" version="0.40.1">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenaTypy:v1" schemaLocation="../../../ruian/xsd/typy/ZmenaTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:complexType name="GenPolygonyKatUzemiZmenaType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Změna polygonu katastrálního uzemí</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Id" type="base:Id18Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="KatastralniUzemiKod" type="zt:Kod6ZmenaType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Geometrie" type="zt:SdoGeometryType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="TypGeneralizaceMap" type="zt:Kod2ZmenaType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Typ generalizace map.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Nespravny" type="zt:NespravnyZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="RizeniId" type="zt:IdRizeniZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PlatiOd" type="zt:DatumCasZmenaType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

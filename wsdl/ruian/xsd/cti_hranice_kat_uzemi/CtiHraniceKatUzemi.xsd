@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:CtiHraniceKatUzemi:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:CtiHraniceKatUzemi:v1" xmlns:chku="urn:cz:isvs:ruian:schemas:CtiHraniceKatUzemi:v1" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:zt="urn:cz:isvs:ruian:schemas:ZmenaTypy:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" elementFormDefault="qualified" version="1.0.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Vrací hranice pro požadovaná katastrální území.</xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenaTypy:v1" schemaLocation="../../../ruian/xsd/typy/ZmenaTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../ruian/xsd/typy/CommonTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../../common/gml/3.2.1/gml.xsd"/>
+	<xs:complexType name="HraniceKatUzemiType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Hranice katastrálního území ve formě okřídlené hrany.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="gml:AbstractFeatureType">
+				<xs:sequence>
+					<xs:element name="Id" type="base:Id18Type" minOccurs="1" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">Identifikátor hranice.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="KatastralniUzemiKod1" type="base:Kod6Type" minOccurs="1" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">Kód katastrálního území na jedné straně hranice.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="KatastralniUzemiKod2" type="base:Kod6Type" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">Kód katastrálního území na druhé straně hranice. V případě, že se jedná o hranici shodnou s hranicí státu (StatniHranice=true), položka neexistuje.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Geometrie" type="gml:CurvePropertyType" minOccurs="1" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">Geometrie hranice.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="TypPrvkuProstorDatKod" type="base:Kod10Type" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">Kód typu prvku prostorových dat.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Nespravny" type="com:NespravnyType" minOccurs="1" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">Data jsou označena jako nesprávná.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="RizeniId" type="com:IdRizeniType" minOccurs="1" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">Identifikace změny v ISKN.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="IdTransakce" type="com:IdTransakceType" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">Identifikace změny v RUIAN.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="PlatiOd" type="base:DatumCasType" minOccurs="1" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">Platnost od.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="StatniHranice" type="zt:StatniHraniceType" minOccurs="1" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">Hranice je shodná s hranicí státu.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="CtiHraniceKatUzemiRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na hranice katastrálních území. 
+Dotaz vrací hranice katastrálních území. V případě dotazu na hranice katastrálních území, které spolu souvisí, je navrácena společná hranice vrácena pouze jednou.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Společná hlavička všech žádostí nebo dotazů (webových služeb).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Dotaz" type="CtiHraniceKatUzemiDotazType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Parametry dotazu na hranice katastrálních území.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CtiHraniceKatUzemiResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpověď na dotaz na hranice katastrálních území. 
+V odpovědi jsou obsaženy všechny hranice ke katastrálním územím, jejichž kódy byly specifikovány v požadavku. Každá hranice je vrácena pouze jednou.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Hlavička odpovědi.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Odpoved" type="CtiHraniceKatUzemiOdpovedType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Hranice katastrálních území.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CtiHraniceKatUzemiDotazType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Parametry dotazu na hranice katastrálních území.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="SeznamKatUzemi" type="SeznamKatUzemiType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Seznam kódů katastrálních území ke kterým jsou hranice požadovány.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CtiHraniceKatUzemiOdpovedType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam hranic katastrálních území.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="HraniceKatUzemi" type="HraniceKatUzemiType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Hranice katastrálního území.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SeznamKatUzemiType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam kódů katastrálních území ke kterým jsou hranice požadovány.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod6Type" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód katastrálního území ke kterému je požadována hranice.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="CtiHraniceKatUzemiRequest" type="chku:CtiHraniceKatUzemiRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na hranice katastrálních území. 
+Dotaz vrací hranice katastrálních území. V případě dotazu na hranice katastrálních území, které spolu souvisí, je navrácena společná hranice vrácena pouze jednou.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="CtiHraniceKatUzemiResponse" type="chku:CtiHraniceKatUzemiResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpověď na dotaz na hranice katastrálních území. 
+V odpovědi jsou obsaženy všechny hranice ke katastrálním územím, jejichž kódy byly specifikovány v požadavku. Každá hranice je vrácena pouze jednou.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

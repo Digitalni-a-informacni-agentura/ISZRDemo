@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRuianCtiPrvekCastObce:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRuianCtiPrvekCastObce:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRuianCtiPrvekCastObce:v1"
+	xmlns:e35c="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekCastObce:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRuianCtiPrvekCastObce">
+
+	<wsdl:documentation>Služba E35c externího rozhraní - Načtení části obce z RUIAN. RUIAN služba A04, operace ctiCastObce.</wsdl:documentation>
+	
+	<!-- Vývojová verze 0.0.1, 24.06.2011, Aleš Teplý -->
+	<!-- Vývojová verze 0.0.2, 27.07.2011, Pavel Kirchner -->
+	<!-- Fixovaná verze 1.0.0, 26.10.2011, Aleš Teplý -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekCastObce:v1" schemaLocation="../xsd/IszrRuianCtiPrvekCastObce.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrRuianCtiPrvekCastObce">
+		<wsdl:part name="parametry" element="e35c:RuianCtiPrvekCastObce"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRuianCtiPrvekCastObceResponse">
+		<wsdl:part name="vysledek" element="e35c:RuianCtiPrvekCastObceResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRuianCtiPrvekCastObcePortType">
+		<wsdl:operation name="IszrRuianCtiPrvekCastObce">
+			<wsdl:input message="tns:IszrRuianCtiPrvekCastObce"/>
+			<wsdl:output message="tns:IszrRuianCtiPrvekCastObceResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRuianCtiPrvekCastObceBinding" type="tns:IszrRuianCtiPrvekCastObcePortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRuianCtiPrvekCastObce">
+			<soap:operation soapAction="IszrRuianCtiPrvekCastObce"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRuianCtiPrvekCastObceService">
+		<wsdl:port name="IszrRuianCtiPrvekCastObcePortService" binding="tns:IszrRuianCtiPrvekCastObceBinding">
+			<soap:address location="IszrRuianCtiPrvekCastObce"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:AdresniMistoPodminka:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:AdresniMistoPodminka:v1" xmlns:adPodm="urn:cz:isvs:ruian:schemas:AdresniMistoPodminka:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:so="urn:cz:isvs:ruian:schemas:StavebniObjekt:v1" xmlns:ul="urn:cz:isvs:ruian:schemas:Ulice:v1" elementFormDefault="qualified" version="0.40.0">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:Ulice:v1" schemaLocation="../../../ruian/xsd/prvky/Ulice.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:StavebniObjekt:v1" schemaLocation="../../../ruian/xsd/prvky/StavebniObjekt.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../ruian/xsd/typy/CommonTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:complexType name="AdresniMistoPodminkaType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Adresni misto</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod9Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="CisloDomovni" type="com:CisloDomovniType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="CisloOrientacni" type="com:CisloOrientacniType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="CisloOrientacniPismeno" type="com:CisloOrientacniPismenoType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Psc" type="com:PscType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="StavebniObjekt" type="so:StavebniObjektType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Ulice" type="ul:UliceType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRppVypisSeznamUdajuAgendy2:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRppVypisSeznamUdajuAgendy2:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRppVypisSeznamUdajuAgendy2:v1"
+	xmlns:e299="urn:cz:isvs:iszr:schemas:IszrRppVypisSeznamUdajuAgendy2:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRppVypisSeznamUdajuAgendy2">
+
+	<wsdl:documentation>Služba E299 externího rozhraní - RPP služba P98.</wsdl:documentation>
+
+	<!-- Výchozí verze 1.0.0, 13.12.2012, Aleš Teplý -->
+	<!-- Verze po revizi 1.1.0, 25.5.2022, Aleš Teplý, Response - AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRppVypisSeznamUdajuAgendy2:v1" schemaLocation="../xsd/IszrRppVypisSeznamUdajuAgendy2.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="IszrRppVypisSeznamUdajuAgendy2">
+		<wsdl:part name="parametry" element="e299:RppVypisSeznamUdajuAgendy2"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRppVypisSeznamUdajuAgendy2Response">
+		<wsdl:part name="vysledek" element="e299:RppVypisSeznamUdajuAgendy2Response"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRppVypisSeznamUdajuAgendy2PortType">
+		<wsdl:operation name="IszrRppVypisSeznamUdajuAgendy2">
+			<wsdl:input message="IszrRppVypisSeznamUdajuAgendy2"/>
+			<wsdl:output message="IszrRppVypisSeznamUdajuAgendy2Response"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRppVypisSeznamUdajuAgendy2Binding" type="tns:IszrRppVypisSeznamUdajuAgendy2PortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRppVypisSeznamUdajuAgendy2">
+			<soap:operation soapAction="IszrRppVypisSeznamUdajuAgendy2"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRppVypisSeznamUdajuAgendy2Service">
+		<wsdl:port name="IszrRppVypisSeznamUdajuAgendy2PortService" binding="tns:IszrRppVypisSeznamUdajuAgendy2Binding">
+			<soap:address location="IszrRppVypisSeznamUdajuAgendy2"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

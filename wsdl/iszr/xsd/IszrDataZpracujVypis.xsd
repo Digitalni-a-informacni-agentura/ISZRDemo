@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:iszr:schemas:IszrDataZpracujVypis:v1" xmlns:i16="urn:cz:isvs:iszr:schemas:IszrDataZpracujVypis:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:iszr="urn:cz:isvs:iszr:schemas:IszrTypy:v1" xmlns:iszd="urn:cz:isvs:iszr:schemas:IszrDotazyData:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" targetNamespace="urn:cz:isvs:iszr:schemas:IszrDataZpracujVypis:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.4.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">XML schéma s definicemi dat pro služby ISZR, interní služba ISZR I16.</xs:documentation>
+	</xs:annotation>
+	<!-- Vývojová verze 0.1.0, 09.03.2012 Aleš Teplý, výchozí verze -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- Verze pro revizi 1.1.1, 19.06.2012, Aleš Teplý, Zadatel nepovinný -->
+	<!-- Verze pro revizi 1.2.0, 16.05.2018, Pavel Odstrčil, přidán nepovinný FaisSeznamUdaju do IszrZpracujVypisData -->
+	<!-- Verze pro revizi 1.3.0, 30.01.2020, Pavel Odstrčil, FormularDokument zvysena nasobnost - z 1-1 na 1 az N -->
+	<!-- Verze pro revizi 1.4.0, 16.11.2021, Pavel Odstrčil, přidán nepovinný FaisUlozkaId -->
+	<!-- AutoCont CZ a.s. -->
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrTypy:v1" schemaLocation="IszrTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrDotazyData:v1" schemaLocation="IszrDotazyData.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="../../egon/xsd/IszrAbstract.xsd"/>
+	<!--  elementy -->
+	<xs:element name="IszrZpracujVypisData" type="IszrZpracujVypisDataType"/>
+	<xs:element name="IszrZpracujVypisDataResponse" type="IszrZpracujVypisDataResponseType"/>
+	<!-- typy -->
+	<xs:complexType name="IszrZpracujVypisDataType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba umožňuje přijmout definovanou žádost na vytvoření výpisu ve formě XML a vytvořit výpis vhodný pro technické zpracování a odpovídající PDF. Datová část Request.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Zadatel" type="ZadatelType" minOccurs="0"/>
+			<xs:element name="FormularData" type="iszr:FormularDataType"/>
+			<xs:element name="ManualniZpracovani" type="iszr:ManualniZpracovaniType" minOccurs="0"/>
+			<xs:element name="FaisSeznamUdaju" type="abs:ExtSeznamUdajuType" minOccurs="0"/>
+			<xs:element name="FaisMultiagenda" type="abs:ExtSeznamUdajuType" minOccurs="0"/>
+			<xs:element name="FaisUlozkaId" type="reg:UuidType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="IszrZpracujVypisDataResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba umožňuje přijmout definovanou žádost na vytvoření výpisu ve formě XML a vytvořit výpis vhodný pro technické zpracování a odpovídající PDF. Datová část Response.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="iszd:IszrDotazyDataResponseType">
+				<xs:sequence minOccurs="0">
+					<xs:element name="FormularOdpoved" type="iszr:FormularDataType"/>
+					<xs:element name="FormularDokument" type="iszr:BinarniDokumentType" minOccurs="1" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ZadatelType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Žadatel o výpis - AIFO nebo IČO.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="Aifo" type="reg:LokalniAifoType"/>
+			<xs:element name="Ico" type="reg:IcoType"/>
+		</xs:choice>
+	</xs:complexType>
+</xs:schema>

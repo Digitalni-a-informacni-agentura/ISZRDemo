@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:iszr:schemas:IszrAgendaCtiZmeny:v1" xmlns:e187="urn:cz:isvs:iszr:schemas:IszrAgendaCtiZmeny:v1" xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" xmlns:at="urn:cz:isvs:ais:schemas:AisTypy:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:cz:isvs:iszr:schemas:IszrAgendaCtiZmeny:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E187 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	<!-- Verze 1.0.0, 1.11.2014 Pavel Odstrčil -->
+	<!-- AutoCont CZ a.s. -->
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ais:schemas:AisTypy:v1" schemaLocation="../../ais/xsd/AisTypy.xsd"/>
+	<xs:element name="AgendaCtiZmeny" type="AgendaCtiZmenyType"/>
+	<xs:element name="AgendaCtiZmenyResponse" type="AgendaCtiZmenyResponseType"/>
+	<xs:complexType name="AgendaCtiZmenyType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba e187 externího rozhraní - typ pro žádost.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="AgendaCtiZmenyData" type="at:AgendaCtiZmenyDataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="AgendaCtiZmenyResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba e187 externího rozhraní - typ pro odpověď.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAifoAbstractType">
+				<xs:sequence>
+					<xs:element name="AisOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="AgendaCtiZmenyDataResponse" type="at:AgendaCtiZmenyDataResponseType" maxOccurs="unbounded"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

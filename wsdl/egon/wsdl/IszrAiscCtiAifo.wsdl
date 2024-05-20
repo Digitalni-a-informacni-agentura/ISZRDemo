@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrAiscCtiAifo:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrAiscCtiAifo:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrAiscCtiAifo:v1"
+	xmlns:e162="urn:cz:isvs:iszr:schemas:IszrAiscCtiAifo:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrAiscCtiAifo">
+
+	<wsdl:documentation>Služba E162 externího rozhraní - Služba umožňuje načítat z AIS CIS nereferenční údaje, které nejsou uloženy v ROB (služba AIS CIS C01). Služba vrací údaje pouze tehdy, pokud existuje záznam v ROB.</wsdl:documentation>
+
+	<!-- Katalog.7.4 verze 1.4.0, 31.10.2012 Aleš Teplý -->
+	<!-- Verze po revizi 1.4.2, 05.11.2012, ales.teply@autocont.cz, doplnění Zadost do Request -->
+	<!-- Verze po revizi 1.6.1, 7.4.2013, Aleš Teplý, změna Response: AdresniMisto a SkutecnyPobyt - DatumOd změněno z povinného na nepovinné -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrAiscCtiAifo:v1" schemaLocation="../xsd/IszrAiscCtiAifo.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="IszrAiscCtiAifo">
+		<wsdl:part name="parametry" element="e162:AiscCtiAifo"/>
+	</wsdl:message>
+	<wsdl:message name="IszrAiscCtiAifoResponse">
+		<wsdl:part name="vysledek" element="e162:AiscCtiAifoResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrAiscCtiAifoPortType">
+		<wsdl:operation name="IszrAiscCtiAifo">
+			<wsdl:input message="tns:IszrAiscCtiAifo"/>
+			<wsdl:output message="tns:IszrAiscCtiAifoResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrAiscCtiAifoBinding" type="tns:IszrAiscCtiAifoPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrAiscCtiAifo">
+			<soap:operation soapAction="IszrAiscCtiAifo"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrAiscCtiAifoService">
+		<wsdl:port name="IszrAiscCtiAifoPortService" binding="tns:IszrAiscCtiAifoBinding">
+			<soap:address location="IszrAiscCtiAifo"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRosZmenProvozovnu:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRosZmenProvozovnu:v1"
+	xmlns:e26="urn:cz:isvs:iszr:schemas:IszrRosZmenProvozovnu:v1"
+	xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:sed="urn:cz:isvs:ros:schemas:RosEditaceData:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.1.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E26 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vývojová verze 0.0.1, 08.06.2011, Aleš Teplý -->
+	<!-- Vývojová verze 0.0.2, 09.06.2011, Aleš Teplý IszrZadostAbstractType=>IszrZadostIdAdrAbstractType (přidání SeznamIdAdres) -->
+	<!-- Vývojová verze 0.0.3, 13.07.2011, Aleš Teplý, Response nemusí obsahovat data (async) -->
+	<!-- Vývojová verze 0.0.4, 21.07.2011, Aleš Teplý, ref na type (sjednocení), odstraneno PrvotniPlneni -->
+	<!-- Vývojová verze 0.0.5, 13.09.2011, Aleš Teplý, podadresáře registrů malými písmeny -->
+	<!-- Fixovaná verze 1.0.0, 18.09.2011, Aleš Teplý -->
+	<!-- Verze po revizi 1.0.1, 14.02.2012 Aleš Teplý, doplnění SeznamIdAdres do Response -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ros:schemas:RosEditaceData:v2" schemaLocation="../../ros/xsd/RosEditaceData.xsd"/>
+
+	<xs:element name="RosZmenProvozovnu" type="RosZmenProvozovnuType"/>
+	<xs:element name="RosZmenProvozovnuResponse" type="RosZmenProvozovnuResponseType"/>
+
+	<xs:complexType name="RosZmenProvozovnuType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E26 externího rozhraní - typ pro žádost. Změna záznamu provozovny (provozoven) v ROS - služba ROS S11. Služba provádí změnu údajů provozovny. Umožňuje změnu údajů jedné nebo více provozoven téže osoby. Typicky se mění "datum do" při zrušení provozovny, "datum od" a prázdné "datum do" při znovuotevření. V případě chybně zapsané adresy provozovny služba připouští i opravu adresy provozovny. Nelze měnit příslušnost provozovny k IČO, to se uvádí jen pro kontrolu.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostIdAdrAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RosZmenProvozovnuData" type="sed:RosZmenProvozovnuDataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="RosZmenProvozovnuResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E26 externího rozhraní - typ pro odpověď. Změna záznamu provozovny (provozoven) v ROS - služba ROS S11.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedIdAdrAbstractType">
+				<xs:sequence>
+					<xs:element name="RosOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RosZmenProvozovnuDataResponse" type="sed:RosZmenProvozovnuDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

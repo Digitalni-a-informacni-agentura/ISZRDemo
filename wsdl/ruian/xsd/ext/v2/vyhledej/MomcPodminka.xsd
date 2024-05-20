@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:MomcPodminka:v2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:MomcPodminka:v2" xmlns:mcPodm="urn:cz:isvs:ruian:schemas:MomcPodminka:v2" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:mp="urn:cz:isvs:ruian:schemas:ObvodPrahy:v2" xmlns:ob="urn:cz:isvs:ruian:schemas:Obec:v2" xmlns:sp="urn:cz:isvs:ruian:schemas:SpravniObvod:v2" xmlns:gml="http://www.opengis.net/gml/3.2" elementFormDefault="qualified" version="2.0.0">
+	<xs:import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../../../../common/gml/3.2.1/gml.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:SpravniObvod:v2" schemaLocation="../prvky/SpravniObvod.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:Obec:v2" schemaLocation="../prvky/Obec.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ObvodPrahy:v2" schemaLocation="../prvky/ObvodPrahy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../typy/BaseTypy.xsd"/>
+	<xs:complexType name="MomcPodminkaType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">MOMC</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod6Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Nazev" type="base:Nazev48Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ObvodPrahy" type="mp:ObvodPrahyType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Obec" type="ob:ObecType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="SpravniObvod" type="sp:SpravniObvodType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Ohrada" type="gml:MultiSurfacePropertyType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekOrp2:v1" 
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekOrp2:v1" 
+	xmlns:e249j="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekOrp2:v1" 
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:vyhOp="urn:cz:isvs:ruian:schemas:VyhledejOrp:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified" 
+	version="2.0.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E249j externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	
+	<!-- Výchozí verze 2.0.0, 29.09.2020 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:VyhledejOrp:v2" schemaLocation="ref/RuianVyhledejPrvekOrp2.xsd"/>
+	
+	<xs:element name="RuianVyhledejPrvekOrp2" type="RuianVyhledejPrvekOrp2Type"/>
+	<xs:element name="RuianVyhledejPrvekOrp2Response" type="RuianVyhledejPrvekOrp2ResponseType"/>
+	
+	<xs:complexType name="RuianVyhledejPrvekOrp2Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E249j externího rozhraní - žádost. Vyhledání ORP z RUIAN. RUIAN služba, operace VyhledejOrp.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+		 						<xs:element name="RuianVyhledejPrvekOrp2Data" type="vyhOp:VyhledejOrpDotazType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="RuianVyhledejPrvekOrp2ResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E249j externího rozhraní - odpověď. Vyhledání ORP z RUIAN. RUIAN služba, operace VyhledejOrp.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="RuianOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianVyhledejPrvekOrp2DataResponse">
+									<xs:complexType>
+										<xs:sequence>
+										  <xs:element ref="vyhOp:Orp"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

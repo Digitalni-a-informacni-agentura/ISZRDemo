@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:iszr:schemas:IszrPodejMapaAifo:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" xmlns:i26="urn:cz:isvs:iszr:schemas:IszrDataPodejMapaAifo:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:cz:isvs:iszr:schemas:IszrPodejMapaAifo:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.1.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">XML schéma s definicemi datových prvků ISZR. Služba E176 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	<!-- Vývojová verze 0.1.0, 19.11.2013, Pavel Odstrčil, vznik -->
+	<!-- AutoCont CZ a.s. -->
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrDataPodejMapaAifo:v1" schemaLocation="../../iszr/xsd/IszrDataPodejMapaAifo.xsd"/>
+	<xs:element name="IszrPodejMapaAifo" type="IszrPodejMapaAifoType"/>
+	<xs:element name="IszrPodejMapaAifoResponse" type="IszrPodejMapaAifoResponseType"/>
+	<xs:complexType name="IszrPodejMapaAifoType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E176 externího rozhraní - typ pro žádost. Služba umožňuje získat přeloženou mapu AIFO pro volající AIS.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAsyncAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost" minOccurs="1">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IszrPodejMapaAifoData" type="i26:IszrPodejMapaAifoDataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="IszrPodejMapaAifoResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E176 externího rozhraní - typ pro odpověď. Služba umožňuje získat přeloženou mapu AIFO pro volající AIS.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAifoAbstractType">
+				<xs:sequence>
+					<xs:element name="IszrOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IszrPodejMapaAifoDataResponse" type="i26:IszrPodejMapaAifoDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

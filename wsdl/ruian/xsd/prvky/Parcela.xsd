@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:Parcela:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:Parcela:v1" xmlns:pa="urn:cz:isvs:ruian:schemas:Parcela:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:ku="urn:cz:isvs:ruian:schemas:KatastralniUzemi:v1" elementFormDefault="qualified" version="0.40.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Aplikační schéma Parcela obsahuje prvek typu: Parcela se základními elementy a bez geometrie. </xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:KatastralniUzemi:v1" schemaLocation="../../../ruian/xsd/prvky/KatastralniUzemi.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../ruian/xsd/typy/CommonTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:group name="ParcelaGroup">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Základní elementy prvku Parcela.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Id" type="base:Id18Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Nespravny" type="com:NespravnyType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="KmenoveCislo" type="com:KmenoveCisloType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PododdeleniCisla" type="com:PoddeleniCislaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="VymeraParcely" type="com:VymeraType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ZpusobyVyuzitiPozemku" type="base:Kod4Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="DruhCislovaniKod" type="base:Kod2Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="DruhPozemkuKod" type="base:Kod2Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="KatastralniUzemi" type="ku:KatastralniUzemiType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:group>
+	<xs:element name="Parcela" type="pa:ParcelaType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Prvek představuje pozemek v podobě parcely.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="ParcelaType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Prvek Parcela se základními elementy a bez geometrie.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:group ref="ParcelaGroup" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

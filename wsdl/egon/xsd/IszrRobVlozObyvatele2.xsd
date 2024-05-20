@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRobVlozObyvatele2:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRobVlozObyvatele2:v1"
+	xmlns:e274="urn:cz:isvs:iszr:schemas:IszrRobVlozObyvatele2:v1"
+	xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:roe="urn:cz:isvs:rob:schemas:RobEditaceData:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.0.1">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E274 externího rozhraní - založí záznam fyz.osoby do ROB.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Výchozí verze 1.0.0, 12.8.2021, Aleš Teplý -->
+	<!-- Verze po revizi 1.0.1, 15.10.2021, Aleš Teplý, přidává možnou hodnotu u nepovinného elementu Request (RodinnyStavPartnerstviType) -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstractOrg.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rob:schemas:RobEditaceData:v1" schemaLocation="../../rob/xsd/RobEditaceData.xsd"/>
+
+	<xs:element name="RobVlozObyvatele2" type="RobVlozObyvatele2Type"/>
+	<xs:element name="RobVlozObyvatele2Response" type="RobVlozObyvatele2ResponseType"/>
+
+	<xs:complexType name="RobVlozObyvatele2Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E274 externího rozhraní - typ pro žádost. Služba zakládá nový záznam fyzické osoby v ROB - služba ROB. AIFO a vkládané referenční údaje (adresní údaje na území ČR formou referenčních odkazů do RUIAN). Referenční údaj obsahuje hodnotu údaje a atribut správnosti, popř. dostupnosti.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAifoIdAdrAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RobVlozObyvatele2Data" type="roe:RobVlozObyvatele2DataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="RobVlozObyvatele2ResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E274 externího rozhraní - typ pro odpověď. AIFO, identifikátor změny a status</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAifoStIdAdrAbstractType">
+				<xs:sequence>
+					<xs:element name="RobOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RobVlozObyvatele2DataResponse" type="roe:RobVlozObyvateleDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

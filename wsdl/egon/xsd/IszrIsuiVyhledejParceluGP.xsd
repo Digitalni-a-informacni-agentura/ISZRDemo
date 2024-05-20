@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:iszr:schemas:IszrIsuiVyhledejParceluGP:v1" xmlns:e234="urn:cz:isvs:iszr:schemas:IszrIsuiVyhledejParceluGP:v1" xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" xmlns:rt="urn:cz:isvs:isui:schemas:VyhledejParceluGPTypy:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:cz:isvs:iszr:schemas:IszrIsuiVyhledejParceluGP:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E234 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	<!-- Vznik, 1.0.0, 25.10.2018 -->
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:isui:schemas:VyhledejParceluGPTypy:v1" schemaLocation="ref/IsuiVyhledejParceluGP.xsd"/>
+	<xs:element name="IsuiVyhledejParceluGP" type="IsuiVyhledejParceluGPType"/>
+	<xs:element name="IsuiVyhledejParceluGPResponse" type="IsuiVyhledejParceluGPResponseType"/>
+	<xs:complexType name="IsuiVyhledejParceluGPType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">
+        Služba E234 externího rozhraní - žádost. 
+        Služba ISUI, na základě přirozené identifikace parcely
+        vrátí seznam odpovídajících parcel. ISUI služba A32.
+      </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IsuiVyhledejParceluGPData" type="rt:VyhledejParceluGPDotazType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="IsuiVyhledejParceluGPResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">
+        Služba E234 externího rozhraní - odpověď.
+        Služba ISUI, na základě přirozené identifikace parcely
+        vrátí seznam odpovídajících parcel. ISUI služba A32.
+      </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="IsuiOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IsuiVyhledejParceluGPDataResponse">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element ref="rt:Parcely"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRobVydejDat:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRobVydejDat:v1"
+	xmlns:e165="urn:cz:isvs:iszr:schemas:IszrRobVydejDat:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:rod="urn:cz:isvs:rob:schemas:RobDotazyDataInt:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.4.4">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E165 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Katalog.7 verze 1.1.0, 25.03.2012 Pavel Odstrcil -->
+	<!-- Verze po revizi 1.4.4, 23.10.2013, Aleš Teplý, Request rozšířen o nepovinné KriteriaVolby -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstractOrg.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rob:schemas:RobDotazyDataInt:v1" schemaLocation="../../rob/xsd/RobDotazyDataInt.xsd"/>
+
+	<xs:element name="RobVydejDat" type="RobVydejDatType"/>
+	<xs:element name="RobVydejDatResponse" type="RobVydejDatResponseType"/>
+
+	<xs:complexType name="RobVydejDatType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E165 externího rozhraní - typ pro žádost. Služba ROB O21. Služba výdeje dat. Omezené použití pro specifické subjekty.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RobVydejDatData" type="rod:RobVydejDatDataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RobVydejDatResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E165 externího rozhraní - typ pro odpověď.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="RobOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RobVydejDatDataResponse" type="rod:RobVydejDatDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

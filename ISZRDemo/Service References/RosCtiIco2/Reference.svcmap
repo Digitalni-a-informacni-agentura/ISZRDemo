@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="806185b6-e7fc-4725-ae7e-cfaedfdaf123" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost/xsddef/egon/wsdl/IszrRosCtiIco2.wsdl" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="IszrAbstract.xsd" MetadataType="Schema" ID="772380f0-2acc-4fd3-a524-c522522332e7" SourceId="1" SourceUrl="http://localhost/xsddef/egon/xsd/IszrAbstract.xsd" />
+    <MetadataFile FileName="CtiProRob.xsd" MetadataType="Schema" ID="8e15a35f-914a-4bbe-9069-231a25c66c58" SourceId="1" SourceUrl="http://localhost/xsddef/ruian/xsd/ext/v2/cti_pro_rob/CtiProRob.xsd" />
+    <MetadataFile FileName="RuianCtiProRob2.xsd" MetadataType="Schema" ID="1f5c29a0-ffe9-47c0-b800-e3e59f30ad2f" SourceId="1" SourceUrl="http://localhost/xsddef/egon/xsd/ref/RuianCtiProRob2.xsd" />
+    <MetadataFile FileName="CtiAdresa.xsd" MetadataType="Schema" ID="dca52363-43c8-402f-8773-5609caf4bbcf" SourceId="1" SourceUrl="http://localhost/xsddef/ruian/xsd/cti/CtiAdresa.xsd" />
+    <MetadataFile FileName="CtiProRob1.xsd" MetadataType="Schema" ID="3a05abd9-28b4-4ee9-a2c5-66346bc1e49d" SourceId="1" SourceUrl="http://localhost/xsddef/ruian/xsd/cti_pro_rob/CtiProRob.xsd" />
+    <MetadataFile FileName="RobTypy.xsd" MetadataType="Schema" ID="09a10ec7-dba9-4139-8112-3991e2c27572" SourceId="1" SourceUrl="http://localhost/xsddef/rob/xsd/RobTypy.xsd" />
+    <MetadataFile FileName="RegTypy.xsd" MetadataType="Schema" ID="7d7bd918-4974-45ff-a987-0dba9a62bb4d" SourceId="1" SourceUrl="http://localhost/xsddef/RegTypy.xsd" />
+    <MetadataFile FileName="RosTypy.xsd" MetadataType="Schema" ID="51f9f395-32b4-4521-849f-bd7b2ec45222" SourceId="1" SourceUrl="http://localhost/xsddef/ros/xsd/RosTypy.xsd" />
+    <MetadataFile FileName="RosDotazyData.xsd" MetadataType="Schema" ID="65b936d8-af9d-4194-9185-624ada857eb4" SourceId="1" SourceUrl="http://localhost/xsddef/ros/xsd/RosDotazyData.xsd" />
+    <MetadataFile FileName="XopInclude.xsd" MetadataType="Schema" ID="da8768e0-0a1e-4344-85e7-6e083650f57b" SourceId="1" SourceUrl="http://localhost/xsddef/XopInclude.xsd" />
+    <MetadataFile FileName="IszrRosCtiIco2.xsd" MetadataType="Schema" ID="e15c740b-5b01-41a0-87a9-0f5002b9f8a4" SourceId="1" SourceUrl="http://localhost/xsddef/egon/xsd/IszrRosCtiIco2.xsd" />
+    <MetadataFile FileName="RuianCtiProRob.xsd" MetadataType="Schema" ID="cc06c3f9-cd5d-4751-bc78-eb37980b82e4" SourceId="1" SourceUrl="http://localhost/xsddef/egon/xsd/ref/RuianCtiProRob.xsd" />
+    <MetadataFile FileName="IszrRosCtiIco2.wsdl" MetadataType="Wsdl" ID="5938afa2-9504-492f-ad57-b2bb1970188c" SourceId="1" SourceUrl="http://localhost/xsddef/egon/wsdl/IszrRosCtiIco2.wsdl" />
+    <MetadataFile FileName="OrgTypy.xsd" MetadataType="Schema" ID="40a45d08-f3b4-4e83-a258-296896fa653a" SourceId="1" SourceUrl="http://localhost/xsddef/org/xsd/OrgTypy.xsd" />
+    <MetadataFile FileName="CtiAdresa1.xsd" MetadataType="Schema" ID="d199d3c1-8dd1-47d1-9b94-74f981c451a7" SourceId="1" SourceUrl="http://localhost/xsddef/ruian/xsd/ext/v2/cti/CtiAdresa.xsd" />
+    <MetadataFile FileName="IszrAbstractOrg.xsd" MetadataType="Schema" ID="d4bfa876-5fa0-4729-a245-6137aebb3d12" SourceId="1" SourceUrl="http://localhost/xsddef/egon/xsd/IszrAbstractOrg.xsd" />
+    <MetadataFile FileName="RosDotazyTypy.xsd" MetadataType="Schema" ID="26c8d92e-f90c-4587-8ee4-db36b091466c" SourceId="1" SourceUrl="http://localhost/xsddef/ros/xsd/RosDotazyTypy.xsd" />
+    <MetadataFile FileName="CommonTypy.xsd" MetadataType="Schema" ID="5405675f-de2e-4b12-9a27-3aaca6dc8f0c" SourceId="1" SourceUrl="http://localhost/xsddef/ruian/xsd/typy/CommonTypy.xsd" />
+    <MetadataFile FileName="OrgStatus.xsd" MetadataType="Schema" ID="25941a4d-93b2-47d4-b7e8-95ccc8a01e08" SourceId="1" SourceUrl="http://localhost/xsddef/egon/xsd/ref/OrgStatus.xsd" />
+    <MetadataFile FileName="BaseTypy.xsd" MetadataType="Schema" ID="f82f0567-4a85-49f0-a9fa-ece62ddfaedc" SourceId="1" SourceUrl="http://localhost/xsddef/ruian/xsd/typy/BaseTypy.xsd" />
+    <MetadataFile FileName="RosEditaceTypy.xsd" MetadataType="Schema" ID="c241d9b2-97dd-47bd-bd60-763cbc5908f4" SourceId="1" SourceUrl="http://localhost/xsddef/ros/xsd/RosEditaceTypy.xsd" />
+    <MetadataFile FileName="RobDotazyData.xsd" MetadataType="Schema" ID="40df78ec-59d7-4c02-b81d-53ddbf669cdb" SourceId="1" SourceUrl="http://localhost/xsddef/rob/xsd/RobDotazyData.xsd" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

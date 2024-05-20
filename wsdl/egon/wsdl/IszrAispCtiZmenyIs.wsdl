@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns="urn:cz:isvs:iszr:services:IszrAispCtiZmenyIs:v1" xmlns:tns="urn:cz:isvs:iszr:services:IszrAispCtiZmenyIs:v1" xmlns:e237="urn:cz:isvs:iszr:schemas:IszrAispCtiZmenyIs:v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" name="IszrAispCtiZmenyIs" targetNamespace="urn:cz:isvs:iszr:services:IszrAispCtiZmenyIs:v1">
+	<wsdl:documentation>Služba E237 externího rozhraní - Služba umožňuje načítat z AISP nereferenční údaje o změnách AIS.</wsdl:documentation>
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrAispCtiZmenyIs:v1" schemaLocation="../xsd/IszrAispCtiZmenyIs.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrAispCtiZmenyIs">
+		<wsdl:part name="parametry" element="e237:AispCtiZmenyIs"/>
+	</wsdl:message>
+	<wsdl:message name="IszrAispCtiZmenyIsResponse">
+		<wsdl:part name="vysledek" element="e237:AispCtiZmenyIsResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrAispCtiZmenyIsPortType">
+		<wsdl:operation name="IszrAispCtiZmenyIs">
+			<wsdl:input message="tns:IszrAispCtiZmenyIs"/>
+			<wsdl:output message="tns:IszrAispCtiZmenyIsResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrAispCtiZmenyIsBinding" type="tns:IszrAispCtiZmenyIsPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrAispCtiZmenyIs">
+			<soap:operation soapAction="IszrAispCtiZmenyIs"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrAispCtiZmenyIsService">
+		<wsdl:port name="IszrAispCtiZmenyIsPortService" binding="tns:IszrAispCtiZmenyIsBinding">
+			<soap:address location="IszrAispCtiZmenyIs"/>
+		</wsdl:port>
+	</wsdl:service>
+	<!-- Vznik 1.0.0, 07.01.2019, Pavel Odstrcil -->
+	<!-- AutoCont CZ a.s. -->
+</wsdl:definitions>

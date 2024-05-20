@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrAsyncVypisFronty:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrAsyncVypisFronty:v1"
+	xmlns:vypf="urn:cz:isvs:iszr:schemas:IszrAsyncVypisFronty:v1"
+	xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.1.0">
+	
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Výpis fronty s výsledky asynchronních volání.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vývojová verze 0.0.01, 27.06.2011, Aleš Teplý, vznik rozdělením IszrFronta -->
+	<!-- Vývojová verze 0.0.02, 13.07.2011, Aleš Teplý, Response nemusí obsahovat data (async) -->
+	<!-- Vývojová verze 0.0.03, 29.07.2011, Aleš Teplý, možnost omezení velikosti Response, přidáno IdTransakce, CasVytvoreni -->
+	<!-- Vývojová verze 0.0.04, 02.08.2011, Aleš Teplý, rozepsání typů, komentáře -->
+  <!-- Vývojová verze 0.0.05, 07.09.2011, Aleš Teplý, request dle IszrZadostAsyncAbstractType -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+
+	<xs:element name="IszrAsyncVypisFronty" type="IszrAsyncVypisFrontyType"/>
+	<xs:element name="IszrAsyncVypisFrontyResponse" type="IszrAsyncVypisFrontyResponseType"/>
+
+	<xs:complexType name="IszrAsyncVypisFrontyType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na výpis fronty.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAsyncAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IszrAsyncVypisFrontyData" type="OmezeniVypisuType" />
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="IszrAsyncVypisFrontyResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved na výpis fronty. Vrací seznam položek.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="IszrOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IszrAsyncVypisFrontyDataResponse">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element name="IszrAplikacniStatus" type="PokracovaniVypisuType" />
+											<xs:element name="PolozkyFronty">
+												<xs:complexType>
+													<xs:sequence>
+														<xs:element name="PolozkaFronty" type="abs:PolozkaFrontyType" minOccurs="0" maxOccurs="unbounded"/>
+													</xs:sequence>
+												</xs:complexType>
+											</xs:element>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+  <xs:complexType name="OmezeniVypisuType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Omezení výpisu fronty. Od zadaného IdTransakce včetně a od času vytvoření odpovědi včetně. Pokud jsou zadány obě hodnoty, jsou vraceny záznamy vyhovující oběma podmínkám současně (logické AND).</xs:documentation>
+    </xs:annotation>
+		<xs:sequence>
+			<xs:element name="IdTransakceOd" type="IdTransakceType" minOccurs="0"/>
+			<xs:element name="CasVytvoreniOd" type="reg:CasovaZnackaType" minOccurs="0"/>
+		</xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PokracovaniVypisuType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Indikace pokračování výpisu. Hodnota VypisPokracuje=true signalizuje neúplnost výpisu, pro kompletaci výpisu je třeba použít další volání služby. Hodnoty NasledujiciIdTransakce a NasledujiciCasVytvoreni je možné použít jako parametry pro pokračování výpisu.</xs:documentation>
+    </xs:annotation>
+		<xs:sequence>
+			<xs:element name="VypisPokracuje" type="xs:boolean"/>
+			<xs:element name="NasledujiciIdTransakce" type="IdTransakceType" minOccurs="0"/>
+			<xs:element name="NasledujiciCasVytvoreni" type="reg:CasovaZnackaType" minOccurs="0"/>
+		</xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="IdTransakceType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Identifikace transakce ISZR, její pořadové číslo.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:unsignedLong"/>
+  </xs:simpleType>
+
+</xs:schema>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:iszr:schemas:IszrIsknCtiVlastniky2:v1" xmlns:e238="urn:cz:isvs:iszr:schemas:IszrIsknCtiVlastniky2:v1" xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" xmlns:ctiVl="urn:cz:isvs:iskn:schemas:CtiVlastniky:v2" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:cz:isvs:iszr:schemas:IszrIsknCtiVlastniky2:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E238 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	<!-- Verze 1.0.0, 10.01.2019, AC -->
+	<!-- AutoCont CZ a.s. -->
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iskn:schemas:CtiVlastniky:v2" schemaLocation="../../iskn/xsd/cti_vlastniky/CtiVlastniky2.xsd"/>
+	<xs:element name="IsknCtiVlastniky2" type="IsknCtiVlastniky2Type"/>
+	<xs:element name="IsknCtiVlastniky2Response" type="IsknCtiVlastniky2ResponseType"/>
+	<xs:complexType name="IsknCtiVlastniky2Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E238 externího rozhraní - žádost.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IsknCtiVlastniky2Data" type="ctiVl:CtiVlastnikyDotazType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="IsknCtiVlastniky2ResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E238 externího rozhraní - odpověď.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="IsknOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IsknCtiVlastniky2DataResponse" type="ctiVl:CtiVlastnikyOdpovedType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

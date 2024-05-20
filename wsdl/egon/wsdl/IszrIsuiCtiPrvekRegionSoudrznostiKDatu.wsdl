@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrIsuiCtiPrvekRegionSoudrznostiKDatu:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrIsuiCtiPrvekRegionSoudrznostiKDatu:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrIsuiCtiPrvekRegionSoudrznostiKDatu:v1"
+	xmlns:e67m="urn:cz:isvs:iszr:schemas:IszrIsuiCtiPrvekRegionSoudrznostiKDatu:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrIsuiCtiPrvekRegionSoudrznostiKDatu">
+
+	<wsdl:documentation>Služba E67M externího rozhraní.</wsdl:documentation>
+
+	<!-- Vývojová verze 0.0.1, 10.2.2011, Jan Sluka -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrIsuiCtiPrvekRegionSoudrznostiKDatu:v1" schemaLocation="../xsd/IszrIsuiCtiPrvekRegionSoudrznostiKDatu.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="IszrIsuiCtiPrvekRegionSoudrznostiKDatu">
+		<wsdl:part name="parametry" element="e67m:IsuiCtiPrvekRegionSoudrznostiKDatu"/>
+	</wsdl:message>
+	<wsdl:message name="IszrIsuiCtiPrvekRegionSoudrznostiKDatuResponse">
+		<wsdl:part name="vysledek" element="e67m:IsuiCtiPrvekRegionSoudrznostiKDatuResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrIsuiCtiPrvekRegionSoudrznostiKDatuPortType">
+		<wsdl:operation name="IszrIsuiCtiPrvekRegionSoudrznostiKDatu">
+			<wsdl:input message="IszrIsuiCtiPrvekRegionSoudrznostiKDatu"/>
+			<wsdl:output message="IszrIsuiCtiPrvekRegionSoudrznostiKDatuResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrIsuiCtiPrvekRegionSoudrznostiKDatuBinding" type="tns:IszrIsuiCtiPrvekRegionSoudrznostiKDatuPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrIsuiCtiPrvekRegionSoudrznostiKDatu">
+			<soap:operation soapAction="IszrIsuiCtiPrvekRegionSoudrznostiKDatu"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrIsuiCtiPrvekRegionSoudrznostiKDatuService">
+		<wsdl:port name="IszrIsuiCtiPrvekRegionSoudrznostiKDatuPortService" binding="tns:IszrIsuiCtiPrvekRegionSoudrznostiKDatuBinding">
+			<soap:address location="IszrIsuiCtiPrvekRegionSoudrznostiKDatu"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

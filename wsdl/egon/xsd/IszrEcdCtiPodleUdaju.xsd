@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrEcdCtiPodleUdaju:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrEcdCtiPodleUdaju:v1"
+	xmlns:e195="urn:cz:isvs:iszr:schemas:IszrEcdCtiPodleUdaju:v1"
+	xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:z4="urn:cz:isvs:aisecd:schemas:AisEcdCtiAifo:v2"
+	xmlns:z6="urn:cz:isvs:aisecd:schemas:AisEcdCtiPodleUdaju:v2"
+	xmlns:rod="urn:cz:isvs:rob:schemas:RobDotazyData:v1"
+	xmlns:crob2="urn:cz:isvs:ruian:schemas:CtiProRob:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="2.1.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E195 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vznik verze 1.0.0, Pavel Odstrcil -->
+	<!-- Verze pro revizi 1.9.3, 13.11.2015, ales.teply@autocont.cz, Úprava Response: volitelné subelementy CestovniDokladKompletniUdaje jsou nyní nillable="true", prázdná hodnota je vracena jako xsi:nil -->
+	<!-- Verze pro revizi 2.0.0, 13.11.2018, ales.teply@autocont.cz, změna namespace importovaného xsd urn:cz:isvs:ais3:schemas:Ais3EcdCtiPodleUdaju:v1 na urn:cz:isvs:aisecd:schemas:AisEcdCtiPodleUdaju:v2, urn:cz:isvs:ais3:schemas:Ais3EcdCtiAifo:v1 na urn:cz:isvs:aisecd:schemas:AisEcdCtiAifo:v2 a úložiště /ais3 na /aisecd -->
+	<!-- Verze 2.0.1, 18.3.2019, ales.teply@autocont.cz, Úprava EcdOdpoved: AisAplikacniStatus-NevydanaPolozka -->
+	<!-- Verze po revizi 2.0.2, 14.10.2020, Aleš Teplý, RuianCtiProRobDataResponse v1 i v2 -->
+	<!-- Verze po revizi 2.1.0, 13.8.2021, Aleš Teplý, rozšíření struktury Response ROB v2.0.0, aplikačně zatím omezeno na kompatibilitu s ROB v1.0.9 -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstractOrg.xsd"/>
+	<xs:import namespace="urn:cz:isvs:aisecd:schemas:AisEcdCtiPodleUdaju:v2" schemaLocation="../../aisecd/xsd/AisEcdCtiPodleUdaju.xsd"/>
+	<xs:import namespace="urn:cz:isvs:aisecd:schemas:AisEcdCtiAifo:v2" schemaLocation="../../aisecd/xsd/AisEcdCtiAifo.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rob:schemas:RobDotazyData:v1" schemaLocation="../../rob/xsd/RobDotazyData.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiProRob:v2" schemaLocation="ref/RuianCtiProRob2.xsd"/>
+	<xs:element name="EcdCtiPodleUdaju" type="EcdCtiPodleUdajuType"/>
+	<xs:element name="EcdCtiPodleUdajuResponse" type="EcdCtiPodleUdajuResponseType"/>
+	<xs:complexType name="EcdCtiPodleUdajuType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E195 externího rozhraní - typ pro žádost. Služba umožňuje umožňuje vyhledávat v ECD nereferenční údaje, které nejsou uloženy v ROB.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="AisEcdCtiPodleUdajuData" type="z6:AisEcdCtiPodleUdajuDotazDataType" minOccurs="0"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="EcdCtiPodleUdajuResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E195 externího rozhraní - typ pro odpověď. Služba umožňuje vyhledávat v ECD nereferenční údaje, které nejsou uloženy v ROB (služba AIS ECD z6). Služba vrací údaje pouze tehdy, pokud existuje záznam v ROB.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAifoStIdAdrAbstractType">
+				<xs:sequence>
+					<xs:element name="EcdOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="EcdCtiPodleUdajuDataResponse" type="z6:AisEcdCtiPodleUdajuDataResponseType"/>
+								<xs:element name="EcdCtiAifoDataResponse" type="z4:AisEcdCtiAifoDataResponseType" minOccurs="0"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="RobOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RobOverHromadneAifoDataResponse" type="rod:RobOverHromadneAifoDataResponseType" minOccurs="0"/>
+								<xs:element name="RobCtiAifoDataResponse" type="rod:RobCtiAifoDataResponseType" minOccurs="0"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="RuianOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianCtiProRobDataResponse" type="crob2:RuianCtiProRobDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:isui:schemas:CtiStavReklamace:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:isui:schemas:CtiStavReklamace:v1" xmlns:ctiStRe="urn:cz:isvs:isui:schemas:CtiStavReklamace:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:rcom="urn:cz:isvs:isui:schemas:ReklamaceCommon:v1" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:icom="urn:cz:isvs:isui:schemas:IsuiCommon:v1" elementFormDefault="qualified" version="1.0.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Typy pro zjištění stavu reklamace</xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="urn:cz:isvs:isui:schemas:IsuiCommon:v1" schemaLocation="../common/IsuiCommon.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../ruian/xsd/typy/CommonTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:isui:schemas:ReklamaceCommon:v1" schemaLocation="ReklamaceCommon.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../RegTypy.xsd"/>
+	<xs:complexType name="CtiStavReklamaceRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Požadavek na zjištění stavu reklamace</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Dotaz" type="CtiStavReklamaceDotazType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CtiStavReklamaceResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpověď na požadavek na zjištění stavu reklamace</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="StavReklamace" type="StavReklamaceType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CtiStavReklamaceDotazType">
+		<xs:sequence>
+			<xs:element name="Id" type="base:Id18Type" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="StavReklamaceType">
+		<xs:sequence>
+			<xs:element name="ReklamaceId" type="base:Id18Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="TypReklamaceKod" type="rcom:TypReklamaceKodType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="TypPrvkuKod" type="com:TypPrvkuType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PrvekKod" type="base:Kod30Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="OvmKod" type="icom:RegOvmZkratkaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="AgendaKod" type="icom:AgendaIsuiKodType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Resitel" type="base:Nazev50Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="VlozenoIsui" type="base:DatumCasType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="StavReklamaceKod" type="rcom:StavReklamaceKodType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="PoznamkaResitele" type="base:Text2000Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="NavrhZmenyId" type="base:Id18Type" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="CtiStavReklamaceRequest" type="ctiStRe:CtiStavReklamaceRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Požadavek na zjištění stavu reklamace</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="CtiStavReklamaceResponse" type="ctiStRe:CtiStavReklamaceResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpověď na požadavek na zjištění stavu reklamace</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

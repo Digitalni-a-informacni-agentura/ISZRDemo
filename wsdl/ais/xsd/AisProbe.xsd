@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:ais:schemas:AisProbe:v1" xmlns:x164="urn:cz:isvs:ais:schemas:AisProbe:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:aabs="urn:cz:isvs:ais:schemas:AisTypy:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:cz:isvs:ais:schemas:AisProbe:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.0.1">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Typy pro test dostupnosti rozhraní spolupracujících AIS využívaných ISZR</xs:documentation>
+	</xs:annotation>
+	<!-- Vývojová verze 0.0.1, 29.01.201ž, AutoContCZ -->
+	<!-- AutoCont CZ a.s. -->
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ais:schemas:AisTypy:v1" schemaLocation="AisTypy.xsd"/>
+	<xs:element name="AisProbe" type="AisProbeType"/>
+	<xs:element name="AisProbeResponse" type="AisProbeResponseType"/>
+	<xs:complexType name="AisProbeType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Žádost o test dostupnosti rozhraní spolupracujícího AIS.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="aabs:AisZadostAbstractType">
+				<xs:sequence/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="AisProbeResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpověď na žádost o test dostupnosti rozhraní spolupracujícího AIS.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="aabs:AisOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="AisOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="AisProbeDataResponse" type="AisProbeDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="AisProbeDataResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpověď na reklamaci.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedRozhrani" type="reg:OdpovedRozhraniType"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

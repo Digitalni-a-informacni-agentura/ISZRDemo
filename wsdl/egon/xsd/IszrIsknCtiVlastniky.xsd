@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:iszr:schemas:IszrIsknCtiVlastniky:v1" xmlns:e41="urn:cz:isvs:iszr:schemas:IszrIsknCtiVlastniky:v1" xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" xmlns:ctiVl="urn:cz:isvs:iskn:schemas:CtiVlastniky:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:cz:isvs:iszr:schemas:IszrIsknCtiVlastniky:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.1.2">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E41 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	<!-- Vývojová verze 0.0.1, 23.03.2012, Jan Sluka -->
+	<!-- Vývojová verze 0.0.2, 18.04.2012, Aleš Teplý, CtiVlastniciOdpovedType -> CtiVlastnikyOdpovedType -->
+	<!-- Katalog.7.2 verze 1.1.1, 28.06.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iskn:schemas:CtiVlastniky:v1" schemaLocation="../../iskn/xsd/cti_vlastniky/CtiVlastniky.xsd"/>
+	<xs:element name="IsknCtiVlastniky" type="IsknCtiVlastnikyType"/>
+	<xs:element name="IsknCtiVlastnikyResponse" type="IsknCtiVlastnikyResponseType"/>
+	<xs:complexType name="IsknCtiVlastnikyType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E41 externího rozhraní - žádost.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IsknCtiVlastnikyData" type="ctiVl:CtiVlastnikyDotazType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="IsknCtiVlastnikyResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E41 externího rozhraní - odpověď.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="IsknOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IsknCtiVlastnikyDataResponse" type="ctiVl:CtiVlastnikyOdpovedType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRosZapisPravniStav2:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRosZapisPravniStav2:v1"
+	xmlns:e255="urn:cz:isvs:iszr:schemas:IszrRosZapisPravniStav2:v1"
+	xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:sed="urn:cz:isvs:ros:schemas:RosEditaceData:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="2.0.1">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E255 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vývojová verze 2.0.0, 21.9.2020, Aleš Teplý -->
+	<!-- Vývojová verze 2.0.1, 12.10.2020, Aleš Teplý, přidání nillable=true k elementu StatutarniOrgany,
+		pridani novych chybovych statusu sluzby RosZapisPravniStav2 pro insolvencniho spravce -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstractOrg.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ros:schemas:RosEditaceData:v2" schemaLocation="../../ros/xsd/RosEditaceData.xsd"/>
+	<xs:element name="RosZapisPravniStav2" type="RosZapisPravniStav2Type"/>
+	<xs:element name="RosZapisPravniStav2Response" type="RosZapisPravniStav2ResponseType"/>
+	<xs:complexType name="RosZapisPravniStav2Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E255 externího rozhraní - typ pro žádost. Služba provádí zápis informace o právním stavu nebo zániku právního stavu do ROS. - služba ROS S17. Vstupní údaje (IČO, identifikátor poslední změny  a právní stav (hodnoty dle číselníku)).</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAifoIdAdrAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RosZapisPravniStav2Data" type="sed:RosZapisPravniStav2DataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RosZapisPravniStav2ResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E255 externího rozhraní - typ pro odpověď. Služba provádí zápis informace o právním stavu nebo zániku právního stavu do ROS - služba ROS S17. identifikátor změny, časový okamžik změny a status a výpis pro DS</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAifoStIdAdrAbstractType">
+				<xs:sequence>
+					<xs:element name="RosOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RosZapisPravniStav2DataResponse" type="sed:RosZapisPravniStav2DataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

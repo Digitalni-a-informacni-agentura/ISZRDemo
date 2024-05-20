@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:ZmenPrvekIskn:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:ZmenPrvekIskn:v1" xmlns:zpkn="urn:cz:isvs:ruian:schemas:ZmenPrvekIskn:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:zbpa="urn:cz:isvs:ruian:schemas:ZmenBonitovanyDilParcela:v1" xmlns:zdku="urn:cz:isvs:ruian:schemas:ZmenDefinicniBodKatastralniUzemi:v1" xmlns:zdpa="urn:cz:isvs:ruian:schemas:ZmenDefinicnyBodParcela:v1" xmlns:zhku="urn:cz:isvs:ruian:schemas:ZmenHraniceKatastralniUzemi:v1" xmlns:zppa="urn:cz:isvs:ruian:schemas:ZmenPolygonyParcela:v1" xmlns:zpso="urn:cz:isvs:ruian:schemas:ZmenPolygonyStavebniObjekt:v1" xmlns:zku="urn:cz:isvs:ruian:schemas:ZmenKatastralniUzemi:v1" xmlns:zpa="urn:cz:isvs:ruian:schemas:ZmenParcela:v1" xmlns:zpku="urn:cz:isvs:ruian:schemas:ZmenPolygonyKatastralniUzemi:v1" xmlns:zsokn="urn:cz:isvs:ruian:schemas:ZmenStavebniObjektIskn:v1" xmlns:zzpa="urn:cz:isvs:ruian:schemas:ZmenZpusobOchranyParcela:v1" xmlns:zzso="urn:cz:isvs:ruian:schemas:ZmenZpusobOchranyStavebniObjekt:v1" xmlns:zghku="urn:cz:isvs:ruian:schemas:ZmenGenHraniceKatastralniUzemi:v1" xmlns:zgpku="urn:cz:isvs:ruian:schemas:ZmenGenPolygonyKatastralniUzemi:v1" xmlns:znkn="urn:cz:isvs:ruian:schemas:ZmenNespravnostIskn:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" elementFormDefault="qualified" version="0.40.1">
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenNespravnostIskn:v1" schemaLocation="../../../ruian/xsd/editace_iskn/ZmenNespravnostIskn.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenGenPolygonyKatastralniUzemi:v1" schemaLocation="../../../ruian/xsd/editace_iskn/ZmenGenPolygonyKatastralniUzemi.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenGenHraniceKatastralniUzemi:v1" schemaLocation="../../../ruian/xsd/editace_iskn/ZmenGenHraniceKatastralniUzemi.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenZpusobOchranyStavebniObjekt:v1" schemaLocation="../../../ruian/xsd/editace_iskn/ZmenZpusobOchranyStavebniObjekt.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenZpusobOchranyParcela:v1" schemaLocation="../../../ruian/xsd/editace_iskn/ZmenZpusobOchranyParcela.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenStavebniObjektIskn:v1" schemaLocation="../../../ruian/xsd/editace_iskn/ZmenStavebniObjektIskn.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenPolygonyKatastralniUzemi:v1" schemaLocation="../../../ruian/xsd/editace_iskn/ZmenPolygonyKatastralniUzemi.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenParcela:v1" schemaLocation="../../../ruian/xsd/editace_iskn/ZmenParcela.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenKatastralniUzemi:v1" schemaLocation="../../../ruian/xsd/editace_iskn/ZmenKatastralniUzemi.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenPolygonyStavebniObjekt:v1" schemaLocation="../../../ruian/xsd/editace_iskn/ZmenPolygonyStavebniObjekt.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenPolygonyParcela:v1" schemaLocation="../../../ruian/xsd/editace_iskn/ZmenPolygonyParcela.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenHraniceKatastralniUzemi:v1" schemaLocation="../../../ruian/xsd/editace_iskn/ZmenHraniceKatastralniUzemi.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenDefinicnyBodParcela:v1" schemaLocation="../../../ruian/xsd/editace_iskn/ZmenDefinicnyBodParcela.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenDefinicniBodKatastralniUzemi:v1" schemaLocation="../../../ruian/xsd/editace_iskn/ZmenDefinicnyBodKatastralniUzemi.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenBonitovanyDilParcela:v1" schemaLocation="../../../ruian/xsd/editace_iskn/ZmenBonitovanyDilParcela.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../ruian/xsd/typy/CommonTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:complexType name="ZmenPrvkyISKNOdpovedType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved na zmenu prvku ISKN</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PlatiOd" type="base:DatumCasType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="IdTransakce" type="com:IdTransakceType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="GlobalniIdNavrhuZmeny" type="com:IdNavrhuZmenyType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ZmenPrvkyISKNRequest" type="zpkn:ZmenPrvkyISKNRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na zmeny prvku ISKN</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ZmenPrvkyISKNResponse" type="zpkn:ZmenPrvkyISKNResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved na zmenu prvku ISKN</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="PrvekEditaceISKNType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Editace prvku z ISKN</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="TypPrvku" type="TypPrvkuISKNType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="TypZmeny" type="com:TypZmenyPrvkuType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="BonitovanyDilParcela" type="zbpa:BonitovanyDilParcelaZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="DefinicniBodKatastralniUzemi" type="zdku:DefinicniBodKatUzemiZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="DefinicniBodParcela" type="zdpa:DefinicniBodParcelaZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="HraniceKatastralniUzemi" type="zhku:HraniceKatUzemiZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PolygonyParcela" type="zppa:PolygonyParcelaZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PolygonyStavebniObjekt" type="zpso:PolygonyStavObjektZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="KatastralniUzemi" type="zku:KatastralniUzemiZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Parcela" type="zpa:ParcelaZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PolygonyKatastralniUzemi" type="zpku:PolygonyKatUzemiZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="StavebniObjekt" type="zsokn:StavebniObjektIsknZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ZpusobOchranyParcela" type="zzpa:ZpusobOchranyParcelaZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ZpusobOchranyStavebniObjekt" type="zzso:ZpusobOchranySOZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="GenHraniceKatastralniUzemi" type="zghku:GenHraniceKatUzemiZmenaType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Generalizovane hranice KU.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GenPolygonyKatastralniUzemi" type="zgpku:GenPolygonyKatUzemiZmenaType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Generalizované polygony KU.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="EditaceISKNType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Editace z ISKN</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="GlobalniIdNavrhuZmeny" type="com:IdNavrhuZmenyType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="TypEditace" type="com:TypEditaceType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Prvky" type="PrvekListEditaceISKNType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Nespravnosti" type="znkn:NespravnostListISKNType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PrvekListEditaceISKNType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam editovanych prvku z ISKN</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Prvek" type="PrvekEditaceISKNType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="TypPrvkuISKNType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Typ prvku ISKN</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="BPA">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Bonitovany dil pozemku v podobe parcely</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="HKU">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Hranice uzemni katastralniho uzemi</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PSO">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Polygony stavebniho objektu</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DKU">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Definicni bod prehledove mapy katastralniho uzemi</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DPA">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Definicni bod katastralni mapy pro parcely</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PKU">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Polygony katastralniho uzemi</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PPA">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Polygony pozemku v podobe parcely</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="KU">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Katastralni uzemi</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PA">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Pozemek v podobe parcely</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SO">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Stavebni objekt</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ZPA">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Zpusob ochrany pozemku v podobe parcely</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ZSO">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Zpusob ochrany stavebniho objektu</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="GKU">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Generalizovane hranice uzemni katastralniho uzemi</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="IKU">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Generalizovane polygony katastralniho uzemi</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="ZmenPrvkyISKNRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na zmeny prvku ISKN</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Dotaz" type="EditaceISKNType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ZmenPrvkyISKNResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved na zmenu prvku ISKN</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Odpoved" type="ZmenPrvkyISKNOdpovedType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

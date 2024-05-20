@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrOrgSpojZifo:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrOrgSpojZifo:v1"
+	xmlns:e69="urn:cz:isvs:iszr:schemas:IszrOrgSpojZifo:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:ot="urn:cz:isvs:org:schemas:OrgTypy:v1"
+	xmlns:or="urn:cz:isvs:org:schemas:OrgRozhrani:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.1.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E69 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vývojová verze 0.0.01, 13.2.2012, Jan Sluka -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:org:schemas:OrgTypy:v1" schemaLocation="../../org/xsd/OrgTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:org:schemas:OrgRozhrani:v1" schemaLocation="ref/OrgStatus.xsd"/>
+
+	<xs:element name="OrgSpojZifo" type="OrgSpojZifoType"/>
+	<xs:element name="OrgSpojZifoResponse" type="OrgSpojZifoResponseType"/>
+
+	<xs:complexType name="OrgSpojZifoType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E69 externího rozhraní - typ pro žádost.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostRAifoAbstractType"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="OrgSpojZifoResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E69 externího rozhraní - typ pro odpověď.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAifoAbstractType">
+				<xs:sequence>
+					<xs:element name="OrgOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="OrgSpojZifoDataResponse">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element ref="or:OrgStatus"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

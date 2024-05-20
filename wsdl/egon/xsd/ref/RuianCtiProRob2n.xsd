@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:ruian:schemas:CtiProRob:v2"
+	xmlns="urn:cz:isvs:ruian:schemas:CtiProRob:v2"
+	xmlns:crob2="urn:cz:isvs:ruian:schemas:CtiProRob:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="2.0.1">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">CtiProRob rozsireni. Potrebny element do jmenneho prostoru RUIAN.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Výchozí verze 2.0.0, 14.10.2020 Aleš Teplý -->
+	<!-- Verze 2.0.1 po revizi, jen úprava formátu, 21.4.2022 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../RegTypy.xsd"/>
+	<xs:include schemaLocation="../../../ruian/xsd/ext/v2/cti_pro_rob/CtiProRob.xsd"/>
+
+	<xs:complexType name="RuianCtiProRobV2DataResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Typ pro seznam adres a lokalit. Pouze CtiProRob v2 (v1 uz neuvazuje).</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="SeznamAdres" type="crob2:SeznamAdresType" minOccurs="0"/>
+			<xs:element name="SeznamLokalit" type="crob2:SeznamLokalitType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+	targetNamespace="urn:cz:isvs:ruian:schemas:CtiZsj:v2" 
+	xmlns="urn:cz:isvs:ruian:schemas:CtiZsj:v2" 
+	xmlns:ctiPa="urn:cz:isvs:ruian:schemas:CtiZsj:v2"
+	xmlns:zjGml="urn:cz:isvs:ruian:schemas:ZsjGML:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified" 
+	version="2.0.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Rozšíření CtiZsj, definice potřebného elementu v namespace RUIAN.</xs:documentation>
+	</xs:annotation>
+	
+	<!-- Výchozí verze 2.0.0, 6.10.2020 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZsjGML:v2" schemaLocation="../../../ruian/xsd/ext/v2/prvky/ZsjGML.xsd"/>
+
+	<xs:element name="Zsj" type="zjGml:ZsjGMLType"/>
+
+</xs:schema>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:iszr:schemas:IszrDataZpracujFormular:v1" xmlns:i19="urn:cz:isvs:iszr:schemas:IszrDataZpracujFormular:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:iszr="urn:cz:isvs:iszr:schemas:IszrTypy:v1" xmlns:iszd="urn:cz:isvs:iszr:schemas:IszrDotazyData:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" targetNamespace="urn:cz:isvs:iszr:schemas:IszrDataZpracujFormular:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.2.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">XML schéma s definicemi dat pro služby ISZR, interní služba ISZR I19.</xs:documentation>
+	</xs:annotation>
+	<!-- Vývojová verze 0.1.0, 09.03.2012 Aleš Teplý, výchozí verze -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- Verze pro revizi 1.2.0, 16.11.2021, Pavel Odstrčil, přidán nepovinný FaisSeznamUdaju, FaisMultiAgenda, FaisUlozkaId -->
+	<!-- AutoCont CZ a.s. -->
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrTypy:v1" schemaLocation="IszrTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrDotazyData:v1" schemaLocation="IszrDotazyData.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="../../egon/xsd/IszrAbstract.xsd"/>
+	<!--  elementy -->
+	<xs:element name="IszrZpracujFormularData" type="IszrZpracujFormularDataType"/>
+	<xs:element name="IszrZpracujFormularDataResponse" type="IszrZpracujFormularDataResponseType"/>
+	<!-- typy -->
+	<xs:complexType name="IszrZpracujFormularDataType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba umožňuje podání obecného formuláře. Datová část Request.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="FormularData" type="iszr:FormularDataType"/>
+			<xs:element name="ManualniZpracovani" type="iszr:ManualniZpracovaniType" minOccurs="0"/>
+			<xs:element name="FaisSeznamUdaju" type="abs:ExtSeznamUdajuType" minOccurs="0"/>
+			<xs:element name="FaisMultiagenda" type="abs:ExtSeznamUdajuType" minOccurs="0"/>
+			<xs:element name="FaisUlozkaId" type="reg:UuidType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="IszrZpracujFormularDataResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba umožňuje podání obecného formuláře. Datová část Response.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="iszd:IszrDotazyDataResponseType">
+				<xs:sequence minOccurs="0">
+					<xs:element name="FormularOdpoved" type="iszr:FormularDataType"/>
+					<xs:element name="FormularDokument" type="iszr:BinarniDokumentType"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

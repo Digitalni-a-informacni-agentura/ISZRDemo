@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRobZrusSouhlasPoskytnuti:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRobZrusSouhlasPoskytnuti:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRobZrusSouhlasPoskytnuti:v1"
+	xmlns:e180="urn:cz:isvs:iszr:schemas:IszrRobZrusSouhlasPoskytnuti:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRobZrusSouhlasPoskytnuti">
+
+	<wsdl:documentation>Služba E180. Rušení záznamů o DS třetích stran, do kterých se při změně mají údaje odeslat.</wsdl:documentation>
+
+	<!-- Katalog.7.06 verze 1.6.1, 24.02.2014 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRobZrusSouhlasPoskytnuti:v1" schemaLocation="../xsd/IszrRobZrusSouhlasPoskytnuti.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="IszrRobZrusSouhlasPoskytnuti">
+		<wsdl:part name="parametry" element="e180:RobZrusSouhlasPoskytnuti"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRobZrusSouhlasPoskytnutiResponse">
+		<wsdl:part name="vysledek" element="e180:RobZrusSouhlasPoskytnutiResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRobZrusSouhlasPoskytnutiPortType">
+		<wsdl:operation name="IszrRobZrusSouhlasPoskytnuti">
+			<wsdl:input message="tns:IszrRobZrusSouhlasPoskytnuti"/>
+			<wsdl:output message="tns:IszrRobZrusSouhlasPoskytnutiResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRobZrusSouhlasPoskytnutiBinding" type="tns:IszrRobZrusSouhlasPoskytnutiPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRobZrusSouhlasPoskytnuti">
+			<soap:operation soapAction="IszrRobZrusSouhlasPoskytnuti"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRobZrusSouhlasPoskytnutiService">
+		<wsdl:port name="IszrRobZrusSouhlasPoskytnutiPortService" binding="tns:IszrRobZrusSouhlasPoskytnutiBinding">
+			<soap:address location="IszrRobZrusSouhlasPoskytnuti"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

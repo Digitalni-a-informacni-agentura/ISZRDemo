@@ -1,0 +1,730 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:ros:schemas:RosTypy:v2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" targetNamespace="urn:cz:isvs:ros:schemas:RosTypy:v2" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.0">
+    <xs:annotation>
+        <xs:documentation xml:lang="cs">Návrh XML schématu s definicemi společných datových prvků IS ROS.
+          Toto schéma obsahuje definice základních datových prvků používaných pro dotazy a odpovědi do registru 
+          osob (ROS).
+        </xs:documentation>
+    </xs:annotation>
+    <!-- Verze 1.0.0, 9.2.2012 -->
+    <xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+    <xs:simpleType name="KodPravnihoStavuType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Kód právního stavu v ROS.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:int">
+            <xs:minInclusive value="1"/>
+            <xs:maxInclusive value="99"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="NazevPravnihoStavuType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Název právního stavu v ROS.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="128"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="KodPravniFormyType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Kód právní formy osoby v ROS.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:int">
+            <xs:minInclusive value="100"/>
+            <xs:maxInclusive value="999"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="NazevPravniFormyType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Název právní formy v ROS.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="240"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="NazevOsobyType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Název osoby v ROS.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="2000"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="FoTextemType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Fyzická osoba (obyvatel) textem v ROS.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="256"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="AdresaTextemType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Zahraniční adresa osoby textem v ROS.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="1500"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="DatumZapisuRosType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Datum zápisu osoby do ROS.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:date"/>
+    </xs:simpleType>
+    <xs:simpleType name="DatumZmenyUdajuType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Datum poslední změny údajů osoby v ROS.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:date"/>
+    </xs:simpleType>
+    <xs:simpleType name="DatumVznikuOpravneniType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Datum vzniku oprávnění k činnosti osoby v agendě v ROS.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:date"/>
+    </xs:simpleType>
+    <xs:simpleType name="DatumZanikuOpravneniType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Datum zániku oprávnění k činnosti osoby v agendě v ROS.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:date"/>
+    </xs:simpleType>
+    <xs:simpleType name="DatumZahajeniCinnostiType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Datum zahájení provozování činnosti v provozovně v ROS.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:date"/>
+    </xs:simpleType>
+    <xs:simpleType name="DatumUkonceniCinnostiType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Datum ukončení provozování činnosti v provozovně v ROS.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:date"/>
+    </xs:simpleType>
+    <xs:simpleType name="ZmenaCasType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Datum a čas změny údaje osoby.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:CasovaZnackaType"/>
+    </xs:simpleType>
+    <xs:simpleType name="ZmenaIdType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Jednoznačný identifikátor změny údaje osoby.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:long"/>
+    </xs:simpleType>
+    <xs:simpleType name="VysledekSubKodRosType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Detailní kód výsledku, výčtový typ.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="CHYBA ROZSAHU">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Údaj na vstupu nevyhovuje povolené délce.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEPOVOLENA ZMENA PRAVNI FORMY">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Není povolena změna typu osoby právní formy.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="PREKROCEN POCET">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Překročen počet povolených záznamů.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="CHYBA SEZNAMU">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Některá IČO ze seznamu neexistují.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="CHYBA MAPA AIFO">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Neshoda mezi použitými AIFO v datové části a mapě nebo mapa chybí.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="CHYBA MAPA ADRES">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Neshoda mezi použitými kódy RUIAN v datové části a mapě nebo mapa chybí.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEIDENTIFIKOVANA ZADNA ZMENA">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Nebyla identifikována změna referenčních údajů.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEREGISTROVANO NA OVM">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Tato osoba v ROS nemá zapsánu registraci v dané agendě a OVM.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ICO CHYBA MODULO">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        IČO nevyhovuje algoritmu výpočtu MODULO ADDO 11.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ICO NEEXISTUJE">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        IČO není k dispozici (neexistuje nebo odepřen přístup).
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="PREKROCEN INTERNI PARAMETR">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Počet IČO v předaném seznamu přesahuje interní omezení pro službu.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ICO JIZ ZAPSANO">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Pro předané údaje byla již osoba do ROS dříve zapsána.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ICO PRIDELENO">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        IČO bylo rezervováno, osoba zatím nezapsána.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ICO HROMADNE PRIDELENO">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        IČO bylo hromadně přiděleno pro agendu.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ICO NEPRIDELENO">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        IČO nemůže být použito pro vložení osoby.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ZAPSANO VICE OSOB">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Pro předaný referenční údaj (název osoby nebo AIFO) jej iž v ROS zapsáno více osob.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ICP CHYBA MODULO">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        IČP nevyhovuje algoritmu výpočtu MODULO ADDO 11.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ICP NEEXISTUJE">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        IČP není k dispozici (neexistuje nebo odepřen přístup).
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ICP JIZ ZAPSANO">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Provozovna s tímto IČP byla již dříve zapsána do ROS.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ICP PRIDELENO">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        IČP bylo rezervováno, provozovna zatím nezapsána.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="CHYBA VAZBY ICO ICP">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        IČP bylo zapsáno nebo přiděleno k osobě s jiným IČO.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="DUPLICITA ICP">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Pokus o zápis duplicitní provozovny.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEVYHOVUJE ZAZNAM OSOBY">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Zadaným výběrovým kritériím nevyhovuje žádný záznam v ROS.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="PRAZDNY SEZNAM">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        V požadovaném intervalu nebyla provedena žádná změna referenčních údajů zapsaných v ROS.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="OBECNA CHYBA SLUZBY">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Službu nebylo možné provést z důvodu chyby na straně poskytovatel služby
+                        (chyba databázového nebo aplikačního serveru, vyčerpání zásobníku IČO nebo IČP ...).
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="CHYBNY STAV ZADOSTI ">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Stav žádosti neodpovídá stavu zpracování.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="OPAKOVANE ZPRACOVANI">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Požadavek na duplicitní spuštění editační služby.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NESHODA REZERVACE ICO">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Neshoda v údajích k přidělení a vložení IČO.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NESHODA REZERVACE ICP">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Neshoda v údajích k přidělení a vložení IČP.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="CHYBA OPRAVNENI">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Agenda nemá oprávnění na akci podle právní formy a údaje.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="CHYBA STATUTARA">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Podle identifikace nelze vyhledat statutární orgán.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="DUPLICITA STATUTARA">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Statutární orgán osoby identifikovaný předanými údaji již existuje.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEEXISTUJE OSOBA STATUTARA">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Statutární orgán s tímto IČO není zapsaný v ROS.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="OSOBA JE STATUTAR">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Osoba je statutárním orgánem jiné osoby.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="OSOBA SOBE STATUTAREM">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        IČO statutára je shodné s IČO osoby, ke které je evidován.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEPOVOLENY KOD PRAVNI FORMY">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Kód právního stavu není uveden nebo není platný v aktuálním číselníku právních forem.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEPOVOLENY KOD AGENDY">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Kód agendy není uveden nebo není platný v aktuálním číselníku agend.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEPOVOLENY KOD OVM">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Kód OVM není uveden nebo není platný v aktuálním číselníku OVM.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEPOVOLENY KOD PRAVNIHO STAVU">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Kód právního stavu není uveden nebo není platný v aktuálním číselníku právních stavů.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ICO VYCERPANO">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Rozsah pro IČO je již vyčerpán, nelze vygenerovat nepřidělené IČO.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ICP VYCERPANO">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Rozsah pro IČP je již vyčerpán, nelze vygenerovat nepřidělené IČP.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEPOVOLENA ZMENA AIFO">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Není povolena změna AIFO.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEVALIDNI DATA">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Aplikační data nejsou validní podle XSD dokumentů.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEVALIDNI ZADOST">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Kód služby neodpovídá XML struktuře žádosti.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NESHODA ID ZMENY">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Neshoda předaného identifikátoru poslední změny osoby a identifikátoru v ROS.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="DUPLICITNI DS">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Datová schránka s danou adresou a datným typem je již k osobě zapsána.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEEXISTUJICI DS">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Není evidována požadovaná datová schránka k dané osobě.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEPOVOLENY TYP DS">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Typ datové schránky není uveden nebo není platný v aktuálním číselníku.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEEXISTUJE EDITOR">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Není evidován tento údaj k osobě, neexistuje editor údaje.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="SEZNAM VYCERPAN">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Požadované pořadové číslo je větší než počet řádků v seznamu.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NENI VYUZITI">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Pro zadané IČO a období neexistuje žádný záznam o využití údajů osoby.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ZMENA OBDOBI">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Období upraveno dle zákona 111, par.61.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="StavRosType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Stav údaje v ROS.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:StavType">
+            <xs:enumeration value="spravny"/>
+            <xs:enumeration value="nespravny"/>
+            <xs:enumeration value="nedefinovany"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="UdajeZmenyEditaceType">
+        <xs:annotation>
+            <xs:documentation>
+                Údaje o změně referenčního údaje osoby v odpovědi na editační dotazy osoby.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="CasZmeny" type="ZmenaCasType"/>
+            <xs:element name="IdZmeny" type="ZmenaIdType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="UdajeZmenyType">
+        <xs:annotation>
+            <xs:documentation>
+                Kompletní údaje o změně referenčního údaje osoby (provozní údaje).
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="UdajeZmenyEditaceType">
+                <xs:sequence>
+                    <xs:element name="KodAgendy" type="reg:KodAgendyType"/>
+                    <xs:element name="KodOvm" type="reg:KodOvmType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="NazevAdresaType">
+        <xs:annotation>
+            <xs:documentation>
+                Název a adresa statutárního orgánu, který je právnickou osobou neevidovanou v ROS (zahraniční osoba).
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Nazev" type="NazevOsobyType"/>
+            <xs:element name="Adresa" type="AdresaType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="FoTextemPobytType">
+        <xs:annotation>
+            <xs:documentation>
+                Fyzická osoba textem a adresa místa pobytu fyzické osoby v ČR v ROS.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="FoTextem" type="FoTextemType"/>
+            <xs:element name="AdresaPobytu" type="AdresaType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="FoType">
+        <xs:annotation>
+            <xs:documentation>
+                Fyzická osoba (obyvatel) v ROS s vazbou na statutární orgán nebo osobu v ROS.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:choice>
+            <xs:element name="Aifo" type="reg:LokalniAifoType"/>
+            <xs:element name="FoTextemPobyt" type="FoTextemPobytType"/>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="AdresaType">
+        <xs:annotation>
+            <xs:documentation>
+                Adresa v ROS.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:choice>
+            <xs:element name="OdkazRuian" type="reg:KodAdresniMistoType"/>
+            <xs:element name="AdresaTextem" type="AdresaTextemType"/>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="StatutarniOrganType">
+        <xs:annotation>
+            <xs:documentation>
+                Statutární orgán osoby v ROS.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:choice>
+            <xs:element name="OsobaIco" type="reg:IcoType"/>
+            <xs:element name="NazevAdresa" type="NazevAdresaType"/>
+            <xs:element name="FyzickaOsoba" type="FoType"/>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="UdajeZadostiIcoType">
+        <xs:annotation>
+            <xs:documentation>
+                Název osoby nebo AIFO nebo jméno textem s adresou pobytu v žádosti o přidělení IČO.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:choice>
+                <xs:element name="NazevOsoby" type="NazevOsobyType"/>
+                <xs:element name="Aifo" type="reg:LokalniAifoType"/>
+                <xs:element name="FoTextemPobyt" type="FoTextemPobytType"/>
+            </xs:choice>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="UdajeZadostiIcpType">
+        <xs:annotation>
+            <xs:documentation>
+                Název osoby nebo AIFO nebo jméno textem s adresou pobytu nebo IČO v žádosti o přidělení IČP,
+                datum zahájení činnosti a adresa provozovny.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:choice>
+                <xs:element name="Ico" type="reg:IcoType"/>
+                <xs:element name="NazevOsoby" type="NazevOsobyType"/>
+                <xs:element name="Aifo" type="reg:LokalniAifoType"/>
+                <xs:element name="FoTextemPobyt" type="FoTextemPobytType"/>
+            </xs:choice>
+            <xs:element name="DatumZahajeniCinnosti" type="DatumZahajeniCinnostiType"/>
+            <xs:element name="AdresaProvozovny" type="AdresaType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="UdajeZadostiIcoResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Název osoby nebo AIFO nebo jméno textem s adresou pobytu, kód agendy v odpovědi.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="UdajeZadostiIcoType">
+                <xs:sequence>
+                    <xs:element name="KodAgendy" type="reg:KodAgendyType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="IcoStatusType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Identifikační číslo osoby v ROS včetně návratového statusu. 
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Ico" type="reg:IcoType"/>
+            <xs:element name="VysledekDetail" type="VysledekDetailType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="IcpStatusType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Identifikační číslo provozovny v ROS včetně návratového statusu. 
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Icp" type="reg:IcpType"/>
+            <xs:element name="VysledekDetail" type="VysledekDetailType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="DatovaSchrankaStatusType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Datová schránka osoby v ROS včetně návratového statusu. 
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="DatovaSchranka" type="reg:DatovaSchrankaType"/>
+            <xs:element name="VysledekDetail" type="VysledekDetailType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="StatutarniOrganStatusType">
+        <xs:annotation>
+            <xs:documentation>
+                Statutární orgán osoby v ROS včetně návratového statusu.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="StatutarniOrganType">
+                <xs:sequence>
+                    <xs:element name="VysledekDetail" type="VysledekDetailType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="VysledekDetailType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Detailní popis aplikační chyby.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="VysledekSubKod" type="VysledekSubKodRosType"/>
+            <xs:element name="VysledekPopis" type="reg:VysledekPopisType" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="AplikacniStatusType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Aplikační chyba, doplnění k StatusType ze systémové části zprávy.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="VysledekKod" type="reg:VysledekKodType"/>
+            <xs:element name="VysledekDetail" type="VysledekDetailType" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:rob:schemas:RobTypyInt:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" targetNamespace="urn:cz:isvs:rob:schemas:RobTypyInt:v1"
+    elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.6">
+    <xs:annotation>
+        <xs:documentation xml:lang="cs">Návrh XML schématu s definicemi společných datových prvků IS ROB.
+            Toto schéma obsahuje definice záklaních datových prvků, používaných pro dotazy a odpovědi do registru osob
+            (ROB).
+        </xs:documentation>
+    </xs:annotation>
+    <!-- Verze 1.0.0, 21.3.2013, Vladimír Hudec, Výdej dat -->
+    <!-- Verze 1.0.1, 22.3.2013, Vladimír Hudec, Výdej dat, kritéria výběru -->
+    <!-- Verze 1.0.2, 20.6.2013, Vladimír Hudec, Výdej dat, kompletní revize -->
+    <!-- Verze 1.0.3, 24.6.2013, Vladimír Hudec, Výdej dat, výčet TypUzemnihoCelkuType a kritéria FyzickeOsobyType -->
+    <!-- Verze 1.0.4, 27.6.2013, Vladimír Hudec, Výdej dat, MestskaCastObvod -->
+    <!-- Verze 1.0.5, 10.7.2013, Vladimír Hudec, Výdej dat, UzemniCelek presunut do RegTypy -->
+    <!-- Verze 1.0.6, 21.10.2013, Vladimír Hudec, Výdej dat, Volby -->
+    <xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd" />
+
+    <xs:complexType name="ZadatelVydejeDatType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Původní žadatel výdeje dat, ne FAIS.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="CasZadosti" type="reg:CasovaZnackaType" />
+            <xs:element name="Agenda" type="reg:KodAgendyType" />
+            <xs:element name="AgendovaRole" type="reg:AgendovaRoleType" />
+            <xs:element name="Ovm" type="reg:KodOvmType" />
+            <xs:element name="Ais" type="reg:KodAisType" />
+            <xs:element name="Subjekt" type="reg:SubjektType" />
+            <xs:element name="Uzivatel" type="reg:UzivatelType" />
+            <xs:element name="DuvodUcel" type="reg:DuvodUcelType" />
+            <xs:element name="AgendaZadostId" type="reg:AgendaZadostIdType" />
+            <xs:element name="IszrZadostId" type="reg:IszrZadostIdType" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="NazevVydejeDatType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Název reportu, statistiky nebo hromadného výdeje.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="VyberRob" />
+            <xs:enumeration value="VyberPE" />
+            <xs:enumeration value="Volby" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="StatniObcanstviType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="StatniObcanstviVsichni" />
+            <xs:enumeration value="StatniObcanstviObcan" />
+            <xs:enumeration value="StatniObcanstviCizinec" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="FyzickeOsobyType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="VsechnyFyzickeOsoby" />
+            <xs:enumeration value="FyzickeOsobyZijici" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="KriteriaVyberuDatType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Výběrová kritéria pro výdej dat.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="DatumNarozeniOd" type="reg:CasovaZnackaType" minOccurs="0" />
+            <xs:element name="DatumNarozeniDo" type="reg:CasovaZnackaType" minOccurs="0" />
+            <xs:element name="DatumUmrtiOd" type="reg:CasovaZnackaType" minOccurs="0" />
+            <xs:element name="DatumUmrtiDo" type="reg:CasovaZnackaType" minOccurs="0" />
+            <xs:element name="StatniObcanstvi" type="StatniObcanstviType" minOccurs="0" />
+            <xs:element name="FyzickeOsoby" type="FyzickeOsobyType" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="TypVolbyType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Číselník typů voleb.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="VolbaPrezidentaRepubliky" />
+            <xs:enumeration value="VolbyDoEvropskehoParlamentu" />
+            <xs:enumeration value="VolbyDoPoslaneckeSnemovnyParlamentuCR" />
+            <xs:enumeration value="VolbyDoSenatuParlamentuCR" />
+            <xs:enumeration value="VolbyDoZastupitelstevKraju" />
+            <xs:enumeration value="VolbyDoZastupitelstevObci" />
+            <xs:enumeration value="CelostatniReferendum" />
+            <xs:enumeration value="KrajskeReferendum" />
+            <xs:enumeration value="MistniReferendum" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="KriteriaVolbyType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Výběrová kritéria pro volby.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="TypVolby" type="TypVolbyType" />
+            <xs:element name="RozhodneDatum" type="reg:CasovaZnackaType" />
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

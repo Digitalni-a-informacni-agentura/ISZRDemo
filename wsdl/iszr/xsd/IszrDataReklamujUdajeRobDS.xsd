@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:iszr:schemas:IszrDataReklamujUdajeRobDS:v1" xmlns:e62="urn:cz:isvs:iszr:schemas:IszrDataReklamujUdajeRobDS:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" xmlns:i02="urn:cz:isvs:iszr:schemas:IszrDataReklamujUdajeRob:v1" xmlns:roe="urn:cz:isvs:rob:schemas:RobEditaceData:v1" xmlns:rod="urn:cz:isvs:rob:schemas:RobDotazyData:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:cz:isvs:iszr:schemas:IszrDataReklamujUdajeRobDS:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.1">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Avízo o nesprávném údaji v registru ROB příslušnému editorovi údaje prostřednictvím datové schránky. Žádost neobsahuje element MapaAifo, lokální hodnoty AIFO vždy 1.
+		</xs:documentation>
+	</xs:annotation>
+	<!-- Vývojová verze 0.0.1, 9.5.2014, Mojmír Horák, vznik -->
+	<!-- Vývojová verze 1.0.0, 12.5.2014, Pavel Odstrčil, revize, typy, jména -->
+	<!-- Vývojová verze 1.0.1, 3.11.2022, Petr Vančo, změna typu RobZmenObyvateleDataType na RobZmenObyvatele2DataType v elementu RobZmenObyvateleData -->
+	<!-- AutoCont CZ a.s. -->
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="../../egon/xsd/IszrAbstractOrg.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrDataReklamujUdajeRob:v1" schemaLocation="../../iszr/xsd/IszrDataReklamujUdajeRob.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rob:schemas:RobEditaceData:v1" schemaLocation="../../rob/xsd/RobEditaceData.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rob:schemas:RobDotazyData:v1" schemaLocation="../../rob/xsd/RobDotazyData.xsd"/>
+	<xs:element name="IszrDataReklamujUdajeRobDS" type="IszrDataReklamujUdajeRobDSType"/>
+	<xs:complexType name="IszrDataReklamujUdajeRobDSType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Avízo o nesprávném údaji v registru ROB příslušnému editorovi prostřednictvím datové schránky. Lokální hodnoty AIFO vždy 1.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostIdAdrAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="ReklamaceEditorId" type="reg:RegOdpovedIdType"/>
+								<xs:element name="UlozkaId" type="reg:UuidType" minOccurs="0"/>
+								<xs:element name="IdentifikatorReklamace" type="reg:NonEmptyStringType"/>
+								<xs:element name="IszrZadostId" type="reg:IszrZadostIdType"/>
+								<xs:element name="IszrDataReklamujUdajeRobDSData" type="IszrReklamujUdajeRobDSDataType"/>
+								<xs:element name="RobCtiAifoData" type="rod:RobCtiAifoDataResponseType" minOccurs="0" maxOccurs="1"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="IszrReklamujUdajeRobDSDataType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Avízo o nesprávném údaji v registru ROB příslušnému editorovi údaje prostřednictvím datové schránky.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="i02:IszrReklamujUdajeRobDataType">
+				<xs:sequence>
+					<xs:element name="NavrhovaneHodnoty" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">Lokální hodnoty AIFO vždy 1.</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RobZmenObyvateleData" type="roe:RobZmenObyvatele2DataType" minOccurs="0"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:OkresPodminka:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:OkresPodminka:v1" xmlns:okPodm="urn:cz:isvs:ruian:schemas:OkresPodminka:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:kr="urn:cz:isvs:ruian:schemas:Kraj:v1" xmlns:vc="urn:cz:isvs:ruian:schemas:Vusc:v1" elementFormDefault="qualified" version="0.40.0">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:Vusc:v1" schemaLocation="../../../ruian/xsd/prvky/Vusc.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:Kraj:v1" schemaLocation="../../../ruian/xsd/prvky/Kraj.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:complexType name="OkresPodminkaType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Okres</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod4Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Nazev" type="base:Nazev32Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Kraj" type="kr:KrajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Vusc" type="vc:VuscType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:crob2="urn:cz:isvs:ruian:schemas:CtiProRob:v2" xmlns:e278="urn:cz:isvs:iszr:schemas:IszrRobCtiPodleUdaju2:v1" xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" xmlns:rod="urn:cz:isvs:rob:schemas:RobDotazyData:v1" xmlns="urn:cz:isvs:iszr:schemas:IszrRobCtiPodleUdaju2:v1" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:cz:isvs:iszr:schemas:IszrRobCtiPodleUdaju2:v1" version="1.1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="IszrAbstractOrg.xsd" namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" />
+  <xs:import schemaLocation="../../rob/xsd/RobDotazyData.xsd" namespace="urn:cz:isvs:rob:schemas:RobDotazyData:v1" />
+  <xs:import schemaLocation="ref/RuianCtiProRob2n.xsd" namespace="urn:cz:isvs:ruian:schemas:CtiProRob:v2" />
+  <xs:annotation>
+    <xs:documentation xml:lang="cs">N??vrh XML sch??matu s definicemi datov??ch prvk?? ISZR. Slu??ba E278 extern??ho rozhran?? - dotaz a odpov????.</xs:documentation>
+  </xs:annotation>
+  <xs:element name="RobCtiPodleUdaju2" type="e278:RobCtiPodleUdaju2Type" />
+  <xs:element name="RobCtiPodleUdaju2Response" type="e278:RobCtiPodleUdaju2ResponseType" />
+  <xs:complexType name="RobCtiPodleUdaju2Type">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Slu??ba E278 extern??ho rozhran?? - typ pro ????dost. Slu??ba zprost??edkuje ??ten?? referen??n??ch ??daj?? z ROB na z??klad?? vyhled??n?? fyzick?? osoby podle kombinace ??daj??. Dotaz je omezen jen na ty ??daje, kter?? jsou vedeny p????mo v ROB (adresa mus?? b??t zad??na formou referen??n??ho odkazu do RUIAN).</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="abs:IszrZadostIdAdrAbstractType">
+        <xs:sequence>
+          <xs:element name="Zadost">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="RobCtiPodleUdaju2Data" type="rod:RobCtiPodleUdaju2DataType" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="RobCtiPodleUdaju2ResponseType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Slu??ba E278 extern??ho rozhran?? - typ pro odpov????. V??stupn?? form??t slu??by je definov??n vstupn??m seznamem po??adavan??ch RU a pr??vy podle RPP. Slu??ba skl??d?? ??daje ze z??kladn??ch registr?? ROB a RUIAN. Slu??ba podle v??sledku dotazu vrac?? 0, 1 nebo v??ce z??znam??.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="abs:IszrOdpovedAifoStIdAdrAbstractType">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="RobOdpoved">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="RobCtiPodleUdaju2DataResponse" type="rod:RobCtiPodleUdajuDataResponseType" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element minOccurs="0" name="RuianOdpoved">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="RuianCtiProRobV2DataResponse" type="crob2:RuianCtiProRobV2DataResponseType" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>

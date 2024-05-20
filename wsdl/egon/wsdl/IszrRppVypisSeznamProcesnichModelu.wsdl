@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRppVypisSeznamProcesnichModelu:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRppVypisSeznamProcesnichModelu:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRppVypisSeznamProcesnichModelu:v1"
+	xmlns:e119="urn:cz:isvs:iszr:schemas:IszrRppVypisSeznamProcesnichModelu:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRppVypisSeznamProcesnichModelu">
+
+	<wsdl:documentation>Služba E119 externího rozhraní - Služba poskytne seznam Procesních modelů definovaných v RPP. RPP služba P16.</wsdl:documentation>
+	
+	<!-- Vývojová verze 0.0.1, 14.03.2012, Aleš Teplý -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- Verze po revizi 1.1.1, 15.10.2021, Aleš Teplý, AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- Verze po revizi 1.2.0, 25.5.2022, Aleš Teplý, Response - AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- AutoCont CZ a.s. -->
+	
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRppVypisSeznamProcesnichModelu:v1" schemaLocation="../xsd/IszrRppVypisSeznamProcesnichModelu.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="IszrRppVypisSeznamProcesnichModelu">
+		<wsdl:part name="parametry" element="e119:RppVypisSeznamProcesnichModelu"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRppVypisSeznamProcesnichModeluResponse">
+		<wsdl:part name="vysledek" element="e119:RppVypisSeznamProcesnichModeluResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRppVypisSeznamProcesnichModeluPortType">
+		<wsdl:operation name="IszrRppVypisSeznamProcesnichModelu">
+			<wsdl:input message="tns:IszrRppVypisSeznamProcesnichModelu"/>
+			<wsdl:output message="tns:IszrRppVypisSeznamProcesnichModeluResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRppVypisSeznamProcesnichModeluBinding" type="tns:IszrRppVypisSeznamProcesnichModeluPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRppVypisSeznamProcesnichModelu">
+			<soap:operation soapAction="IszrRppVypisSeznamProcesnichModelu"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRppVypisSeznamProcesnichModeluService">
+		<wsdl:port name="IszrRppVypisSeznamProcesnichModeluPortService" binding="tns:IszrRppVypisSeznamProcesnichModeluBinding">
+			<soap:address location="IszrRppVypisSeznamProcesnichModelu"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

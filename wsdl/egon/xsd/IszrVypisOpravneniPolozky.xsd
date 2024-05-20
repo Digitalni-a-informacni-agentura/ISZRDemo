@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:iszr:schemas:IszrVypisOpravneniPolozky:v1" xmlns:e227="urn:cz:isvs:iszr:schemas:IszrVypisOpravneniPolozky:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" xmlns:i33="urn:cz:isvs:iszr:schemas:IszrDataVypisOpravneniPolozky:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:cz:isvs:iszr:schemas:IszrVypisOpravneniPolozky:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E227 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	<!-- Verze 1.0.0, 09.05.2018 Pavel Odstrčil, výchozí verze -->
+	<!-- AutoCont CZ a.s. -->
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstractOrg.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrDataVypisOpravneniPolozky:v1" schemaLocation="../../iszr/xsd/IszrDataVypisOpravneniPolozky.xsd"/>
+	<xs:element name="IszrVypisOpravneniPolozky" type="IszrVypisOpravneniPolozkyType"/>
+	<xs:element name="IszrVypisOpravneniPolozkyResponse" type="IszrVypisOpravneniPolozkyResponseType"/>
+	<xs:complexType name="IszrVypisOpravneniPolozkyType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba umožňuje čtení oprávnění OVM/agenry/role na položky ZR dle RPP názvy pro SeznamUdaju, typ pro žádost.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IszrVypisOpravneniPolozkyData" type="i33:IszrVypisOpravneniPolozkyDataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="IszrVypisOpravneniPolozkyResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba umožňuje čtení oprávnění OVM/agenry/role na položky ZR dle RPP názvy pro SeznamUdaju, typ pro odpověď.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="IszrOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IszrVypisOpravneniPolozkyDataResponse" type="i33:IszrVypisOpravneniPolozkyDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

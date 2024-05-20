@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:isui:schemas:ExportUlice:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:isui:schemas:ExportUlice:v1" xmlns:gul="urn:cz:isvs:isui:schemas:ExportUlice:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" elementFormDefault="qualified" version="1.0.0">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:element name="ExportUlice" type="gul:ExportUliceType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Generování exportu ulíc.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="ExportUliceType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Základní typ pro generování exportu seznamu ulíc.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="NazevSestavy" type="base:Text200Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Název sestavy.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Generovano" type="base:DatumCasType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Datum a čas generování sestavy.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:choice minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Prvek, který generoval sestavu.</xs:documentation>
+				</xs:annotation>
+				<xs:element name="ObecKod" type="base:Kod6Type" minOccurs="1" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation xml:lang="cs">Kód území obce, území vojenského újezdu.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+			<xs:element name="SeznamUlic" type="UliceSeznamType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Seznam exportovaných ulic.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="UliceType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Generovaná ulice.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod7Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód ulice.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Nazev" type="base:Nazev48Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Název ulice.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ObecKod" type="base:Kod6Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód nadřazené obce.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DefinicniCara" type="xs:boolean" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Příznak existence definiční čáry (nic, false).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DatumZruseni" type="base:DatumCasType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Datum a čas zrušení ulice.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Nespravnost" type="xs:boolean" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Příznak nesprávnosti prvku (true, nic).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PublikovanoRuian" type="xs:boolean" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Příznak publikování v RÚIAN. (nic, false)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="UliceSeznamType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam generovaných ulíc.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Ulice" type="UliceType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Seznam ulíc.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

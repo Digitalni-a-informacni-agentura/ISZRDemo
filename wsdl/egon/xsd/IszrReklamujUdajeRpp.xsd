@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:iszr:schemas:IszrReklamujUdajeRpp:v1" xmlns:ais="urn:cz:isvs:ais:schemas:AisReklamujUdajeRpp:v1" xmlns:i04="urn:cz:isvs:iszr:schemas:IszrDataReklamujUdajeRpp:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:cz:isvs:iszr:schemas:IszrReklamujUdajeRpp:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.1">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Avízo o nesprávném údaji v registru RPP příslušnému editorovi údaje.</xs:documentation>
+	</xs:annotation>
+	<!-- Vývojová verze 1.0.0, 21.12.2016, Pavel Odstrčil, vznik -->
+	<!-- Vývojová verze 1.0.1, 15.05.2017, AutoContCZ, doplnen SeznamIco, oprava typu response -->
+	<!-- AutoCont CZ a.s. -->
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstractOrg.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ais:schemas:AisReklamujUdajeRpp:v1" schemaLocation="../../ais/xsd/AisReklamujUdajeRpp.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrDataReklamujUdajeRpp:v1" schemaLocation="../../iszr/xsd/IszrDataReklamujUdajeRpp.xsd"/>
+	<xs:element name="IszrReklamujUdajeRpp" type="IszrReklamujUdajeRppType"/>
+	<xs:element name="IszrReklamujUdajeRppResponse" type="IszrReklamujUdajeRppResponseType"/>
+	<xs:complexType name="IszrReklamujUdajeRppType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Avízo o nesprávném údaji v registru ROS příslušnému editorovi údaje.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAifoIcoIdAdrAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IszrReklamujUdajeRppData" type="ais:AisReklamujUdajeRppDataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="IszrReklamujUdajeRppResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Avízo o nesprávném údaji v registru RPP příslušnému editorovi údaje, odpověď.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAifoStIdAdrIcoAbstractType">
+				<xs:sequence>
+					<xs:element name="IszrOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IszrReklamujUdajeRppDataResponse" type="i04:IszrReklamujUdajeRppDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

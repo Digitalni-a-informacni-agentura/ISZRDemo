@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns="urn:cz:isvs:iszr:services:IszrPolicy:v1" xmlns:tns="urn:cz:isvs:iszr:services:IszrPolicy:v1" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" name="IszrPolicy" targetNamespace="urn:cz:isvs:iszr:services:IszrPolicy:v1" version="0.0.02">
+	<wsdl:annotation>
+		<wsdl:documentation xml:lang="cs">Návrh zabezpečení eGON služeb ISZR.</wsdl:documentation>
+	</wsdl:annotation>
+	<!-- Vývojová verze 0.0.01, 14.08.2011 Jan Sluka -->
+	<!-- Vývojová verze 0.0.02, 23.08.2011 Jan Sluka - bez klientskeho certifikatu, priprava pro test konzumenta -->
+	<wsp:Policy wsu:Id="IszrPolicy">
+		<wsp:ExactlyOne>
+			<sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+				<wsp:Policy>
+					<sp:TransportToken>
+						<wsp:Policy>
+							<sp:HttpsToken RequireClientCertificate="false"/>
+						</wsp:Policy>
+					</sp:TransportToken>
+					<sp:AlgorithmSuite>
+						<wsp:Policy>
+							<sp:Basic256/>
+						</wsp:Policy>
+					</sp:AlgorithmSuite>
+					<sp:Layout>
+						<wsp:Policy>
+							<sp:Strict/>
+						</wsp:Policy>
+					</sp:Layout>
+					<sp:IncludeTimestamp/>
+				</wsp:Policy>
+			</sp:TransportBinding>
+		</wsp:ExactlyOne>
+	</wsp:Policy>
+</wsdl:definitions>

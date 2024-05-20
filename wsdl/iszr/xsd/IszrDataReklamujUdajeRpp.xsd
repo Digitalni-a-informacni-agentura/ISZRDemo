@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:iszr:schemas:IszrDataReklamujUdajeRpp:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:iszd="urn:cz:isvs:iszr:schemas:IszrDotazyData:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" targetNamespace="urn:cz:isvs:iszr:schemas:IszrDataReklamujUdajeRpp:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.1.0">
+    <xs:annotation>
+        <xs:documentation xml:lang="cs">XML schéma s definicemi dat pro služby ISZR</xs:documentation>
+    </xs:annotation>
+    <!-- Vývojová verze 0.1.0, 27.12.2016, Petr Roušar -->
+    <!-- Vývojová verze 0.1.0, 15.5.2017, zmena datovych typu InformacniKanalType, KontaktType, ZduvodneniType, PopisReklamaceType - sjednoceni s ostatnimi ZR-->
+    <xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+    <xs:import namespace="urn:cz:isvs:iszr:schemas:IszrDotazyData:v1" schemaLocation="IszrDotazyData.xsd"/>
+    <xs:element name="IszrReklamujUdajeRppData" type="IszrReklamujUdajeRppDataType"/>
+    <xs:element name="IszrReklamujUdajeRppDataResponse" type="IszrReklamujUdajeRppDataResponseType"/>
+    <xs:complexType name="InformacniKanalType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Informační kanál, kterým chce být reklamující upozorněn v případě vyřízení reklamace.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:choice>
+                <xs:element name="DatovaSchranka" type="reg:DatovaSchrankaIdType"/>
+            </xs:choice>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="PopisReklamaceType">
+        <xs:restriction base="reg:NonEmptyLineStringType">
+            <xs:maxLength value="4000"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="ZduvodneniType">
+        <xs:restriction base="reg:NonEmptyLineStringType">
+            <xs:maxLength value="4000"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="DruhReklamaceType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="AGENDA">
+                <xs:annotation>
+                    <xs:documentation>Agenda</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="PUSOBNOST OVM SPUU">
+                <xs:annotation>
+                    <xs:documentation>Pusobnost OVM/SPUU v agendě</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="OVM SPUU">
+                <xs:annotation>
+                    <xs:documentation>OVM/SPUU</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="KATEGORIE OVM SPUU">
+                <xs:annotation>
+                    <xs:documentation>Kategorie OVM/SPUU</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="KontaktType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Kontakt na reklamujiciho, je vhodné uvést tel. číslo, e-mail</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyStringType">
+            <xs:maxLength value="200"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="IszrReklamujUdajeRppDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Avízo o nesprávném údaji v registru RPP příslušnému editorovi údaje.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="AgendaEditora" type="reg:KodAgendyType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Kód agendy editora.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="OvmEditora" type="reg:KodOvmType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Kód OVM editora.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="PopisReklamace" type="PopisReklamaceType">
+                <xs:annotation>
+                    <xs:documentation>Popis reklamace.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Zduvodneni" type="ZduvodneniType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Zduvodneni Reklamace</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="TypReklamace" type="TypReklamaceType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Typ reklamace - příznak, zda se jedná o neexistující subjekt.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DruhReklamace" type="DruhReklamaceType"/>
+            <xs:element name="InformacniKanal" type="InformacniKanalType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Identifikace DS pro odpověď</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Kontakt" type="KontaktType" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="IszrReklamujUdajeRppDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Avízo o nesprávném údaji v registru RPP příslušnému editorovi údaje, odpověď.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="iszd:IszrDotazyDataResponseType">
+                <xs:sequence>
+                    <xs:element name="IdentifikatorReklamace" type="reg:NonEmptyStringType" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation xml:lang="cs">Přidělený identifikátor reklamace</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="AgendaEditora" type="reg:KodAgendyType" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation xml:lang="cs">Vrací zadanou nebo nalezenou agendu editora</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="TypReklamaceType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Upřesňující údaje k reklamaci.</xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="neexistujiciSubjekt" type="xs:boolean">
+            <xs:annotation>
+                <xs:documentation xml:lang="cs">Příznak, že jde o reklamaci neexistujícího subjektu.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+</xs:schema>

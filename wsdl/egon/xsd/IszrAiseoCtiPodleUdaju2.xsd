@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrAiseoCtiPodleUdaju2:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrAiseoCtiPodleUdaju2:v1"
+	xmlns:e172="urn:cz:isvs:iszr:schemas:IszrAiseoCtiPodleUdaju2:v1"
+	xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:x13="urn:cz:isvs:aiseo:schemas:AiseoCtiPodleUdaju2:v1"
+	xmlns:x15="urn:cz:isvs:aiseo:schemas:AiseoCtiAifo2:v1"
+	xmlns:rob="urn:cz:isvs:rob:schemas:RobTypy:v1"
+	xmlns:rod="urn:cz:isvs:rob:schemas:RobDotazyData:v1"
+	xmlns:isdd="urn:cz:isvs:iszr:schemas:IszrDotazyData:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.5.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E172 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	
+	<!-- Vývojová verze 1.4.4, 14.11.2013, Aleš Teplý -->
+	<!-- Verze po revizi 1.4.5, 2.12.2013, Aleš Teplý, změna Response: přidána nepovinná odpověď AiseoCtiAifo2 -->
+	<!-- Verze po revizi 1.4.6, 4.12.2013, Aleš Teplý, změna Request: přidán nepovinný SeznamIdAdres, změna Response: odebrána odpověď RobCtiHromadneAifo, přidána nepovinná odpověď RobOverHromadneAifo, přidána nepovinná odpověď RobCtiAifo, přidán nepovinný SeznamIdAdres -->
+	<!-- Verze po revizi 1.4.7, 15.6.2021, Petr Vančo, změna Request: přidána možnost vazaneOsobyCti  -->
+	<!-- Verze po revizi 1.5.0, 13.8.2021, Aleš Teplý, rozšíření struktury Response ROB v2.0.0, aplikačně zatím omezeno na kompatibilitu s ROB v1.0.9 -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstractOrg.xsd"/>
+	<xs:import namespace="urn:cz:isvs:aiseo:schemas:AiseoCtiPodleUdaju2:v1" schemaLocation="../../aiseo/xsd/AiseoCtiPodleUdaju2.xsd"/>
+	<xs:import namespace="urn:cz:isvs:aiseo:schemas:AiseoCtiAifo2:v1" schemaLocation="../../aiseo/xsd/AiseoCtiAifo2.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rob:schemas:RobTypy:v1" schemaLocation="../../rob/xsd/RobTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rob:schemas:RobDotazyData:v1" schemaLocation="../../rob/xsd/RobDotazyData.xsd"/>	
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrDotazyData:v1" schemaLocation="../../iszr/xsd/IszrDotazyData.xsd"/>
+
+	<xs:element name="AiseoCtiPodleUdaju2" type="AiseoCtiPodleUdaju2Type"/>
+	<xs:element name="AiseoCtiPodleUdaju2Response" type="AiseoCtiPodleUdaju2ResponseType"/>
+
+	<xs:complexType name="AiseoCtiPodleUdaju2Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E172 externího rozhraní - typ pro žádost. Služba umožňuje provést hledání v AIS EO podle jména, příjmení, rodného příjmení, data narození a rodného čísla. Služba vrací AIFO a příznak, zda bylo AIFO ověřeno v ROB (služba AIS EO X13).</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostIdAdrAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="AiseoCtiPodleUdaju2Data">
+									<xs:complexType>
+										<xs:complexContent>
+											<xs:extension base="x13:AiseoCtiPodleUdaju2DataType">
+												<xs:attribute name="typPorovnani" type="rob:TypPorovnaniType"/>
+												<xs:attribute name="znepristupniLog" type="xs:boolean"/>
+												<xs:attribute name="vazaneOsobyCti" type="xs:boolean">
+													<xs:annotation>
+														<xs:documentation>Vracet vazane osoby</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+											</xs:extension>
+										</xs:complexContent>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="AiseoCtiPodleUdaju2ResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E172 externího rozhraní - typ pro odpověď. Služba umožňuje provést hledání v AIS EO podle jména, příjmení, rodného příjmení, data narození a rodného čísla. Služba vrací AIFO a příznak, zda bylo AIFO ověřeno v ROB (služba AIS EO X13).</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAifoStIdAdrAbstractType">
+				<xs:sequence>
+					<xs:element name="AiseoOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="AiseoCtiPodleUdaju2DataResponse" type="x13:AiseoSyncCtiPodleUdaju2DataResponseType"/>
+								<xs:element name="AiseoCtiAifo2DataResponse" type="x15:AiseoCtiAifo2DataResponseV01Type" minOccurs="0"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="RobOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RobOverHromadneAifoDataResponse" type="rod:RobOverHromadneAifoDataResponseType" minOccurs="0"/>
+								<xs:element name="RobCtiAifoDataResponse" type="rod:RobCtiAifoDataResponseType" minOccurs="0"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="IszrOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IszrStatusDataResponse" type="IszrStatusDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="IszrStatusDataResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Hlášení problémů ISZR (např. s konverzí AIFO EO-ROB).</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="isdd:IszrDotazyDataResponseType">
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

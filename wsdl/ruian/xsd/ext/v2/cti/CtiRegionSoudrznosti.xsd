@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:CtiRegionSoudrznosti:v2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:CtiRegionSoudrznosti:v2" xmlns:ctiRs="urn:cz:isvs:ruian:schemas:CtiRegionSoudrznosti:v2" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:rsPol="urn:cz:isvs:ruian:schemas:RegionSoudrznostiPolozky:v2" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:rsGml="urn:cz:isvs:ruian:schemas:RegionSoudrznostiGML:v2" elementFormDefault="qualified" version="2.0.0">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:RegionSoudrznostiGML:v2" schemaLocation="../prvky/RegionSoudrznostiGML.xsd"/>
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:RegionSoudrznostiPolozky:v2" schemaLocation="RegionSoudrznostiPolozky.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../typy/BaseTypy.xsd"/>
+	<xs:complexType name="CtiRegionSoudrznostiDotazType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Parametry dotazu na informace o regionu soudržnosti.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod3Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód regionu soudržnosti.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PozadovaneUdaje" type="rsPol:RegionSoudrznostiPolozkyType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Seznam požadovaných údajů.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="CtiRegionSoudrznostiRequest" type="ctiRs:CtiRegionSoudrznostiRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na načtení informací o regionu soudržnosti.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="CtiRegionSoudrznostiRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na načtení informací o regionu soudržnosti.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Standardní hlavička dotazu.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Dotaz" type="CtiRegionSoudrznostiDotazType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Parametry dotazu.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="CtiRegionSoudrznostiResponse" type="ctiRs:CtiRegionSoudrznostiResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved na nacteni regionu soudrznosti</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="CtiRegionSoudrznostiResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved na nacteni regionu soudrznosti</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="RegionSoudrznosti" type="rsGml:RegionSoudrznostiGMLType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

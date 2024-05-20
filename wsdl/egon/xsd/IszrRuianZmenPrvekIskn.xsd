@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRuianZmenPrvekIskn:v1" 
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRuianZmenPrvekIskn:v1" 
+	xmlns:e32="urn:cz:isvs:iszr:schemas:IszrRuianZmenPrvekIskn:v1" 
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:zpkn="urn:cz:isvs:ruian:schemas:ZmenPrvekIskn:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified" 
+	version="1.1.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E32 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	
+	<!-- Vývojová verze 0.0.01, 15.06.2011, Aleš Teplý -->
+	<!-- Vývojová verze 0.0.02, 13.07.2011, Aleš Teplý, Response nemusí obsahovat data (async) -->
+	<!-- Vývojová verze 0.0.03, 28.07.2011, Pavel Kirchner -->
+	<!-- Vývojová verze 0.0.04, 28.07.2011, Aleš Teplý, převzetí datového elementu Response pomocí ref (deklaruje AC) -->
+	<!-- Vývojová verze 0.0.05, 14.09.2011, Aleš Teplý, podadresáře registrů malými písmeny, CamelCase -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenPrvekIskn:v1" schemaLocation="ref/RuianZmenPrvekIskn.xsd"/>
+	
+	<xs:element name="RuianZmenPrvekIskn" type="RuianZmenPrvekIsknType"/>
+	<xs:element name="RuianZmenPrvekIsknResponse" type="RuianZmenPrvekIsknResponseType"/>
+	
+	<xs:complexType name="RuianZmenPrvekIsknType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E32 externího rozhraní - žádost. Služba pro uložení změn ISKN do RUIAN. RUIAN služba A01. V RUIAN jsou opraveny existující záznamy prvků, zapsány nové či označeny jako zrušené.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianZmenPrvekIsknData" type="zpkn:EditaceISKNType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RuianZmenPrvekIsknResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E32 externího rozhraní - odpověď. Služba pro uložení změn ISKN do RUIAN. RUIAN služba A01.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="RuianOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianZmenPrvekIsknDataResponse">
+									<xs:complexType>
+										<xs:sequence>
+										  <xs:element ref="zpkn:Odpoved"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:iszr:schemas:IszrDataStavReklamaceRob:v1" xmlns:e62="urn:cz:isvs:iszr:schemas:IszrDataStavReklamaceRob:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" xmlns:i02="urn:cz:isvs:iszr:schemas:IszrDataReklamujUdajeRob:v1" xmlns:roe="urn:cz:isvs:rob:schemas:RobEditaceData:v1" xmlns:rod="urn:cz:isvs:rob:schemas:RobDotazyData:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:cz:isvs:iszr:schemas:IszrDataStavReklamaceRob:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Notifikace o stavu reklamace ROB prostřednictvím datové schránky</xs:documentation>
+	</xs:annotation>
+	<!-- Vývojová verze 0.0.1, 12.5.2014, Mojmír Horák, vznik -->
+	<!-- AutoCont CZ a.s. -->
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="../../egon/xsd/IszrAbstractOrg.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrDataReklamujUdajeRob:v1" schemaLocation="../../iszr/xsd/IszrDataReklamujUdajeRob.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rob:schemas:RobEditaceData:v1" schemaLocation="../../rob/xsd/RobEditaceData.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rob:schemas:RobDotazyData:v1" schemaLocation="../../rob/xsd/RobDotazyData.xsd"/>
+	<xs:element name="IszrDataStavReklamaceRob" type="IszrDataStavReklamaceRobType"/>
+	<xs:complexType name="IszrDataStavReklamaceRobType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">
+        Notifikace o stavu reklamace ROB prostřednictvím datové schránky</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="StavReklamaceRob">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IdentifikatorReklamace" type="reg:NonEmptyStringType"/>
+                <xs:element name="ReklamaceEditorId" type="reg:RegOdpovedIdType"/>
+                <xs:element name="AgendaEditora" type="reg:KodAgendyType" />
+                <xs:element name="SeznamReklamovanychPolozek" type="abs:ExtSeznamUdajuType"/>
+                <xs:element name="StavReklamace" type="StavReklamaceType"/>
+                <xs:element name="Vysledek" type="xs:string" />
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+  <xs:simpleType name="StavReklamaceType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Stav reklamace v ISZR.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Undefined"/>
+      <xs:enumeration value="ReklamacePrijata"/>
+      <xs:enumeration value="OdeslanoEditorovi"/>
+      <xs:enumeration value="NeresitelnaChybaOdeslani"/>
+      <xs:enumeration value="PrijatoEditorem"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

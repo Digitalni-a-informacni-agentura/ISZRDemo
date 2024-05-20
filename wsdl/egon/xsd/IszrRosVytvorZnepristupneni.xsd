@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:iszr:schemas:IszrRosVytvorZnepristupneni:v1" xmlns:e200="urn:cz:isvs:iszr:schemas:IszrRosVytvorZnepristupneni:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" xmlns:sed="urn:cz:isvs:ros:schemas:RosEditaceData:v2" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:cz:isvs:iszr:schemas:IszrRosVytvorZnepristupneni:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.1.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E200 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	<!-- Verze 1.0.0, AutoCont CZ a.s -->
+	<!-- Verze 1.1.0 po úpravě ROS 1.4.0, S24, nekompatibilní změna vstupní struktury, AutoCont CZ a.s, 9.4.2020 -->
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ros:schemas:RosEditaceData:v2" schemaLocation="../../ros/xsd/RosEditaceData.xsd"/>
+	<xs:element name="RosVytvorZnepristupneni" type="RosVytvorZnepristupneniType"/>
+	<xs:element name="RosVytvorZnepristupneniResponse" type="RosVytvorZnepristupneniResponseType"/>
+	<xs:complexType name="RosVytvorZnepristupneniType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E200 externího rozhraní - typ pro žádost.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RosVytvorZnepristupneniData" type="sed:RosVytvorZnepristupneniDataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RosVytvorZnepristupneniResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E200 externího rozhraní - typ pro odpověď.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="RosOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RosVytvorZnepristupneniDataResponse" type="sed:RosVytvorZnepristupneniDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

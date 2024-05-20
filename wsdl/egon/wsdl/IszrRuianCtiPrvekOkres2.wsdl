@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRuianCtiPrvekOkres2:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRuianCtiPrvekOkres2:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRuianCtiPrvekOkres2:v1"
+	xmlns:e250i="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekOkres2:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRuianCtiPrvekOkres2">
+
+	<wsdl:documentation>Služba E250i externího rozhraní - Načtení okresu z RUIAN. RUIAN služba, operace ctiOkres.</wsdl:documentation>
+	
+	<!-- Výchozí verze 2.0.0, 6.10.2020 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekOkres2:v1" schemaLocation="../xsd/IszrRuianCtiPrvekOkres2.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrRuianCtiPrvekOkres2">
+		<wsdl:part name="parametry" element="e250i:RuianCtiPrvekOkres2"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRuianCtiPrvekOkres2Response">
+		<wsdl:part name="vysledek" element="e250i:RuianCtiPrvekOkres2Response"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRuianCtiPrvekOkres2PortType">
+		<wsdl:operation name="IszrRuianCtiPrvekOkres2">
+			<wsdl:input message="tns:IszrRuianCtiPrvekOkres2"/>
+			<wsdl:output message="tns:IszrRuianCtiPrvekOkres2Response"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRuianCtiPrvekOkres2Binding" type="tns:IszrRuianCtiPrvekOkres2PortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRuianCtiPrvekOkres2">
+			<soap:operation soapAction="IszrRuianCtiPrvekOkres2"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRuianCtiPrvekOkres2Service">
+		<wsdl:port name="IszrRuianCtiPrvekOkres2PortService" binding="tns:IszrRuianCtiPrvekOkres2Binding">
+			<soap:address location="IszrRuianCtiPrvekOkres2"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

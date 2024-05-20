@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" elementFormDefault="qualified" version="0.40.1">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Základní datové typy používané v systémech RUIAN, ISUI a ISKN.</xs:documentation>
+	</xs:annotation>
+	<xs:simpleType name="Kod6Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Kod na 6 cifer</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:int">
+			<xs:maxInclusive value="999999"/>
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Kod5Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Kod na 5 cifer</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:int">
+			<xs:maxInclusive value="99999"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Kod1Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Kod na 1 cifru</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:int">
+			<xs:maxInclusive value="9"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Nazev50Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Nazev na 50 znaku</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="50"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Kod10Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Kod na 10 cifer</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:long">
+			<xs:maxInclusive value="9999999999"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Text200Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Textovy popis na 200 znaku</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="200"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DatumCasType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Datum a cas</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:dateTime"/>
+	</xs:simpleType>
+	<xs:simpleType name="Kod7Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Kod na 7 cifer</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:int">
+			<xs:maxInclusive value="9999999"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Text2000Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Poznamka popis na 2000 znaku</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="2000"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Text4000Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Poznamka popis na 4000 znaku</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="4000"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Kod9Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Kod na 9 cifer</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:int">
+			<xs:maxInclusive value="999999999"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Text500Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Text na 500 znaku</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="500"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Nazev3Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Nazev na 3 znaky</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Kod3Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Kod na 3 cifry</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:int">
+			<xs:maxInclusive value="999"/>
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Nazev32Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Nazev na 32 znaku</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="32"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Kod2Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Kod na 2 cifry</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:int">
+			<xs:maxInclusive value="99"/>
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Kod4Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Kod na 4 cifry</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:int">
+			<xs:maxInclusive value="9999"/>
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Nazev48Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Nazev na 48 znaku</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="48"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Id18Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Identifikace na 18 cifer</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:long">
+			<xs:maxInclusive value="999999999999999999"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Kod8Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Kod na 8 cifer</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:int">
+			<xs:maxInclusive value="99999999"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="Kod9SeznamType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam kodu na 9 cifer</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="Kod9Type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="Nazev255Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Nazev na 255 znaku</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="255"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Text1000Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Text na 1000 znaku</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="1000"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Kod2TextType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Kod na 2 znaky</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Kod1TextType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Kod na 1 znak</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="UrlType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">URL adresa</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="4000"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

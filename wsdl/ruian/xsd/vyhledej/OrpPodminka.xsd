@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:OrpPodminka:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:OrpPodminka:v1" xmlns:opPodm="urn:cz:isvs:ruian:schemas:OrpPodminka:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:vc="urn:cz:isvs:ruian:schemas:Vusc:v1" elementFormDefault="qualified" version="0.40.0">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:Vusc:v1" schemaLocation="../../../ruian/xsd/prvky/Vusc.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:complexType name="OrpPodminkaType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">ORP</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod4Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Nazev" type="base:Nazev48Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Vusc" type="vc:VuscType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

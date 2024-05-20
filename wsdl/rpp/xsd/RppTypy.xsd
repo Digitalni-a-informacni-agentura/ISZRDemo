@@ -1,0 +1,1568 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:rpp:schemas:RppTypy:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" targetNamespace="urn:cz:isvs:rpp:schemas:RppTypy:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.1">
+    <xs:annotation>
+        <xs:documentation xml:lang="cs">Návrh XML schématu s definicemi společných datových prvků IS RPP.
+          Toto schéma obsahuje definice základních datových prvků používaných pro dotazy a odpovědi do registru 
+          práv a povinností (RPP).
+        </xs:documentation>
+    </xs:annotation>
+    <!-- Verze 1.0.0, 6.2.2012 -->
+    <!-- Verze 1.0.1, 23.2.2012 -->
+    <xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+    <xs:simpleType name="DatumPlatnostiOdType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Datum platnosti od (např. datum platnosti agendy od). 
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:date"/>
+    </xs:simpleType>
+    <xs:simpleType name="DatumPlatnostiDoType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Datum platnosti do (např. datum platnosti agendy do). 
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:date"/>
+    </xs:simpleType>
+    <xs:simpleType name="DatumUcinnostiPravnihoPredpisuType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Datum účinnosti právního předpisu. 
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:date"/>
+    </xs:simpleType>
+    <xs:simpleType name="DatumVydaniPravnihoPredpisuType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Datum vydání právního předpisu. 
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:date"/>
+    </xs:simpleType>
+    <xs:simpleType name="DatumPravniMociType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Datum právní moci. 
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:date"/>
+    </xs:simpleType>
+    <xs:simpleType name="NazevAgendyType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Název agendy.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="300"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="NazevTypuOvmType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Název typu orgánu veřejné moci.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="250"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="NazevOvmType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Název orgánu veřejné moci.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="250"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="NazevAisType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Název agendového informačního systému.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="250"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="VerzeAisType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Verze agendového informačního systému.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="15"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="OdstavecUstanoveniType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Odstavec ustanovení právního předpisu.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="30"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="ParagrafUstanoveniType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Paragraf ustanovení právního předpisu.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="30"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="PismenoUstanoveniType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Písmeno ustanovení právního předpisu.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="30"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="TextUstanoveniType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Text ustanovení právního předpisu.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyLineStringType">
+            <xs:maxLength value="4000"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="PopisUstanoveniType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Popis ustanovení právního předpisu.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyLineStringType">
+            <xs:maxLength value="4000"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="KodCinnostiAgendyType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Kód činnosti agendy.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:IdentifikatorType">
+            <xs:maxLength value="15"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="NazevCinnostiAgendyType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Název činnosti agendy.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="2000"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="PopisCinnostiAgendyType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Popis činnosti agendy.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyLineStringType">
+            <xs:maxLength value="2000"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="PopisOpravneniType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Popis rozsahu oprávnění k AIS.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyLineStringType">
+            <xs:maxLength value="2000"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="NazevUdajeAisType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Název údaje AIS.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="250"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="TypOpravneniUdajeAisType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Typ oprávnění na údaj, výčtový typ.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="1"/>
+            <xs:enumeration value="R">
+                <xs:annotation>
+                    <xs:documentation>Oprávnění na čtení</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="W">
+                <xs:annotation>
+                    <xs:documentation>Oprávnění na zápis</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="TypPravnihoPredpisuType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Typ právního předpisu.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="50"/>
+            <xs:enumeration value="PRAVNI PREDPIS SBIRKY ZAKONU">
+                <xs:annotation>
+                    <xs:documentation>Právní předpis ze Sbírky zákonů</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="OSTATNI PRAVNI PREDPISY">
+                <xs:annotation>
+                    <xs:documentation>Ostatní právní předpisy</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="TypUstanoveniType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Název typu ustanovení právního předpisu.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="50"/>
+            <xs:enumeration value="HLAVA">
+                <xs:annotation>
+                    <xs:documentation>Hlava ustanovení</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="PARAGRAF">
+                <xs:annotation>
+                    <xs:documentation>Paragraf ustanovení</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ODSTAVEC">
+                <xs:annotation>
+                    <xs:documentation>Odstavec ustanovení</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="PISMENO">
+                <xs:annotation>
+                    <xs:documentation>Písmeno ustanovení</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="JINY TYP">
+                <xs:annotation>
+                    <xs:documentation>Jiný typ ustanovení</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="CisloPravnihoPredpisuType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Číslo právního předpisu.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="50"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="RokPravnihoPredpisuType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Rok právního předpisu.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:KladneCeleCisloType"/>
+    </xs:simpleType>
+    <xs:simpleType name="NazevPravnihoPredpisuType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Název právního předpisu.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="2000"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="PopisPravaPovinnostiType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Textový popis práva a povinnosti.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyLineStringType">
+            <xs:maxLength value="2000"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="TypPravaPovinnostiType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Typ práva a povinnosti, výčtový typ.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="50"/>
+            <xs:enumeration value="PRAVO">
+                <xs:annotation>
+                    <xs:documentation>Právo</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="POVINNOST">
+                <xs:annotation>
+                    <xs:documentation>Povinnost</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="OSTATNI">
+                <xs:annotation>
+                    <xs:documentation>Ostatní</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="IdentifikatorRozhodnutiType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Identifikátor rozhodnutí.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="250"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="NazevSlaType">
+        <xs:annotation>
+            <xs:documentation>
+                Název SLA.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="50"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="NazevMetrikyType">
+        <xs:annotation>
+            <xs:documentation>
+                Název metriky SLA.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="50"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="NazevJednotkyMetrikyType">
+        <xs:annotation>
+            <xs:documentation>
+                Název jednotky metriky SLA.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="50"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="HodnotaMetrikyType">
+        <xs:annotation>
+            <xs:documentation>
+                Hodnota metriky SLA.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="50"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="PocetUrednikuOvmType">
+        <xs:annotation>
+            <xs:documentation>
+                Hodnota celkového počtu úředníků na OVM.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:KladneCeleCisloType"/>
+    </xs:simpleType>
+    <xs:simpleType name="PocetUvazkuType">
+        <xs:annotation>
+            <xs:documentation>
+                Hodnota počtu úvazků úředních osob, které zastávají roli.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:decimal">
+            <xs:totalDigits value="8"/>
+            <xs:fractionDigits value="2"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="VerzeSluzbyType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Verze služby.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="10"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="PopisSluzbyType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Popis služby.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyLineStringType">
+            <xs:maxLength value="2000"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="EndpointSluzbyType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Endpoint, kde je služba poskytována  - uri pro volání služby.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:anyURI"/>
+    </xs:simpleType>
+    <xs:simpleType name="DuvodPozastaveniSluzbyType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Důvod pozastavení služby.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="250"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="PopisVstupnichParametruSluzbyType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Popis vstupních parametrů služby.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyLineStringType">
+            <xs:maxLength value="2000"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="PopisVystupnichParametruSluzbyType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Popis výstupních parametrů služby.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyLineStringType">
+            <xs:maxLength value="2000"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="MaxDobaSluzbySyncType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Maximální doba pro zpracování služby v synchronním režimu.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:KladneCeleCisloType"/>
+    </xs:simpleType>
+    <xs:simpleType name="MaxDobaSluzbyAsyncType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Maximální doba pro zpracování služby v asynchronním režimu.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:KladneCeleCisloType"/>
+    </xs:simpleType>
+    <xs:simpleType name="PocetOdeslaniSluzbyType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Počet pokusů pro aktivní odeslání odpovědi na asynchronní eGON službu volajícímu AIS.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:KladneCeleCisloType"/>
+    </xs:simpleType>
+    <xs:simpleType name="CasOpakovaniSluzbyType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Definice aktivního režimu eGON služby - doba (v minutách) mezi pokusy při aktivním odesílání odpovědi 
+                na asynchronní eGON službu volajícímu AIS.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:KladneCeleCisloType"/>
+    </xs:simpleType>
+    <xs:simpleType name="MaxPocetVstupSluzbyType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Kvantitativní omezení počtu vstupních parametrů v případě služby hromadné. 
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:KladneCeleCisloType"/>
+    </xs:simpleType>
+    <xs:simpleType name="TypPopisnehoSouboruSluzbyType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Typ popisného souboru služby (Mime-type).
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="256"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="MaxPocetVystupSluzbyType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Kvantitativní omezení počtu výstupních parametrů v případě služby hromadné. 
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:KladneCeleCisloType"/>
+    </xs:simpleType>
+    <xs:simpleType name="PoradiSluzbyType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Pořadí volání interní služby, která je součástí kompozice jiné služby. 
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:KladneCeleCisloType"/>
+    </xs:simpleType>
+    <xs:simpleType name="NazevTypuSluzbyType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Název typu služby (eGON, vnitřní).
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="50"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="NazevKategorieSluzbyType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Název kategorie služby.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="50"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="NazevRezimuSluzbyType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Název režimu služby (synchronní, asynchronní).
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="50"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="NazevZpusobuInicializaceType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Název způsobu inicializace služby (pull, push).
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="50"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="NazevPovahyOperaceType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Název povahy operace (select, insert, update, delete).
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="50"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="NazevMnozinyVyberuType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Kategorie služby dle množiny výběru (individuální, hromadné).
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="50"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="NazevTypuOdpovediType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Kategorie služby dle typu odpovědi (logická, záznam).
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="50"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="KodProcesnihoModeluType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Kód procesního modelu.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:IdentifikatorType">
+            <xs:maxLength value="15"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="NazevProcesnihoModeluType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Název procesního modelu.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="250"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="VerzeProcesnihoModeluType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Verze procesního modelu.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="10"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="NazevKategorieModeluType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Název kategorie procesního modelu.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="250"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="TypVazbyKCinnostiType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Typ vazby k činnosti.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="50"/>
+            <xs:enumeration value="FIXNI VSTUP">
+                <xs:annotation>
+                    <xs:documentation>
+                        Služby mají přesně definovaný seznam vstupních a výstupních údajů, 
+                        o každém údaji přiřazeném službě lze rozhodnout, má-li k němu služba oprávnění typu W nebo R.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="VARIABILNI VSTUP">
+                <xs:annotation>
+                    <xs:documentation>
+                        Služby mají proměnný seznam vstupních nebo výstupních údajů, 
+                        o každém údaji přiřazeném službě lze rozhodnout, má-li k němu služba oprávnění typu W nebo R.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="VAZBA NA UDAJ">
+                <xs:annotation>
+                    <xs:documentation>
+                        Služby, které souvisí s oprávněním typu R nebo W na určitý údaj.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="BEZ KONTROLY">
+                <xs:annotation>
+                    <xs:documentation>
+                        Služby bez nutnosti kontroly oprávnění.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="SPECIALNI">
+                <xs:annotation>
+                    <xs:documentation>
+                        Služby speciální, nebo takové, které nelze jednoznačně přiřadit podle údajů.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="INTERNI">
+                <xs:annotation>
+                    <xs:documentation>
+                        Interní služba.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="PopisnySouborProcesnihoModeluType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Popisný soubor procesního modelu, XML metadata modelu.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:base64Binary"/>
+    </xs:simpleType>
+    <xs:simpleType name="GrafickySouborProcesnihoModeluType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Grafický soubor procesního modelu, seznam obrazových příloh.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:base64Binary"/>
+    </xs:simpleType>
+    <xs:simpleType name="StavRppType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Stav údaje v RPP.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:StavType">
+            <xs:enumeration value="spravny"/>
+            <xs:enumeration value="nespravny"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="VysledekSubKodRppType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Detailní kód výsledku, výčtový typ.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="OBECNA CHYBA SLUZBY">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Službu nebylo možné provést z důvodu chyby na straně poskytovatel služby
+                        (chyba databázového nebo aplikačního serveru, ...).
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="PRAZDNY POVINNY PARAMETR">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Chybí povinný vstupní parametr služby (status není propagován do externího rozhraní).
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="DUPLICITA VSTUPNIHO PARAMETRU">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Vstup služby obsahuje více než jeden záznam podřízené entity se stejným klíčem.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEVALIDNI DATA">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Aplikační data nejsou validní podle XSD dokumentů.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEVALIDNI ZADOST">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Kód služby neodpovídá XML struktuře žádosti.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="CHYBA ROZSAHU">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Chyba rozsahu nebo chyba závislosti vstupních parametrů.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEIDENTIFIKOVANA ZADNA ZMENA">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Nebyla identifikována změna údaje (údajů).
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEPOVOLENY KOD AGENDY">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Kód agendy včetně jeho počátku platnosti není uveden nebo není platný
+                        v aktuálním seznamu agend.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEPOVOLENY KOD OVM">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Kód OVM není uveden nebo není platný v aktuálním seznamu OVM
+                        nebo není povolený pro agendu.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEPOVOLENY KOD AIS">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Kód AIS není uveden nebo není platný v aktuálním číselníku AIS.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEPOVOLENY KOD IS">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Kód IS není uveden nebo není platný v aktuálním číselníku IS.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEPOVOLENY KOD CINNOSTI">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Kód činnosti není uveden nebo není platný v aktuálním seznamu činností agendy.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEPOVOLENY KOD SLUZBY">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Kód služby není uveden nebo není platný v aktuálním seznamu služeb.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEPOVOLENY NAZEV UDAJE AIS">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Název údaje AIS není uveden nebo není platný v aktuálním číselníku údajů AIS.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEPOVOLENY NAZEV SLA">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Název SLA není uveden nebo není platný v aktuálním číselníku SLA.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEPOVOLENY NAZEV METRIKY">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Název metriky není uveden nebo není platný v aktuálním číselníku metrik.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEPOVOLENY NAZEV TYPU OVM">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Název typu OVM není uveden nebo není platný v aktuálním číselníku typů OVM
+                        nebo není povolený pro agendu.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEPOVOLENY NAZEV TYPU SLUZBY">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Název typu služby není uveden nebo není platný v aktuálním číselníku typů služeb.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEPOVOLENY NAZEV KATEGORIE SLUZBY">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Název kategorie služby není uveden nebo není platný v aktuálním číselníku kategorií služeb.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEPOVOLENY NAZEV REZIMU SLUZBY">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Název režimu služby není uveden nebo není platný v aktuálním číselníku režimů služeb.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEPOVOLENY NAZEV INCIALIZACE SLUZBY">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Název způsobu incializace služby není uveden nebo není platný v aktuálním číselníku způsobů inicializací služeb.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEPOVOLENY NAZEV OPERACE SLUZBY">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Název povahy operace služby není uveden nebo není platný v aktuálním číselníku povah operací služeb.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEPOVOLENY NAZEV MNOZINY SLUZBY">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Název množiny výběru služby není uveden nebo není platný v aktuálním číselníku množin výběru služeb.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEPOVOLENY NAZEV TYPU ODPOVEDI SLUZBY">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Název typu odpovědi služby není uveden nebo není platný v aktuálním číselníku typů odpovědí služeb.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEPOVOLENY NAZEV TYPU OVM">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Název typu OVM není uveden nebo není platný v aktuálním číselníku typů OVM.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEPOVOLENY NAZEV KATEGORIE MODELU">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Název kategorie modelu není uveden nebo není platný v aktuálním seznamu kategorií modelu.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEPOVOLENE AIFO">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Aifo není uvedeno mezi identifikátory referenčních údajů.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEPOVOLENE ICO">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Ičo není uvedeno mezi identifikátory referenčních údajů.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEPOVOLENY IDENTIFIKATOR RUIAN">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Identifikátor RUIAN není uveden mezi identifikátory referenčních údajů.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEPOVOLENY DATUM PLATNOSTI">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Chyba porovnání data platnosti s původní hodnotou nebo jinou závislou hodnotou data platnosti.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEPOVOLENA VERZE">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Chyba porovnání původní verze s aktuální verzí.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEPOVOLENY TYP VAZBY K CINNOSTI PRO TYP SLUZBY">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Hodnota typu vazby k činnosti není povolena pro uvedený typ služby.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="UKONCENA PLATNOST AGENDY">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Agenda není platná k aktuálnímu datu.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="PRAZDNY SEZNAM">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Pro zadané vstupní parametry nebyl nalezen žádný vyhovující záznam.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="CHYBA MAPA AIFO">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Neshoda mezi použitými AIFO v datové části a mapě nebo mapa chybí.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="CHYBA SEZNAM ADRES">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Neshoda mezi použitými kódy RUIAN v datové části a seznamu nebo seznam chybí.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="CHYBA SEZNAM PRVKU">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Neshoda mezi použitými kódy prvků RUIAN v datové části a seznamu nebo seznam chybí.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="CHYBA SEZNAM ICO">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Neshoda mezi použitými IČO v datové části a seznamu nebo seznam chybí.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ROZHODNUTI NEEXISTUJE">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Rozhodnutí není k dispozici (neexistuje nebo odepřen přístup).
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="PUSOBNOST NEEXISTUJE">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Působnost není k dispozici (neexistuje nebo odepřen přístup).
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="SLUZBA NEEXISTUJE NEBO NENI PLATNA">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Služba s daným kódem a verzí není k dispozici nebo není platná v aktuálním seznamu služeb.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="PROCESNI MODEL NEEXISTUJE NEBO NENI PLATNY">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Procesní model s daným kódem a verzí není k dispozici nebo není platný v aktuálním seznamu procesních modelů.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="PRAVNI PREDPIS NEEXISTUJE NEBO NENI PLATNY">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Právní předpis s danou identifikací není k dispozici nebo není platný v aktuálním seznamu předpisů.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="USTANOVENI NEEXISTUJE">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Ustanovení s danou identifikací není k dispozici.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="VYUZITI NEEXISTUJE">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Pro zadané IČO nebo AIFO a období neexistuje žádný záznam o využití údajů.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="VAZBA SLUZBA CINNOST AGENDY NEEXISTUJE">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Vazba mezi službou a činností agendy neexistuje.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="VAZBA TYP OVM OVM NEEXISTUJE">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Vazba mezi typem OVM a OVM neexistuje.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="VAZBA AGENDA AIS NEEXISTUJE">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Vazba mezi agendou a AIS neexistuje.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="DUPLICITA NAZVU SLA">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Název SLA je již uveden v aktuálním číselníku SLA.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="DUPLICITA KODU AGENDY">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Agenda s tímto kódem již existuje v daném intervalu platnosti.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="DUPLICITA PUSOBNOSTI">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Působnost s těmito údaji již existuje.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="DUPLICITA SLUZBY">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Služba s těmito údaji již existuje.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="DUPLICITA ROZHODNUTI">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Rozhodnutí s těmito údaji již existuje.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="DUPLICITA PROCESNIHO MODELU">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Procesní model s těmito údaji již existuje.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="DUPLICITA PRAVNIHO PREDPISU">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Právní předpis s těmito údaji již existuje.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="DUPLICITA VAZBY SLUZBA CINNOST AGENDY">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Vazba mezi službou a činností agendy již existuje.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="DUPLICITA NAZVU REZIMU SLUZBY">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Název režimu služby je již uveden v aktuálním číselníku.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="DUPLICITA NAZVU KATEGORIE SLUZBY">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Název kategorie služby je již uveden v aktuálním číselníku.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="DUPLICITA NAZVU TYPU SLUZBY">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Název typu služby je již uveden v aktuálním číselníku.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="DUPLICITA NAZVU INICIALIZACE SLUZBY">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Název inicializace služby je již uveden v aktuálním číselníku.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="DUPLICITA NAZVU OPERACE SLUZBY">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Název operace služby je již uveden v aktuálním číselníku.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="DUPLICITA NAZVU MNOZINY SLUZBY">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Název množiny služby je již uveden v aktuálním číselníku.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="DUPLICITA NAZVU TYPU ODPOVEDI">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Název typu odpovědi služby je již uveden v aktuálním číselníku.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="DUPLICITA NAZVU UDAJE AIS">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Název údaje AIS je již uveden v aktuálním číselníku.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="DUPLICITA NAZVU TYPU OVM">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Název názvu typu OVM je již uveden v aktuálním číselníku.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="DUPLICITA NAZVU METRIKY">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Název metriky je již uveden v aktuálním číselníku.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="DUPLICITA KODU IS">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Kód informačního systému je již uveden v aktuálním číselníku.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="DUPLICITA KODU OVM">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Kód orgánu veřejné moci je již uveden v aktuálním číselníku.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="DUPLICITA VAZBY TYP OVM OVM">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Vazba mezi OVM a typem OVM již existuje.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="CHYBA VAZBY SLA">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        SLA je použito ve službách.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="CHYBI CINNOST">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Agenda musí mít přiřazenu alespoň jednu činnost.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="CHYBNA STRUKTURA USTANOVENI">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Ustanovení má neplatnou strukturu.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ZPOCHYBNENA AGENDA">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Agenda je ve stavu zpochybnění.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="PREKROCEN POCET">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Překročen počet povolených záznamů.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="CHYBA OPRAVNENI">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Není oprávnění na provedení akce, rozhodnutí RPP.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="AgendaAbstractType" abstract="true">
+        <xs:annotation>
+            <xs:documentation>
+                Agenda, předek.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Kod" type="reg:KodAgendyType"/>
+            <xs:element name="Nazev" type="NazevAgendyType"/>
+            <xs:element name="DatumPlatnostiOd" type="DatumPlatnostiOdType"/>
+            <xs:element name="DatumPlatnostiDo" type="DatumPlatnostiDoType" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="CinnostAgendyAbstractType" abstract="true">
+        <xs:annotation>
+            <xs:documentation>
+                Činnost agendy, předek.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Kod" type="KodCinnostiAgendyType"/>
+            <xs:element name="Nazev" type="NazevCinnostiAgendyType"/>
+            <xs:element name="Popis" type="PopisCinnostiAgendyType" minOccurs="0"/>
+            <xs:element name="DatumPlatnostiOd" type="DatumPlatnostiOdType"/>
+            <xs:element name="DatumPlatnostiDo" type="DatumPlatnostiDoType" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="OpravneniAisAbstractType" abstract="true">
+        <xs:annotation>
+            <xs:documentation>
+                Oprávnění přístupu k AIS, předek.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Opravneni" type="PopisOpravneniType" minOccurs="0"/>
+            <xs:element name="SeznamUstanoveni" type="SeznamPravnichUstanoveniPredpisType" minOccurs="0"/>
+            <xs:element name="SeznamUdajuAis" type="SeznamUdajuAisOpravneniType" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SluzbaAbstractType" abstract="true">
+        <xs:annotation>
+            <xs:documentation>
+                Údaje o službě, předek.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Kod" type="reg:KodSluzbyType"/>
+            <xs:element name="Verze" type="VerzeSluzbyType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="InformacniSystemAbstractType" abstract="true">
+        <xs:annotation>
+            <xs:documentation>
+                Agendový informační systém, předek.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Kod" type="reg:KodAisType"/>
+            <xs:element name="Nazev" type="NazevAisType"/>
+            <xs:element name="Verze" type="VerzeAisType" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ProcesniModelAbstractType" abstract="true">
+        <xs:annotation>
+            <xs:documentation>
+                Údaje o procesním modelu, předek.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Kod" type="KodProcesnihoModeluType"/>
+            <xs:element name="Verze" type="VerzeProcesnihoModeluType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SeznamNazvuTypuOvmType">
+        <xs:annotation>
+            <xs:documentation>
+                Seznam názvů typů OVM.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="NazevTypuOvm" type="NazevTypuOvmType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="OvmType">
+        <xs:annotation>
+            <xs:documentation>
+                Orgán veřejné moci.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Kod" type="reg:KodOvmType"/>
+            <xs:element name="Nazev" type="NazevOvmType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SeznamOvmType">
+        <xs:annotation>
+            <xs:documentation>
+                Seznam OVM.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Ovm" type="OvmType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="UdajAisType">
+        <xs:annotation>
+            <xs:documentation>
+                Údaj AIS.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Nazev" type="NazevUdajeAisType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="UdajAisOpravneniAisType">
+        <xs:annotation>
+            <xs:documentation>
+                Údaj AIS ve vztahu k oprávnění AIS.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="UdajAisType">
+                <xs:sequence>
+                    <xs:element name="TypOpravneniUdaje" type="TypOpravneniUdajeAisType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="SeznamUdajuAisOpravneniType">
+        <xs:annotation>
+            <xs:documentation>
+                Seznam údajů AIS ve vztahu k oprávnění.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="UdajAisOpravneniAis" type="UdajAisOpravneniAisType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="PravniUstanoveniPredpisType">
+        <xs:annotation>
+            <xs:documentation>
+                Údaje pro jednoznačnou identifikaci právního předpisu a jeho ustanovení.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="CisloPravnihoPredpisu" type="CisloPravnihoPredpisuType" minOccurs="0"/>
+            <xs:element name="RokPravnihoPredpisu" type="RokPravnihoPredpisuType" minOccurs="0"/>
+            <xs:element name="NazevPravnihoPredpisu" type="NazevPravnihoPredpisuType" minOccurs="0"/>
+            <xs:element name="ParagrafUstanoveni" type="ParagrafUstanoveniType" minOccurs="0"/>
+            <xs:element name="OdstavecUstanoveni" type="OdstavecUstanoveniType" minOccurs="0"/>
+            <xs:element name="PismenoUstanoveni" type="PismenoUstanoveniType" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SeznamPravnichUstanoveniPredpisType">
+        <xs:annotation>
+            <xs:documentation>
+                Seznam jednoznačných identifikací právních předpisů a jejich ustanovení.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="PravniUstanoveniPredpis" type="PravniUstanoveniPredpisType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="IdentifikatorReferencnihoUdajeType">
+        <xs:choice>
+            <xs:element name="Ico" type="reg:IcoType"/>
+            <xs:element name="Aifo" type="reg:LokalniAifoType"/>
+            <xs:element name="OdkazRuian" type="reg:IdentifikatorRuianType"/>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="PravoPovinnostType">
+        <xs:annotation>
+            <xs:documentation>
+                Údaje o právu a povinnosti.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Text" type="PopisPravaPovinnostiType"/>
+            <xs:element name="Typ" type="TypPravaPovinnostiType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="PravoPovinnostOvmType">
+        <xs:annotation>
+            <xs:documentation>
+                Údaje o právu nebo povinnosti na základě kterého orgán veřejné moci rozhodl
+                včetně seznamu identifikátorů osob nebo obyvatel, ke kterým se PP vztahuje.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="PravoPovinnostType">
+                <xs:sequence>
+                    <xs:element name="SeznamIdentifikatoruReferencnihoUdaje" minOccurs="0">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="Ico" type="reg:IcoType" minOccurs="0" maxOccurs="unbounded"/>
+                                <xs:element name="Aifo" type="reg:LokalniAifoType" minOccurs="0" maxOccurs="unbounded"/>
+                                <xs:element name="OdkazRuian" type="reg:IdentifikatorRuianType" minOccurs="0" maxOccurs="unbounded"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="IdentifikacePusobnostiType">
+        <xs:sequence>
+            <xs:element name="KodAgendy" type="reg:KodAgendyType"/>
+            <xs:element name="DatumPlatnostiAgendyOd" type="DatumPlatnostiOdType"/>
+            <xs:element name="KodOvm" type="reg:KodOvmType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="PopisnySouborSluzbyType">
+        <xs:simpleContent>
+            <xs:extension base="xs:base64Binary">
+                <xs:attribute name="popisnySouborTyp" type="TypPopisnehoSouboruSluzbyType" use="required"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="ProcesniModelType">
+        <xs:annotation>
+            <xs:documentation>
+                Údaje o procesním modelu.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="ProcesniModelAbstractType">
+                <xs:sequence>
+                    <xs:element name="Nazev" type="NazevProcesnihoModeluType"/>
+                    <xs:element name="NazevKategorieModelu" type="NazevKategorieModeluType"/>
+                    <xs:sequence minOccurs="0">
+                        <xs:element name="KodAgendy" type="reg:KodAgendyType"/>
+                        <xs:element name="DatumPlatnostiAgendyOd" type="DatumPlatnostiOdType"/>
+                        <xs:element name="KodCinnostiAgendy" type="KodCinnostiAgendyType" minOccurs="0"/>
+                    </xs:sequence>
+                    <xs:element name="PopisnySoubor" type="PopisnySouborProcesnihoModeluType"/>
+                    <xs:element name="GrafickySoubor" type="GrafickySouborProcesnihoModeluType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="PravniPredpisType">
+        <xs:annotation>
+            <xs:documentation>
+                Údaje o právním předpisu.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Cislo" type="CisloPravnihoPredpisuType" minOccurs="0"/>
+            <xs:element name="Rok" type="RokPravnihoPredpisuType" minOccurs="0"/>
+            <xs:element name="Nazev" type="NazevPravnihoPredpisuType" minOccurs="0"/>
+            <xs:element name="DatumUcinnosti" type="DatumUcinnostiPravnihoPredpisuType" minOccurs="0"/>
+            <xs:element name="DatumVydani" type="DatumVydaniPravnihoPredpisuType" minOccurs="0"/>
+            <xs:element name="Typ" type="TypPravnihoPredpisuType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="UstanoveniType">
+        <xs:annotation>
+            <xs:documentation>
+                Údaje o ustanovení právního předpisu.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:choice>
+                <xs:element name="Paragraf" type="ParagrafUstanoveniType"/>
+                <xs:element name="Odstavec" type="OdstavecUstanoveniType"/>
+                <xs:element name="Pismeno" type="PismenoUstanoveniType"/>
+            </xs:choice>
+            <xs:element name="Popis" type="PopisUstanoveniType" minOccurs="0"/>
+            <xs:element name="Text" type="TextUstanoveniType" minOccurs="0"/>
+            <xs:element name="Typ" type="TypUstanoveniType"/>
+            <xs:element name="SeznamUstanoveni" type="SeznamUstanoveniType" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SeznamUstanoveniType">
+        <xs:annotation>
+            <xs:documentation>
+                Seznam ustanovení právního předpisu.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Ustanoveni" type="UstanoveniType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="VysledekDetailType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Detailní popis aplikační chyby.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="VysledekSubKod" type="VysledekSubKodRppType"/>
+            <xs:element name="VysledekPopis" type="reg:VysledekPopisType" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="AplikacniStatusType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Aplikační chyba, doplnění k StatusType ze systémové části zprávy.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="VysledekKod" type="reg:VysledekKodType"/>
+            <xs:element name="VysledekDetail" type="VysledekDetailType" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

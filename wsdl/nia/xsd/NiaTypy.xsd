@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:nia:schemas:NiaTypy:v1" xmlns:nia="urn:cz:isvs:nia:schemas:NiaTypy:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" targetNamespace="urn:cz:isvs:nia:schemas:NiaTypy:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.1.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">XML schéma s definicemi společných datových prvků NIA.</xs:documentation>
+	</xs:annotation>
+	<!-- Vývojová verze 1.0.0, 27.10.2017, Pavel Odstrčil -->
+	<!-- Verze po revizi 1.1.0, 26.4.2022, Aleš Teplý, typy pro EidentitaAifoCtiProstredkyAifo -->
+	<!-- AutoCont CZ a.s. -->
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<!-- simple typy -->
+	<xs:simpleType name="VysledekSubKodNiaType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Detailní kód výsledku, výčtový typ.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SPECIFIKACE V POPISU">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Detailní popis uveden v elementu VysledekPopis,</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- komplexni typy -->
+	<xs:complexType name="NiaAplikacniStatusType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Aplikační status, odpověď.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="VysledekKod" type="reg:VysledekKodType"/>
+			<xs:element name="VysledekDetail" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="VysledekSubKod" type="VysledekSubKodNiaType"/>
+						<xs:element name="VysledekPopis" type="reg:VysledekPopisType" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="EidentitaPosliAifoInfoDataType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Zaslání informační zprávy občanům, dotaz.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Ico" type="reg:IcoType"/>
+			<xs:element name="TestKanalu" type="xs:boolean"/>
+			<xs:element name="SmsText" type="xs:base64Binary" minOccurs="0"/>
+			<xs:element name="Smtp" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Predmet" type="xs:string" minOccurs="0"/>
+						<xs:element name="Text" type="xs:base64Binary" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Fcm" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Predmet" type="xs:string" minOccurs="0"/>
+						<xs:element name="Text" type="xs:base64Binary" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="EidentitaCtiProstredkyAifoDataType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Request transakce TR_AIFO_CTI_PROSTREDKY pro zjištění početu zřízených prostředků dle AIFO.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Aifo" type="reg:LokalniAifoType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="EidentitaPosliAifoInfoDataResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Zaslání informační zprávy občanům, odpověď.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AplikacniStatus" type="NiaAplikacniStatusType"/>
+			<xs:element name="VysledekOdeslani" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="AisEvidence" type="xs:string" minOccurs="0"/>
+						<xs:element name="SmsEvidence" type="xs:string" minOccurs="0"/>
+						<xs:element name="SmtpEvidence" type="xs:string" minOccurs="0"/>
+						<xs:element name="FcmEvidence" type="xs:string" minOccurs="0"/>
+						<xs:element name="ObecnaChyba" type="xs:string" minOccurs="0"/>
+						<xs:element name="PbsiVysledek" type="xs:string" minOccurs="0"/>
+						<xs:element name="SmsVysledek" type="xs:string" minOccurs="0"/>
+						<xs:element name="SmtpVysledek" type="xs:string" minOccurs="0"/>
+						<xs:element name="FcmVysledek" type="xs:string" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="EidentitaCtiProstredkyAifoDataResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Request transakce TR_AIFO_CTI_PROSTREDKY pro zjištění početu zřízených prostředků dle AIFO, odpověď.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AplikacniStatus" type="NiaAplikacniStatusType"/>
+            <xs:element name="PocetProstredku" type="xs:int">
+                <xs:annotation>
+                    <xs:documentation xml:lang="CS"> 0  : Pokud není nalezen žádný identifikační prostředek nebo pokud není nalezeno AIFO, je výsledkem volání 0
+ 1-N: Pokud je nalezen platný identifikační prostředek, je výsledkem volání 1 – N podle počtu platných prostředků
+ -1 : Pokud jsou nalezeny jen již neplatné identifikační prostředky</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

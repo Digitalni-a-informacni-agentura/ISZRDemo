@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrZmenDataPristup:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrZmenDataPristup:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrZmenDataPristup:v1"
+	xmlns:e240="urn:cz:isvs:iszr:schemas:IszrZmenDataPristup:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrZmenDataPristup">
+
+	<wsdl:documentation>Služba umožňuje nastavit povolení přístupu k ISZR.</wsdl:documentation>
+
+	<!-- Vývojová verze 1.0.0, 01.04.2019 Pavel Odstrčil, vznik -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrZmenDataPristup:v1" schemaLocation="../xsd/IszrZmenDataPristup.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrZmenDataPristup">
+		<wsdl:part name="parametry" element="e240:IszrZmenDataPristup"/>
+	</wsdl:message>
+	<wsdl:message name="IszrZmenDataPristupResponse">
+		<wsdl:part name="vysledek" element="e240:IszrZmenDataPristupResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrZmenDataPristupPortType">
+		<wsdl:operation name="IszrZmenDataPristup">
+			<wsdl:input message="tns:IszrZmenDataPristup"/>
+			<wsdl:output message="tns:IszrZmenDataPristupResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrZmenDataPristupBinding" type="tns:IszrZmenDataPristupPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrZmenDataPristup">
+			<soap:operation soapAction="IszrZmenDataPristup"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrZmenDataPristupService">
+		<wsdl:port name="IszrZmenDataPristupPortService" binding="tns:IszrZmenDataPristupBinding">
+			<soap:address location="IszrZmenDataPristup"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

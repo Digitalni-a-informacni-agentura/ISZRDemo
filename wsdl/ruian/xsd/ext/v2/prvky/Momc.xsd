@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:Momc:v2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:Momc:v2" xmlns:mc="urn:cz:isvs:ruian:schemas:Momc:v2" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:mp="urn:cz:isvs:ruian:schemas:ObvodPrahy:v2" xmlns:ob="urn:cz:isvs:ruian:schemas:Obec:v2" xmlns:sp="urn:cz:isvs:ruian:schemas:SpravniObvod:v2" elementFormDefault="qualified" version="2.0.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Schéma specifikuje prvek typu MOMC se základními elementy bez geometrie. </xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:SpravniObvod:v2" schemaLocation="SpravniObvod.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:Obec:v2" schemaLocation="Obec.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ObvodPrahy:v2" schemaLocation="ObvodPrahy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../typy/CommonTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../typy/BaseTypy.xsd"/>
+	<xs:element name="Momc" type="mc:MomcType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Prvek představuje území městského obvodu nebo městské části územně členěného statutárního města (MOMC).</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:group name="MomcGroup">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Základní elementy prvku MOMC.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod6Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód MOMC.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Nazev" type="base:Nazev48Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Název MOMC.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Nespravny" type="com:NespravnyType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Identifikátor nesprávnosti na prvku.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ObvodPrahy" type="mp:ObvodPrahyType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Nadřazený obvod Prahy</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Obec" type="ob:ObecType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Nadřazená obec.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SpravniObvod" type="sp:SpravniObvodType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Nadřazený správni obvod.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:group>
+	<xs:complexType name="MomcType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Prvek MOMC se základními elementy a bez geometrie.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:group ref="MomcGroup" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

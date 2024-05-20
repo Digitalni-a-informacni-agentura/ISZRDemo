@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrVypisSeznamRegistraciAis:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrVypisSeznamRegistraciAis:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrVypisSeznamRegistraciAis:v1"
+	xmlns:e289="urn:cz:isvs:iszr:schemas:IszrVypisSeznamRegistraciAis:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrVypisSeznamRegistraciAis">
+
+	<wsdl:documentation>Služba E289 externího rozhraní, interní služba ISZR I36. Umožňuje podání obecného formuláře.</wsdl:documentation>
+
+	<!-- Verze 1.0.0, 09.10.2021 Pavel Odstrčil, výchozí verze -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrVypisSeznamRegistraciAis:v1" schemaLocation="../xsd/IszrVypisSeznamRegistraciAis.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrVypisSeznamRegistraciAis">
+		<wsdl:part name="parametry" element="e289:IszrVypisSeznamRegistraciAis"/>
+	</wsdl:message>
+	<wsdl:message name="IszrVypisSeznamRegistraciAisResponse">
+		<wsdl:part name="vysledek" element="e289:IszrVypisSeznamRegistraciAisResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrVypisSeznamRegistraciAisPortType">
+		<wsdl:operation name="IszrVypisSeznamRegistraciAis">
+			<wsdl:input message="tns:IszrVypisSeznamRegistraciAis"/>
+			<wsdl:output message="tns:IszrVypisSeznamRegistraciAisResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrVypisSeznamRegistraciAisBinding" type="tns:IszrVypisSeznamRegistraciAisPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrVypisSeznamRegistraciAis">
+			<soap:operation soapAction="IszrVypisSeznamRegistraciAis"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrVypisSeznamRegistraciAisService">
+		<wsdl:port name="IszrVypisSeznamRegistraciAisPortService" binding="tns:IszrVypisSeznamRegistraciAisBinding">
+			<soap:address location="IszrVypisSeznamRegistraciAis"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

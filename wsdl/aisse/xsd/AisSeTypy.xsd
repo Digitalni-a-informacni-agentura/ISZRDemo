@@ -1,0 +1,3093 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:aisse:schemas:AisSeTypy:v1"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+           xmlns:rob="urn:cz:isvs:rob:schemas:RobTypy:v1"
+           targetNamespace="urn:cz:isvs:aisse:schemas:AisSeTypy:v1"
+           elementFormDefault="qualified" attributeFormDefault="unqualified"
+           version="1.0.14">
+    <xs:annotation>
+        <xs:documentation xml:lang="cs">Definice společných datových prvků AIS EOP, AIS ECD a RRČ.</xs:documentation>
+    </xs:annotation>
+
+    <!-- Úvodní verze 1.0.0, 07.06.2017, KOMIX: Libor Málek, Jan Štastný, Andrea Vataščinová  -->
+    <!-- Úprava verze 1.0.2, 12.06.2017, KOMIX: Jan Štastný - druh CD, výsledek  -->
+    <!-- Úprava verze 1.0.3, 13.06.2017. KOMIX: Andrea Vataščinová - přidání seznamu údajů pro cestovní doklady -->
+    <!-- Úprava verze 1.0.3, 15.06.2017. KOMIX: Andrea Vataščinová - přidání dat žádosti o cestovní doklad -->
+    <!-- Úprava verze 1.0.4, 20.06.2017. KOMIX: Andrea Vataščinová - úprava zákazu vycestování a žádosti o cestovní doklad -->
+    <!-- Úprava verze 1.0.5, 20.06.2017. KOMIX: Libor Málek - definice pro RRČ -->
+    <!-- Úprava verze 1.0.6, 21.06.2017. KOMIX: Andrea Vataščinová - úprava zástupce v žádosti o cestovní doklad -->
+    <!-- Úprava verze 1.0.7, 20.06.2017. KOMIX: Libor Málek - definitivní definice pro RRČ -->
+    <!-- Úprava verze 1.0.8, 26.06.2017. KOMIX: Libor Málek - seznam položek, které uživatel může požadovat ze systému -->
+    <!-- Úprava verze 1.0.9, 12.06.2017, KOMIX: Jan Štastný - stav o občanského průkazu -->
+    <!-- Úprava verze 1.0.10, 03.07.2017, KOMIX: Libor Málek - státní občanství pro CD -->
+    <!-- Úprava verze 1.0.11, 03.07.2017, KOMIX: Jan Štastný - CD občanství sjednocené s OP, doplnění nillable -->
+    <!-- Úprava verze 1.0.12, 04.07.2017, KOMIX: Andrea Vataščinová - odstranění duplicitních seznamů údajů -->
+    <!-- Úprava verze 1.0.13, 03.07.2017, KOMIX: Jan Štastný - změna validace typu pobytu -->
+    <!-- Úprava verze 1.0.14, 21.07.2017, KOMIX: Jan Štastný - úprava struktury dotazu -->
+    <!-- Úprava verze 1.0.15, 21.08.2017, KOMIX: Jan Štastný - úprava místa narození pro dotazy media čti podle údajů -->
+    <!-- Úprava verze 1.0.15, 12.03.2019, KOMIX: Ladislav Hlom - úprava struktrury AisAplikacniStatusType pro nevydané referenční položky-->
+    <!-- Úprava verze 1.0.16, 07.05.2019, KOMIX: Ladislav Hlom - úprava položek, jenž mohou být požadovány pro ECD a EOP -->
+    <!-- Úprava verze 1.0.17, 21.05.2019, KOMIX: Ladislav Hlom - úprava položek, jenž mohou být požadovány pro ECD a EOP -->
+
+    <xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+    <xs:import namespace="urn:cz:isvs:rob:schemas:RobTypy:v1" schemaLocation="../../rob/xsd/RobTypy.xsd"/>
+
+    <xs:complexType name="KompletniUdajeOPType">
+        <xs:annotation>
+            <xs:documentation>Informace o osobě a občanských průkazů osoby</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Jmeno" type="JmenoType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Jméno/Jména</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="Prijmeni" type="PrijmeniType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Příjmení</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="RodneCislo" type="RodneCisloType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Rodné číslo</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="DatumNarozeni" type="DatumType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Datum narození</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="MistoNarozeni" type="MistoType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Místo narození</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="DatumUmrti" type="DatumType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Datum úmrtí; je-li vydáno rozhodnutí soudu o prohlášení za mrtvého, den, který je
+                        v rozhodnutí uveden jako den smrti nebo den, který občan prohlášený za mrtvého nepřežil
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="StavOsoby" type="Text15" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Stav osoby - živá/mrtvá/nezjištěno</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="ProhlUmr" type="Text1" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Prohlášen za mrtvého</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="UmrInterval" type="Text1" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Úmrtí intervalem</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="DatUmrDo" type="DatumType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Horní hranice datumu úmrtí</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="UmrPlatnost" type="Text10" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Platnost datumu úmrtí - nejistý/jistý</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="Pohlavi" type="PohlType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Pohlaví</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+
+            <xs:element name="Obcanstvi" type="ObcanstviType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Státního občanství</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+
+            <xs:element name="Adresa" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Adresa trvalého pobytu/Úřední adresa/Poslední adresa trvalého pobytu
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="AdresaType">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="cs">Příznak úřední adresy: 1-adresa je úřední, 0-adresa není
+                                    úřední
+                                </xs:documentation>
+                            </xs:annotation>
+                            <xs:attribute name="UredniAdresa" type="xs:boolean"/>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+
+
+            <xs:element name="RodStav" type="RodStavType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Rodinného stavu</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+
+            <xs:element name="Svepravnost" type="SvepravnostType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Svéprávnost</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+
+            <xs:element name="Tituly" type="TitulyType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Seznam titulů</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ObcanskyPrukaz" minOccurs="0" maxOccurs="unbounded" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Seznam občanských průkazů</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="OPType">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="cs">Příznak platného/neplatného OP</xs:documentation>
+                            </xs:annotation>
+                            <xs:attribute name="stav" type="Text100"/>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="NeplatnyOP" minOccurs="0" maxOccurs="unbounded" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Seznam neplatných občanských průkazů</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="NeplatnyOPTyp">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="cs">Příznak platného/neplatného OP</xs:documentation>
+                            </xs:annotation>
+                            <xs:attribute name="stav" type="Text100"/>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Potvrzeni" type="PotvrzeniOPType" minOccurs="0" maxOccurs="unbounded" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Vydaná potvrzení o občanském průkazu, doba jeho platnosti a označení úřadu, který
+                        jej vydal
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="Text300">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="300"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Text100">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="100"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Text48">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="48"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Text45">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="45"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Text30">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="30"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Text20">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="20"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Text15">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="15"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Text10">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="10"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Text6">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="6"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Text4">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="4"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Text2">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="4"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Text1">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="1"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="JmenoType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Jméno</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="100"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="KratkeJmenoType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">zkrácená podoba jména, popřípadě jmen a příjmení, pokud jsou zapsané v
+                dokladu
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="100"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="PrijmeniType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Příjmení</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="100"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="RodneCisloType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Rodné číslo</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+
+    <xs:simpleType name="DatumType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Datum</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:date"/>
+    </xs:simpleType>
+
+    <xs:simpleType name="DatumCasType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Datum a čas</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:dateTime"/>
+    </xs:simpleType>
+
+    <xs:simpleType name="PohlType">
+        <xs:annotation>
+            <xs:documentation>Pohlaví</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+
+
+    <xs:complexType name="RodStavType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Kód a název rodinného stavu</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Kod" type="xs:string" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Kód rodinného stavu</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Nazev" type="xs:string" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Název rodinného stavu</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:complexType name="TitulyType">
+        <xs:annotation>
+            <xs:documentation>Seznam titulů</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Titul" type="xs:string" minOccurs="0" maxOccurs="unbounded" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Titul</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:complexType name="MistoRRCType">
+        <xs:choice>
+            <xs:element name="MistoRRC">
+                <xs:complexType>
+                    <xs:annotation>
+                        <xs:documentation xml:lang="cs">Místo narození z RRČ - textově</xs:documentation>
+                    </xs:annotation>
+                    <xs:sequence>
+                        <xs:element name="Obec" type="Text300" minOccurs="0" nillable="true">
+                            <xs:annotation>
+                                <xs:documentation>Obec narození</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="Okres" type="Text300" minOccurs="0" nillable="true">
+                            <xs:annotation>
+                                <xs:documentation>Okres narození</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="Stat" type="Text300" minOccurs="0" nillable="true">
+                            <xs:annotation>
+                                <xs:documentation>Stát narození</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="MistoCr">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Místo narození/úmrtí v ČR</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="MistoCrType">
+                            <xs:annotation>
+                                <xs:documentation>Příznak obce: O - obec P - Praha</xs:documentation>
+                            </xs:annotation>
+                            <xs:attribute name="MnPriznak" type="Text1"/>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="MistoSvet" type="MistoSvetType">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Místo narození/úmrtí v cizině</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:choice>
+        <!-- Místo a okres narození nebo úmrtí v ČR nebo místo a stát narození nebo úmrtí. -->
+    </xs:complexType>
+
+
+    <xs:complexType name="MistoType">
+        <xs:choice>
+            <xs:element name="MistoCr">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Místo narození/úmrtí v ČR</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="MistoCrType">
+                            <xs:annotation>
+                                <xs:documentation>Příznak obce: O - obec P - Praha</xs:documentation>
+                            </xs:annotation>
+                            <xs:attribute name="MnPriznak" type="Text1"/>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="MistoSvet" type="MistoSvetType">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Místo narození/úmrtí v cizině</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:choice>
+        <!-- Místo a okres narození nebo úmrtí v ČR nebo místo a stát narození nebo úmrtí. -->
+    </xs:complexType>
+
+    <xs:complexType name="MistoCrType">
+        <xs:sequence>
+            <xs:element name="ObecKod" type="xs:int" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Obec - kód</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="ObecKodCsu" type="xs:int" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Obec - kód ČSÚ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="ObecTxt" type="Text45" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Obec</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="OkresKod" type="xs:int" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Okres - kód</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="OkresKodCsu" type="Text6" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Okres - kód ČSÚ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="OkresTxt" type="Text30" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Okres</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="MistoSvetType">
+        <xs:sequence>
+            <xs:element name="Misto" type="Text100" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Místo ve světě - mimo území ČR</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="StatKod" type="xs:int" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Stát - kód</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="StatKodCsu" type="xs:int" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Stát - kód ČSÚ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="Stat" type="Text100" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Stát název</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="MistoNarozeniZadostType">
+        <xs:sequence>
+            <xs:element name="MistoNarozeniStat" type="Text100" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Stát místa narození</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="MistoNarozeniOkres" type="Text100" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Okres místa narození</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="MistoNarozeniObec" type="Text100" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Obec místa narození</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="MistoNarozeni" type="Text100" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Název místa narození</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ObcanstviType">
+        <xs:sequence>
+            <xs:element name="StatKod" type="xs:int" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Stát - kód</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="StatKodCsu" type="xs:int" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Stát - kód ČSÚ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="Stat" type="Text100" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Stát název</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="AdresaType">
+        <xs:sequence>
+            <xs:element name="AdrIDRuian" type="reg:KodAdresniMistoType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Adresa pobytu odrazem do RUIAN</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="CisDomu" type="xs:int" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Číslo domovní</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="CisloDomuDruh" type="Text1" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Druh čísla domovního</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="CisOrg" type="xs:int" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Číslo orientační</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="CisOrgZnak" type="Text1" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Znak čísla orientačního</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="PSC" type="xs:int" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>PSČ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="AdrStatutKod" type="Text1" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Statut adresy - kód</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="AdrStatutTxt" type="Text48" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Statut adresy</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="UliceKod" type="xs:int" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Ulice - kód</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="UliceTxt" type="Text48" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Ulice</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="CObecKod" type="xs:int" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Část obce - kód</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="CObecKodCsu" type="Text10" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Část obce - kód ČSÚ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="CObecTxt" type="Text45" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Část obce</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="MCObecKod" type="xs:int" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Městská část obce - kód</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="MCObecKodCsu" type="Text10" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Městská část obce - kód ČSÚ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="MCObecTxt" type="Text45" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Městská část</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="ObecKod" type="xs:int" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Obec - kód</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="ObecKodCsu" type="Text10" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Obec - kód ČSÚ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="ObecTxt" type="Text45" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Obec</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="OkresKod" type="xs:int" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Okres - kód</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="OkresKodCsu" type="Text10" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Okres - kód ČSÚ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="OkresTxt" type="Text30" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Okres</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="SpObecKod" type="xs:int" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Správní obec - kód</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="SpObecKodCsu" type="Text10" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Správní obec - kód ČSÚ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="SpObecTxt" type="Text45" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Správní obec</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="TypPobytuKod" type="Text1" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Kód typu pobytu</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="TypPobytuTxt" type="Text48" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Typ pobytu</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="TypPobytuOd" type="DatumType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Datum počátku pobytu</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="TypPobytuDo" type="DatumType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Datum ukončení pobytu</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="TypPobytuZruseni" type="DatumType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Datum úředního zrušení pobytu</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="SvepravnostType">
+        <xs:sequence>
+            <xs:choice>
+                <xs:element name="DatumOmezeni" type="DatumType" minOccurs="0" nillable="true">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="cs">Datum nabytí právní moci rozhodnutí soudu o omezení
+                            svéprávnosti
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="DatumUkonceni" type="DatumType" minOccurs="0" nillable="true">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="cs">Datum nabytí právní moci rozhodnutí soudu o zrušení omezení
+                            svéprávnosti
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:choice>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:complexType name="OPType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Občanský průkaz</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Jmeno" type="JmenoType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Zkrácená podoba jména, popřípadě jmen na OP</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Prijmeni" type="PrijmeniType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Zkrácená podoba příjmení na OP</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="OPCislo" type="OPCisloType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Čislo OP</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="OPSerie" type="OPSerieType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Série OP</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ZadostCislo" type="OPZadostCisloType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Čislo žádosti o OP</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DatumVydani" type="DatumType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Datum vydání OP</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DatumPlatnosti" type="DatumType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Datum ukončení platnosti OP</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DatumPrevzeti" type="DatumType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Datum převzetí OP</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DatumSkartace" type="DatumType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Datum skartace OP</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="UradVydal" type="UradType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Označení úřadu, který občanský průkaz vydal</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DatumUkonceniPlatnosti" type="DatumType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Datum ukončení platnosti OP</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DuvodUkonceniPlatnostiKod" type="xs:string" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Důvod ukončení platnosti OP - kód</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DuvodUkonceniPlatnostiText" type="xs:string" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Důvod ukončení platnosti OP</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="CisloCipu" type="Text20" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Číslo kontaktního elektronického čipu</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DatumCasZablokovani" type="DatumCasType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Datum a čas zablokování elektronické autentizace OP</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DatumCasOdblokovani" type="DatumCasType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Datum a čas odblokování elektronické autentizace OP</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ElektronickaIdentifikace" type="ElektronickaIdentifikaceType" minOccurs="0"
+                        maxOccurs="unbounded" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Datum a čas elektronické identifikace držitele OP</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Zadost" type="OPZadostType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Žádost o OP</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ElektronickaIdentifikaceType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Elektronická identifikace</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="DatumCasIdent" type="DatumCasType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Datum a čas elektronické identifikace držitele OP</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="MistoIdent" type="xs:string" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Místo elektronické identifikace držitele OP</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SubjektIdent" type="xs:string" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Subjekt, která provedla identifikaci</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="NeplatnyOPTyp">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Neplatný občanský průkaz</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="OPCislo" type="OPCisloType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Čislo OP</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="OPSerie" type="OPSerieType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Série OP</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:choice>
+                <xs:element name="DatumZtraty" type="DatumType" minOccurs="0" nillable="true">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="cs">Datum ohlášení ztráty občanského průkazu</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="DatumOdcizeni" type="DatumType" minOccurs="0" nillable="true">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="cs">Datum ohlášení odcizení občanského průkazu</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="DatumZniceni" type="DatumType" minOccurs="0" nillable="true">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="cs">Datum zničení občanského průkazu</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:choice>
+            <xs:element name="DuvodUkonceniPlatnostiKod" type="xs:string" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Důvod ukončení platnosti OP - kód</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DuvodUkonceniPlatnostiText" type="xs:string" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Důvod ukončení platnosti OP</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:complexType name="PotvrzeniOPType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Informace o potvrzení o občanském průkazu</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="CisloPotvrzeni" type="xs:string" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Číslo potvrzení</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="OPCislo" type="OPCisloType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Čislo OP</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="OPSerie" type="OPSerieType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Série OP</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="UradVydal" type="UradType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Označení úřadu, který potvrzení o občanském průkazu</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="PlatnostOd" type="DatumType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Začátek platnosti potvrzení</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="PlatnostDo" type="DatumType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Konec platnosti potvrzení</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:simpleType name="OPCisloType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Čislo OP</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+
+    <xs:simpleType name="OPSerieType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Série OP</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+
+    <xs:simpleType name="OPZadostCisloType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Čislo žádosti o OP</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:long"/>
+    </xs:simpleType>
+
+    <xs:simpleType name="TotoznostType">
+        <xs:annotation>
+            <xs:documentation>Totožnost</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="100"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="MistoDoklType">
+        <xs:annotation>
+            <xs:documentation>Místo předání/převzetí dokladu</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="100"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="UradType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Označení úřadu - kód a název</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Kod" type="xs:int" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Označení úřadu - kód</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="KodCsu" type="xs:int" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Označení úřadu - kód ČSÚ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Nazev" type="Text100" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Označení úřadu - název</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:complexType name="ZadostAdresaType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Adresa na žádosti o doklad</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Obec" type="Text100" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Obec</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="CastObce" type="Text100" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Část obce</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Ulice" type="Text100" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Ulice</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="Okres" type="Text100" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Okres</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="CisloPopisne" type="xs:int" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Číslo popisné/evidenční</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="CisloOrientacni" type="xs:int" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Číslo orientační</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="ZnakCisloOrientacni" type="Text1" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Znak čísla orientačního</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="DruhCisloDomu" type="Text1" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Druh čísla domu - popisné/evidenční - P/E</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="PSC" type="Text10" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>PSČ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ZadostZastupceType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Zástupce na žádosti o doklad</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="TypOsoby" type="Text1" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Typ zástupce osoby: O - Oprávněná osoba J - Jiná osoba</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="Jmeno" type="Text100" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Jméno</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="Prijmeni" type="Text100" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Příjmení</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Opravneni" type="Text100" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Oprávnění k podání žádosti</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="TotoznostOverena" type="Text100" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Ověření totožnosti</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="Datum" type="DatumType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Datum</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="MistoNarozeni" type="Text100" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Místo narození</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="DatumNarozeni" type="DatumType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Datum narození</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="UdajeOsobyZadostType">
+        <xs:annotation>
+            <xs:documentation>Informace o osobě</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Jmeno" type="JmenoType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Jméno/Jména na dokladu</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="Prijmeni" type="PrijmeniType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Příjmení na dokladu</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="RodneCislo" type="RodneCisloType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Rodné číslo</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="DatumNarozeni" type="DatumType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Datum narození</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="MistoNarozeni" type="MistoNarozeniZadostType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Místo narození</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="Pohlavi" type="PohlType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Pohlaví</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="StatniObcanstvi" type="Text100" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Státní občanství</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="RodStav" type="Text100" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Rodinný stav</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="Tituly" type="Text100" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Tituly</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="ZadostAdresa" type="ZadostAdresaType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Adresa uvedená na žádosti</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="UrednikType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Označení úřadu - kód a název</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+
+            <xs:element name="Jmeno" type="Text100" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Jméno</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="Prijmeni" type="Text100" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Příjmení</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="Funkce" type="Text100" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Funkce</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="OPZadostType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Žádost o občanský průkaz</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+
+            <xs:element name="ZadostCislo" type="OPZadostCisloType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Číslo žádosti</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="UdajeOsoby" type="UdajeOsobyZadostType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Osobní údaje žadatele o doklad</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="ZadostPodani" type="DatumType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Datum podání žádosti</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="MistoPodani" type="MistoDoklType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Místo podání žádosti</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="TotoznostPrijeti" type="TotoznostType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Ověření totožnosti při přijetí žádosti</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="ZadostPrijata" type="DatumType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Datum přijetí žádosti</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="MistoPrijeti" type="MistoDoklType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Místo přijetí žádosti</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="DruhDokladu" type="xs:int" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Druh dokladu 1 - OP s čipem, 2 - OP bez čipu</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="UradPrevzal" type="UradType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Úřad, který žádost přijal</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="UrednikPrevzal" type="UrednikType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Úředník, který žádost přijal</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="UradVydava" type="UradType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Úřad, který doklad vydává</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="UradPredava" type="UradType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Úřad, který doklad předává</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="UrednikPredava" type="UrednikType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Úředník, který doklad předává</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="CisloDokladu" type="xs:int" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Číslo dokladu</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="DokladVydan" type="DatumType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Datum vydání dokladu</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="DokladPlatnostDo" type="DatumType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Platnost dokladu do</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="KontrolaOU" type="Text100" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Provedení kontroly osobních údajů</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="KontrolaFC" type="Text100" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Provedení kontroly funkčnosti čipu</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="KontrolaKC" type="Text100" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Provedení kontroly volné kapacity čipu</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="MistoPrevzeti" type="Text100" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Místo převzetí dokladu</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="DokladPrevzat" type="DatumType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Datum převzetí dokladu</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="ZadostZastupce" type="ZadostZastupceType" minOccurs="0" maxOccurs="unbounded"
+                        nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Zástupce uvedený na žádosti</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:simpleType name="VysledekSubKodSEType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Detailní kód výsledku, výčtový typ.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="SPECIFIKACE V POPISU">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Obecná chyba, detaily v popisu.</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="UDAJ NEVYDAN">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Údaj nevydán z důvodu ztotožnění ROB.</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+
+    <xs:complexType name="AisAplikacniStatusType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Aplikační chyba, doplnění k StatusType ze systémové části zprávy, odpověď.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="VysledekAisKod" type="reg:VysledekKodType"/>
+            <xs:element name="VysledekDetail" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="VysledekSubKod" type="VysledekSubKodSEType"/>
+                        <xs:element name="VysledekPopis" type="reg:VysledekPopisType" minOccurs="0"/>
+                        <xs:element name="NevydanaPolozka" type="reg:IdentifikatorType" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:complexType name="AisSeDotazyDataResponseType" abstract="true">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Společný předek všech aplikačních částí odpovědí na dotazy AIS správních
+                evidencí.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="AisAplikacniStatus" type="AisAplikacniStatusType"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="VyberType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Přiznak, jaký typ porovnání hledaných dat DB je nutno použít.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="striktni">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Respektování diakritiky. Velikost písmen nerozhoduje.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ascii">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Nerespektování diakritiky. Velikost písmen nerozhoduje.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="RrcCtiAifoDotazDataType">
+        <xs:sequence>
+            <xs:element name="RrcCtiAifoData" type="AisSeCtiAifoDataType" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute name="verzeSluzby" type="Text2"/>
+    </xs:complexType>
+
+    <xs:complexType name="RrcCtiHromadneAifoDotazDataType">
+        <xs:sequence>
+            <xs:element name="RrcCtiHromadneAifoData" type="AisSeCtiAifoDataType" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute name="verzeSluzby" type="Text2"/>
+    </xs:complexType>
+
+    <xs:complexType name="AisSeCtiAifoDotazDataType">
+        <xs:sequence>
+            <xs:element name="AisSeCtiAifoData" type="AisSeCtiAifoDataType" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute name="verzeSluzby" type="Text2"/>
+    </xs:complexType>
+
+    <xs:complexType name="AisSeCtiHromadneAifoDotazDataType">
+        <xs:sequence>
+            <xs:element name="AisSeCtiHromadneAifoData" type="AisSeCtiAifoDataType" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute name="verzeSluzby" type="Text2"/>
+    </xs:complexType>
+
+    <xs:complexType name="AisSeCtiAifoDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz na data - parametry.</xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="znepristupniLog" type="xs:boolean">
+            <xs:annotation>
+                <xs:documentation>Zápis do sledování dotazů - znepřístupnění logu</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="AisSeCtiPodleUdajuDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz na data - parametry.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="AisSeCtiAifoDataType">
+                <xs:attribute name="typPorovnani" type="rob:TypPorovnaniType" default="diakritika">
+                    <xs:annotation>
+                        <xs:documentation>Přiznak, jaký typ porovnání hledaných dat je nutno použít</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="AisSeCtiPodleDokladDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz na data - podle dokladů.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="AisSeCtiAifoDataType">
+                <xs:attribute name="typPorovnani" type="rob:TypPorovnaniType" default="diakritika">
+                    <xs:annotation>
+                        <xs:documentation>Přiznak, jaký typ porovnání hledaných dat je nutno použít</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>   
+
+    <xs:complexType name="KompletniUdajeCDType">
+        <xs:annotation>
+            <xs:documentation>Informace o osobě a cestovních dokladů osoby</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+
+            <xs:element name="Jmeno" type="JmenoType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Jméno/Jména</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="Prijmeni" type="PrijmeniType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Příjmení</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="RodnePrijmeni" type="PrijmeniType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Rodné příjmení</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="RodneCislo" type="RodneCisloType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Rodné číslo</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="DatumNarozeni" type="DatumType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Datum narození</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="DatumUmrti" type="DatumType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Datum úmrtí; je-li vydáno rozhodnutí soudu o prohlášení za mrtvého, den, který je
+                        v rozhodnutí uveden jako den smrti nebo den, který občan prohlášený za mrtvého nepřežil
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="StavOsoby" type="Text15" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Stav osoby - živá/mrtvá/nezjištěno</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="ProhlUmr" type="Text1" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Prohlášen za mrtvého</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="UmrInterval" type="Text1" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Úmrtí intervalem</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="DatUmrDo" type="DatumType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Horní hranice datumu úmrtí</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="UmrPlatnost" type="Text10" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Platnost datumu úmrtí - nejistý/jistý</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="MistoNarozeni" type="MistoType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Místo narození</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="Pohlavi" type="PohlType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Pohlaví</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="Obcanstvi" type="ObcanstviType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Kód státního občanství</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="Adresa" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Adresa trvalého pobytu/Úřední adresa/Poslední adresa trvalého pobytu
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="AdresaType">
+                            <xs:annotation>
+                                <xs:documentation xml:lang="cs">Příznak úřední adresy: 1-adresa je úřední, 0-adresa není
+                                    úřední
+                                </xs:documentation>
+                            </xs:annotation>
+                            <xs:attribute name="UredniAdresa" type="Text1"/>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="RodStav" type="RodStavCDType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Rodinného stavu</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="Svepravnost" type="SvepravnostType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Svéprávnost</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="CestovniDoklad" type="CDType" minOccurs="0" maxOccurs="unbounded" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Seznam cestovních dokladů</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="NeplatnyCD" type="NeplatnyCDType" minOccurs="0" maxOccurs="unbounded" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Seznam neplatných cestovních dokladů</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="ZakazVycestovani" type="ZakazVycestovaniType" minOccurs="0" maxOccurs="unbounded"
+                        nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Zákazy</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:complexType name="RodStavCDType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Kód a název rodinného stavu, datum uzavření manželství</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Kod" type="xs:string" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>>Kód rodinného stavu</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Nazev" type="xs:string" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Název rodinného stavu</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DatumManzelstvi" type="DatumType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Datum uzavření manželství</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:complexType name="CDType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Cestovní doklad</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Jmeno" type="KratkeJmenoType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Zkrácená podoba jména, popřípadě jmen na CD</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="Prijmeni" type="PrijmeniType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Zkrácená podoba příjmení na CD</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="CDCislo" type="CDCisloType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Čislo CD</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="CDDruh" type="CDDruhType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Druh CD</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="ZadostCislo" type="CDZadostCisloType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Čislo žádosti o CD</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="DatumVydani" type="DatumType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Datum vydání CD</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="DatumPlatnosti" type="DatumType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Datum ukončení platnosti CD</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="DatumPrevzeti" type="DatumType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Datum předání CD</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+
+            <xs:element name="ProdlouzeniPlatnosti" type="DatumType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Prodloužená doba platnosti cestovního dokladu</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="UradVydal" type="UradType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Označení úřadu, který cestovní doklad vydal</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="DatumUkonceniPlatnosti" type="DatumType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Datum ukončení platnosti CD</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="DuvodUkonceniPlatnostiKod" type="xs:string" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Důvod ukončení platnosti CD - kód</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="DuvodUkonceniPlatnostiText" type="xs:string" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Důvod ukončení platnosti CD</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="CisloCipu" type="xs:string" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Číslo čípu</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="Hash" type="CDHash" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Hashe čipu CD</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="PKI" type="xs:string" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Data pro ověřování elektronického podpisu osoby, která vložila údaje do nosiče
+                        dat
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="Zadost" type="CDZadostType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Žádost o CD</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="NeplatnyCDType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Neplatný cestovní doklad</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="CDCislo" type="CDCisloType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Čislo CD</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="CDDruh" type="CDDruhType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Druh CD</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="DatumVydani" type="DatumType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Datum vydání CD</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="DatumPlatnosti" type="DatumType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Datum ukončení platnosti CD</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:choice>
+                <xs:element name="Ztrata" type="CDZtrataOdcizeniType" minOccurs="0" nillable="true">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="cs">Datum a místo ohlášení ztráty cestovní dokladu
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+
+                <xs:element name="Odcizeni" type="CDZtrataOdcizeniType" minOccurs="0" nillable="true">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="cs">Datum a místo ohlášení odcizení cestovní dokladu
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:choice>
+
+            <xs:element name="DuvodUkonceniPlatnostiKod" type="xs:string" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Důvod ukončení platnosti OP - kód</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="DuvodUkonceniPlatnostiText" type="xs:string" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Důvod ukončení platnosti OP</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:complexType name="CDHash">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Hashe čipu CD</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Hash1" type="xs:string" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Hash Data Group 1</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Hash2" type="xs:string" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Hash Data Group 2</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Hash3" type="xs:string" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Hash Data Group 3</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="HashCelkovy" type="xs:string" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Hash Data Celkový</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:complexType name="CDZtrataOdcizeniType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Datum a místo ohlášení ztráty/odcizení cestovní dokladu</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Datum" type="DatumType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Datum ohlášení ztráty/odcizení cestovní dokladu</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Misto" type="MistoDoklType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Místo ohlášení ztráty/odcizení cestovní dokladu</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:complexType name="CDZadostType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Žádost o cestovní doklad</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="ZadostCislo" type="CDZadostCisloType" minOccurs="0" nillable="true"/>
+            <xs:element name="UdajeOsoby" type="CDUdajeOsobyZadostType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Osobní údaje žadatele o doklad</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="CisloJednaci" type="xs:string" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Číslo jednací žádosti o vydání cestovního dokladu</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="UradPrevzal" type="UradType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Úřad, který převzal žádost o vydání cestovního dokladu
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="UradVydava" type="UradType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Úřad, který vydává cestovní doklad</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="UradPredava" type="UradType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Úřad, který předává cestovní doklad</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="CDCisloDokladu" type="CDCisloType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Číslo cestovního dokladu</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="CDDruhDokladu" type="xs:int" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Druh cestovního dokladu</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="CDDatumVydani" type="DatumType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Datum vydání cestovního dokladu</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="CDPlatnost" type="DatumType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Datum platnosti cestovního dokladu</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="UradVydal" type="xs:string" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Úřad, který vydal cestovního doklad</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="TotoznostPrijeti" type="TotoznostType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Ověření totožnosti při přijetí žádosti</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ZadostPrijeti" type="CDZadostDatumMistoType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Datum a místo přijetí žádosti</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ZadostPodani" type="CDZadostDatumMistoType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Datum a místo podání žádosti</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Oduvodneni" type="xs:string" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Odůvodnění podání žádosti</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="UredniZaznamy" type="xs:string" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Úřední záznamy</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="KontrolaOU" type="Text100" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Provedení kontroly osobních údajů</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="KontrolaFC" type="Text100" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Provedení kontroly funkčnosti čipu</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="KontrolaKC" type="Text100" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Provedení kontroly volné kapacity čipu</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="DokladPrevzeti" type="CDZadostDatumMistoType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Datum a místo převzetí cestovního dokladu</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="UrednikPrijal" type="CDZadostUrednikType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Údaje o zástupci žadatele</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="CDUdajeOsobyZadostType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Žádost o cestovní doklad</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Jmeno" type="KratkeJmenoType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Jméno na cestovním dokladu</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Prijmeni" type="KratkeJmenoType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Příjmení na cestovním dokladu</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="RodnePrijmeni" type="xs:string" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Rodné příjmení</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="RodneCislo" type="RodneCisloType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Rodné číslo</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DatumNarozeni" type="DatumType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Datum narození</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="MistoNarozeni" type="MistoType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Místo narození</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Pohlavi" type="xs:string" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Pohlaví</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Obcanstvi" type="xs:string" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Státní občanství</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ZadostAdresa" type="CDZadostAdresaType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Datum a místo převzetí cestovního dokladu</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Zastupce" type="CDZadostZastupceType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Údaje o zástupci žadatele</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:complexType name="CDZadostUrednikType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Úřední vyřizující žádost o vydání cestovního dokladu</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="ZadostCislo" type="CDZadostCisloType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Číslo žádosti o vydání cestovního dokladu</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="UrednikTyp" type="xs:string" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Typ úředníka</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Jmeno" type="JmenoType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Jméno úředníka</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Prijmeni" type="PrijmeniType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Příjmení úředníka</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Funkce" type="xs:string" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Funkce úředníka</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="CDZadostZastupceType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Zástupce žadatele na žádosti o vydání cestovního dokladu</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="ZadostCislo" type="CDZadostCisloType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Číslo žádosti o vydání cestovního dokladu</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="OsobaTyp" type="xs:string" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Typ zástupce osoby</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Jmeno" type="JmenoType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Jméno zástupce</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Prijmeni" type="PrijmeniType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Příjmení zástupce</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Opravneni" type="xs:string" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Oprávnění k podání žádosti</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="OvereniTotoznosti" type="xs:string" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Ověření totožnosti</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Datum" type="DatumType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Datum</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="MistoNarozeni" type="xs:string" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Místo narození zástupce</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DatumNarozeni" type="DatumType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Datum narození zástupce</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="CDZadostAdresaType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Adresa na žádosti o vydání cestovního dokladu</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="ZadostCislo" type="CDZadostCisloType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Číslo žádosti o vydání cestovního dokladu</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Obec" type="Text45" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Obec</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ObecCast" type="Text45" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Část obce</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Ulice" type="Text45" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Ulice</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Okres" type="Text45" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Okres</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="CisloDomu" type="CDZadostCisloDomuType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Číslo domu</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="PSC" type="xs:string" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>PSČ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="CDZadostCisloDomuType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Číslo domu</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="CisloPopisne" type="xs:int" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Číslo popisné</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="CisloOrientacni" type="xs:int" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Číslo orientační</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="CisloOrientacniZnak" type="xs:string" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Znak čísla orientačního</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="CisloDruh" type="xs:string" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Druh čísla domu</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:complexType name="CDZadostDatumMistoType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Datum a místo přijetí/podání žádosti o cestovní doklad</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Datum" type="DatumType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Datum přijetí/podání žádosti o cestovní doklad</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Misto" type="xs:string" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Místo přijetí/podání žádosti o cestovní doklad</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:complexType name="ZakazVycestovaniType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Informace o zákazu vycestování.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Jmeno" type="JmenoType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Jméno/Jména</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="Prijmeni" type="PrijmeniType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Příjmení</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="RodneCislo" type="RodneCisloType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Rodné číslo</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Ulozil" type="xs:string" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Označení orgánu, který uložil omezení spočívající v zákazu vycestování do
+                        zahraničí
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DatumOdepreni" type="DatumType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Datum odepření vydání cestovního dokladu</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ZavedenoOd" type="DatumType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Datum zavedení</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="OdnateDoklady" type="CDOdnateDokladyType" minOccurs="0" maxOccurs="unbounded"
+                        nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Odňaté cestovní doklady</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="CDOdnateDokladyType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Informace o zadržených dokladech.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="CDCislo" type="CDCisloType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Čislo CD</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="CDDruh" type="CDDruhType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Druh CD</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="DatumOdneti" type="DatumType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Datum odnětí CD</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:simpleType name="CDCisloType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Čislo CD</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:int"/>
+    </xs:simpleType>
+
+
+    <!--xs:simpleType name="CDDruhType">
+  <xs:annotation>
+      <xs:documentation xml:lang="cs">Druh CD</xs:documentation>
+  </xs:annotation>
+  <xs:restriction base="xs:int"/>
+</xs:simpleType-->
+
+
+    <xs:complexType name="CDDruhType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Druh CD</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="CDDruhKod" type="xs:int" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Druh CD - kód</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="CDDruhZkratka" type="xs:string" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Druh CD - zkratka</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="CDDruh" type="DruhCestovnihoDokladuType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Druh CD - popis</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="CDZadostCisloType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Čislo žádosti o CD</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:long"/>
+    </xs:simpleType>
+
+    <xs:complexType name="AisSeMediaCtiAifoDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Příprava dotazu na data.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="AisSeMediaCtiAifoData" type="AisSeMediaCtiAifoDotazDataType" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute name="verzeSluzby" type="Text2"/>
+    </xs:complexType>
+
+    <xs:complexType name="AisEopMediaCtiPodleUdajuDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Příprava dotazu na data.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="AisEopMediaCtiPodleUdajuData" type="AisEopMediaCtiPodleUdajuDotazDataType" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute name="verzeSluzby" type="Text2"/>
+    </xs:complexType>
+
+    <xs:complexType name="AisEcdMediaCtiPodleUdajuDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Příprava dotazu na data.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="AisEcdMediaCtiPodleUdajuData" type="AisEcdMediaCtiPodleUdajuDotazDataType" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute name="verzeSluzby" type="Text2"/>
+    </xs:complexType>
+
+    <xs:complexType name="AisSeMediaCtiAifoDotazDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz na data - parametry.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="AisSeCtiAifoDataType">
+                <xs:sequence>
+                    <xs:element name="KriteriaProFotky" minOccurs="0">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="DatumOd" type="DatumType" minOccurs="0"/>
+                                <xs:element name="DatumDo" type="DatumType" minOccurs="0"/>
+                                <xs:element name="Pocet" type="xs:int" minOccurs="0" default="1"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="KriteriaProPodpis" minOccurs="0">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="DatumOd" type="DatumType" minOccurs="0"/>
+                                <xs:element name="DatumDo" type="DatumType" minOccurs="0"/>
+                                <xs:element name="Pocet" type="xs:int" minOccurs="0" default="1"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="KlicProSifrovani" type="xs:base64Binary"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="AisEcdMediaCtiPodleUdajuDotazDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz na data - povolená kombinace dotazů.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="AisSeCtiPodleUdajuDataType">
+                <xs:sequence>
+                    <xs:element name="KriteriaProFotky" minOccurs="0">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="DatumOd" type="DatumType" minOccurs="0"/>
+                                <xs:element name="DatumDo" type="DatumType" minOccurs="0"/>
+                                <xs:element name="Pocet" type="xs:int" minOccurs="0" default="1"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="KriteriaProPodpis" minOccurs="0">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="DatumOd" type="DatumType" minOccurs="0"/>
+                                <xs:element name="DatumDo" type="DatumType" minOccurs="0"/>
+                                <xs:element name="Pocet" type="xs:int" minOccurs="0" default="1"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="KlicProSifrovani" type="xs:base64Binary"/>
+                    <xs:choice>
+                        <xs:element name="Dotaz1JmPrijRC">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="Jmeno" type="JmenoType"/>
+                                    <xs:element name="Prijmeni" type="PrijmeniType"/>
+                                    <xs:element name="RodneCislo" type="RodneCisloType"/>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element name="Dotaz2JmPrijDatNar">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="Jmeno" type="JmenoType"/>
+                                    <xs:element name="Prijmeni" type="PrijmeniType"/>
+                                    <xs:element name="DatumNarozeni" type="DatumType"/>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element name="Dotaz3JmPrijDatNarMN">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="Jmeno" type="JmenoType"/>
+                                    <xs:element name="Prijmeni" type="PrijmeniType"/>
+                                    <xs:element name="DatumNarozeni" type="DatumType"/>
+                                    <xs:element name="MistoNarozeni" type="rob:MistoNarozeniType"/>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element name="Dotaz4JmPrijDatNarTP">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="Jmeno" type="JmenoType"/>
+                                    <xs:element name="Prijmeni" type="PrijmeniType"/>
+                                    <xs:element name="DatumNarozeni" type="DatumType"/>
+                                    <xs:element name="TrvalyPobyt" type="reg:KodAdresniMistoType"/>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element name="Dotaz5JmPrijDok">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="Jmeno" type="JmenoType"/>
+                                    <xs:element name="Prijmeni" type="PrijmeniType"/>
+                                    <xs:element name="CdCislo" type="CDCisloType"/>
+                                    <xs:element name="CdDruh" type="DruhCestovnihoDokladuType" minOccurs="0"/>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:choice>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="AisEopMediaCtiPodleUdajuDotazDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz na data - povolená kombinace dotazů.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="AisSeCtiPodleUdajuDataType">
+                <xs:sequence>
+                    <xs:element name="KriteriaProFotky" minOccurs="0">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="DatumOd" type="DatumType" minOccurs="0"/>
+                                <xs:element name="DatumDo" type="DatumType" minOccurs="0"/>
+                                <xs:element name="Pocet" type="xs:int" minOccurs="0" default="1"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="KriteriaProPodpis" minOccurs="0">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="DatumOd" type="DatumType" minOccurs="0"/>
+                                <xs:element name="DatumDo" type="DatumType" minOccurs="0"/>
+                                <xs:element name="Pocet" type="xs:int" minOccurs="0" default="1"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="KlicProSifrovani" type="xs:base64Binary"/>
+                    <xs:choice>
+                        <xs:element name="Dotaz1JmPrijRC">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="Jmeno" type="JmenoType"/>
+                                    <xs:element name="Prijmeni" type="PrijmeniType"/>
+                                    <xs:element name="RodneCislo" type="RodneCisloType"/>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element name="Dotaz2JmPrijDatNar">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="Jmeno" type="JmenoType"/>
+                                    <xs:element name="Prijmeni" type="PrijmeniType"/>
+                                    <xs:element name="DatumNarozeni" type="DatumType"/>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element name="Dotaz3JmPrijDatNarMN">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="Jmeno" type="JmenoType"/>
+                                    <xs:element name="Prijmeni" type="PrijmeniType"/>
+                                    <xs:element name="DatumNarozeni" type="DatumType"/>
+                                    <xs:element name="MistoNarozeni" type="rob:MistoNarozeniType"/>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element name="Dotaz4JmPrijDatNarTP">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="Jmeno" type="JmenoType"/>
+                                    <xs:element name="Prijmeni" type="PrijmeniType"/>
+                                    <xs:element name="DatumNarozeni" type="DatumType"/>
+                                    <xs:element name="TrvalyPobyt" type="reg:KodAdresniMistoType"/>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element name="Dotaz5JmPrijOP">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="Jmeno" type="JmenoType"/>
+                                    <xs:element name="Prijmeni" type="PrijmeniType"/>
+                                    <xs:element name="OpCislo" type="OPCisloType"/>
+                                    <xs:element name="OpSerie" type="OPSerieType" minOccurs="0"/>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:choice>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="FotoType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Informace o foto.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Fotka" type="xs:base64Binary" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Foto</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="DatumVydani" type="DatumType" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Datum vydání</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <!--       <xs:element name="UcelVydani" type="xs:string" nillable="true" >
+                       <xs:annotation>
+                                   <xs:documentation>Úcel vydání</xs:documentation>
+                               </xs:annotation>
+                   </xs:element> -->
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="PodpisType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Informace o podpisu.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Podpis" type="xs:base64Binary" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Podpis</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="DatumVydani" type="DatumType" nillable="true">
+                <xs:annotation>
+                    <xs:documentation>Datum vydání</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="AisMediaDataResponseTypeV1">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověd na dotaz - Verze 1.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="AisSeDotazyDataResponseType">
+                <xs:sequence minOccurs="0">
+                    <xs:element name="Aifo" type="reg:LokalniAifoType" minOccurs="0"/>
+                    <xs:element name="Fotky" type="FotoType" minOccurs="0" maxOccurs="unbounded" nillable="true">
+                        <xs:annotation>
+                            <xs:documentation xml:lang="cs">Informace o foto - foto, datum a účel vydání.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="Podpisy" type="PodpisType" minOccurs="0" maxOccurs="unbounded" nillable="true">
+                        <xs:annotation>
+                            <xs:documentation xml:lang="cs">Informace o podpisu - podpis a datum vydání.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="KompletniUdajeRrcType">
+        <xs:annotation>
+            <xs:documentation>Informace o rodném číslu</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="RodneCislo" type="RodneCisloType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Rodné číslo</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="DatumNarozeni" type="DatumType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Datum narození</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="Jmeno" type="JmenoType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Jméno</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="Prijmeni" type="PrijmeniType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Příjmení</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="RodnePrijmeni" type="PrijmeniType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Rodné příjmení</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <!-- DODELAT -->
+            <xs:element name="MistoNarozeni" type="MistoRRCType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Místo narození</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+
+            <xs:element name="DuvodPrideleniKod" type="xs:int" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Důvod přidělení - kód</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="DuvodPrideleni" type="xs:string" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Důvod přidělení</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="DatumPrideleni" type="DatumType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Datum přídělení</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="VydejoveMisto" type="UradType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Výdejové místo</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="Poznamky" type="PoznamkyRrcType" minOccurs="0" maxOccurs="unbounded" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Poznámky k rodnému číslu</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+
+            <xs:element name="PredchoziUdaje" type="PredchoziUdajeRrcType" minOccurs="0" maxOccurs="unbounded"
+                        nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Předchozí údaje o jméno, příjmení a rodném příjmení
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="PredchoziRodneCislo" type="PredchoziRodneCisloType" minOccurs="0" maxOccurs="unbounded"
+                        nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Předchozí rodné číslo</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+
+            <xs:element name="Scan" type="xs:base64Binary" minOccurs="0" maxOccurs="unbounded" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Obrazový záznam dokladu o rodnému čísle</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="Osvedceni" type="ListinaType" minOccurs="0" maxOccurs="unbounded" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Osvědčení rodného čísla</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="Overeni" type="ListinaType" minOccurs="0" maxOccurs="unbounded" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Ověření rodného čísla</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="PotvrzeniZmeny" type="ListinaType" minOccurs="0" maxOccurs="unbounded" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Potvrzení změny rodného čísla</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ListinaType">
+        <xs:annotation>
+            <xs:documentation>Osvědčení, Ověření, Potvrzení změny rodného čísla</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="CJ" type="xs:string" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Označení dokumentu - Č.J.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="Text" type="xs:string" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Text dokumentu</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="DatumVydani" type="DatumCasType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Datum a čas vydání</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:complexType name="PoznamkyRrcType">
+        <xs:annotation>
+            <xs:documentation>Informace o rodném číslu - poznámky k rodnému číslu</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Poznamka" type="xs:string" minOccurs="1" nillable="false">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Poznámka k RČ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="DatumPorizeni" type="DatumCasType" minOccurs="1" nillable="false">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Datum zavedení poznámky</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:complexType name="PredchoziUdajeRrcType">
+        <xs:annotation>
+            <xs:documentation>Informace o rodném číslu - předchozí údaje o jméno, příjmení a rodném příjmení
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Jmeno" type="JmenoType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Jméno</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="Prijmeni" type="PrijmeniType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Příjmení</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="RodnePrijmeni" type="PrijmeniType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Rodné příjmení</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="PredchoziRodneCisloType">
+        <xs:annotation>
+            <xs:documentation>Informace o rodném číslu - předchozí rodné číslo</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="RodneCislo" type="RodneCisloType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Rodné číslo</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="DatumZmeny" type="DatumType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Datum změny</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="DuvodZmenyKod" type="xs:int" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Důvod změny - kód</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="DuvodZmeny" type="xs:string" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Důvod změny</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element name="DatumPrideleni" type="DatumType" minOccurs="0" nillable="true">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Datum přídělení</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:simpleType name="DruhCestovnihoDokladuType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Druh dokladu kód:
+                CD - Cestovní doklad
+                CP - Cestovní pas
+                CA - Cestovní průkaz
+                CB - Cestovní doklad PR v rámci MPS
+                CT - Cestovní pas se strojově čitelným kódem
+                EP - Cestovní pas s biometrickými údaji
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="2"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:element name="AisEopSeznamUdaju" type="AisEopSeznamUdajuType" substitutionGroup="reg:AisSeznamUdajuAbstract"/>
+    <xs:simpleType name="AisEopSeznamUdajuType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Názvy datových položek, jenž mohou být požadovány z AIS EOP.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:list itemType="AisEopUdajType"/>
+    </xs:simpleType>
+
+
+    <xs:simpleType name="AisEopUdajType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Názvy datových položek, jenž mohou být požadovány z AIS EOP.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Aifo"/>
+            <xs:enumeration value="Jmeno"/>
+            <xs:enumeration value="JmenoOP"/>
+            <xs:enumeration value="Prijmeni"/>
+            <xs:enumeration value="PrijmeniOP"/>
+            <xs:enumeration value="RodneCislo"/>
+            <xs:enumeration value="DatumNarozeni"/>
+            <xs:enumeration value="DatumUmrti"/>
+            <xs:enumeration value="Pohlavi"/>
+            <xs:enumeration value="Obcanstvi"/>
+            <xs:enumeration value="RodinnyStav"/>
+            <xs:enumeration value="MistoNarozeni"/>
+            <xs:enumeration value="OSvepr"/>
+            <xs:enumeration value="AdresaPobytu"/>
+            <xs:enumeration value="TPDatumOd"/>
+            <xs:enumeration value="TPDatumZrus"/>
+            <xs:enumeration value="TPDatumUk"/>
+            <xs:enumeration value="OPTitul"/>
+            <xs:enumeration value="OPCislo"/>
+            <xs:enumeration value="OPSerie"/>
+            <xs:enumeration value="OPZadostCislo"/>
+            <xs:enumeration value="OPDatumVydani"/>
+            <xs:enumeration value="OPDatumPrevzeti"/>
+            <xs:enumeration value="OPDatumUkonPlatnost"/>
+            <xs:enumeration value="OPDatumSkartace"/>
+            <xs:enumeration value="OPVydal"/>
+            <xs:enumeration value="OPBok"/>
+            <xs:enumeration value="OPBokZmena"/>
+            <xs:enumeration value="OPZablokovaniBOK"/>
+            <xs:enumeration value="OPOdblokovaniBOK"/>
+            <xs:enumeration value="OPBlokaceSZR"/>
+            <xs:enumeration value="OPZtracene"/>
+            <xs:enumeration value="OPOdcizene"/>
+            <xs:enumeration value="OPZnicene"/>
+            <xs:enumeration value="OPNeplatne"/>
+            <xs:enumeration value="OPPotvrzeni"/>
+            <xs:enumeration value="OPZadost"/>
+            <xs:enumeration value="OPEIdentifikace"/>
+            <xs:enumeration value="OPCipCislo"/>
+            <xs:enumeration value="DatovaSchranka"/>
+            <xs:enumeration value="OPAktivaceCip"/>
+            <xs:enumeration value="OPDeaktivaceCip"/>
+            <xs:enumeration value="OPKomunikace"/>
+            <xs:enumeration value="Foto"/>
+            <xs:enumeration value="Podpis"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+
+    <xs:element name="AisEcdSeznamUdaju" type="AisEcdSeznamUdajuType" substitutionGroup="reg:AisSeznamUdajuAbstract"/>
+    <xs:simpleType name="AisEcdSeznamUdajuType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Názvy datových položek, jenž mohou být požadovány z AIS ECD.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:list itemType="AisEcdUdajType"/>
+    </xs:simpleType>
+
+    <xs:simpleType name="AisEcdUdajType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Názvy datových položek, jenž mohou být požadovány z AIS ECD.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Aifo"/>
+            <xs:enumeration value="Jmeno"/>
+            <xs:enumeration value="JmenoCD"/>
+            <xs:enumeration value="Prijmeni"/>
+            <xs:enumeration value="PrijmeniCD"/>
+            <xs:enumeration value="RodnePrijmeni"/>
+            <xs:enumeration value="RodneCislo"/>
+            <xs:enumeration value="DatumNarozeni"/>
+            <xs:enumeration value="DatumUmrti"/>
+            <xs:enumeration value="Pohlavi"/>
+            <xs:enumeration value="Obcanstvi"/>
+            <xs:enumeration value="RodinnyStav"/>
+            <xs:enumeration value="RodinnyStavOd"/>
+            <xs:enumeration value="MistoNarozeni"/>
+            <xs:enumeration value="OSvepr"/>
+            <xs:enumeration value="AdresaPobytu"/>
+            <xs:enumeration value="TPDatumOd"/>
+            <xs:enumeration value="TPDatumZrus"/>
+            <xs:enumeration value="TPDatumUk"/>
+            <xs:enumeration value="CDCislo"/>
+            <xs:enumeration value="CDDruh"/>
+            <xs:enumeration value="CDDatumVydani"/>
+            <xs:enumeration value="CDDatumPrevzeti"/>
+            <xs:enumeration value="CDDatumPlatnosti"/>
+            <xs:enumeration value="CDVydal"/>
+            <xs:enumeration value="CDZadostCislo"/>
+            <xs:enumeration value="DatumDuvodSkonceniPlatnosti"/>
+            <xs:enumeration value="DuvodSkonceniPlatnosti"/>
+            <xs:enumeration value="CDDatumPlatnostProdl"/>
+            <xs:enumeration value="CDCisloCipu"/>
+            <xs:enumeration value="CDHash"/>
+            <xs:enumeration value="CDPKI"/>
+            <xs:enumeration value="OmezeniVycestovani"/>
+            <xs:enumeration value="CDOdnate"/>
+            <xs:enumeration value="CDZtracene"/>
+            <xs:enumeration value="CDOdcizene"/>
+            <xs:enumeration value="CDNeplatne"/>
+            <xs:enumeration value="DatovaSchranka"/>
+            <xs:enumeration value="CDZadost"/>
+            <xs:enumeration value="CDKomunikace"/>
+            <xs:enumeration value="Foto"/>
+            <xs:enumeration value="Podpis"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+
+    <xs:element name="RRCSeznamUdaju" type="RRCSeznamUdajuType" substitutionGroup="reg:AisSeznamUdajuAbstract"/>
+    <xs:simpleType name="RRCSeznamUdajuType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Názvy datových položek, jenž mohou být požadovány z RRČ.</xs:documentation>
+        </xs:annotation>
+        <xs:list itemType="RRCUdajType"/>
+    </xs:simpleType>
+
+    <xs:simpleType name="RRCUdajType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Názvy datových položek, jenž mohou být požadovány z RRČ.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Aifo"/>
+            <xs:enumeration value="RCJmeno"/>
+            <xs:enumeration value="RCPrijmeni"/>
+            <xs:enumeration value="RCRodnePrijmeni"/>
+            <xs:enumeration value="RCRodneCislo"/>
+            <xs:enumeration value="RCDatumNarozeni"/>
+            <xs:enumeration value="RCDuvodPrideleni"/>
+            <xs:enumeration value="RCVydejoveMisto"/>
+            <xs:enumeration value="RCDatumPrideleni"/>
+            <xs:enumeration value="RCRodneCisloPuvDuvod"/>
+            <xs:enumeration value="RCPoznamka"/>
+            <xs:enumeration value="RCMistoNarozeni"/>
+            <xs:enumeration value="RCJmenoMin"/>
+            <xs:enumeration value="RCPrijmeniMin"/>
+            <xs:enumeration value="RCRodnePrijmeniMin"/>
+            <xs:enumeration value="RCScan"/>
+            <xs:enumeration value="RCOvereni"/>
+            <xs:enumeration value="RCOsvedceni"/>
+            <xs:enumeration value="RCPotvrzeniZmeny"/>
+            <xs:enumeration value="RCRodneCisloPuv"/>
+            <xs:enumeration value="RCRodneCisloPuvDatumPrideleni"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+
+</xs:schema>
+
+

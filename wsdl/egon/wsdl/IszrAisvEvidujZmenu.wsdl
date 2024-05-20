@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns="urn:cz:isvs:iszr:services:IszrAisvEvidujZmenu:v1" xmlns:tns="urn:cz:isvs:iszr:services:IszrAisvEvidujZmenu:v1" xmlns:e308="urn:cz:isvs:iszr:schemas:IszrAisvEvidujZmenu:v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" name="IszrAisvEvidujZmenu" targetNamespace="urn:cz:isvs:iszr:services:IszrAisvEvidujZmenu:v1">
+	<wsdl:documentation>Služba e308 externího rozhraní.</wsdl:documentation>
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrAisvEvidujZmenu:v1" schemaLocation="../xsd/IszrAisvEvidujZmenu.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrAisvEvidujZmenu">
+		<wsdl:part name="parametry" element="e308:AisvEvidujZmenu"/>
+	</wsdl:message>
+	<wsdl:message name="IszrAisvEvidujZmenuResponse">
+		<wsdl:part name="vysledek" element="e308:AisvEvidujZmenuResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrAisvEvidujZmenuPortType">
+		<wsdl:operation name="IszrAisvEvidujZmenu">
+			<wsdl:input message="IszrAisvEvidujZmenu"/>
+			<wsdl:output message="IszrAisvEvidujZmenuResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrAisvEvidujZmenuBinding" type="tns:IszrAisvEvidujZmenuPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrAisvEvidujZmenu">
+			<soap:operation soapAction="IszrAisvEvidujZmenu"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrAisvEvidujZmenuService">
+		<wsdl:port name="IszrAisvEvidujZmenuPortService" binding="tns:IszrAisvEvidujZmenuBinding">
+			<soap:address location="IszrAisvEvidujZmenu"/>
+		</wsdl:port>
+	</wsdl:service>
+	<!-- Verze 1.0.0, 31.10.2022, AUTOCONT, Pavel Odstrčil -->
+	<!-- AUTOCONT a.s. -->
+</wsdl:definitions>

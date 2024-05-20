@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:VyhledejAdresniMisto:v2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:VyhledejAdresniMisto:v2" xmlns:vyhAd="urn:cz:isvs:ruian:schemas:VyhledejAdresniMisto:v2" xmlns:ad="urn:cz:isvs:ruian:schemas:AdresniMisto:v2" xmlns:adPodm="urn:cz:isvs:ruian:schemas:AdresniMistoPodminka:v2" xmlns:adPolBase="urn:cz:isvs:ruian:schemas:AdresniMistoPolozkyBase:v2" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" elementFormDefault="qualified" version="2.0.0">
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:AdresniMistoPolozkyBase:v2" schemaLocation="AdresniMistoPolozkyBase.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:AdresniMistoPodminka:v2" schemaLocation="AdresniMistoPodminka.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:AdresniMisto:v2" schemaLocation="../prvky/AdresniMisto.xsd"/>
+	<xs:complexType name="AdresniMistoSeznamType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam adresnich mist</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AdresniMisto" type="ad:AdresniMistoType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VyhledejAdresniMistoDotazType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Porametry dotazu vyhledani adresniho mista</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Podminka" type="adPodm:AdresniMistoPodminkaType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="PozadovaneUdaje" type="adPolBase:AdresniMistoPolozkyBaseType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="VyhledejAdresniMistoRequest" type="vyhAd:VyhledejAdresniMistoRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Typ dotazu vyhledavani adresniho mista</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="VyhledejAdresniMistoRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Typ dotazu vyhledavani adresniho mista</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Dotaz" type="VyhledejAdresniMistoDotazType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="VyhledejAdresniMistoResponse" type="vyhAd:VyhledejAdresniMistoResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Typ odpovedi vyhledavani adresniho mista</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="VyhledejAdresniMistoResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Typ odpovedi vyhledavani adresniho mista</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="AdresniMista" type="AdresniMistoSeznamType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:aisc:schemas:AiscCtiZmeny:v1"
+  xmlns:aisc="urn:cz:isvs:aisc:schemas:AiscDotazyData:v2" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+  xmlns:ais="urn:cz:isvs:ais:schemas:AisTypy:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  targetNamespace="urn:cz:isvs:aisc:schemas:AiscCtiZmeny:v1" elementFormDefault="qualified"
+  attributeFormDefault="unqualified" version="2.0.0">
+  <xs:annotation>
+    <xs:documentation xml:lang="cs">XML schéma s definicemi datových prvků AISC. Služba CIS03 interního
+      rozhraní - dotaz a odpověď.</xs:documentation>
+  </xs:annotation>
+
+  <!-- Vývojová verze 0.0.1, 19.02.2014, J. Hadaš -->
+  <!-- Vývojová verze 0.1.0, 19.02.2014, P. Odstrcil -->
+  <!-- Verze 1.0.0, 24.02.2015, M. Štulc - zventuty verze  AiscDotazyData a AiscTypy na V2-->
+  <!-- Verze 2.0.0, 01.02.2016, David Matějček - změny v AisTypy.xsd -->
+
+  <xs:import namespace="urn:cz:isvs:aisc:schemas:AiscDotazyData:v2" schemaLocation="AiscDotazyData.xsd"/>
+  <xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+  <xs:import namespace="urn:cz:isvs:ais:schemas:AisTypy:v1" schemaLocation="../../ais/xsd/AisTypy.xsd"/>
+  <xs:element name="AiscCtiZmeny" type="AiscCtiZmenyType"/>
+  <xs:element name="AiscCtiZmenyResponse" type="AiscCtiZmenyResponseType"/>
+  <xs:complexType name="AiscCtiZmenyType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Dotaz na údaje o osobě na základě zadání identifikátoru Aifo
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="aisc:ZadostAbstractType">
+        <xs:sequence>
+          <xs:element name="Zadost">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="AisCtiZmenyData" type="ais:AgendaCtiZmenyDataType"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="AiscCtiZmenyResponseType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Odpověď na dotaz podle času změny</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="aisc:OdpovedAbstractType">
+        <xs:sequence>
+          <xs:element name="AiscOdpoved" minOccurs="0">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="AisCtiZmenyDataResponse" type="ais:AgendaCtiZmenyDataResponseType"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:iszr:schemas:IszrRobCtiHromadneAifo2:v1" xmlns:e277="urn:cz:isvs:iszr:schemas:IszrRobCtiHromadneAifo2:v1" xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" xmlns:rod="urn:cz:isvs:rob:schemas:RobDotazyData:v1" xmlns:crob2="urn:cz:isvs:ruian:schemas:CtiProRob:v2" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:cz:isvs:iszr:schemas:IszrRobCtiHromadneAifo2:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.1">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E277 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	<!-- Výchozí verze 1.0.0, 12.8.2021, Aleš Teplý -->
+	<!-- Verze po revizi 1.0.1, 15.10.2021, Aleš Teplý, přidává možnou hodnotu u nepovinného elementu Response (RodinnyStavPartnerstviType) -->
+	<!-- AutoCont CZ a.s. -->
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstractOrg.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rob:schemas:RobDotazyData:v1" schemaLocation="../../rob/xsd/RobDotazyData.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiProRob:v2" schemaLocation="ref/RuianCtiProRob2n.xsd"/>
+	<xs:element name="RobCtiHromadneAifo2" type="RobCtiHromadneAifo2Type"/>
+	<xs:element name="RobCtiHromadneAifo2Response" type="RobCtiHromadneAifo2ResponseType"/>
+	<xs:complexType name="RobCtiHromadneAifo2Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E277 externího rozhraní - typ pro žádost. Služba vydává požadované údaje osob z ROB ve formě opakované struktury požadovaných dat podle předaného seznamu AIFO.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostRAifoAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RobCtiHromadneAifo2Data" type="rod:RobCtiHromadneAifoDataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RobCtiHromadneAifo2ResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E277 externího rozhraní - typ pro odpověď. Služba skládá údaje ze základních registrů ROB a RUIAN (A28).</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAifoStIdAdrAbstractType">
+				<xs:sequence>
+					<xs:element name="RobOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RobCtiHromadneAifo2DataResponse" type="rod:RobCtiHromadneAifoDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="RuianOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianCtiProRobV2DataResponse" type="crob2:RuianCtiProRobV2DataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrAsyncPushOdpovedZFronty:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrAsyncPushOdpovedZFronty:v1"
+	xmlns:podp="urn:cz:isvs:iszr:schemas:IszrAsyncPushOdpovedZFronty:v1"
+	xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+	xmlns:odpf="urn:cz:isvs:iszr:schemas:IszrAsyncOdpovedZFronty:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.1.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Aktivní zaslání (PUSH) jednoho výsledku z fronty výsledků asynchronních volání. Definice rozhraní pro službu běžící na straně AIS, služba je volána ISZR.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vývojová verze 0.0.1, 11.10.2011, Aleš Teplý -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAsyncOdpovedZFronty:v1" schemaLocation="IszrAsyncOdpovedZFronty.xsd"/>
+
+	<xs:element name="IszrAsyncPushOdpovedZFronty" type="odpf:IszrAsyncOdpovedZFrontyResponseType"/>
+	<xs:element name="IszrAsyncPushOdpovedZFrontyResponse" type="IszrAsyncPushOdpovedZFrontyResponseType"/>
+
+	<xs:complexType name="IszrAsyncPushOdpovedZFrontyResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Potvrzení zaslané AIS po přijetí asynchronní odpovědi od ISZR.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="KodAsyncSluzby" type="reg:NazevSluzbyType"/>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType"/>
+		</xs:sequence>
+	</xs:complexType>
+
+</xs:schema>

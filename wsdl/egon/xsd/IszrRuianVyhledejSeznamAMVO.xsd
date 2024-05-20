@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejSeznamAMVO:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejSeznamAMVO:v1"
+	xmlns:e170="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejSeznamAMVO:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:vyhAdVO="urn:cz:isvs:ruian:schemas:VyhledejSeznamAMVO:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	attributeFormDefault="unqualified"
+	elementFormDefault="qualified"
+	version="1.4.4">
+
+	<xs:annotation>
+		<xs:documentation>Návrh XML schématu s definicemi datových prvků ISZR. Služba E170 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vývojová verze 1.4.4, 25.10.2013, Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:VyhledejSeznamAMVO:v1" schemaLocation="ref/RuianVyhledejSeznamAMVO.xsd"/>
+
+	<xs:element name="RuianVyhledejSeznamAMVO" type="RuianVyhledejSeznamAMVOType"/>
+	<xs:element name="RuianVyhledejSeznamAMVOResponse" type="RuianVyhledejSeznamAMVOResponseType"/>
+
+	<xs:complexType name="RuianVyhledejSeznamAMVOType">
+		<xs:annotation>
+			<xs:documentation>Služba E170 externího rozhraní - žádost. Vyhledání adresních míst. RUIAN služba Axx.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianVyhledejSeznamAMVOData" type="vyhAdVO:VyhledejSeznamAMVODotazType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RuianVyhledejSeznamAMVOResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E170 externího rozhraní - odpověď. Vyhledání adresních míst. RUIAN služba Axx.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="RuianOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianVyhledejSeznamAMVODataResponse">
+									<xs:complexType>
+										<xs:sequence>
+										  <xs:element ref="vyhAdVO:AdresniMista"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

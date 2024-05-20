@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:iszr:schemas:IszrRosZrusZnepristupneni:v1" xmlns:e201="urn:cz:isvs:iszr:schemas:IszrRosZrusZnepristupneni:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" xmlns:sed="urn:cz:isvs:ros:schemas:RosEditaceData:v2" xmlns:roe="urn:cz:isvs:rob:schemas:RobEditaceData:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:cz:isvs:iszr:schemas:IszrRosZrusZnepristupneni:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.1.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E201 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	<!-- Verze 1.0.0, AutoCont CZ a.s -->
+	<!-- Verze 1.1.0 po úpravě ROS 1.4.0, S25, nekompatibilní změna vstupní struktury a výstupní struktury, AutoCont CZ a.s, 9.4.2020 -->
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstractOrg.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ros:schemas:RosEditaceData:v2" schemaLocation="../../ros/xsd/RosEditaceData.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rob:schemas:RobEditaceData:v1" schemaLocation="../../rob/xsd/RobEditaceData.xsd"/>
+	<xs:element name="RosZrusZnepristupneni" type="RosZrusZnepristupneniType"/>
+	<xs:element name="RosZrusZnepristupneniResponse" type="RosZrusZnepristupneniResponseType"/>
+	<xs:complexType name="RosZrusZnepristupneniType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E201 externího rozhraní - typ pro žádost.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAifoAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RosZrusZnepristupneniData" type="sed:RosZrusZnepristupneniDataType">
+									<xs:annotation>
+										<xs:documentation xml:lang="cs">Element pro specifikaci zrušeni v ROS.</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element name="RobZrusBlokaciData" type="roe:RobZrusBlokaciDataType" minOccurs="0">
+									<xs:annotation>
+										<xs:documentation xml:lang="cs">Element pro specifikacizru3en9 v ROB.  Pokud uveden, prov8d9 se i vol8n9 ROB.</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RosZrusZnepristupneniResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E201 externího rozhraní - typ pro odpověď.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAifoStAbstractType">
+				<xs:sequence>
+					<xs:element name="RosOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RosZrusZnepristupneniDataResponse" type="sed:RosZrusZnepristupneniDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="RobOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RobZrusBlokaciDataResponse" type="roe:RobZrusBlokaciDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

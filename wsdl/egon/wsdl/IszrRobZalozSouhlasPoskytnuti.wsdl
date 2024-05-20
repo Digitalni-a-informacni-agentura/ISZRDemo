@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRobZalozSouhlasPoskytnuti:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRobZalozSouhlasPoskytnuti:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRobZalozSouhlasPoskytnuti:v1"
+	xmlns:e179="urn:cz:isvs:iszr:schemas:IszrRobZalozSouhlasPoskytnuti:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRobZalozSouhlasPoskytnuti">
+
+	<wsdl:documentation>Služba E179.</wsdl:documentation>
+
+	<!-- Katalog.7.06 verze 1.6.1, 24.02.2014 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRobZalozSouhlasPoskytnuti:v1" schemaLocation="../xsd/IszrRobZalozSouhlasPoskytnuti.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="IszrRobZalozSouhlasPoskytnuti">
+		<wsdl:part name="parametry" element="e179:RobZalozSouhlasPoskytnuti"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRobZalozSouhlasPoskytnutiResponse">
+		<wsdl:part name="vysledek" element="e179:RobZalozSouhlasPoskytnutiResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRobZalozSouhlasPoskytnutiPortType">
+		<wsdl:operation name="IszrRobZalozSouhlasPoskytnuti">
+			<wsdl:input message="tns:IszrRobZalozSouhlasPoskytnuti"/>
+			<wsdl:output message="tns:IszrRobZalozSouhlasPoskytnutiResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRobZalozSouhlasPoskytnutiBinding" type="tns:IszrRobZalozSouhlasPoskytnutiPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRobZalozSouhlasPoskytnuti">
+			<soap:operation soapAction="IszrRobZalozSouhlasPoskytnuti"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRobZalozSouhlasPoskytnutiService">
+		<wsdl:port name="IszrRobZalozSouhlasPoskytnutiPortService" binding="tns:IszrRobZalozSouhlasPoskytnutiBinding">
+			<soap:address location="IszrRobZalozSouhlasPoskytnuti"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

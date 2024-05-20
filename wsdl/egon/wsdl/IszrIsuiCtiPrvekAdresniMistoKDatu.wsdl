@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrIsuiCtiPrvekAdresniMistoKDatu:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrIsuiCtiPrvekAdresniMistoKDatu:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrIsuiCtiPrvekAdresniMistoKDatu:v1"
+	xmlns:e67a="urn:cz:isvs:iszr:schemas:IszrIsuiCtiPrvekAdresniMistoKDatu:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrIsuiCtiPrvekAdresniMistoKDatu">
+
+	<wsdl:documentation>Služba E67A externího rozhraní.</wsdl:documentation>
+
+	<!-- Vývojová verze 0.0.1, 10.2.2011, Jan Sluka -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrIsuiCtiPrvekAdresniMistoKDatu:v1" schemaLocation="../xsd/IszrIsuiCtiPrvekAdresniMistoKDatu.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="IszrIsuiCtiPrvekAdresniMistoKDatu">
+		<wsdl:part name="parametry" element="e67a:IsuiCtiPrvekAdresniMistoKDatu"/>
+	</wsdl:message>
+	<wsdl:message name="IszrIsuiCtiPrvekAdresniMistoKDatuResponse">
+		<wsdl:part name="vysledek" element="e67a:IsuiCtiPrvekAdresniMistoKDatuResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrIsuiCtiPrvekAdresniMistoKDatuPortType">
+		<wsdl:operation name="IszrIsuiCtiPrvekAdresniMistoKDatu">
+			<wsdl:input message="IszrIsuiCtiPrvekAdresniMistoKDatu"/>
+			<wsdl:output message="IszrIsuiCtiPrvekAdresniMistoKDatuResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrIsuiCtiPrvekAdresniMistoKDatuBinding" type="tns:IszrIsuiCtiPrvekAdresniMistoKDatuPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrIsuiCtiPrvekAdresniMistoKDatu">
+			<soap:operation soapAction="IszrIsuiCtiPrvekAdresniMistoKDatu"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrIsuiCtiPrvekAdresniMistoKDatuService">
+		<wsdl:port name="IszrIsuiCtiPrvekAdresniMistoKDatuPortService" binding="tns:IszrIsuiCtiPrvekAdresniMistoKDatuBinding">
+			<soap:address location="IszrIsuiCtiPrvekAdresniMistoKDatu"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

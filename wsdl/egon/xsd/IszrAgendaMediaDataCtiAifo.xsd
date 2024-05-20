@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrAgendaMediaDataCtiAifo:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrAgendaMediaDataCtiAifo:v1"
+	xmlns:e197="urn:cz:isvs:iszr:schemas:IszrAgendaMediaDataCtiAifo:v1"
+	xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:z10a="urn:cz:isvs:aiseop:schemas:AisEopMediaCtiAifo:v1"
+	xmlns:z10b="urn:cz:isvs:aisecd:schemas:AisEcdMediaCtiAifo:v1"
+	xmlns:z10c="urn:cz:isvs:aisc:schemas:AiscMediaCtiAifo:v1"
+	xmlns:rod="urn:cz:isvs:rob:schemas:RobDotazyData:v1"
+	xmlns:crob2="urn:cz:isvs:ruian:schemas:CtiProRob:v2"
+	xmlns:iszr="urn:cz:isvs:iszr:schemas:IszrDataAgendaMediaDataCtiAifo:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.11.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E197 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vznik verze 1.0.0, Pavel Odstrcil -->
+	<!-- Verze pro revizi 1.9.4, 1.12.2015, ales.teply@autocont.cz, Úprava Response: elementy jsou nyní nillable="true", prázdná hodnota je vracena jako xsi:nil -->
+	<!-- Verze pro revizi 1.9.5, 26.7.2017, ales.teply@autocont.cz, Úprava Response: změna na aiseop a aisecd -->
+	<!-- Verze pro revizi 1.9.6, 31.7.2017, pavel.odstrcil@autocont.cz, Formalni zvyseni verze - zmena obsahu pro Request -->
+	<!-- Verze 1.10.0, 10.05.2018, pavel.odstrcil@autocont.cz, Podpora pro AISC -->
+	<!-- Verze 1.10.1, 25.05.2018, pavel.odstrcil@autocont.cz, Revize AISC -->
+	<!-- Verze 1.10.2, 18.3.2019, ales.teply@autocont.cz, Úprava EopOdpoved, EcdOdpoved: AisAplikacniStatus-NevydanaPolozka -->
+	<!-- Verze po revizi 1.10.3, 14.10.2020, Aleš Teplý, RuianCtiProRobDataResponse v1 i v2 -->
+	<!-- Verze po revizi 1.11.0, 13.8.2021, Aleš Teplý, rozšíření struktury Response ROB v2.0.0, aplikačně zatím omezeno na kompatibilitu s ROB v1.0.9 -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstractOrg.xsd"/>
+	<xs:import namespace="urn:cz:isvs:aiseop:schemas:AisEopMediaCtiAifo:v1" schemaLocation="../../aiseop/xsd/AisEopMediaCtiAifo.xsd"/>
+	<xs:import namespace="urn:cz:isvs:aisecd:schemas:AisEcdMediaCtiAifo:v1" schemaLocation="../../aisecd/xsd/AisEcdMediaCtiAifo.xsd"/>
+	<xs:import namespace="urn:cz:isvs:aisc:schemas:AiscMediaCtiAifo:v1" schemaLocation="ref/AiscMediaCtiAifo.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rob:schemas:RobDotazyData:v1" schemaLocation="../../rob/xsd/RobDotazyData.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiProRob:v2" schemaLocation="ref/RuianCtiProRob2.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrDataAgendaMediaDataCtiAifo:v1" schemaLocation="../../iszr/xsd/IszrDataAgendaMediaDataCtiAifo.xsd"/>
+	<!-- -->
+	<xs:element name="AgendaMediaDataCtiAifo" type="AgendaMediaDataCtiAifoType"/>
+	<xs:element name="AgendaMediaDataCtiAifoResponse" type="AgendaMediaDataCtiAifoResponseType"/>
+	<!-- -->
+	<xs:complexType name="AgendaMediaDataCtiAifoType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E197 externího rozhraní - typ pro žádost. Služba umožňuje umožňuje načíst data z evidencí EOP, ECD a AISC - fotografie nebo podpisy.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostRAifoAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IszrAgendaMediaDataCtiAifoData" type="iszr:IszrAgendaMediaDataCtiAifoDataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="AgendaMediaDataCtiAifoResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E197 externího rozhraní - typ pro odpověď. Služba umožňuje umožňuje načíst data z evidencí EOP, ECD a AISC - fotografie nebo podpisy.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAifoStIdAdrAbstractType">
+				<xs:sequence>
+					<xs:element name="RobOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RobOverHromadneAifoDataResponse" type="rod:RobOverHromadneAifoDataResponseType" minOccurs="0"/>
+								<xs:element name="RobCtiAifoDataResponse" type="rod:RobCtiAifoDataResponseType" minOccurs="0"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="RuianOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianCtiProRobDataResponse" type="crob2:RuianCtiProRobDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="EopOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="EopOdpoved" type="z10a:AisMediaDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="EcdOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="EcdOdpoved" type="z10b:AisMediaDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="AiscOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="AiscOdpoved">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element ref="z10c:AiscMediaCtiAifoDataResponse"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

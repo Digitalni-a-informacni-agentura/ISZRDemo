@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:iszr:schemas:IszrReg:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrReg:v1"
+	xmlns:iszr="urn:cz:isvs:iszr:schemas:IszrReg:v1"
+	xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="0.0.01">
+	
+  <xs:annotation>
+    <xs:documentation xml:lang="cs">Návrh XML schématu s definicemi typů ISZR. Častěji měněné typy.</xs:documentation>
+  </xs:annotation>
+  
+  <!-- Vývojová verze 0.0.01, 05.09.2011, Aleš Teplý -->
+
+  <xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+
+	<xs:simpleType name="NazevAsyncSluzbyType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Název služby, výčtový typ všech asynchronních služeb.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="reg:IdentifikatorType">
+      <xs:maxLength value="40"/>
+			<xs:enumeration value="IszrAsyncOdpovedZFronty"/>
+			<xs:enumeration value="IszrAsyncSmazatFrontu"/>
+			<xs:enumeration value="IszrAsyncVypisFronty"/>
+			<xs:enumeration value="IszrOrgPrihlasAifo"/>
+			<xs:enumeration value="IszrOrgZalozAifoPe"/>
+			<xs:enumeration value="IszrRobAutentizace"/>
+			<xs:enumeration value="IszrRobCtiAifo"/>
+			<xs:enumeration value="IszrRosCtiIco"/>
+			<xs:enumeration value="IszrRosPridelIco"/>
+			<xs:enumeration value="IszrRosPridelIcp"/>
+			<xs:enumeration value="IszrRosVlozProvozovnu"/>
+			<xs:enumeration value="IszrRosZmenProvozovnu"/>
+			<xs:enumeration value="IszrRppVypisRefPravniPredpis"/>
+			<xs:enumeration value="IszrRuianCtiAdresu"/>
+			<xs:enumeration value="IszrRuianCtiPrvekAdresniMisto"/>
+			<xs:enumeration value="IszrRuianCtiPrvekCastObce"/>
+			<xs:enumeration value="IszrRuianCtiPrvekKatastralniUzemi"/>
+			<xs:enumeration value="IszrRuianCtiPrvekKraj"/>
+			<xs:enumeration value="IszrRuianCtiPrvekMomc"/>
+			<xs:enumeration value="IszrRuianCtiPrvekMop"/>
+			<xs:enumeration value="IszrRuianCtiPrvekObec"/>
+			<xs:enumeration value="IszrRuianCtiPrvekOkres"/>
+			<xs:enumeration value="IszrRuianCtiPrvekOrp"/>
+			<xs:enumeration value="IszrRuianCtiPrvekParcela"/>
+			<xs:enumeration value="IszrRuianCtiPrvekPou"/>
+			<xs:enumeration value="IszrRuianCtiPrvekRegionSoudrznosti"/>
+			<xs:enumeration value="IszrRuianCtiPrvekSpravniObvod"/>
+			<xs:enumeration value="IszrRuianCtiPrvekStat"/>
+			<xs:enumeration value="IszrRuianCtiPrvekStavebniObjekt"/>
+			<xs:enumeration value="IszrRuianCtiPrvekUlice"/>
+			<xs:enumeration value="IszrRuianCtiPrvekVusc"/>
+			<xs:enumeration value="IszrRuianCtiPrvekZsj"/>
+			<xs:enumeration value="IszrRuianVyhledejPrvekAdresniMisto"/>
+			<xs:enumeration value="IszrRuianVyhledejPrvekCastObce"/>
+			<xs:enumeration value="IszrRuianVyhledejPrvekKatastralniUzemi"/>
+			<xs:enumeration value="IszrRuianVyhledejPrvekKraj"/>
+			<xs:enumeration value="IszrRuianVyhledejPrvekMomc"/>
+			<xs:enumeration value="IszrRuianVyhledejPrvekMop"/>
+			<xs:enumeration value="IszrRuianVyhledejPrvekObce"/>
+			<xs:enumeration value="IszrRuianVyhledejPrvekOkres"/>
+			<xs:enumeration value="IszrRuianVyhledejPrvekOrp"/>
+			<xs:enumeration value="IszrRuianVyhledejPrvekParcela"/>
+			<xs:enumeration value="IszrRuianVyhledejPrvekPou"/>
+			<xs:enumeration value="IszrRuianVyhledejPrvekRegionSoudrznosti"/>
+			<xs:enumeration value="IszrRuianVyhledejPrvekSpravniObvod"/>
+			<xs:enumeration value="IszrRuianVyhledejPrvekStavebniObjekt"/>
+			<xs:enumeration value="IszrRuianVyhledejPrvekUlice"/>
+			<xs:enumeration value="IszrRuianVyhledejPrvekVusc"/>
+			<xs:enumeration value="IszrRuianVyhledejPrvekZsj"/>
+			<xs:enumeration value="IszrRuianZmenPrvekISKN"/>
+			<xs:enumeration value="IszrRuianZmenPrvekISUI"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+</xs:schema>

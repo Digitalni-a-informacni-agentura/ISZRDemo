@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:aisv:schemas:AisvEvidujZmenu:v1"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+           xmlns:dt="urn:cz:isvs:aisv:schemas:AisvData:v1"
+           xmlns:aisdt="urn:cz:isvs:aisv:schemas:AisvDotazyTypy:v1"
+           targetNamespace="urn:cz:isvs:aisv:schemas:AisvEvidujZmenu:v1"
+           elementFormDefault="qualified"
+           attributeFormDefault="unqualified"
+           version="0.1.2">
+
+    <xs:annotation>
+        <xs:documentation xml:lang="cs">XML schéma s definicemi dat pro služby AISV, služba AisvEvidujZmenu.</xs:documentation>
+    </xs:annotation>
+
+    <!-- Vývojová verze 0.1.1, 20.10.2022, Vladimír Hudec  Úvodní verze - vytvoření nové služby-->
+    <!-- Vývojová verze 0.1.2, 31.10.2022, Revize pro externi rozhrani -->
+
+    <xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+    <xs:import namespace="urn:cz:isvs:aisv:schemas:AisvDotazyTypy:v1" schemaLocation="AisvDotazyTypy.xsd" />
+    <xs:import namespace="urn:cz:isvs:aisv:schemas:AisvData:v1" schemaLocation="AisvData.xsd" />
+
+    <xs:element name="AisvEvidujZmenu" type="AisvEvidujZmenuType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Služba umožňuje evidovat změnu PAIS v AISV</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+
+    <xs:element name="AisvEvidujZmenuResponse" type="AisvEvidujZmenuResponseType"/>
+
+    <xs:complexType name="AisvEvidujZmenuType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Žádost evidování změny.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="ZadostInfo" type="reg:ZadostInfoType">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Agenda a AIS evidujicího PAIS.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="AutorizaceInfo" type="reg:AutorizaceType">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Seznam měněných údajů evidujicího PAIS.
+                                                    Můžou to být položky ROB, ROS, AISEO, AISC, atd.
+                    </xs:documentation>
+               </xs:annotation>
+            </xs:element>
+            <xs:element name="MapaAifo" type="reg:MapaAifoType"/>
+            <xs:element name="Zadost">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="AisvEvidujZmenuData" type="aisdt:AisvEvidujZmenuDataType"/>
+					</xs:sequence>
+				</xs:complexType>			
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+     <xs:complexType name="AisvEvidujZmenuResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověd na žádost evidování změny.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" />
+            <xs:element name="Odpoved">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="AisvEvidujZmenuDataResponse" type="aisdt:AisvEvidujZmenuDataResponseType" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>

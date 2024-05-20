@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRuianVyhledejPrvekKatastralniUzemi2:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRuianVyhledejPrvekKatastralniUzemi2:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRuianVyhledejPrvekKatastralniUzemi2:v1"
+	xmlns:e249d="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekKatastralniUzemi2:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRuianVyhledejPrvekKatastralniUzemi2">
+
+	<wsdl:documentation>Služba E249d externího rozhraní - Vyhledání katastrálního území z RUIAN. RUIAN služba, operace VyhledejKatastralniUzemi.</wsdl:documentation>
+	
+	<!-- Výchozí verze 2.0.0, 29.09.2020 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+	
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekKatastralniUzemi2:v1" schemaLocation="../xsd/IszrRuianVyhledejPrvekKatastralniUzemi2.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrRuianVyhledejPrvekKatastralniUzemi2">
+		<wsdl:part name="parametry" element="e249d:RuianVyhledejPrvekKatastralniUzemi2"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRuianVyhledejPrvekKatastralniUzemi2Response">
+		<wsdl:part name="vysledek" element="e249d:RuianVyhledejPrvekKatastralniUzemi2Response"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRuianVyhledejPrvekKatastralniUzemi2PortType">
+		<wsdl:operation name="IszrRuianVyhledejPrvekKatastralniUzemi2">
+			<wsdl:input message="tns:IszrRuianVyhledejPrvekKatastralniUzemi2"/>
+			<wsdl:output message="tns:IszrRuianVyhledejPrvekKatastralniUzemi2Response"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRuianVyhledejPrvekKatastralniUzemi2Binding" type="tns:IszrRuianVyhledejPrvekKatastralniUzemi2PortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRuianVyhledejPrvekKatastralniUzemi2">
+			<soap:operation soapAction="IszrRuianVyhledejPrvekKatastralniUzemi2"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRuianVyhledejPrvekKatastralniUzemi2Service">
+		<wsdl:port name="IszrRuianVyhledejPrvekKatastralniUzemi2PortService" binding="tns:IszrRuianVyhledejPrvekKatastralniUzemi2Binding">
+			<soap:address location="IszrRuianVyhledejPrvekKatastralniUzemi2"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRppVymazVazbuAgendaSluzba:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRppVymazVazbuAgendaSluzba:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRppVymazVazbuAgendaSluzba:v1"
+	xmlns:e146="urn:cz:isvs:iszr:schemas:IszrRppVymazVazbuAgendaSluzba:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRppVymazVazbuAgendaSluzba">
+
+	<wsdl:documentation>Služba E146 externího rozhraní - Služba na základě předaných dat zruší existující vazby mezi činností agendy a službou do RPP - RPP služba P43.</wsdl:documentation>
+	
+	<!-- Vývojová verze 0.0.1, 21.12.2011, Aleš Teplý -->
+	<!-- Fixovaná verze 1.0.0, 11.01.2012, Aleš Teplý -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+	
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRppVymazVazbuAgendaSluzba:v1" schemaLocation="../xsd/IszrRppVymazVazbuAgendaSluzba.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="IszrRppVymazVazbuAgendaSluzba">
+		<wsdl:part name="parametry" element="e146:RppVymazVazbuAgendaSluzba"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRppVymazVazbuAgendaSluzbaResponse">
+		<wsdl:part name="vysledek" element="e146:RppVymazVazbuAgendaSluzbaResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRppVymazVazbuAgendaSluzbaPortType">
+		<wsdl:operation name="IszrRppVymazVazbuAgendaSluzba">
+			<wsdl:input message="tns:IszrRppVymazVazbuAgendaSluzba"/>
+			<wsdl:output message="tns:IszrRppVymazVazbuAgendaSluzbaResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRppVymazVazbuAgendaSluzbaBinding" type="tns:IszrRppVymazVazbuAgendaSluzbaPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRppVymazVazbuAgendaSluzba">
+			<soap:operation soapAction="IszrRppVymazVazbuAgendaSluzba"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRppVymazVazbuAgendaSluzbaService">
+		<wsdl:port name="IszrRppVymazVazbuAgendaSluzbaPortService" binding="tns:IszrRppVymazVazbuAgendaSluzbaBinding">
+			<soap:address location="IszrRppVymazVazbuAgendaSluzba"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

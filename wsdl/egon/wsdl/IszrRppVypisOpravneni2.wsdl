@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRppVypisOpravneni2:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRppVypisOpravneni2:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRppVypisOpravneni2:v1"
+	xmlns:e295="urn:cz:isvs:iszr:schemas:IszrRppVypisOpravneni2:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRppVypisOpravneni2">
+
+	<wsdl:documentation>Služba E295 externího rozhraní - Poskytnutí informací o přiřazení agendových rolí a služeb k agendě včetně povolených přístupů k AIS pro konkrétní agendu nebo agendy vykonávané příslušným OVM - RPP služba P94.</wsdl:documentation>
+	
+	<!-- Výchozí verze 1.0.0, 13.12.2012, Aleš Teplý -->
+	<!-- Verze po revizi 1.1.0, 25.5.2022, Aleš Teplý, Response - AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- AutoCont CZ a.s. -->
+	
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRppVypisOpravneni2:v1" schemaLocation="../xsd/IszrRppVypisOpravneni2.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="IszrRppVypisOpravneni2">
+		<wsdl:part name="parametry" element="e295:RppVypisOpravneni2"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRppVypisOpravneni2Response">
+		<wsdl:part name="vysledek" element="e295:RppVypisOpravneni2Response"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRppVypisOpravneni2PortType">
+		<wsdl:operation name="IszrRppVypisOpravneni2">
+			<wsdl:input message="tns:IszrRppVypisOpravneni2"/>
+			<wsdl:output message="tns:IszrRppVypisOpravneni2Response"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRppVypisOpravneni2Binding" type="tns:IszrRppVypisOpravneni2PortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRppVypisOpravneni2">
+			<soap:operation soapAction="IszrRppVypisOpravneni2"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRppVypisOpravneni2Service">
+		<wsdl:port name="IszrRppVypisOpravneni2PortService" binding="tns:IszrRppVypisOpravneni2Binding">
+			<soap:address location="IszrRppVypisOpravneni2"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

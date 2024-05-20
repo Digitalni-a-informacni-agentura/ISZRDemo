@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRppVypisKategoriiOvmSpuu2:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRppVypisKategoriiOvmSpuu2:v1"
+	xmlns:e294="urn:cz:isvs:iszr:schemas:IszrRppVypisKategoriiOvmSpuu2:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:pdo="urn:cz:isvs:rpp:schemas:RppDotazyData:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.1.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E294 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation> 
+
+	<!-- Výchozí verze 1.0.0, 13.12.2012, Aleš Teplý -->
+	<!-- Verze po revizi 1.0.1, 16.3.2022, Aleš Teplý, RPP verze 1.11.5 -->
+	<!-- Verze po revizi 1.0.2, 17.3.2022, Aleš Teplý, RPP verze 1.11.7 -->
+	<!-- Verze po revizi 1.1.0, 25.5.2022, Aleš Teplý, Response - AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rpp:schemas:RppDotazyData:v1" schemaLocation="../../rpp/xsd/RppDotazyData.xsd"/>
+	<xs:element name="RppVypisKategoriiOvmSpuu2" type="RppVypisKategoriiOvmSpuu2Type"/>
+	<xs:element name="RppVypisKategoriiOvmSpuu2Response" type="RppVypisKategoriiOvmSpuu2ResponseType"/>
+	<xs:complexType name="RppVypisKategoriiOvmSpuu2Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E294 externího rozhraní - typ pro žádost. Služba vrátí veškeré vedené údaje  o kategorii OVM/SPUU. RPP služba P93.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RppVypisKategoriiOvmSpuu2Data" type="pdo:RppVypisKategoriiOvmSpuu2DataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RppVypisKategoriiOvmSpuu2ResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E294 externího rozhraní - typ pro odpověď. Služba vrátí veškeré vedené údaje  o kategorii OVM/SPUU. RPP služba P93.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="RppOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RppVypisKategoriiOvmSpuu2DataResponse" type="pdo:RppVypisKategoriiOvmSpuu2DataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

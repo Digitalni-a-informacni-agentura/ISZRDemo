@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:aiseo:schemas:AiseoCtiAifo:v1" xmlns:x11="urn:cz:isvs:aiseo:schemas:AiseoCtiAifo:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:aiseo="urn:cz:isvs:aiseo:schemas:AiseoTypy:v1" xmlns:iszd="urn:cz:isvs:aiseo:schemas:AiseoDotazyData:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:ns1="urn:cz:isvs:aiseo:schemas:AiseoCtiAifo:v1" xmlns:ns2="urn:cz:isvs:aiseo:schemas:AiseoTypy:v1" xmlns:ns3="urn:cz:isvs:aiseo:schemas:AiseoDotazyData:v1" targetNamespace="urn:cz:isvs:aiseo:schemas:AiseoCtiAifo:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.1.2">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">XML schéma s definicemi dat pro služby Aiseo, služba AiseoCtiAifo.</xs:documentation>
+	</xs:annotation>
+	<!-- Vývojová verze 0.1.0, 05.04.2012, Pavel Odstrčil, výchozí verze -->
+	<!-- Vývojová verze 0.1.1, 10.04.2012, Pavel Odstrčil, formální úpravy -->
+	<!-- Vývojová verze 0.1.2, 23.04.2012, Aleš Teplý, vracena maximálně jedna osoba -->
+	<!-- Vývojová verze 0.1.3, 10.05.2012, Zdeněk Křepela, doplněny návratového hodnoty EO  -->
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:aiseo:schemas:AiseoTypy:v1" schemaLocation="AiseoTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:aiseo:schemas:AiseoDotazyData:v1" schemaLocation="AiseoDotazyData.xsd"/>
+	<xs:element name="AiseoSyncCtiAifo" type="AiseoSyncCtiAifoType"/>
+	<xs:element name="AiseoSyncCtiAifoResponse" type="AiseoSyncCtiAifoResponseType"/>
+	<xs:element name="AiseoCtiAifoData" type="AiseoCtiAifoDataType"/>
+	<xs:element name="AiseoCtiAifoDataResponseV01" type="AiseoCtiAifoDataResponseV01Type"/>
+	<xs:complexType name="AiseoSyncCtiAifoType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Synchronní dotaz.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType"/>
+			<xs:element name="AutorizaceInfo" type="reg:AutorizaceType"/>
+			<xs:element name="MapaAifo" type="reg:MapaAifoType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AiseoSyncCtiAifoResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Synchronní odpověd na dotaz.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType"/>
+			<xs:element name="MapaAifo" type="reg:MapaAifoType" minOccurs="0"/>
+			<xs:element name="AiseoOdpoved" type="AiseoSyncDotazDataResponseType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AiseoCtiAifoDataType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba umožňuje přijmout definovanou žádost na čtení dle AIFO.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence/>
+	</xs:complexType>
+	<xs:complexType name="AiseoSyncDotazDataResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Obecná definice datové části Response.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:any processContents="lax" namespace="urn:cz:isvs:aiseo:schemas:AiseoCtiAifo:v1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AiseoCtiAifoDataResponseV01Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba umožňuje přijmout definovanou žádost na čtení dle AIFO vytvořit výpis vhodný pro technické zpracování. Datová část Response.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="iszd:AiseoDotazyDataResponseType">
+				<xs:sequence minOccurs="0">
+					<xs:element name="Aifo" type="reg:LokalniAifoType"/>
+					<xs:element name="OsobaEO" type="aiseo:OsobaEOType"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

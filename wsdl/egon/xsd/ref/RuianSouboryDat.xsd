@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:ruian:schemas:SouboryDat:v1"
+	xmlns="urn:cz:isvs:ruian:schemas:SouboryDat:v1"
+	xmlns:sdr="urn:cz:isvs:ruian:schemas:SouboryDat:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.1.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Rozšíření SouboryDat, definice potřebného elementu ve jmenném prostoru RUIAN.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vývojová verze 0.0.1, 9.2.2012, Jan Sluka -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:include schemaLocation="../../../ruian/xsd/soubory_dat/SouboryDat.xsd"/>
+
+	<xs:element name="Odpoved" type="sdr:SouboryDatOdpovedType"/>
+</xs:schema>

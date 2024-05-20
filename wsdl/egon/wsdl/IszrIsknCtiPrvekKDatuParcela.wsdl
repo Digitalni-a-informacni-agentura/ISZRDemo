@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrIsknCtiPrvekKDatuParcela:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrIsknCtiPrvekKDatuParcela:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrIsknCtiPrvekKDatuParcela:v1"
+	xmlns:e242k="urn:cz:isvs:iszr:schemas:IszrIsknCtiPrvekKDatuParcela:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrIsknCtiPrvekKDatuParcela">
+
+	<wsdl:documentation>Služba E242k externího rozhraní. Služba která vrátí požadované atributy prvku RUIAN editovaného v ISKN k požadovanému datu. ISKN služba A11, operace ctiParcelaKDatu.</wsdl:documentation>
+
+	<!-- Výchozí verze 1.0.0, 2.9.2019 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrIsknCtiPrvekKDatuParcela:v1" schemaLocation="../xsd/IszrIsknCtiPrvekKDatuParcela.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="IszrIsknCtiPrvekKDatuParcela">
+		<wsdl:part name="parametry" element="e242k:IsknCtiPrvekKDatuParcela"/>
+	</wsdl:message>
+	<wsdl:message name="IszrIsknCtiPrvekKDatuParcelaResponse">
+		<wsdl:part name="vysledek" element="e242k:IsknCtiPrvekKDatuParcelaResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrIsknCtiPrvekKDatuParcelaPortType">
+		<wsdl:operation name="IszrIsknCtiPrvekKDatuParcela">
+			<wsdl:input message="IszrIsknCtiPrvekKDatuParcela"/>
+			<wsdl:output message="IszrIsknCtiPrvekKDatuParcelaResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrIsknCtiPrvekKDatuParcelaBinding" type="tns:IszrIsknCtiPrvekKDatuParcelaPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrIsknCtiPrvekKDatuParcela">
+			<soap:operation soapAction="IszrIsknCtiPrvekKDatuParcela"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrIsknCtiPrvekKDatuParcelaService">
+		<wsdl:port name="IszrIsknCtiPrvekKDatuParcelaPortService" binding="tns:IszrIsknCtiPrvekKDatuParcelaBinding">
+			<soap:address location="IszrIsknCtiPrvekKDatuParcela"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

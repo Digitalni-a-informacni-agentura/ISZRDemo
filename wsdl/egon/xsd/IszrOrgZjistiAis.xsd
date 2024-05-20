@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:iszr:schemas:IszrOrgZjistiAis:v1" xmlns:e80="urn:cz:isvs:iszr:schemas:IszrOrgZjistiAis:v1" xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" xmlns:ot="urn:cz:isvs:org:schemas:OrgTypy:v1" xmlns:or="urn:cz:isvs:org:schemas:OrgRozhrani:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:cz:isvs:iszr:schemas:IszrOrgZjistiAis:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E80 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	<!-- Verze 1.0.0, 14.07.2015 Pavel Odstrčil -->
+	<!-- AutoCont CZ a.s. -->
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:org:schemas:OrgTypy:v1" schemaLocation="../../org/xsd/OrgTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:org:schemas:OrgRozhrani:v1" schemaLocation="ref/OrgStatus.xsd"/>
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:element name="OrgZjistiAis" type="OrgZjistiAisType"/>
+	<xs:element name="OrgZjistiAisResponse" type="OrgZjistiAisResponseType"/>
+	<xs:complexType name="OrgZjistiAisType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E199 externího rozhraní - typ pro žádost.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAifoAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<!--xs:element name="OrgZjistiAisData" type="or:ZjistiAisDataType"-->
+								<xs:element name="OrgZjistiAisData">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element name="Agenda" type="reg:KodAgendyType" minOccurs="0"/>
+											<xs:element name="AIS" type="reg:KodAisType" minOccurs="0"/>
+											<xs:element name="JenPrihlasene" type="ot:JenPrihlaseneType" minOccurs="0"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="OrgZjistiAisResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E199 externího rozhraní - typ pro odpověď.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="OrgOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="OrgZjistiAisDataResponse">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element ref="or:OrgStatus" minOccurs="0"/>
+											<xs:element ref="or:OrgAgendaAis" minOccurs="0" maxOccurs="unbounded"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:ZmenDefBodStavebniObjekt:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:ZmenDefBodStavebniObjekt:v1" xmlns:zdso="urn:cz:isvs:ruian:schemas:ZmenDefBodStavebniObjekt:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:zt="urn:cz:isvs:ruian:schemas:ZmenaTypy:v1" elementFormDefault="qualified" version="0.40.2">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenaTypy:v1" schemaLocation="../../../ruian/xsd/typy/ZmenaTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:complexType name="DefinicniBodSOZmenaType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Změna definičního bodu stavebního objektu</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Id" type="base:Id18Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="StavebniObjektKod" type="zt:Kod9ZmenaType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Geometrie" type="zt:SdoGeometryType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="TypPrvkuPrehledMapKod" type="zt:Kod10ZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PlatiOd" type="zt:DatumCasZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Nespravny" type="zt:NespravnyZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="GlobalniIdNavrhuZmeny" type="zt:IdNavrhuZmenyZmenaType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

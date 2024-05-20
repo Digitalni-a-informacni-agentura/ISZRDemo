@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:VyhledejPou:v2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:VyhledejPou:v2" xmlns:vyhPu="urn:cz:isvs:ruian:schemas:VyhledejPou:v2" xmlns:pu="urn:cz:isvs:ruian:schemas:Pou:v2" xmlns:puPodm="urn:cz:isvs:ruian:schemas:PouPodminka:v2" xmlns:puPolBase="urn:cz:isvs:ruian:schemas:PouPolozkyBase:v2" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" elementFormDefault="qualified" version="2.0.0">
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:PouPolozkyBase:v2" schemaLocation="PouPolozkyBase.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:PouPodminka:v2" schemaLocation="PouPodminka.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:Pou:v2" schemaLocation="../prvky/Pou.xsd"/>
+	<xs:complexType name="PouSeznamType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam POU</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Pou" type="pu:PouType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VyhledejPouDotazType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Parametry POU</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Podminka" type="puPodm:PouPodminkaType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="PozadovaneUdaje" type="puPolBase:PouPolozkyBaseType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="VyhledejPouRequest" type="vyhPu:VyhledejPouRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na vyhledani POU</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="VyhledejPouRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na vyhledani POU</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Dotaz" type="VyhledejPouDotazType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="VyhledejPouResponse" type="vyhPu:VyhledejPouResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved na vyhledani POU</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="VyhledejPouResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved na vyhledani POU</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Pou" type="PouSeznamType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

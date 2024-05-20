@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrEopCtiPodleUdaju:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrEopCtiPodleUdaju:v1"
+	xmlns:e194="urn:cz:isvs:iszr:schemas:IszrEopCtiPodleUdaju:v1"
+	xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:z1="urn:cz:isvs:aiseop:schemas:AisEopCtiAifo:v2"
+	xmlns:z3="urn:cz:isvs:aiseop:schemas:AisEopCtiPodleUdaju:v2"
+	xmlns:rod="urn:cz:isvs:rob:schemas:RobDotazyData:v1"
+	xmlns:crob2="urn:cz:isvs:ruian:schemas:CtiProRob:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="2.1.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E194 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vznik verze 1.0.0, Pavel Odstrcil -->
+	<!-- Verze pro revizi 1.9.3, 13.11.2015, ales.teply@autocont.cz, Úprava Response: volitelné subelementy ObcanskyPrukazKompletniUdaje jsou nyní nillable="true", prázdná hodnota je vracena jako xsi:nil -->
+	<!-- Verze pro revizi 2.0.0, 13.11.2018, ales.teply@autocont.cz, změna namespace importovaného xsd urn:cz:isvs:ais3:schemas:Ais3EopCtiPodleUdaju:v1 na urn:cz:isvs:aiseop:schemas:AisEopCtiPodleUdaju:v2, urn:cz:isvs:ais3:schemas:Ais3EopCtiAifo:v1 na urn:cz:isvs:aiseop:schemas:AisEopCtiAifo:v2 a úložiště /ais3 na /aiseop -->
+	<!-- Verze 2.0.1, 18.3.2019, ales.teply@autocont.cz, Úprava EopOdpoved: AisAplikacniStatus-NevydanaPolozka -->
+	<!-- Verze po revizi 2.0.2, 14.10.2020, Aleš Teplý, RuianCtiProRobDataResponse v1 i v2 -->
+	<!-- Verze po revizi 2.0.3, 22.2.2021, Aleš Teplý, OpCislo int misto string -->
+	<!-- Verze po revizi 2.1.0, 13.8.2021, Aleš Teplý, rozšíření struktury Response ROB v2.0.0, aplikačně zatím omezeno na kompatibilitu s ROB v1.0.9 -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstractOrg.xsd"/>
+	<xs:import namespace="urn:cz:isvs:aiseop:schemas:AisEopCtiPodleUdaju:v2" schemaLocation="../../aiseop/xsd/AisEopCtiPodleUdaju.xsd"/>
+	<xs:import namespace="urn:cz:isvs:aiseop:schemas:AisEopCtiAifo:v2" schemaLocation="../../aiseop/xsd/AisEopCtiAifo.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rob:schemas:RobDotazyData:v1" schemaLocation="../../rob/xsd/RobDotazyData.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiProRob:v2" schemaLocation="ref/RuianCtiProRob2.xsd"/>
+	<xs:element name="EopCtiPodleUdaju" type="EopCtiPodleUdajuType"/>
+	<xs:element name="EopCtiPodleUdajuResponse" type="EopCtiPodleUdajuResponseType"/>
+	<xs:complexType name="EopCtiPodleUdajuType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E194 externího rozhraní - typ pro žádost. Služba umožňuje umožňuje vyhledávat v EOP nereferenční údaje, které nejsou uloženy v ROB.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="AisEopCtiPodleUdajuData" type="z3:AisEopCtiPodleUdajuDotazDataType" minOccurs="0"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="EopCtiPodleUdajuResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E194 externího rozhraní - typ pro odpověď. Služba umožňuje vyhledávat v EOP nereferenční údaje, které nejsou uloženy v ROB (služba AIS EOP z3). Služba vrací údaje pouze tehdy, pokud existuje záznam v ROB.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAifoStIdAdrAbstractType">
+				<xs:sequence>
+					<xs:element name="EopOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="EopCtiPodleUdajuDataResponse" type="z3:AisEopCtiPodleUdajuDataResponseType"/>
+								<xs:element name="EopCtiAifoDataResponse" type="z1:AisEopCtiAifoDataResponseType" minOccurs="0"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="RobOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RobOverHromadneAifoDataResponse" type="rod:RobOverHromadneAifoDataResponseType" minOccurs="0"/>
+								<xs:element name="RobCtiAifoDataResponse" type="rod:RobCtiAifoDataResponseType" minOccurs="0"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="RuianOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianCtiProRobDataResponse" type="crob2:RuianCtiProRobDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

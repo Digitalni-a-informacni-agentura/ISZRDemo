@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:VyhledejVusc:v2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:VyhledejVusc:v2" xmlns:vyhVc="urn:cz:isvs:ruian:schemas:VyhledejVusc:v2" xmlns:vc="urn:cz:isvs:ruian:schemas:Vusc:v2" xmlns:vcPodm="urn:cz:isvs:ruian:schemas:VuscPodminka:v2" xmlns:vcPolBase="urn:cz:isvs:ruian:schemas:VuscPolozkyBase:v2" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" elementFormDefault="qualified" version="2.0.0">
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:VuscPolozkyBase:v2" schemaLocation="VuscPolozkyBase.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:VuscPodminka:v2" schemaLocation="VuscPodminka.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:Vusc:v2" schemaLocation="../prvky/Vusc.xsd"/>
+	<xs:complexType name="VuscSeznamType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam VUSC</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Vusc" type="vc:VuscType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VyhledejVuscDotazType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Parametry VUSC</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Podminka" type="vcPodm:VuscPodminkaType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="PozadovaneUdaje" type="vcPolBase:VuscPolozkyBaseType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="VyhledejVuscRequest" type="vyhVc:VyhledejVuscRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na vyhledani VUSC</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="VyhledejVuscRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na vyhledani VUSC</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Dotaz" type="VyhledejVuscDotazType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="VyhledejVuscResponse" type="vyhVc:VyhledejVuscResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved na vyhledani VUSC</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="VyhledejVuscResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved na vyhledani VUSC</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Vusc" type="VuscSeznamType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

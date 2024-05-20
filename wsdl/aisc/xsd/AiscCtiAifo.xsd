@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+  targetNamespace="urn:cz:isvs:aisc:schemas:AiscCtiAifo:v1"
+  xmlns="urn:cz:isvs:aisc:schemas:AiscCtiAifo:v1"
+  xmlns:aiscd="urn:cz:isvs:aisc:schemas:AiscDotazyData:v1"
+  xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  elementFormDefault="qualified"
+  attributeFormDefault="unqualified"
+  version="1.0.0"
+>
+
+  <xs:annotation>
+    <xs:documentation xml:lang="cs">XML schéma s definicemi datových prvků AISC. Služba CIS01 interního rozhraní - dotaz a odpověď.</xs:documentation>
+  </xs:annotation>
+
+  <!-- Vývojová verze 0.0.1, 01.06.2012, David Matějček -->
+  <!-- Verze 0.1.0, 17.08.2012, Marian Bouček -->
+  <!-- Verze pro revizi 0.1.1, 20.08.2012, Aleš Teplý, AiscCtiAifo-změna AutorizaceInfo, doplněna MapaAifo do Request i Response -->
+  <!-- Verze 0.2.0, 28.08.2012, David Matějček, Aifo v odpovědi nebude vyplňováno -->
+  <!-- Verze 0.3.0, 18.09.2012, Marian Bouček, MapaAifo zpět přidána do Response -->
+  <!-- Verze 0.4.0, 2.10.2012, David Matějček, přejmenovány parametry, požadavek p. Teplého -->
+  <!-- Verze 1.0.0, xx.xx.2013, Přeznačení vydané verze -->
+
+  <xs:import namespace="urn:cz:isvs:aisc:schemas:AiscDotazyData:v1" schemaLocation="AiscDotazyData.xsd"/>
+  <xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd" />
+
+  <xs:element name="AiscCtiAifo" type="AiscCtiAifoType"/>
+  <xs:element name="AiscCtiAifoResponse" type="AiscCtiAifoResponseType"/>
+
+  <xs:complexType name="AiscCtiAifoType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Dotaz na údaje o osobě na základě zadání identifikátoru Aifo</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="aiscd:ZadostAbstractType">
+        <xs:sequence>
+          <xs:element name="MapaAifo" type="reg:MapaAifoType"/>
+          <xs:element name="Zadost">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="AiscCtiAifoData" type="aiscd:AiscCtiAifoDataType"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="AiscCtiAifoResponseType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Odpověď na dotaz podle Aifo</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="aiscd:OdpovedAbstractType">
+        <xs:sequence>
+          <xs:element name="AiscOdpoved" minOccurs="0">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="AiscCtiAifoDataResponse" type="aiscd:AiscCtiAifoDataResponseType"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>

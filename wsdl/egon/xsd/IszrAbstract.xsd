@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.1.1">
+	
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi abstraktních komplexních typů ISZR. Toto schéma obsahuje definice datových prvků, používaných pro dotazy.</xs:documentation>
+	</xs:annotation>
+	
+	<!-- Vývojová verze 0.0.01, 25.05.2011, Aleš Teplý -->
+	<!-- Vývojová verze 0.0.02, 09.06.2011, Aleš Teplý přidáno IszrZadostIdAdrAbstractType, IszrZadostAifoIdAdrAbstractType -->
+	<!-- Vývojová verze 0.0.03, 20.06.2011, Aleš Teplý přidáno IszrOdpovedAifoIdAdrAbstractType -->
+	<!-- Vývojová verze 0.0.04, 27.06.2011, Aleš Teplý přidáno PrioritaAisType, ZadostInfoIszrType, KodAsyncSluzbyType, PolozkaFrontyType. -->
+	<!-- Vývojová verze 0.0.05, 27.06.2011, Aleš Teplý přidáno IszrZadostAutAifoAdrAbstractType, IszrZadostAutAdrAbstractType -->
+	<!-- Vývojová verze 0.0.06, 19.07.2011, Aleš Teplý přidáno IszrOdpovedAifoAbstractType -->
+	<!-- Vývojová verze 0.0.07, 29.07.2011, Aleš Teplý přidáno IszrZadostRAifoAbstractType, rozsireni PolozkaFrontyType -->
+	<!-- Vývojová verze 0.0.08, 01.08.2011, Aleš Teplý přidáno IszrZadostAutRAifoAbstractType -->
+	<!-- Vývojová verze 0.0.09, 03.08.2011, Aleš Teplý doplnění enumeration KodAsyncSluzbyType na všechny služby prototypu, změna base na reg:IdentifikatorType (problém maxLength) -->
+	<!-- Vývojová verze 0.0.10, 05.09.2011, Aleš Teplý abs:NazevAsyncSluzbyType, abs:AutorizaceType -->
+	<!-- Vývojová verze 0.0.11, 07.09.2011, Aleš Teplý přidáno IszrZadostAsyncAbstractType -->
+	<!-- Vývojová verze 0.0.12, 12.10.2011, Aleš Teplý přidáno IszrZadostAifoAbstractType,IszrZadostRIdAdrAbstractType -->
+	<!-- Vývojová verze 0.0.13, 20.12.2011, Aleš Teplý přidáno IszrZadostPrvekAbstractType, IszrZadostAifoIcoAbstractType, IszrZadostAifoIcoPrvekAbstractType, IszrOdpovedPrvekAbstractType, IszrOdpovedAifoIcoAbstractType, IszrOdpovedAifoIcoPrvekAbstractType -->
+	<!-- Vývojová verze 0.0.14, 05.01.2012, Aleš Teplý přidáno IszrOdpovedAifoIdAdrIcoPrvekAbstractType -->
+	<!-- Vývojová verze 0.0.15, 06.01.2012, Aleš Teplý odstraněn SeznamPrvku z IszrOdpovedAifoIcoAbstractType (oprava) -->
+	<!-- Vývojová verze 0.0.16, 08.02.2012, Aleš Teplý, AutorizaceType rozšířeno o MaximalniPocetZaznamu -->
+	<!-- Vývojová verze 0.0.17, 05.01.2012, Aleš Teplý, přidáno IszrOdpovedIdAdrAbstractType -->
+	<!-- Vývojová verze 0.0.18, 13.03.2012, Aleš Teplý, přidáno IszrZadostIcoAbstractType, IszrOdpovedIcoAbstractType -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- Verze pro revizi 1.1.1, 18.05.2012 Aleš Teplý, přidáno IszrZadostAifoAsyncAbstractType -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+		
+	<xs:complexType name="IszrZadostAsyncAbstractType" abstract="true">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Žádost pro zpracování asynchronních výsledků.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="ZadostInfoIszrType"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="IszrZadostAbstractType" abstract="true">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Univerzální žádost.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent> 
+			<xs:extension base="abs:IszrZadostAsyncAbstractType">
+				<xs:sequence>
+					<xs:element name="AutorizaceInfo" type="AutorizaceType" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent> 
+	</xs:complexType>
+
+	<xs:complexType name="IszrZadostAifoAbstractType" abstract="true">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Univerzální žádost s nepovinným seznamem AIFO.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent> 
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="MapaAifo" type="reg:MapaAifoType" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent> 
+	</xs:complexType>
+
+	<xs:complexType name="IszrZadostRAifoAbstractType" abstract="true">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Univerzální žádost s povinným seznamem AIFO.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent> 
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="MapaAifo" type="reg:MapaAifoType"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent> 
+	</xs:complexType>
+
+	<xs:complexType name="IszrZadostRAifoAsyncAbstractType" abstract="true">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Univerzální žádost bez AutorizaceInfo s povinným seznamem AIFO.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAsyncAbstractType">
+				<xs:sequence>
+					<xs:element name="MapaAifo" type="reg:MapaAifoType"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="IszrZadostAifoIcoAsyncAbstractType" abstract="true">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Univerzální žádost bez AutorizaceInfo se seznamem AIFO a IČO.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAsyncAbstractType">
+				<xs:sequence>
+					<xs:element name="MapaAifo" type="reg:MapaAifoType" minOccurs="0"/>
+					<xs:element name="SeznamIco" type="reg:SeznamIcoType" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="IszrZadostAifoAsyncAbstractType" abstract="true">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Univerzální žádost bez AutorizaceInfo se seznamem AIFO.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAsyncAbstractType">
+				<xs:sequence>
+					<xs:element name="MapaAifo" type="reg:MapaAifoType" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="IszrZadostIdAdrAbstractType" abstract="true">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Univerzální žádost se seznamem ID adres.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent> 
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="SeznamIdAdres" type="reg:SeznamIdAdresType" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent> 
+	</xs:complexType>
+
+	<xs:complexType name="IszrZadostRIdAdrAbstractType" abstract="true">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Univerzální žádost se povinným seznamem ID adres.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent> 
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="SeznamIdAdres" type="reg:SeznamIdAdresType"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent> 
+	</xs:complexType>
+
+	<xs:complexType name="IszrZadostAifoIdAdrAbstractType" abstract="true">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Univerzální žádost se seznamem AIFO a ID adres.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent> 
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="MapaAifo" type="reg:MapaAifoType" minOccurs="0"/>
+					<xs:element name="SeznamIdAdres" type="reg:SeznamIdAdresType" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent> 
+	</xs:complexType>
+
+	<xs:complexType name="IszrZadostPrvekAbstractType" abstract="true">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Univerzální žádost se seznamem prvků RUIAN.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent> 
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="SeznamPrvku" type="reg:SeznamPrvkuType" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent> 
+	</xs:complexType>
+
+	<xs:complexType name="IszrZadostIcoAbstractType" abstract="true">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Univerzální žádost se seznamem IČO.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent> 
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="SeznamIco" type="reg:SeznamIcoType" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent> 
+	</xs:complexType>
+
+	<xs:complexType name="IszrZadostAifoIcoAbstractType" abstract="true">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Univerzální žádost se seznamem AIFO a seznamem ICO.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent> 
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="MapaAifo" type="reg:MapaAifoType" minOccurs="0"/>
+					<xs:element name="SeznamIco" type="reg:SeznamIcoType" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent> 
+	</xs:complexType>
+
+	<xs:complexType name="IszrZadostAifoIcoPrvekAbstractType" abstract="true">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Univerzální žádost se seznamem AIFO, seznamem ICO a seznamem prvku RUIAN.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent> 
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="MapaAifo" type="reg:MapaAifoType" minOccurs="0"/>
+					<xs:element name="SeznamIco" type="reg:SeznamIcoType" minOccurs="0"/>
+					<xs:element name="SeznamPrvku" type="reg:SeznamPrvkuType" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent> 
+	</xs:complexType>
+
+	<xs:complexType name="IszrOdpovedAbstractType" abstract="true">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Univerzální odpověd na žádost, obálka pro data.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="IszrOdpovedAifoAbstractType" abstract="true">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Univerzální odpověd na žádost se seznamem AIFO, obálka pro data.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent> 
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="MapaAifo" type="reg:MapaAifoType" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent> 
+	</xs:complexType>
+
+	<xs:complexType name="IszrOdpovedIdAdrAbstractType" abstract="true">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Univerzální odpověd na žádost se seznamem AIFO, obálka pro data.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent> 
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="SeznamIdAdres" type="reg:SeznamIdAdresType" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent> 
+	</xs:complexType>
+
+	<xs:complexType name="IszrOdpovedAifoIdAdrAbstractType" abstract="true">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Univerzální odpověd na žádost se seznamem AIFO a ID adres, obálka pro data.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent> 
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="MapaAifo" type="reg:MapaAifoType" minOccurs="0"/>
+					<xs:element name="SeznamIdAdres" type="reg:SeznamIdAdresType" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent> 
+	</xs:complexType>
+
+	<xs:complexType name="IszrOdpovedPrvekAbstractType" abstract="true">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Univerzální odpověd na žádost se seznamem prvků RUIAN, obálka pro data.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent> 
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="SeznamPrvku" type="reg:SeznamPrvkuType" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent> 
+	</xs:complexType>
+
+	<xs:complexType name="IszrOdpovedIcoAbstractType" abstract="true">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Univerzální odpověd na žádost se seznamem ICO, obálka pro data.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent> 
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="SeznamIco" type="reg:SeznamIcoType" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent> 
+	</xs:complexType>
+
+	<xs:complexType name="IszrOdpovedAifoIcoAbstractType" abstract="true">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Univerzální odpověd na žádost se seznamem AIFO a seznamem ICO, obálka pro data.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent> 
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="MapaAifo" type="reg:MapaAifoType" minOccurs="0"/>
+					<xs:element name="SeznamIco" type="reg:SeznamIcoType" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent> 
+	</xs:complexType>
+
+	<xs:complexType name="IszrOdpovedAifoIcoPrvekAbstractType" abstract="true">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Univerzální odpověd na žádost se seznamem AIFO, seznamem ICO a seznamem prvku RUIAN, obálka pro data.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent> 
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="MapaAifo" type="reg:MapaAifoType" minOccurs="0"/>
+					<xs:element name="SeznamIco" type="reg:SeznamIcoType" minOccurs="0"/>
+					<xs:element name="SeznamPrvku" type="reg:SeznamPrvkuType" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent> 
+	</xs:complexType>
+
+	<xs:complexType name="IszrOdpovedAifoIdAdrIcoPrvekAbstractType" abstract="true">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Univerzální odpověd na žádost se seznamem AIFO, seznamem ID adres, seznamem ICO a seznamem prvku RUIAN, obálka pro data.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent> 
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="MapaAifo" type="reg:MapaAifoType" minOccurs="0"/>
+					<xs:element name="SeznamIdAdres" type="reg:SeznamIdAdresType" minOccurs="0"/>
+					<xs:element name="SeznamIco" type="reg:SeznamIcoType" minOccurs="0"/>
+					<xs:element name="SeznamPrvku" type="reg:SeznamPrvkuType" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent> 
+	</xs:complexType>
+
+	<xs:simpleType name="PrioritaAisType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Priorita volání dle AIS.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:int"/>
+	</xs:simpleType>
+
+	<xs:complexType name="ZadostInfoIszrType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Společná hlavička všech externích žádostí nebo dotazů (webových služeb).</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="reg:ZadostInfoType">
+				<xs:sequence>
+					<xs:element name="PrioritaAis" type="PrioritaAisType" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="PolozkaFrontyType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Položka fronty.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="KodAsyncSluzby" type="reg:NazevSluzbyType"/>
+			<xs:element name="IszrZadostId" type="reg:IszrZadostIdType"/>
+			<xs:element name="IdTransakce" type="xs:unsignedLong"/>
+			<xs:element name="CasVytvoreni" type="reg:CasovaZnackaType"/>
+			<xs:element name="CasExpirace" type="reg:CasovaZnackaType"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="AutorizaceType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam požadovaných položek referenčních dat, další restrikce nastavuje RPP dle autorizačních omezení k roli.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+      <xs:element name="MaximalniPocetZaznamu" type="reg:MaximalniPocetType" minOccurs="0"/>
+			<xs:element name="SeznamUdaju" type="ExtSeznamUdajuType"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:simpleType name="ExtSeznamUdajuType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam názvů datových položek, jež jsou uložena v AIS.</xs:documentation>
+		</xs:annotation>
+		<xs:list itemType="ExtUdajType"/>
+	</xs:simpleType>
+
+	<xs:simpleType name="ExtUdajType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Názvy datových položek, jež jsou uloženy v AIS.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="reg:NonEmptyNormStringType"/>
+	</xs:simpleType>
+
+</xs:schema>

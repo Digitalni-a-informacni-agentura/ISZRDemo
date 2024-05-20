@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns="urn:cz:isvs:iszr:services:IszrRppVypisAgendu3:v1" xmlns:tns="urn:cz:isvs:iszr:services:IszrRppVypisAgendu3:v1" xmlns:e229="urn:cz:isvs:iszr:schemas:IszrRppVypisAgendu3:v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:ns="http://www.w3.org/2004/08/xop/include" xmlns:ns1="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" xmlns:ns2="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:ns3="urn:cz:isvs:rpp:schemas:RppDotazyData:v1" xmlns:ns4="urn:cz:isvs:rpp:schemas:RppDotazyTypy:v1" xmlns:ns5="urn:cz:isvs:rpp:schemas:RppEditaceTypy:v1" xmlns:ns6="urn:cz:isvs:rpp:schemas:RppTypy:v1" name="IszrRppVypisAgendu3" targetNamespace="urn:cz:isvs:iszr:services:IszrRppVypisAgendu3:v1">
+	<wsdl:documentation>Služba E229 externího rozhraní - Služba vypíše detailní informace o agendě ve struktuře po novele zákona 111/2009 - RPP služba P72.</wsdl:documentation>
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRppVypisAgendu3:v1" schemaLocation="../xsd/IszrRppVypisAgendu3.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrRppVypisAgendu3">
+		<wsdl:part name="parametry" element="e229:RppVypisAgendu3"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRppVypisAgendu3Response">
+		<wsdl:part name="vysledek" element="e229:RppVypisAgendu3Response"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRppVypisAgendu3PortType">
+		<wsdl:operation name="IszrRppVypisAgendu3">
+			<wsdl:input message="IszrRppVypisAgendu3"/>
+			<wsdl:output message="IszrRppVypisAgendu3Response"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRppVypisAgendu3Binding" type="tns:IszrRppVypisAgendu3PortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRppVypisAgendu3">
+			<soap:operation soapAction="IszrRppVypisAgendu3"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRppVypisAgendu3Service">
+		<wsdl:port name="IszrRppVypisAgendu3PortService" binding="tns:IszrRppVypisAgendu3Binding">
+			<soap:address location="IszrRppVypisAgendu3"/>
+		</wsdl:port>
+	</wsdl:service>
+
+	<!-- Vytvoření nové služby pro výpis údajů agendy. Služba na základě předaných dat vypíše Agendu včetně nových údajů plynoucích ze zák 251 a novely 111/2009, verze 1.3.3, 12.7.2018 Aleš Teplý -->
+	<!-- Verze po revizi 1.3.4, 15.10.2021, Aleš Teplý, AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- Verze po revizi 1.2.0, 25.5.2022, Aleš Teplý, Response - AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- AutoCont CZ a.s. -->
+
+</wsdl:definitions>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrCtiReklamaci:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrCtiReklamaci:v1"
+	xmlns:e177="urn:cz:isvs:iszr:schemas:IszrCtiReklamaci:v1"
+	xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:i28="urn:cz:isvs:iszr:schemas:IszrDataCtiReklamaci:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.0.0">
+	
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Čtení reklamace.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vývojová verze 1.0.0, 16.04.2014, Pavel Odstrčil, vznik -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrDataCtiReklamaci:v1" schemaLocation="../../iszr/xsd/IszrDataCtiReklamaci.xsd"/>
+
+	<xs:element name="IszrCtiReklamaci" type="IszrCtiReklamaciType"/>
+	<xs:element name="IszrCtiReklamaciResponse" type="IszrCtiReklamaciResponseType"/>
+
+	<xs:complexType name="IszrCtiReklamaciType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na reklamaci.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAsyncAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IszrCtiReklamaciData" type="i28:IszrCtiReklamaciDataType" />
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="IszrCtiReklamaciResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpověd na požadavek čtení reklamace. Vrací informace o reklamaci.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="IszrOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IszrCtiReklamaciDataResponse" type="i28:IszrCtiReklamaciDataResponseType">
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

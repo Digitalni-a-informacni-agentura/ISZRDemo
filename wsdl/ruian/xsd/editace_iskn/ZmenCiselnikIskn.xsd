@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:ZmenCiselnikIskn:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:ZmenCiselnikIskn:v1" xmlns:zckn="urn:cz:isvs:ruian:schemas:ZmenCiselnikIskn:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:zt="urn:cz:isvs:ruian:schemas:ZmenaTypy:v1" elementFormDefault="qualified" version="0.40.1">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenaTypy:v1" schemaLocation="../../../ruian/xsd/typy/ZmenaTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../ruian/xsd/typy/CommonTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:complexType name="CiselnikTypPrvkuProstorDatType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Ciselnik typ prvku prostoru dat</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Polozka" type="PolozkaCisTPPDType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PolozkaCisTPPDType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Položky číselníku typ prvku prostorových dat</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod10Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Nazev" type="base:Nazev255Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="ZkracenyNazev" type="base:Nazev50Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Popis" type="base:Text4000Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Poradi" type="com:PoradiType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="ZacatekPlatnosti" type="base:DatumCasType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="KonecPlatnosti" type="base:DatumCasType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Symbologie" type="com:SymbologieType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="TypPrvkuKod" type="base:Nazev3Type" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ZmenCiselnikISKNRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na zmenu ciselniku z ISKN</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Dotaz" type="EditaceCiselnikuISKNType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ZmenCiselnikISKNRequest" type="zckn:ZmenCiselnikISKNRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na zmenu ciselniku z ISKN</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="EditaceCiselnikuISKNType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Editace ciselniku z ISKN</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="ZpusobVyuzitiObjektu" type="zt:CiselnikType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="DruhPozemku" type="zt:CiselnikType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ZpusobVyuzitiPozemku" type="zt:CiselnikType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="TypOchrany" type="zt:CiselnikType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Bpej" type="zt:CiselnikType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="TypPrvkuProstorDat" type="CiselnikTypPrvkuProstorDatType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ZpusobOchrany" type="CiselnikZpusobOchranyType" minOccurs="0" maxOccurs="1"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="PolozkaCisZpusobOchranyType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Položka číselníku způsobu ochrany</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod4Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Nazev" type="base:Nazev255Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="ZkracenyNazev" type="base:Nazev50Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Popis" type="base:Text4000Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Poradi" type="com:PoradiType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="ZacatekPlatnosti" type="base:DatumCasType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="KonecPlatnosti" type="base:DatumCasType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="TypOchranyKod" type="base:Kod4Type" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CiselnikZpusobOchranyType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Ciselnik zpusobu ochran</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Polozka" type="PolozkaCisZpusobOchranyType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ZmenCiselnikISKNResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved na zmeny ciselniku ISKN</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ZmenCiselnikISKNResponse" type="zckn:ZmenCiselnikISKNResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved na zmeny ciselniku ISKN</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

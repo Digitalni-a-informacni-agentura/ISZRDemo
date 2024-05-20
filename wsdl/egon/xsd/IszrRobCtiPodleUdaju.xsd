@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRobCtiPodleUdaju:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRobCtiPodleUdaju:v1"
+	xmlns:e05="urn:cz:isvs:iszr:schemas:IszrRobCtiPodleUdaju:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:rod="urn:cz:isvs:rob:schemas:RobDotazyData:v1"
+	xmlns:crob="urn:cz:isvs:ruian:schemas:CtiProRob:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.1.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E05 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vývojová verze 0.0.1, 22.09.2011, Jan Sluka -->
+	<!-- Fixovaná verze 1.0.0, 22.09.2011, Aleš Teplý -->
+	<!-- Verze po revizi 1.0.1, 30.11.2011, Aleš Teplý, RobCtiPodleUdajuData: přidán nepovinný atribut "znepristupniLog" -->
+	<!-- Verze po revizi 1.0.2, 14.02.2012 Aleš Teplý, doplnění OrgStatus do Response  -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstractOrg.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rob:schemas:RobDotazyData:v1" schemaLocation="../../rob/xsd/RobDotazyData.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiProRob:v1" schemaLocation="ref/RuianCtiProRob.xsd"/>
+
+	<xs:element name="RobCtiPodleUdaju" type="RobCtiPodleUdajuType"/>
+	<xs:element name="RobCtiPodleUdajuResponse" type="RobCtiPodleUdajuResponseType"/>
+
+	<xs:complexType name="RobCtiPodleUdajuType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E05 externího rozhraní - typ pro žádost. Služba zprostředkuje čtení referenčních údajů z ROB na základě vyhledání fyzické osoby podle kombinace údajů. ROB služba O05. Dotaz je omezen jen na ty údaje, které jsou vedeny přímo v ROB (adresa musí být zadána formou referenčního odkazu do RUIAN).</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostIdAdrAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RobCtiPodleUdajuData" type="rod:RobCtiPodleUdajuDataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RobCtiPodleUdajuResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E05 externího rozhraní - typ pro odpověď. Výstupní formát služby je definován vstupním seznamem požadavaných RU a právy podle RPP. Služba skládá údaje ze základních registrů ROB a RUIAN. Služba podle výsledku dotazu vrací 0, 1 nebo více záznamů.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAifoStIdAdrAbstractType">
+				<xs:sequence>
+					<xs:element name="RobOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RobCtiPodleUdajuDataResponse" type="rod:RobCtiPodleUdajuDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="RuianOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianCtiProRobDataResponse">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element ref="crob:SeznamAdres" minOccurs="0"/>
+											<xs:element ref="crob:SeznamLokalit" minOccurs="0"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRosVlozProvozovnu:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRosVlozProvozovnu:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRosVlozProvozovnu:v1"
+	xmlns:e25="urn:cz:isvs:iszr:schemas:IszrRosVlozProvozovnu:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRosVlozProvozovnu">
+
+	<wsdl:documentation>Služba E25 externího rozhraní - Vložení nové provozovny do ROS.</wsdl:documentation>
+
+	<!-- Vývojová verze 0.0.1, 31.05.2011, Jan Sluka -->
+	<!-- Vývojová verze 0.0.2, 08.06.2011, Aleš Teplý - formální úpravy: alias e25=IszrRosVlozProvozovnu.xsd x types, part name="parametry" x partOne, part name="vysledek" x partOne, vynechán schema targetNamespace -->
+	<!-- Vývojová verze 0.0.3, 14.09.2011, Aleš Teplý, ponechání jen nezbytných namespace -->
+	<!-- Fixovaná verze 1.0.0, 18.09.2011, Aleš Teplý -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRosVlozProvozovnu:v1" schemaLocation="../xsd/IszrRosVlozProvozovnu.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="IszrRosVlozProvozovnu">
+		<wsdl:part name="parametry" element="e25:RosVlozProvozovnu"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRosVlozProvozovnuResponse">
+		<wsdl:part name="vysledek" element="e25:RosVlozProvozovnuResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRosVlozProvozovnuPortType">
+		<wsdl:operation name="IszrRosVlozProvozovnu">
+			<wsdl:input message="tns:IszrRosVlozProvozovnu"/>
+			<wsdl:output message="tns:IszrRosVlozProvozovnuResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRosVlozProvozovnuBinding" type="tns:IszrRosVlozProvozovnuPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRosVlozProvozovnu">
+			<soap:operation soapAction="IszrRosVlozProvozovnu"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRosVlozProvozovnuService">
+		<wsdl:port name="IszrRosVlozProvozovnuPortService" binding="tns:IszrRosVlozProvozovnuBinding">
+			<soap:address location="IszrRosVlozProvozovnu"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

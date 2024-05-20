@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:VyhledejSeznamAMVO:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:VyhledejSeznamAMVO:v1" xmlns:vyhAdVO="urn:cz:isvs:ruian:schemas:VyhledejSeznamAMVO:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" elementFormDefault="qualified" version="1.1.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Zobrazí seznam adresních míst podle VO. Bude sloužit pouze pro interní účely Rob jako zdroj informace adresních míst pro určený volební okrsek.</xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:complexType name="VyhledejSeznamAMVODotazType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Porametry dotazu vyhledani adresniho mista</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="voKod" type="base:Kod6Type" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="VyhledejSeznamAMVORequest" type="vyhAdVO:VyhledejSeznamAMVORequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Typ dotazu vyhledavani adresniho mista</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="VyhledejSeznamAMVOResponse" type="vyhAdVO:VyhledejSeznamAMVOResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Typ odpovedi vyhledavani adresniho mista</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="AdresniMistoSeznamType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam adresnich mist</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AdresniMisto" type="AdresniMistoVOType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VyhledejSeznamAMVOResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Typ odpovedi vyhledavani adresniho mista</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="AdresniMista" type="AdresniMistoSeznamType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VyhledejSeznamAMVORequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Typ dotazu vyhledavani adresniho mista</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Dotaz" type="VyhledejSeznamAMVODotazType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AdresniMistoVOType">
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod9Type" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

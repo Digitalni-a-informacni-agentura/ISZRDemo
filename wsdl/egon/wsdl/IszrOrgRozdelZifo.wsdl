@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrOrgRozdelZifo:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrOrgRozdelZifo:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrOrgRozdelZifo:v1"
+	xmlns:e70="urn:cz:isvs:iszr:schemas:IszrOrgRozdelZifo:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrOrgRozdelZifo">
+
+	<wsdl:documentation>Služba E70 externího rozhraní.</wsdl:documentation>
+
+	<!-- Vývojová verze 0.0.1, 13.02.2012, Jan Sluka -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrOrgRozdelZifo:v1" schemaLocation="../xsd/IszrOrgRozdelZifo.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="IszrOrgRozdelZifo">
+		<wsdl:part name="parametry" element="e70:OrgRozdelZifo"/>
+	</wsdl:message>
+	<wsdl:message name="IszrOrgRozdelZifoResponse">
+		<wsdl:part name="vysledek" element="e70:OrgRozdelZifoResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrOrgRozdelZifoPortType">
+		<wsdl:operation name="IszrOrgRozdelZifo">
+			<wsdl:input message="IszrOrgRozdelZifo"/>
+			<wsdl:output message="IszrOrgRozdelZifoResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrOrgRozdelZifoBinding" type="tns:IszrOrgRozdelZifoPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrOrgRozdelZifo">
+			<soap:operation soapAction="IszrOrgRozdelZifo"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrOrgRozdelZifoService">
+		<wsdl:port name="IIszrOrgRozdelZifoPortService" binding="tns:IszrOrgRozdelZifoBinding">
+			<soap:address location="IszrOrgRozdelZifo"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

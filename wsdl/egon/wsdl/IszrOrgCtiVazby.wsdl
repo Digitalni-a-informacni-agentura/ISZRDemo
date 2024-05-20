@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrOrgCtiVazby:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrOrgCtiVazby:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrOrgCtiVazby:v1"
+	xmlns:e186="urn:cz:isvs:iszr:schemas:IszrOrgCtiVazby:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrOrgCtiVazby">
+
+	<wsdl:documentation>Služba e186 externího rozhraní.</wsdl:documentation>
+
+	<!-- Verze 1.0.0, 4.10.2014 Pavel Odstrčil -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrOrgCtiVazby:v1" schemaLocation="../xsd/IszrOrgCtiVazby.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="IszrOrgCtiVazby">
+		<wsdl:part name="parametry" element="e186:OrgCtiVazby"/>
+	</wsdl:message>
+	<wsdl:message name="IszrOrgCtiVazbyResponse">
+		<wsdl:part name="vysledek" element="e186:OrgCtiVazbyResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrOrgCtiVazbyPortType">
+		<wsdl:operation name="IszrOrgCtiVazby">
+			<wsdl:input message="tns:IszrOrgCtiVazby"/>
+			<wsdl:output message="tns:IszrOrgCtiVazbyResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrOrgCtiVazbyBinding" type="tns:IszrOrgCtiVazbyPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrOrgCtiVazby">
+			<soap:operation soapAction="IszrOrgCtiVazby"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrOrgCtiVazbyService">
+		<wsdl:port name="IIszrOrgCtiVazbyPortService" binding="tns:IszrOrgCtiVazbyBinding">
+			<soap:address location="IszrOrgCtiVazby"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

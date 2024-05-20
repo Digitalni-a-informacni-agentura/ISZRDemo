@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:aiseo:schemas:AiseoDataVlozReklamaci:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:rob="urn:cz:isvs:rob:schemas:RobEditaceData:v1" xmlns:ns1="urn:cz:isvs:aiseo:schemas:AiseoDotazyData:v1" targetNamespace="urn:cz:isvs:aiseo:schemas:AiseoDataVlozReklamaci:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.1.3">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">XML schéma s definicemi dat pro služby AISEO</xs:documentation>
+	</xs:annotation>
+	<!-- Vývojová verze 0.1.0, 31.5.2012, Kamil Jindra-->
+	<!-- Vývojová verze 0.1.1, 13.06.2012, Kamil Jindra Nepovinne zduvodneni reklamace -->
+	<!-- Vývojová verze 0.1.2, 29.06.2012, Aleš Teplý NavrhovaneHodnoty-RobZmenObyvateleData -->
+	<!-- Vývojová verze 0.1.3, 20.08.2012, Aleš Teplý odstraněno Aifo, Popis a Zduvodneni max 4000 -->
+	<!--Komix s.r.o.-->
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rob:schemas:RobEditaceData:v1" schemaLocation="../../rob/xsd/RobEditaceData.xsd"/>
+	<xs:import namespace="urn:cz:isvs:aiseo:schemas:AiseoDotazyData:v1" schemaLocation="AiseoDotazyData.xsd"/>
+	<xs:element name="AiseoVlozReklamaciData" type="AiseoVlozReklamaciDataType"/>
+	<xs:element name="AiseoVlozReklamaciDataResponse" type="ns1:AiseoDotazyDataResponseType"/>
+	<xs:complexType name="AiseoVlozReklamaciDataType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Avízo o nesprávném údaji v Evidenci obyvatelstva.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AgendaEditora" type="reg:KodAgendyType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Volající může specifikovat agendu. Pokud nespecifikuje, ISZR se pokusí editora, pokud je zadáno AIFO, zjistit z ROB</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PopisReklamace" type="PopisReklamaceType">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Textový popis reklamace, pokud nelze specifikovat na úrovni subjektu nebo položek. Například neexistence subjektu.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Zduvodneni" type="ZduvodneniType" minOccurs="0"/>
+			<xs:element name="NavrhovaneHodnoty" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Pokud AIFO není známo, uvede se do lokální hodnoty 0.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="RobZmenObyvateleData" type="rob:RobZmenObyvateleDataType" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AiseoVlozReklamaciDataResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Avízo o nesprávném údaji v AISEO, odpověď.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ns1:AiseoDotazyDataResponseType">
+				<xs:sequence>
+					<xs:element name="IdentifikatorReklamace" type="reg:NonEmptyStringType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">Přidělený identifikátor reklamace</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:simpleType name="PopisReklamaceType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Textový popis reklamace, pokud nelze specifikovat na úrovni subjektu nebo položek. Například neexistence subjektu.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="reg:NonEmptyLineStringType">
+			<xs:maxLength value="4000"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ZduvodneniType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Zdůvodnění reklamace.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="reg:NonEmptyLineStringType">
+			<xs:maxLength value="4000"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

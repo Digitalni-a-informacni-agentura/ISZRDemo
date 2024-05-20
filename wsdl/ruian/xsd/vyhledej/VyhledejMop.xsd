@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:VyhledejMop:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:VyhledejMop:v1" xmlns:vyhMp="urn:cz:isvs:ruian:schemas:VyhledejMop:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:mpPodm="urn:cz:isvs:ruian:schemas:MopPodminka:v1" xmlns:mpPolBase="urn:cz:isvs:ruian:schemas:MopPolozkyBase:v1" xmlns:mp="urn:cz:isvs:ruian:schemas:Mop:v1" elementFormDefault="qualified" version="0.40.0">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:Mop:v1" schemaLocation="../../../ruian/xsd/prvky/Mop.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:MopPolozkyBase:v1" schemaLocation="../../../ruian/xsd/vyhledej/MopPolozkyBase.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:MopPodminka:v1" schemaLocation="../../../ruian/xsd/vyhledej/MopPodminka.xsd"/>
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../RegTypy.xsd"/>
+	<xs:complexType name="VyhledejMopRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na vyhledani MOP</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Dotaz" type="VyhledejMopDotazType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VyhledejMopResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved vyhledani MOP</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Mop" type="MopSeznamType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VyhledejMopDotazType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Parametry MOP</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Podminka" type="mpPodm:MopPodminkaType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="PozadovaneUdaje" type="mpPolBase:MopPolozkyBaseType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MopSeznamType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam MOP</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Mop" type="mp:MopType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="VyhledejMopRequest" type="vyhMp:VyhledejMopRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na vyhledani MOP</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="VyhledejMopResponse" type="vyhMp:VyhledejMopResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved vyhledani MOP</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

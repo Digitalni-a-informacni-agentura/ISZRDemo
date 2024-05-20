@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns="urn:cz:isvs:iszr:services:IszrRuianZmenKonfiguraciIsui:v1" xmlns:tns="urn:cz:isvs:iszr:services:IszrRuianZmenKonfiguraciIsui:v1" xmlns:e241="urn:cz:isvs:iszr:schemas:IszrRuianZmenKonfiguraciIsui:v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" name="IszrRuianZmenKonfiguraciIsui" targetNamespace="urn:cz:isvs:iszr:services:IszrRuianZmenKonfiguraciIsui:v1">
+	<wsdl:documentation>Služba E241 externího rozhraní - Služba pro změnu konfigurace ISUI pro RUIAN - RUIAN služba A35.</wsdl:documentation>
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRuianZmenKonfiguraciIsui:v1" schemaLocation="../xsd/IszrRuianZmenKonfiguraciIsui.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrRuianZmenKonfiguraciIsui">
+		<wsdl:part name="parametry" element="e241:RuianZmenKonfiguraciIsui"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRuianZmenKonfiguraciIsuiResponse">
+		<wsdl:part name="vysledek" element="e241:RuianZmenKonfiguraciIsuiResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRuianZmenKonfiguraciIsuiPortType">
+		<wsdl:operation name="IszrRuianZmenKonfiguraciIsui">
+			<wsdl:input message="IszrRuianZmenKonfiguraciIsui"/>
+			<wsdl:output message="IszrRuianZmenKonfiguraciIsuiResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRuianZmenKonfiguraciIsuiBinding" type="tns:IszrRuianZmenKonfiguraciIsuiPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRuianZmenKonfiguraciIsui">
+			<soap:operation soapAction="IszrRuianZmenKonfiguraciIsui"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRuianZmenKonfiguraciIsuiService">
+		<wsdl:port name="IszrRuianZmenKonfiguraciIsuiPortService" binding="tns:IszrRuianZmenKonfiguraciIsuiBinding">
+			<soap:address location="IszrRuianZmenKonfiguraciIsui"/>
+		</wsdl:port>
+	</wsdl:service>
+	<!-- Vývojová verze 1.0.0, 31.05.2019, Pavel Odstrčil-->
+	<!-- AutoCont CZ a.s. -->
+</wsdl:definitions>

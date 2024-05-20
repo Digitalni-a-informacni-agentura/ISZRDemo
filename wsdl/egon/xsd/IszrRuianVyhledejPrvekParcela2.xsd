@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekParcela2:v1" 
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekParcela2:v1" 
+	xmlns:e249k="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekParcela2:v1" 
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:vyhPa="urn:cz:isvs:ruian:schemas:VyhledejParcela:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified" 
+	version="2.0.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E249k externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	
+	<!-- Výchozí verze 2.0.0, 29.09.2020 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:VyhledejParcela:v2" schemaLocation="ref/RuianVyhledejPrvekParcela2.xsd"/>
+	
+	<xs:element name="RuianVyhledejPrvekParcela2" type="RuianVyhledejPrvekParcela2Type"/>
+	<xs:element name="RuianVyhledejPrvekParcela2Response" type="RuianVyhledejPrvekParcela2ResponseType"/>
+	
+	<xs:complexType name="RuianVyhledejPrvekParcela2Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E249k externího rozhraní - žádost. Vyhledání parcely z RUIAN. RUIAN služba, operace VyhledejParcela.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+		 						<xs:element name="RuianVyhledejPrvekParcela2Data" type="vyhPa:VyhledejParcelaDotazType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="RuianVyhledejPrvekParcela2ResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E249k externího rozhraní - odpověď. Vyhledání parcely z RUIAN. RUIAN služba, operace VyhledejParcela.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="RuianOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianVyhledejPrvekParcela2DataResponse">
+									<xs:complexType>
+										<xs:sequence>
+										  <xs:element ref="vyhPa:Parcely"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

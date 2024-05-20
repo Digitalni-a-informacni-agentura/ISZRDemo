@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:ruian:schemas:ZmenKonfiguraciIsui:v1"
+	xmlns="urn:cz:isvs:ruian:schemas:ZmenKonfiguraciIsui:v1"
+	xmlns:zpui="urn:cz:isvs:ruian:schemas:ZmenKonfiguraciIsui:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.1.1">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Rozšíření ZmenKonfiguraciIsui, definice potřebného elementu v namespace RUIAN.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vývojová verze 1.0.0, 31.05.2019, Pavel Odstrčil -->
+	<!-- Verze po revizi 1.1.1, 23.9.2021, Aleš Teplý, oprava importu ZmenKonfiguraciIsui.xsd - case sensitivita Path "ZmenKonfiguraciISUI.xsd" -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:include schemaLocation="../../../ruian/xsd/editace_isui/ZmenKonfiguraciIsui.xsd"/>
+	<xs:element name="Dotaz" type="zpui:EditaceKonfiguraceISUIType"/>
+	<xs:element name="Odpoved" type="zpui:ZmenKonfiguraciISUIResponseType"/>
+</xs:schema>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrAiseoCtiPodleUdaju2:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrAiseoCtiPodleUdaju2:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrAiseoCtiPodleUdaju2:v1"
+	xmlns:e172="urn:cz:isvs:iszr:schemas:IszrAiseoCtiPodleUdaju2:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrAiseoCtiPodleUdaju2">
+
+	<wsdl:documentation>Služba E172 externího rozhraní - Služba umožňuje provést hledání v AIS EO podle jména, příjmení, rodného příjmení, data narození a rodného čísla. Služba vrací AIFO a příznak, zda bylo AIFO ověřeno v ROB (služba AIS EO X13).</wsdl:documentation>
+
+	<!-- Vývojová verze 1.4.4, 14.11.2013, Aleš Teplý -->
+	<!-- Verze po revizi 1.4.5, 2.12.2013, Aleš Teplý, změna Response: přidána nepovinná odpověď AiseoCtiAifo2 -->
+	<!-- Verze po revizi 1.4.6, 4.12.2013, Aleš Teplý, změna Request: přidán nepovinný SeznamIdAdres, změna Response: odebrána odpověď RobCtiHromadneAifo, přidána nepovinná odpověď RobOverHromadneAifo, přidána nepovinná odpověď RobCtiAifo, přidán nepovinný SeznamIdAdres -->
+	<!-- Verze po revizi 1.5.0, 13.8.2021, Aleš Teplý, rozšíření struktury Response ROB v2.0.0, aplikačně zatím omezeno na kompatibilitu s ROB v1.0.9 -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrAiseoCtiPodleUdaju2:v1" schemaLocation="../xsd/IszrAiseoCtiPodleUdaju2.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="IszrAiseoCtiPodleUdaju2">
+		<wsdl:part name="parametry" element="e172:AiseoCtiPodleUdaju2"/>
+	</wsdl:message>
+	<wsdl:message name="IszrAiseoCtiPodleUdaju2Response">
+		<wsdl:part name="vysledek" element="e172:AiseoCtiPodleUdaju2Response"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrAiseoCtiPodleUdaju2PortType">
+		<wsdl:operation name="IszrAiseoCtiPodleUdaju2">
+			<wsdl:input message="tns:IszrAiseoCtiPodleUdaju2"/>
+			<wsdl:output message="tns:IszrAiseoCtiPodleUdaju2Response"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrAiseoCtiPodleUdaju2Binding" type="tns:IszrAiseoCtiPodleUdaju2PortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrAiseoCtiPodleUdaju2">
+			<soap:operation soapAction="IszrAiseoCtiPodleUdaju2"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrAiseoCtiPodleUdaju2Service">
+		<wsdl:port name="IszrAiseoCtiPodleUdaju2PortService" binding="tns:IszrAiseoCtiPodleUdaju2Binding">
+			<soap:address location="IszrAiseoCtiPodleUdaju2"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

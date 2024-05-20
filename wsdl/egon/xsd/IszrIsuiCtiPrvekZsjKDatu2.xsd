@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrIsuiCtiPrvekZsjKDatu2:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrIsuiCtiPrvekZsjKDatu2:v1"
+	xmlns:e252s="urn:cz:isvs:iszr:schemas:IszrIsuiCtiPrvekZsjKDatu2:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:ctiZjKD="urn:cz:isvs:isui:schemas:CtiZsjKDatu:v2"
+	xmlns:ctiZj="urn:cz:isvs:ruian:schemas:CtiZsj:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="2.0.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E252S externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Výchozí verze 2.0.0, 14.10.2020 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:isui:schemas:CtiZsjKDatu:v2" schemaLocation="../../isui/xsd/ext/v2/cti_historii/CtiZsjKDatu.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiZsj:v2" schemaLocation="ref/RuianCtiPrvekZsj2.xsd"/>
+
+	<xs:element name="IsuiCtiPrvekZsjKDatu2" type="IsuiCtiPrvekZsjKDatu2Type"/>
+	<xs:element name="IsuiCtiPrvekZsjKDatu2Response" type="IsuiCtiPrvekZsjKDatu2ResponseType"/>
+
+	<xs:complexType name="IsuiCtiPrvekZsjKDatu2Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E252S externího rozhraní - žádost. Služba která vrátí požadované atributy prvku RUIAN editovaného v ISUI k požadovanému datu. ISUI služba, operace ctiZsjKDatu.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IsuiCtiPrvekZsjKDatu2Data" type="ctiZjKD:CtiZsjKDatuDotazType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="IsuiCtiPrvekZsjKDatu2ResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E252S externího rozhraní - odpověď. Služba která vrátí požadované atributy prvku RUIAN editovaného v ISUI k požadovanému datu. ISUI služba, operace ctiZsjKDatu.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="IsuiOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IsuiCtiPrvekZsjKDatu2DataResponse">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element ref="ctiZj:Zsj"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

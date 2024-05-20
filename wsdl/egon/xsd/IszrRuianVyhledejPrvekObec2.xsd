@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekObec2:v1" 
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekObec2:v1" 
+	xmlns:e249h="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekObec2:v1" 
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:vyhOb="urn:cz:isvs:ruian:schemas:VyhledejObec:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified" 
+	version="2.0.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E249h externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	
+	<!-- Výchozí verze 2.0.0, 29.09.2020 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:VyhledejObec:v2" schemaLocation="ref/RuianVyhledejPrvekObec2.xsd"/>
+	
+	<xs:element name="RuianVyhledejPrvekObec2" type="RuianVyhledejPrvekObec2Type"/>
+	<xs:element name="RuianVyhledejPrvekObec2Response" type="RuianVyhledejPrvekObec2ResponseType"/>
+	
+	<xs:complexType name="RuianVyhledejPrvekObec2Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E249h externího rozhraní - žádost. Vyhledání obce z RUIAN. RUIAN služba, operace VyhledejObec.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+		 						<xs:element name="RuianVyhledejPrvekObec2Data" type="vyhOb:VyhledejObecDotazType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="RuianVyhledejPrvekObec2ResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E249h externího rozhraní - odpověď. Vyhledání obce z RUIAN. RUIAN služba, operace VyhledejObec.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="RuianOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianVyhledejPrvekObec2DataResponse">
+									<xs:complexType>
+										<xs:sequence>
+										  <xs:element ref="vyhOb:Obce"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

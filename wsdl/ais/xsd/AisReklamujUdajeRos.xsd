@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:ais:schemas:AisReklamujUdajeRos:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:aabs="urn:cz:isvs:ais:schemas:AisTypy:v1" xmlns:i03="urn:cz:isvs:iszr:schemas:IszrDataReklamujUdajeRos:v1" xmlns:sed="urn:cz:isvs:ros:schemas:RosEditaceData:v2" xmlns:rod="urn:cz:isvs:rob:schemas:RobDotazyData:v1" xmlns:crob="urn:cz:isvs:ruian:schemas:CtiProRob:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:cz:isvs:ais:schemas:AisReklamujUdajeRos:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.1">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Avízo o nesprávném údaji v registru ROS příslušnému editorovi údaje.</xs:documentation>
+	</xs:annotation>
+	<!-- Vývojová verze 0.0.1, 12.06.2012, Vladimír Glasnák -->
+	<!-- Opraven preklep  0.0.2, 19.06.2012, Vladimír Glasnák -->
+	<!-- Úprava na základě změn v definici IszrReklamujUdajeRos  0.0.3, 23.07.2012, Vladimír Glasnák -->
+	<!-- Úprava na základě změn v definici IszrReklamujUdajeRos, doplnění adres  0.0.4, 02.08.2012, Vladimír Glasnák -->
+	<!-- Katalog.7.4 verze 1.4.0, 31.10.2012 Aleš Teplý, IdentifikatorReklamace v Response nepovinný -->
+	<!-- Verze 1.0.1, 28.3.2017, doplnění možnosti reklamace příznaku veřejné prospěšnosti -->
+	<!-- Verze 1.0.2, 15.1.2022, zrušení možnosti reklamace příznaku veřejné prospěšnosti -->
+	<!-- AUTOCONT a.s. -->
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ais:schemas:AisTypy:v1" schemaLocation="AisTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrDataReklamujUdajeRos:v1" schemaLocation="../../iszr/xsd/IszrDataReklamujUdajeRos.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ros:schemas:RosEditaceData:v2" schemaLocation="../../ros/xsd/RosEditaceData.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rob:schemas:RobDotazyData:v1" schemaLocation="../../rob/xsd/RobDotazyData.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiProRob:v1" schemaLocation="../../egon/xsd/ref/RuianCtiProRob.xsd"/>
+	<xs:element name="AisReklamujUdajeRos" type="AisReklamujUdajeRosType"/>
+	<xs:element name="AisReklamujUdajeRosResponse" type="AisReklamujUdajeRosResponseType"/>
+	<xs:complexType name="AisReklamujUdajeRosDataType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Avízo o nesprávném údaji v registru ROS příslušnému editorovi údaje.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="i03:IszrReklamujUdajeRosDataType">
+				<xs:sequence>
+					<xs:element name="NavrhovaneHodnoty" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation xml:lang="cs">Pokud není vyplněno, předává se k ručnímu zpracování</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:choice>
+								<xs:element name="RosZmenOsobuData" type="sed:RosZmenOsobuDataType"/>
+								<xs:element name="RosZmenProvozovnuData" type="sed:RosZmenProvozovnuDataType"/>
+								<xs:element name="RosZapisDatovouSchrankuData" type="sed:RosZapisDatovouSchrankuDataType"/>
+								<xs:element name="RosZapisPravniStavData" type="sed:RosZapisPravniStavDataType"/>
+								<!-- ROS nevede, nelze predavat, neprijeti musi osetrit eGON sluzba na vstupu -->
+								<!-- 
+								<xs:element name="RosZapisStatusVerejneProspesnostiData" type="sed:RosZapisStatusVerejneProspesnostiDataType"/>
+								-->
+							</xs:choice>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="AisReklamujUdajeRosType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Avízo o nesprávném údaji v registru ROS příslušnému editorovi údaje.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="aabs:AisZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="AisReklamujUdajeRosData" type="AisReklamujUdajeRosDataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="RobOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RobCtiHromadneAifoDataResponse" type="rod:RobCtiHromadneAifoDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="RuianOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianCtiProRobDataResponse">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element ref="crob:SeznamAdres" minOccurs="0"/>
+											<xs:element ref="crob:SeznamLokalit" minOccurs="0"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="AisReklamujUdajeRosResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Avízo o nesprávném údaji v registru ROS příslušnému editorovi údaje, odpověď.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="aabs:AisOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="AisOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="AisReklamujUdajeRosDataResponse" type="aabs:AisReklamujUdajeRosDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

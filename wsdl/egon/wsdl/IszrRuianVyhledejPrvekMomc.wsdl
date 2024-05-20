@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRuianVyhledejPrvekMomc:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRuianVyhledejPrvekMomc:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRuianVyhledejPrvekMomc:v1"
+	xmlns:e34f="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekMomc:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRuianVyhledejPrvekMomc">
+
+	<wsdl:documentation>Služba E34f externího rozhraní - Vyhledání momc z RUIAN. RUIAN služba A03, operace VyhledejMomc.</wsdl:documentation>
+	
+	<!-- Vývojová verze 0.0.1, 21.07.2011, Pavel Kirchner -->
+	<!-- Fixovaná verze 1.0.0, 25.10.2011, Aleš Teplý -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+	
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekMomc:v1" schemaLocation="../xsd/IszrRuianVyhledejPrvekMomc.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrRuianVyhledejPrvekMomc">
+		<wsdl:part name="parametry" element="e34f:RuianVyhledejPrvekMomc"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRuianVyhledejPrvekMomcResponse">
+		<wsdl:part name="vysledek" element="e34f:RuianVyhledejPrvekMomcResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRuianVyhledejPrvekMomcPortType">
+		<wsdl:operation name="IszrRuianVyhledejPrvekMomc">
+			<wsdl:input message="tns:IszrRuianVyhledejPrvekMomc"/>
+			<wsdl:output message="tns:IszrRuianVyhledejPrvekMomcResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRuianVyhledejPrvekMomcBinding" type="tns:IszrRuianVyhledejPrvekMomcPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRuianVyhledejPrvekMomc">
+			<soap:operation soapAction="IszrRuianVyhledejPrvekMomc"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRuianVyhledejPrvekMomcService">
+		<wsdl:port name="IszrRuianVyhledejPrvekMomcPortService" binding="tns:IszrRuianVyhledejPrvekMomcBinding">
+			<soap:address location="IszrRuianVyhledejPrvekMomc"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

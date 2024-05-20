@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:isui:schemas:IsuiCommon:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:isui:schemas:IsuiCommon:v1" xmlns:icom="urn:cz:isvs:isui:schemas:IsuiCommon:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" elementFormDefault="qualified" version="1.1.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">XSD pro společné typy ISUI</xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:simpleType name="AgendaIsuiKodType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Kód agendy ISUI - např. STU, OBEC, VO.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="5"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="RegOvmZkratkaType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Zkratka registrovaného OVM</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="20"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:group name="IdPrvkuVeVazbeNaUup">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Identifikace prvku, na který má vazbu účelový prvek.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="AdresniMistoKod" type="base:Kod9Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód adresního místa</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StavebniObjektKod" type="base:Kod9Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód stavebního objektu</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ParcelaId" type="base:Id18Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Id parcely</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:group>
+</xs:schema>

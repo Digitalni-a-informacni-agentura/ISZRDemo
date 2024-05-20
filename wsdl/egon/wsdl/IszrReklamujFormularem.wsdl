@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrReklamujFormularem:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrReklamujFormularem:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrReklamujFormularem:v1"
+	xmlns:e152="urn:cz:isvs:iszr:schemas:IszrReklamujFormularem:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrReklamujFormularem">
+
+	<wsdl:documentation>Služba E152 externího rozhraní, interní služba ISZR I18. Umožňuje podání reklamace na údaj vedený v ZR.</wsdl:documentation>
+
+	<!-- Vývojová verze 0.0.1, 09.03.2012 Aleš Teplý, výchozí verze -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- Verze pro revizi 1.1.1, 18.05.2012 Aleš Teplý, doplnění MapaAifo -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrReklamujFormularem:v1" schemaLocation="../xsd/IszrReklamujFormularem.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrReklamujFormularem">
+		<wsdl:part name="parametry" element="e152:IszrReklamujFormularem"/>
+	</wsdl:message>
+	<wsdl:message name="IszrReklamujFormularemResponse">
+		<wsdl:part name="vysledek" element="e152:IszrReklamujFormularemResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrReklamujFormularemPortType">
+		<wsdl:operation name="IszrReklamujFormularem">
+			<wsdl:input message="tns:IszrReklamujFormularem"/>
+			<wsdl:output message="tns:IszrReklamujFormularemResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrReklamujFormularemBinding" type="tns:IszrReklamujFormularemPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrReklamujFormularem">
+			<soap:operation soapAction="IszrReklamujFormularem"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrReklamujFormularemService">
+		<wsdl:port name="IszrReklamujFormularemPortService" binding="tns:IszrReklamujFormularemBinding">
+			<soap:address location="IszrReklamujFormularem"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

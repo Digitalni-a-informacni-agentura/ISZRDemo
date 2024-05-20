@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRuianVyhledejPrvekVolebniOkrsek2:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRuianVyhledejPrvekVolebniOkrsek2:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRuianVyhledejPrvekVolebniOkrsek2:v1"
+	xmlns:e249t="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekVolebniOkrsek2:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRuianVyhledejPrvekVolebniOkrsek2">
+
+	<wsdl:documentation>Služba E249t externího rozhraní - Vyhledání volebního okrsku z RUIAN. RUIAN služba, operace VyhledejVolebniOkrsek.</wsdl:documentation>
+	
+	<!-- Výchozí verze 2.0.0, 29.09.2020 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+	
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekVolebniOkrsek2:v1" schemaLocation="../xsd/IszrRuianVyhledejPrvekVolebniOkrsek2.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrRuianVyhledejPrvekVolebniOkrsek2">
+		<wsdl:part name="parametry" element="e249t:RuianVyhledejPrvekVolebniOkrsek2"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRuianVyhledejPrvekVolebniOkrsek2Response">
+		<wsdl:part name="vysledek" element="e249t:RuianVyhledejPrvekVolebniOkrsek2Response"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRuianVyhledejPrvekVolebniOkrsek2PortType">
+		<wsdl:operation name="IszrRuianVyhledejPrvekVolebniOkrsek2">
+			<wsdl:input message="tns:IszrRuianVyhledejPrvekVolebniOkrsek2"/>
+			<wsdl:output message="tns:IszrRuianVyhledejPrvekVolebniOkrsek2Response"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRuianVyhledejPrvekVolebniOkrsek2Binding" type="tns:IszrRuianVyhledejPrvekVolebniOkrsek2PortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRuianVyhledejPrvekVolebniOkrsek2">
+			<soap:operation soapAction="IszrRuianVyhledejPrvekVolebniOkrsek2"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRuianVyhledejPrvekVolebniOkrsek2Service">
+		<wsdl:port name="IszrRuianVyhledejPrvekVolebniOkrsek2PortService" binding="tns:IszrRuianVyhledejPrvekVolebniOkrsek2Binding">
+			<soap:address location="IszrRuianVyhledejPrvekVolebniOkrsek2"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns="urn:cz:isvs:iszr:services:IszrRosVypisZnepristupneni:v1" xmlns:tns="urn:cz:isvs:iszr:services:IszrRosVypisZnepristupneni:v1" xmlns:e202="urn:cz:isvs:iszr:schemas:IszrRosVypisZnepristupneni:v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" name="IszrRosVypisZnepristupneni" targetNamespace="urn:cz:isvs:iszr:services:IszrRosVypisZnepristupneni:v1">
+	<wsdl:documentation>Služba E202 externího rozhraní - Služba služba předá seznam znepřístupnění pro seznam záznamů o využití podle kritérií dotazu.</wsdl:documentation>
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRosVypisZnepristupneni:v1" schemaLocation="../xsd/IszrRosVypisZnepristupneni.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrRosVypisZnepristupneni">
+		<wsdl:part name="parametry" element="e202:RosVypisZnepristupneni"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRosVypisZnepristupneniResponse">
+		<wsdl:part name="vysledek" element="e202:RosVypisZnepristupneniResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRosVypisZnepristupneniPortType">
+		<wsdl:operation name="IszrRosVypisZnepristupneni">
+			<wsdl:input message="IszrRosVypisZnepristupneni"/>
+			<wsdl:output message="IszrRosVypisZnepristupneniResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRosVypisZnepristupneniBinding" type="tns:IszrRosVypisZnepristupneniPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRosVypisZnepristupneni">
+			<soap:operation soapAction="IszrRosVypisZnepristupneni"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRosVypisZnepristupneniService">
+		<wsdl:port name="IszrRosVypisZnepristupneniPortService" binding="tns:IszrRosVypisZnepristupneniBinding">
+			<soap:address location="IszrRosVypisZnepristupneni"/>
+		</wsdl:port>
+	</wsdl:service>
+	<!-- Verze 1.0.0, AutoCont CZ a.s -->
+	<!-- Verze 1.1.0 po úpravě ROS 1.4.0, S25, změna povinného vstupního parametru CasZadostiDo na nepovinný, AutoCont CZ a.s, 9.4.2020 -->
+</wsdl:definitions>

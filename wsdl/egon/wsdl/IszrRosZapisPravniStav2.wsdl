@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRosZapisPravniStav2:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRosZapisPravniStav2:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRosZapisPravniStav2:v1"
+	xmlns:e255="urn:cz:isvs:iszr:schemas:IszrRosZapisPravniStav2:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRosZapisPravniStav2">
+
+	<wsdl:documentation>Služba E255 externího rozhraní - Služba provádí zápis informace o právním stavu nebo zániku právního stavu do ROS - služba ROS S17.</wsdl:documentation>
+
+	<!-- Vývojová verze 2.0.0, 21.9.2020, Aleš Teplý -->
+	<!-- Vývojová verze 2.0.1, 12.10.2020, Aleš Teplý, přidání nillable=true k elementu StatutarniOrgany,
+		pridani novych chybovych statusu sluzby RosZapisPravniStav2 pro insolvencniho spravce -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRosZapisPravniStav2:v1" schemaLocation="../xsd/IszrRosZapisPravniStav2.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="IszrRosZapisPravniStav2">
+		<wsdl:part name="parametry" element="e255:RosZapisPravniStav2"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRosZapisPravniStav2Response">
+		<wsdl:part name="vysledek" element="e255:RosZapisPravniStav2Response"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRosZapisPravniStav2PortType">
+		<wsdl:operation name="IszrRosZapisPravniStav2">
+			<wsdl:input message="tns:IszrRosZapisPravniStav2"/>
+			<wsdl:output message="tns:IszrRosZapisPravniStav2Response"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRosZapisPravniStav2Binding" type="tns:IszrRosZapisPravniStav2PortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRosZapisPravniStav2">
+			<soap:operation soapAction="IszrRosZapisPravniStav2"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRosZapisPravniStav2Service">
+		<wsdl:port name="IszrRosZapisPravniStav2PortService" binding="tns:IszrRosZapisPravniStav2Binding">
+			<soap:address location="IszrRosZapisPravniStav2"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

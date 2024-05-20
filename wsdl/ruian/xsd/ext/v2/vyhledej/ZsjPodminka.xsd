@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:ZsjPodminka:v2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:ZsjPodminka:v2" xmlns:zjPodm="urn:cz:isvs:ruian:schemas:ZsjPodminka:v2" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:ku="urn:cz:isvs:ruian:schemas:KatastralniUzemi:v2" xmlns:gml="http://www.opengis.net/gml/3.2" elementFormDefault="qualified" version="2.0.0">
+	<xs:import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../../../../common/gml/3.2.1/gml.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:KatastralniUzemi:v2" schemaLocation="../prvky/KatastralniUzemi.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../typy/BaseTypy.xsd"/>
+	<xs:complexType name="ZsjPodminkaType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">ZSJ</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod6Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Nazev" type="base:Nazev48Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="CharakterZsjKod" type="base:Kod4Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="KatastralniUzemi" type="ku:KatastralniUzemiType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Ohrada" type="gml:MultiSurfacePropertyType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

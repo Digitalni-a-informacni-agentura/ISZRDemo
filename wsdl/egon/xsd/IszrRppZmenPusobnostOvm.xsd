@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:iszr:schemas:IszrRppZmenPusobnostOvm:v1" xmlns:e132="urn:cz:isvs:iszr:schemas:IszrRppZmenPusobnostOvm:v1" xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" xmlns:ped2="urn:cz:isvs:rpp:schemas:RppEditaceData2:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:cz:isvs:iszr:schemas:IszrRppZmenPusobnostOvm:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.11.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E132 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vývojová verze 0.0.1, 27.02.2012, Jan Sluka -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- Novela zákona 1.2.0, 21.11.2016 Pavel Odstrčil - nové rozhraní RPP - nekomparibilní -->
+	<!-- Verze 1.9.6, 27.2.2017 ales.teply@autocont.cz - povinný KodAgendy,DatumPlatnostiAgendyOd a jeden z KodOvm nebo KodSpuu-->
+	<!-- Úpravy RPP 1.3.3, 12.07.2018, Aleš Teplý -->
+	<!-- Úpravy RPP 1.7.0, 12.6.2020, Aleš Teplý -->
+	<!-- Úpravy RPP 1.10.0, 12.10.2020, Aleš Teplý -->
+	<!-- Verze po revizi 1.10.1, 15.10.2021, Aleš Teplý, AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- Verze po revizi 1.11.0, 25.5.2022, Aleš Teplý, Response - AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rpp:schemas:RppEditaceData2:v1" schemaLocation="../../rpp/xsd/RppEditaceData2.xsd"/>
+	<xs:element name="RppZmenPusobnostOvm" type="RppZmenPusobnostOvmType"/>
+	<xs:element name="RppZmenPusobnostOvmResponse" type="RppZmenPusobnostOvmResponseType"/>
+	<xs:complexType name="RppZmenPusobnostOvmType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E132 externího rozhraní - typ pro žádost. RPP služba P29.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RppZmenPusobnostOvmData" type="ped2:RppZmenPusobnostOvmDataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RppZmenPusobnostOvmResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E132 externího rozhraní - typ pro odpověď. RPP služba P29.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="RppOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RppZmenPusobnostOvmDataResponse" type="ped2:RppZmenPusobnostOvmDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

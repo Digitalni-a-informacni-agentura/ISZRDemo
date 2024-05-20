@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRosZmenOsobu2:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRosZmenOsobu2:v1"
+	xmlns:e254="urn:cz:isvs:iszr:schemas:IszrRosZmenOsobu2:v1"
+	xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:sed="urn:cz:isvs:ros:schemas:RosEditaceData:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="2.0.1">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E254 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vývojová verze 2.0.0, 21.9.2020, Aleš Teplý -->
+	<!-- Vývojová verze 2.0.1, 8.10.2020, Aleš Teplý, přidání nillable=true k elementu StatutarniOrgany -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstractOrg.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ros:schemas:RosEditaceData:v2" schemaLocation="../../ros/xsd/RosEditaceData.xsd"/>
+
+	<xs:element name="RosZmenOsobu2" type="RosZmenOsobu2Type"/>
+	<xs:element name="RosZmenOsobu2Response" type="RosZmenOsobu2ResponseType"/>
+
+	<xs:complexType name="RosZmenOsobu2Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E254 externího rozhraní - typ pro žádost. Služba provádí změnu referenčních údajů osoby - služba ROS S04. Vstupní údaje obsahují pouze měněné hodnoty referenčních údajů. Tato služba provádí i vytváření, opravy a rušení údajů souvisejících struktur osoby (statutárních zástupců a provozoven).</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAifoIdAdrAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RosZmenOsobu2Data" type="sed:RosZmenOsobu2DataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="RosZmenOsobu2ResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E254 externího rozhraní - typ pro odpověď. Služba provádí změnu referenčních údajů osoby - služba ROS S04. V případě, že osoba se zadaným IČO neexistuje, nebo neexistuje související struktura se kterou má služba pracovat, vrátí chybový status.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAifoStIdAdrAbstractType">
+				<xs:sequence>
+					<xs:element name="RosOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RosZmenOsobu2DataResponse" type="sed:RosZmenOsobu2DataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

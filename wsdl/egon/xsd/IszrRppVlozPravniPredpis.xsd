@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRppVlozPravniPredpis:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRppVlozPravniPredpis:v1"
+	xmlns:e126="urn:cz:isvs:iszr:schemas:IszrRppVlozPravniPredpis:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:ped="urn:cz:isvs:rpp:schemas:RppEditaceData:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.5.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E126 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vývojová verze 0.0.1, 18.09.2012, Aleš Teplý -->
+	<!-- Katalog.7.4 verze 1.4.0, 29.10.2012 Aleš Teplý -->
+	<!-- Verze po revizi 1.4.1, 15.10.2021, Aleš Teplý, AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- Verze po revizi 1.5.0, 25.5.2022, Aleš Teplý, Response - AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstractOrg.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rpp:schemas:RppEditaceData:v1" schemaLocation="../../rpp/xsd/RppEditaceData.xsd"/>
+
+	<xs:element name="RppVlozPravniPredpis" type="RppVlozPravniPredpisType"/>
+	<xs:element name="RppVlozPravniPredpisResponse" type="RppVlozPravniPredpisResponseType"/>
+
+	<xs:complexType name="RppVlozPravniPredpisType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E126 externího rozhraní - typ pro žádost. Služba na základě předaných dat zapíše právní předpis do RPP. RPP služba P23.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAifoIcoPrvekAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RppVlozPravniPredpisData" type="ped:RppVlozPravniPredpisDataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="RppVlozPravniPredpisResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E126 externího rozhraní - typ pro odpověď. Služba na základě předaných dat zapíše právní předpis do RPP. RPP služba P23.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAifoStIcoPrvekAbstractType">
+				<xs:sequence>
+					<xs:element name="RppOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RppVlozPravniPredpisDataResponse" type="ped:RppVlozPravniPredpisDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

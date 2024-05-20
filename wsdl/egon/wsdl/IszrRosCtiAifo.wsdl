@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRosCtiAifo:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRosCtiAifo:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRosCtiAifo:v1"
+	xmlns:e21="urn:cz:isvs:iszr:schemas:IszrRosCtiAifo:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRosCtiAifo">
+
+	<wsdl:documentation>Služba E21 externího rozhraní - Služba na základě identifikace osoby pomocí Aifo vrací požadované referenční údaje.</wsdl:documentation>
+
+	<!-- Fixovaná verze 1.0.0, 18.10.2011, Aleš Teplý -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRosCtiAifo:v1" schemaLocation="../xsd/IszrRosCtiAifo.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="IszrRosCtiAifo">
+		<wsdl:part name="parametry" element="e21:RosCtiAifo"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRosCtiAifoResponse">
+		<wsdl:part name="vysledek" element="e21:RosCtiAifoResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRosCtiAifoPortType">
+		<wsdl:operation name="IszrRosCtiAifo">
+			<wsdl:input message="tns:IszrRosCtiAifo"/>
+			<wsdl:output message="tns:IszrRosCtiAifoResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRosCtiAifoBinding" type="tns:IszrRosCtiAifoPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRosCtiAifo">
+			<soap:operation soapAction="IszrRosCtiAifo"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRosCtiAifoService">
+		<wsdl:port name="IszrRosCtiAifoPortService" binding="tns:IszrRosCtiAifoBinding">
+			<soap:address location="IszrRosCtiAifo"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

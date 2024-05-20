@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRuianVyhledejAdresu:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRuianVyhledejAdresu:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRuianVyhledejAdresu:v1"
+	xmlns:e37="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejAdresu:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRuianVyhledejAdresu">
+
+	<wsdl:documentation>Služba E37 externího rozhraní - Vyhledání adresních míst - RUIAN služba A06.</wsdl:documentation>
+	
+	<!-- Vývojová verze 0.0.01, 01.07.2011, Jan Sluka -->
+	<!-- Vývojová verze 0.0.02, 29.07.2011, Aleš Teplý, přizpůsobení RUIAN 3 -->
+	<!-- Fixovaná verze 1.0.0, 07.09.2011, Aleš Teplý -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+	
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejAdresu:v1" schemaLocation="../xsd/IszrRuianVyhledejAdresu.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrRuianVyhledejAdresu">
+		<wsdl:part name="parametry" element="e37:RuianVyhledejAdresu"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRuianVyhledejAdresuResponse">
+		<wsdl:part name="vysledek" element="e37:RuianVyhledejAdresuResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRuianVyhledejAdresuPortType">
+		<wsdl:operation name="IszrRuianVyhledejAdresu">
+			<wsdl:input message="tns:IszrRuianVyhledejAdresu"/>
+			<wsdl:output message="tns:IszrRuianVyhledejAdresuResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRuianVyhledejAdresuBinding" type="tns:IszrRuianVyhledejAdresuPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRuianVyhledejAdresu">
+			<soap:operation soapAction="IszrRuianVyhledejAdresu"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRuianVyhledejAdresuService">
+		<wsdl:port name="IszrRuianVyhledejAdresuPortService" binding="tns:IszrRuianVyhledejAdresuBinding">
+			<soap:address location="IszrRuianVyhledejAdresu"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

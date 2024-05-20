@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:iszr:schemas:IszrZpracujVypis:v1" xmlns:e151="urn:cz:isvs:iszr:schemas:IszrZpracujVypis:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" xmlns:i16="urn:cz:isvs:iszr:schemas:IszrDataZpracujVypis:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:cz:isvs:iszr:schemas:IszrZpracujVypis:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.2.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E151 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	<!-- Vývojová verze 0.0.1, 09.03.2012 Aleš Teplý, výchozí verze -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- Verze pro revizi 1.1.1, 19.06.2012, Aleš Teplý, Zadatel nepovinný -->
+	<!-- Verze pro revizi 1.2.0, 16.05.2018, Pavel Odstrčil, formální zvýšení verze, přidán nepovinný FaisSeznamUdaju do IszrZpracujVypisData -->
+	<!-- AutoCont CZ a.s. -->
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstractOrg.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrDataZpracujVypis:v1" schemaLocation="../../iszr/xsd/IszrDataZpracujVypis.xsd"/>
+	<xs:element name="IszrZpracujVypis" type="IszrZpracujVypisType"/>
+	<xs:element name="IszrZpracujVypisResponse" type="IszrZpracujVypisResponseType"/>
+	<xs:complexType name="IszrZpracujVypisType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba umožňuje přijmout definovanou žádost na vytvoření výpisu ve formě XML a vytvořit výpis vhodný pro technické zpracování a odpovídající PDF, typ pro žádost. Interní služba ISZR I16.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAifoIcoAsyncAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IszrZpracujVypisData" type="i16:IszrZpracujVypisDataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="IszrZpracujVypisResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba umožňuje přijmout definovanou žádost na vytvoření výpisu ve formě XML a vytvořit výpis vhodný pro technické zpracování a odpovídající PDF, typ pro odpověď. Interní služba ISZR I16.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAifoStIcoAbstractType">
+				<xs:sequence>
+					<xs:element name="IszrOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IszrZpracujVypisDataResponse" type="i16:IszrZpracujVypisDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

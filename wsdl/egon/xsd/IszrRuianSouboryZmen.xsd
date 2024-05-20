@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRuianSouboryZmen:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRuianSouboryZmen:v1"
+	xmlns:e39="urn:cz:isvs:iszr:schemas:IszrRuianSouboryZmen:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:szr="urn:cz:isvs:ruian:schemas:SouboryZmen:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.4.3">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E39 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vývojová verze 0.0.1, 9.2.2012, Jan Sluka -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- Verze po revizi 1.4.3, 16.04.2013, Aleš Teplý, změna Request: TypVymennehoFormatu - zrušeny některé typy (např. ST_ZKHG, ST_ZKHH, ST_ZKHO...) -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:SouboryZmen:v1" schemaLocation="ref/RuianSouboryZmen.xsd"/>
+
+	<xs:element name="RuianSouboryZmen" type="RuianSouboryZmenType"/>
+	<xs:element name="RuianSouboryZmenResponse" type="RuianSouboryZmenResponseType"/>
+
+	<xs:complexType name="RuianSouboryZmenType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E39 externího rozhraní - žádost. Služba pro poskytnutí odkazů na soubory se změnovými větami do zadaného data do současnosti. RUIAN služba A27.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianSouboryZmenData" type="szr:SouboryZmenDotazType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RuianSouboryZmenResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E39 externího rozhraní - odpověď. Služba pro poskytnutí odkazů na soubory se změnovými větami do zadaného data do současnosti. RUIAN služba A27.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="RuianOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianSouboryZmenDataResponse">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element ref="szr:Odpoved"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

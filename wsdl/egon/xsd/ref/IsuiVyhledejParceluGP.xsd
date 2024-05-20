@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:isui:schemas:VyhledejParceluGPTypy:v1" xmlns:rt="urn:cz:isvs:isui:schemas:VyhledejParceluGPTypy:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:cz:isvs:isui:schemas:VyhledejParceluGPTypy:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Rozšíření VyhledejParceluGPTypy, definice potřebného elementu ve jmenném prostoru ISUI.</xs:documentation>
+	</xs:annotation>
+	<!-- Vznik, 1.0.0, 25.10.2018 -->
+	<!-- AutoCont CZ a.s. -->
+	<xs:include schemaLocation="../../../isui/xsd/vyhledej_parcelu_gp/VyhledejParceluGPTypy.xsd"/>
+	<xs:element name="Parcely" type="rt:ParcelaGPSeznamType"/>
+</xs:schema>

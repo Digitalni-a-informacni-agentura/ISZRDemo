@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:CastObcePolozkyBase:v2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:CastObcePolozkyBase:v2" xmlns:coPolBase="urn:cz:isvs:ruian:schemas:CastObcePolozkyBase:v2" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:obPolBase="urn:cz:isvs:ruian:schemas:ObecPolozkyBase:v2" elementFormDefault="qualified" version="2.0.0">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ObecPolozkyBase:v2" schemaLocation="ObecPolozkyBase.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../typy/CommonTypy.xsd"/>
+	<xs:complexType name="CastObcePolozkyBaseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na cast obce</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:group ref="CastObcePolozkyGroup" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:group name="CastObcePolozkyGroup">
+		<xs:sequence>
+			<xs:element name="VsechnyInformace" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Kod" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Nazev" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Nespravny" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Obec" type="obPolBase:ObecPolozkyBaseType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:group>
+</xs:schema>

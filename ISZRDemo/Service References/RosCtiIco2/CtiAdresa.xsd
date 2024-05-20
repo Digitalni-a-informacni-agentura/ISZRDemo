@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:ctiAdresa="urn:cz:isvs:ruian:schemas:CtiAdresa:v1" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns="urn:cz:isvs:ruian:schemas:CtiAdresa:v1" elementFormDefault="qualified" targetNamespace="urn:cz:isvs:ruian:schemas:CtiAdresa:v1" version="0.40.3" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd" namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" />
+  <xs:import schemaLocation="../../../ruian/xsd/typy/CommonTypy.xsd" namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" />
+  <xs:import schemaLocation="../../../RegTypy.xsd" namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" />
+  <xs:complexType name="CtiAdresuRequestType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Dotaz na načtení adresy v požadovaném formátu.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="ZadostInfo" type="reg:ZadostInfoType">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Standardní hlavička dotazu.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="1" maxOccurs="1" name="Dotaz" type="ctiAdresa:CtiAdresuDotazType">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Parametry dotazu.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CtiAdresuResponseType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Adresa v požadovaném formátu.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="OdpovedInfo" type="reg:OdpovedInfoType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Adresa" type="ctiAdresa:AdresaResponseType">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Adresa.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CtiAdresuDotazType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Parametry dotazu na adresu v požadovaném formátu.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Kod" type="reg:KodAdresniMistoType">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Kód adresy.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="1" maxOccurs="1" name="FormatAdresy" type="com:FormatAdresyType">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Požadovaný formát adresy.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AdresaRadkovaType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Adresa ve formě řádků.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="AdresniMistoKod" type="reg:KodAdresniMistoType">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Kód adresního místa.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="RadekAdresy1" type="com:RadekAdresyType">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">První řádek adresy.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="RadekAdresy2" type="com:RadekAdresyType">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Druhý řádek adresy.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="RadekAdresy3" type="com:RadekAdresyType">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Třetí řádek adresy.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AdresaPolozkovaType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Adresa ve formě jednotlivých položek.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="OkresKod" type="base:Kod4Type">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Kód okresu.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="OkresNazev" type="base:Nazev32Type">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Název okresu.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="ObecKod" type="base:Kod6Type">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Kód obce.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="ObecNazev" type="base:Nazev48Type">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Název obce.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="CastObceKod" type="base:Kod6Type">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Kód části obce.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="CastObceNazev" type="base:Nazev48Type">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Název části obce.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="UliceKod" type="base:Kod7Type">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Kód ulice.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="UliceNazev" type="base:Nazev48Type">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Název ulice.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="PostaKod" type="base:Kod5Type">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Kód pošty.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="PostaNazev" type="base:Nazev48Type">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Název pošty.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="StavebniObjektKod" type="base:Kod9Type">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Kód stavebního objektu.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="AdresniMistoKod" type="reg:KodAdresniMistoType">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Kód adresního místa.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="TypCislaDomovnihoKod" type="base:Kod1Type">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Typ čísla domovního.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="CisloDomovni" type="base:Kod4Type">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Číslo domovní.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="CisloOrientacni" type="base:Kod3Type">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Číslo orientační.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="CisloOrientacniPismeno" type="base:Kod1TextType">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Číslo orientační - písmeno.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="MopKod" type="base:Kod3Type">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Kód MOP.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="MopNazev" type="base:Nazev32Type">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Název MOP.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AdresaResponseType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Formáty adresy.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="PolozkovaAdresa" type="ctiAdresa:AdresaPolozkovaType">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Adresa ve formě jednotlivých položek adresy.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="RadkovaAdresa" type="ctiAdresa:AdresaRadkovaType">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Adresa ve formě řádků.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CtiAdresuRequest" type="ctiAdresa:CtiAdresuRequestType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Dotaz na načtení adresy v požadovaném formátu.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CtiAdresuResponse" type="ctiAdresa:CtiAdresuResponseType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Adresa v požadovaném formátu.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+</xs:schema>

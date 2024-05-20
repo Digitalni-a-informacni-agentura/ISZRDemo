@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrVypisOpravneniPolozky:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrVypisOpravneniPolozky:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrVypisOpravneniPolozky:v1"
+	xmlns:e227="urn:cz:isvs:iszr:schemas:IszrVypisOpravneniPolozky:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrVypisOpravneniPolozky">
+
+	<wsdl:documentation>Služba E227 externího rozhraní, interní služba ISZR I33. Služba vrací provozní informace ISZR. Výstupem jsou informace o oprávněních na ověřované položky ZR dle RPP pro zadanou kombinaci Agenda/činnostní role/OVM jako názvy položek pro naplnění elementu SeznamUdaju na vstupu eGON služeb ISZR.</wsdl:documentation>
+
+	<!-- Verze 1.0.0, 09.05.2018 Pavel Odstrčil, výchozí verze -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrVypisOpravneniPolozky:v1" schemaLocation="../xsd/IszrVypisOpravneniPolozky.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrVypisOpravneniPolozky">
+		<wsdl:part name="parametry" element="e227:IszrVypisOpravneniPolozky"/>
+	</wsdl:message>
+	<wsdl:message name="IszrVypisOpravneniPolozkyResponse">
+		<wsdl:part name="vysledek" element="e227:IszrVypisOpravneniPolozkyResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrVypisOpravneniPolozkyPortType">
+		<wsdl:operation name="IszrVypisOpravneniPolozky">
+			<wsdl:input message="tns:IszrVypisOpravneniPolozky"/>
+			<wsdl:output message="tns:IszrVypisOpravneniPolozkyResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrVypisOpravneniPolozkyBinding" type="tns:IszrVypisOpravneniPolozkyPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrVypisOpravneniPolozky">
+			<soap:operation soapAction="IszrVypisOpravneniPolozky"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrVypisOpravneniPolozkyService">
+		<wsdl:port name="IszrVypisOpravneniPolozkyPortService" binding="tns:IszrVypisOpravneniPolozkyBinding">
+			<soap:address location="IszrVypisOpravneniPolozky"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

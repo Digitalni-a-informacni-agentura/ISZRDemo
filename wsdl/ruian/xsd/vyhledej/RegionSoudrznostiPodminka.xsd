@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:RegionSoudrznostiPodminka:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:RegionSoudrznostiPodminka:v1" xmlns:rsPodm="urn:cz:isvs:ruian:schemas:RegionSoudrznostiPodminka:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:st="urn:cz:isvs:ruian:schemas:Stat:v1" elementFormDefault="qualified" version="0.40.0">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:Stat:v1" schemaLocation="../../../ruian/xsd/prvky/Stat.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:complexType name="RegionSoudrznostiPodminkaType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Region soudrznosti</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod3Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Nazev" type="base:Nazev32Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Stat" type="st:StatType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

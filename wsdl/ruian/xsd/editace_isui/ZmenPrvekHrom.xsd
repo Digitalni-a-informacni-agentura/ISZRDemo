@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:ZmenPrvekHromad:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:ZmenPrvekHromad:v1" xmlns:zph="urn:cz:isvs:ruian:schemas:ZmenPrvekHromad:v1" xmlns:zpui="urn:cz:isvs:ruian:schemas:ZmenPrvekIsui:v1" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" elementFormDefault="qualified" version="1.1.0">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../ruian/xsd/typy/CommonTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenPrvekIsui:v1" schemaLocation="../../../ruian/xsd/editace_isui/ZmenPrvekIsui.xsd"/>
+	<xs:complexType name="PrvekHromZmenaType">
+		<xs:sequence>
+			<xs:element name="TypPrvku" type="zpui:TypPrvkuISUIType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Typ prvku.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TypZmenyPrvku" type="com:TypZmenyPrvkuType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Nazev" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Nazev polozky</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Hodnota" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Nova hodnota</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SeznamId" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Seznam ID oddeleny carkou</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

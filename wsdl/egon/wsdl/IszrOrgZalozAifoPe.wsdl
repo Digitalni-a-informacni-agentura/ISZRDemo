@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+  targetNamespace="urn:cz:isvs:iszr:services:IszrOrgZalozAifoPe:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrOrgZalozAifoPe:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrOrgZalozAifoPe:v1"
+	xmlns:e95="urn:cz:isvs:iszr:schemas:IszrOrgZalozAifoPe:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrOrgZalozAifoPe">
+
+	<wsdl:documentation>Služba E95 externího rozhraní. Služba zprostředkuje vytvoření nového ZIFO v ORG.</wsdl:documentation>
+
+	<!-- Vývojová verze 0.0.1, 13.07.2011, Jan Sluka -->
+	<!-- Vývojová verze 0.0.2, 19.07.2011, Aleš Teplý, formální úpravy -->
+	<!-- Vývojová verze 0.0.3, 14.09.2011, Aleš Teplý, ponechání jen nezbytných namespace -->
+	<!-- Vývojová verze 0.0.4, 11.11.2011, Aleš Teplý, oprava "name" -->
+	<!-- Fixovaná verze 1.0.0, 30.11.2011, Aleš Teplý -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrOrgZalozAifoPe:v1" schemaLocation="../xsd/IszrOrgZalozAifoPe.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="IszrOrgZalozAifoPe">
+		<wsdl:part name="parametry" element="e95:OrgZalozAifoPe"/>
+	</wsdl:message>
+	<wsdl:message name="IszrOrgZalozAifoPeResponse">
+		<wsdl:part name="vysledek" element="e95:OrgZalozAifoPeResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrOrgZalozAifoPePortType">
+		<wsdl:operation name="IszrOrgZalozAifoPe">
+			<wsdl:input message="IszrOrgZalozAifoPe"/>
+			<wsdl:output message="IszrOrgZalozAifoPeResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrOrgZalozAifoPeBinding" type="tns:IszrOrgZalozAifoPePortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrOrgZalozAifoPe">
+			<soap:operation soapAction="IszrOrgZalozAifoPe"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrOrgZalozAifoPeService">
+		<wsdl:port name="IIszrOrgZalozAifoPePortService" binding="tns:IszrOrgZalozAifoPeBinding">
+			<soap:address location="IszrOrgZalozAifoPe"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

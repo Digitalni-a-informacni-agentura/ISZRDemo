@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:iszr:schemas:IszrRobVypisSouhlasuPoskytnuti:v1" xmlns:e181="urn:cz:isvs:iszr:schemas:IszrRobVypisSouhlasuPoskytnuti:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" xmlns:rod="urn:cz:isvs:rob:schemas:RobDotazyData:v1" xmlns:i27="urn:cz:isvs:iszr:schemas:IszrDataRobVypisSouhlasuPoskytnuti:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:cz:isvs:iszr:schemas:IszrRobVypisSouhlasuPoskytnuti:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.9.8">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Vydání údajů o využití a poskytnutí záznamů z ROB. Služba E181 externího rozhraní.</xs:documentation>
+	</xs:annotation>
+	<!-- Katalog.7.06 verze 1.6.1, 21.02.2014 Aleš Teplý -->
+	<!-- Verze 1.9.8, 7.3.2017, Pavel Odstrcil, dopady zmena zakona 111 na ROB -->
+	<!-- AutoCont CZ a.s. -->
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstractOrg.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rob:schemas:RobDotazyData:v1" schemaLocation="../../rob/xsd/RobDotazyData.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrDataRobVypisSouhlasuPoskytnuti:v1" schemaLocation="../../iszr/xsd/IszrDataRobVypisSouhlasuPoskytnuti.xsd"/>
+	<xs:element name="RobVypisSouhlasuPoskytnuti" type="RobVypisSouhlasuPoskytnutiType"/>
+	<xs:element name="RobVypisSouhlasuPoskytnutiResponse" type="RobVypisSouhlasuPoskytnutiResponseType"/>
+	<xs:complexType name="RobVypisSouhlasuPoskytnutiType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Vydání údajů o využití a poskytnutí záznamů z ROB.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostRAifoAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RobVypisSouhlasuPoskytnutiData" type="rod:RobVypisSouhlasuPoskytnutiDataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RobVypisSouhlasuPoskytnutiResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Vydání údajů o využití a poskytnutí záznamů z ROB, odpověď.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAifoStAbstractType">
+				<xs:sequence>
+					<xs:element name="RobOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RobVypisSouhlasuPoskytnutiDataResponse" type="rod:RobVypisSouhlasuPoskytnutiDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="IszrOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IszrVypisSouhlasuPoskytnutiDataResponse" type="i27:IszrVypisSouhlasuPoskytnutiDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

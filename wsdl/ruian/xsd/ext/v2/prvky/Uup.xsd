@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:Uup:v2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:Uup:v2" xmlns:up="urn:cz:isvs:ruian:schemas:Uup:v2" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" elementFormDefault="qualified" version="2.1.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Účelový územní prvek se základními elementy bez geometrie.</xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../typy/CommonTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../typy/BaseTypy.xsd"/>
+	<xs:group name="UupGroup">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Základní údaje účelového územního prvku</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod9Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód účelového prvku</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TypUUPKod" type="base:Kod4Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Typ účelového prvku</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ExterniID" type="base:Nazev50Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Externí identifikátor účelového prvku</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SubtypKod" type="base:Kod4Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód subtypu účelového prvku</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Nazev" type="base:Nazev50Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Název účelového prvku</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Cislo" type="base:Nazev50Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Číslo účelového prvku</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Nespravny" type="com:NespravnyType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Zda je účelový prvek jako celek zpochybněn</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:group>
+	<xs:element name="UcelovyPrvek" type="up:UupType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs"></xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="UupType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Účelový územní prvek se základními elementy bez geometrie</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:group ref="UupGroup" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VazbaNaUupType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Vazba daného územního prvku (Parcely, Stavebního objektu, Adresního místa) na účelový prvek</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="UcelovyPrvek" type="UupType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Účelový prvek, na který je vazba</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Nespravny" type="com:NespravnyType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Zda je vazba na účelový prvek zpochybněna</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VazbaNaUupSeznamType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam vazeb daného územního prvku (Parcely, Stavebního objektu, Adresního místa) na účelový prvek</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Vazba" type="VazbaNaUupType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

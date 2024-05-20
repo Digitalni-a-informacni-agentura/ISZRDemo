@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:Momc:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:Momc:v1" xmlns:mc="urn:cz:isvs:ruian:schemas:Momc:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:mp="urn:cz:isvs:ruian:schemas:Mop:v1" xmlns:ob="urn:cz:isvs:ruian:schemas:Obec:v1" xmlns:sp="urn:cz:isvs:ruian:schemas:SpravniObvod:v1" elementFormDefault="qualified" version="0.40.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Aplikační schéma Momc obsahuje prvek typu: MOMC se základními elementy a bez geometrie. </xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:SpravniObvod:v1" schemaLocation="../../../ruian/xsd/prvky/SpravniObvod.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:Obec:v1" schemaLocation="../../../ruian/xsd/prvky/Obec.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:Mop:v1" schemaLocation="../../../ruian/xsd/prvky/Mop.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../ruian/xsd/typy/CommonTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:group name="MomcGroup">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Základní elementy prvku MOMC.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod6Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Nazev" type="base:Nazev48Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Nespravny" type="com:NespravnyType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Mop" type="mp:MopType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Obec" type="ob:ObecType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="SpravniObvod" type="sp:SpravniObvodType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:group>
+	<xs:element name="Momc" type="mc:MomcType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Prvek představuje území městského obvodu nebo městské části územně členěného statutárního města (MOMC).</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="MomcType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Prvek MOMC se základními elementy a bez geometrie.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:group ref="MomcGroup" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

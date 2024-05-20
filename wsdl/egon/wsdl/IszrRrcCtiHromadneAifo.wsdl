@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRrcCtiHromadneAifo:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRrcCtiHromadneAifo:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRrcCtiHromadneAifo:v1"
+	xmlns:e193="urn:cz:isvs:iszr:schemas:IszrRrcCtiHromadneAifo:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRrcCtiHromadneAifo">
+
+	<wsdl:documentation>Služba E193 externího rozhraní - Služba umožňuje načítat z RRC nereferenční údaje, které nejsou uloženy v ROB.</wsdl:documentation>
+
+	<!-- Vznik 1.0.0, 17.04.2015, Pavel Odstrcil -->
+	<!-- Verze pro revizi 2.0.0, 13.11.2018, ales.teply@autocont.cz, změna namespace importovaného xsd urn:cz:isvs:ais3:schemas:Ais3RrcCtiHromadneAifo:v1 na urn:cz:isvs:rrc:schemas:RrcCtiHromadneAifo:v2 a úložiště /ais3 na /rrc -->
+	<!-- Verze 2.0.1, 18.3.2019, ales.teply@autocont.cz, Úprava RrcOdpoved: AisAplikacniStatus-NevydanaPolozka -->
+	<!-- Verze po revizi 2.0.2, 14.10.2020, Aleš Teplý, RuianCtiProRobDataResponse v1 i v2 -->
+	<!-- Verze po revizi 2.1.0, 13.8.2021, Aleš Teplý, rozšíření struktury Response ROB v2.0.0, aplikačně zatím omezeno na kompatibilitu s ROB v1.0.9 -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRrcCtiHromadneAifo:v1" schemaLocation="../xsd/IszrRrcCtiHromadneAifo.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="IszrRrcCtiHromadneAifo">
+		<wsdl:part name="parametry" element="e193:RrcCtiHromadneAifo"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRrcCtiHromadneAifoResponse">
+		<wsdl:part name="vysledek" element="e193:RrcCtiHromadneAifoResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRrcCtiHromadneAifoPortType">
+		<wsdl:operation name="IszrRrcCtiHromadneAifo">
+			<wsdl:input message="tns:IszrRrcCtiHromadneAifo"/>
+			<wsdl:output message="tns:IszrRrcCtiHromadneAifoResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRrcCtiHromadneAifoBinding" type="tns:IszrRrcCtiHromadneAifoPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRrcCtiHromadneAifo">
+			<soap:operation soapAction="IszrRrcCtiHromadneAifo"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRrcCtiHromadneAifoService">
+		<wsdl:port name="IszrRrcCtiHromadneAifoPortService" binding="tns:IszrRrcCtiHromadneAifoBinding">
+			<soap:address location="IszrRrcCtiHromadneAifo"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

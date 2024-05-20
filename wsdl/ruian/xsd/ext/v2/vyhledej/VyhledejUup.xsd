@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:VyhledejUup:v2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:VyhledejUup:v2" xmlns:vyhUp="urn:cz:isvs:ruian:schemas:VyhledejUup:v2" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:upPodm="urn:cz:isvs:ruian:schemas:UupPodminka:v2" xmlns:upPolBase="urn:cz:isvs:ruian:schemas:UupPolozkyBase:v2" xmlns:up="urn:cz:isvs:ruian:schemas:Uup:v2" elementFormDefault="qualified" version="2.1.0">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:Uup:v2" schemaLocation="../prvky/Uup.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:UupPolozkyBase:v2" schemaLocation="UupPolozkyBase.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:UupPodminka:v2" schemaLocation="UupPodminka.xsd"/>
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../../../RegTypy.xsd"/>
+	<xs:complexType name="VyhledejUupResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpověď na vyhledání účelových prvků</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="UcelovePrvky" type="UupSeznamType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VyhledejUupDotazType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Parametry dotazu na účelové prvky</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Podminka" type="upPodm:UupPodminkaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PozadovaneUdaje" type="upPolBase:UupPolozkyBaseType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VyhledejUupRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na vyhledani účelových prvků</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Dotaz" type="VyhledejUupDotazType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="VyhledejUupRequest" type="vyhUp:VyhledejUupRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na vyhledání účelového prvku</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="VyhledejUupResponse" type="vyhUp:VyhledejUupResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpověď na vyhledání účelových prvků</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="UupSeznamType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam účelových prvků</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="UcelovyPrvek" type="up:UupType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

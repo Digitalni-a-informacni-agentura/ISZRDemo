@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xop="http://www.w3.org/2004/08/xop/include" xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" xmlns:odpf="urn:cz:isvs:iszr:schemas:IszrAsyncOdpovedZFronty:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns="urn:cz:isvs:iszr:schemas:IszrAsyncOdpovedZFronty:v1" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:cz:isvs:iszr:schemas:IszrAsyncOdpovedZFronty:v1" version="1.1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="../../RegTypy.xsd" namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" />
+  <xs:import schemaLocation="../../XopInclude.xsd" namespace="http://www.w3.org/2004/08/xop/include" />
+  <xs:import schemaLocation="IszrAbstract.xsd" namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" />
+  <xs:annotation>
+    <xs:documentation xml:lang="cs">Na??ten?? jednoho v??sledku z fronty v??sledk?? asynchronn??ch vol??n??.</xs:documentation>
+  </xs:annotation>
+  <xs:element name="IszrAsyncOdpovedZFronty" type="odpf:IszrAsyncOdpovedZFrontyType" />
+  <xs:element name="IszrAsyncOdpovedZFrontyResponse" type="odpf:IszrAsyncOdpovedZFrontyResponseType" />
+  <xs:complexType name="IszrAsyncOdpovedZFrontyType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Dotaz na vyzvednuti odpovedi z fronty. Povinn?? ??daj - odkaz = IszrZadostId.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="KodAsyncSluzby" type="reg:NazevSluzbyType" />
+      <xs:element name="ZadostInfo" type="abs:ZadostInfoIszrType" />
+      <xs:element name="Zadost">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="IszrAsyncOdpovedZFrontyData">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="IszrZadostId" type="reg:IszrZadostIdType" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="IszrAsyncOdpovedZFrontyResponseType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Odpoved na vyzvednuti dat z fronty. V elementu IszrAsyncOdpovedZFrontyDataResponse vrac?? kompletn?? asynchronn?? odpov???? z registru - v??etn?? OdpovedInfo, MapaAifo atd. Vrac?? jako XML (AsyncDotazDataResponse) nebo jako komprimovan?? data.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="KodAsyncSluzby" type="reg:NazevSluzbyType" />
+      <xs:element name="OdpovedInfo" type="odpf:OdpovedInfoZFrontyType" />
+      <xs:element minOccurs="0" name="IszrOdpoved">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="IszrAsyncOdpovedZFrontyDataResponse">
+              <xs:complexType>
+                <xs:choice>
+                  <xs:element name="KomprimovanaData" type="reg:KomprimovanaDataType" />
+                  <xs:element name="AsyncDotazDataResponse" type="reg:AsyncDotazDataResponseType" />
+                </xs:choice>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="CekaciCasType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Za jakou dobu opakovat dotaz (v sekund??ch).</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int" />
+  </xs:simpleType>
+  <xs:complexType name="OdpovedInfoZFrontyType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Hlavi??ka extern?? ????dosti pro IszrAsyncOdpovedZFronty.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="reg:OdpovedInfoType">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CekaciCas" type="odpf:CekaciCasType" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>

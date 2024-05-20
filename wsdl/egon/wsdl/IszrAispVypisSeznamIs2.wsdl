@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns="urn:cz:isvs:iszr:services:IszrAispVypisSeznamIs2:v1" xmlns:tns="urn:cz:isvs:iszr:services:IszrAispVypisSeznamIs2:v1" xmlns:e239="urn:cz:isvs:iszr:schemas:IszrAispVypisSeznamIs2:v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:ns="http://www.w3.org/2004/08/xop/include" xmlns:ns1="urn:cz:isvs:aisp:schemas:AispDotazyData:v1" xmlns:ns2="urn:cz:isvs:aisp:schemas:AispTypy:v1" xmlns:ns3="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" xmlns:ns4="urn:cz:isvs:org:schemas:OrgRozhrani:v1" xmlns:ns5="urn:cz:isvs:org:schemas:OrgTypy:v1" xmlns:ns6="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:ns7="urn:cz:isvs:rob:schemas:RobDotazyData:v1" xmlns:ns8="urn:cz:isvs:rob:schemas:RobTypy:v1" xmlns:ns9="urn:cz:isvs:ros:schemas:RosEditaceTypy:v1" xmlns:ns10="urn:cz:isvs:ros:schemas:RosTypy:v2" xmlns:ns11="urn:cz:isvs:rpp:schemas:RppDotazyTypy:v1" xmlns:ns12="urn:cz:isvs:rpp:schemas:RppEditaceTypy:v1" xmlns:ns13="urn:cz:isvs:rpp:schemas:RppTypy:v1" xmlns:ns14="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:ns15="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:ns16="urn:cz:isvs:ruian:schemas:CtiAdresa:v1" xmlns:ns17="urn:cz:isvs:ruian:schemas:CtiProRob:v1" name="IszrAispVypisSeznamIs2" targetNamespace="urn:cz:isvs:iszr:services:IszrAispVypisSeznamIs2:v1">
+	<wsdl:documentation>Služba E239 externího rozhraní - Služba umožňuje načítat z AISP nereferenční údaje o AIS včetně neveřejných údajů.</wsdl:documentation>
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrAispVypisSeznamIs2:v1" schemaLocation="../xsd/IszrAispVypisSeznamIs2.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrAispVypisSeznamIs2">
+		<wsdl:part name="parametry" element="e239:AispVypisSeznamIs2"/>
+	</wsdl:message>
+	<wsdl:message name="IszrAispVypisSeznamIs2Response">
+		<wsdl:part name="vysledek" element="e239:AispVypisSeznamIs2Response"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrAispVypisSeznamIs2PortType">
+		<wsdl:operation name="IszrAispVypisSeznamIs2">
+			<wsdl:input message="IszrAispVypisSeznamIs2"/>
+			<wsdl:output message="IszrAispVypisSeznamIs2Response"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrAispVypisSeznamIs2Binding" type="tns:IszrAispVypisSeznamIs2PortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrAispVypisSeznamIs2">
+			<soap:operation soapAction="IszrAispVypisSeznamIs2"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrAispVypisSeznamIs2Service">
+		<wsdl:port name="IszrAispVypisSeznamIs2PortService" binding="tns:IszrAispVypisSeznamIs2Binding">
+			<soap:address location="IszrAispVypisSeznamIs2"/>
+		</wsdl:port>
+	</wsdl:service>
+	<!-- Vznik 1.0.0, 16.01.2019, Pavel Odstrcil -->
+	<!-- Vytvoření nové verze služby s číslem E265 1.0.0, AISP 1.0.0, 13.10.2020, Aleš Teplý -->
+	<!-- Verze po revizi 1.0.1, 19.11.2020, přečíslování z E265 na E239, Aleš Teplý -->
+	<!-- Návrat k verzi 1.0.0 z 16.1.2019, 30.11.2020, Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+</wsdl:definitions>

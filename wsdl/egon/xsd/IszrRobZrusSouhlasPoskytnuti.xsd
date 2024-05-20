@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:iszr:schemas:IszrRobZrusSouhlasPoskytnuti:v1" xmlns:e180="urn:cz:isvs:iszr:schemas:IszrRobZrusSouhlasPoskytnuti:v1" xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" xmlns:roe="urn:cz:isvs:rob:schemas:RobEditaceData:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:cz:isvs:iszr:schemas:IszrRobZrusSouhlasPoskytnuti:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.9.8">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E180 externího rozhraní.</xs:documentation>
+	</xs:annotation>
+	<!-- Katalog.7.06 verze 1.6.1, 24.02.2014 Aleš Teplý -->
+	<!-- Verze 1.9.8, 7.3.2017, Pavel Odstrcil, dopady zmena zakona 111 na ROB -->
+	<!-- AutoCont CZ a.s. -->
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rob:schemas:RobEditaceData:v1" schemaLocation="../../rob/xsd/RobEditaceData.xsd"/>
+	<xs:element name="RobZrusSouhlasPoskytnuti" type="RobZrusSouhlasPoskytnutiType"/>
+	<xs:element name="RobZrusSouhlasPoskytnutiResponse" type="RobZrusSouhlasPoskytnutiResponseType"/>
+	<xs:complexType name="RobZrusSouhlasPoskytnutiType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E180 externího rozhraní - typ pro žádost. Rušení záznamů o DS třetích stran, do kterých se při změně mají údaje odeslat.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostRAifoAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RobZrusSouhlasPoskytnutiData" type="roe:RobZrusSouhlasPoskytnutiDataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RobZrusSouhlasPoskytnutiResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E180 externího rozhraní - typ pro odpověď. Rušení záznamů o DS třetích stran, do kterých se při změně mají údaje odeslat.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="RobOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RobZrusSouhlasPoskytnutiDataResponse" type="roe:RobZrusSouhlasPoskytnutiDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

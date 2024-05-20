@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekCastObce2:v1" 
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekCastObce2:v1" 
+	xmlns:e250c="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekCastObce2:v1" 
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:ctiCo="urn:cz:isvs:ruian:schemas:CtiCastObce:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified" 
+	version="2.0.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E250c externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	
+	<!-- Výchozí verze 2.0.0, 6.10.2020 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiCastObce:v2" schemaLocation="../../ruian/xsd/ext/v2/cti/CtiCastObce.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiCastObce:v2" schemaLocation="ref/RuianCtiPrvekCastObce2.xsd"/>
+
+	<xs:element name="RuianCtiPrvekCastObce2" type="RuianCtiPrvekCastObce2Type"/>
+	<xs:element name="RuianCtiPrvekCastObce2Response" type="RuianCtiPrvekCastObce2ResponseType"/>
+	
+	<xs:complexType name="RuianCtiPrvekCastObce2Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E250c externího rozhraní - žádost. Načtení části obce z RUIAN. RUIAN služba, operace ctiCastObce.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianCtiPrvekCastObce2Data" type="ctiCo:CtiCastObceDotazType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="RuianCtiPrvekCastObce2ResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E250c externího rozhraní - odpověď. Načtení části obce z RUIAN. RUIAN služba, operace ctiCastObce.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+				  <xs:element name="RuianOdpoved" minOccurs="0">
+					<xs:complexType>
+					  <xs:sequence>
+						<xs:element name="RuianCtiPrvekCastObce2DataResponse">
+						  <xs:complexType>
+							<xs:sequence>
+							  <xs:element ref="ctiCo:CastObce"/>
+							</xs:sequence>
+						  </xs:complexType>
+						</xs:element>
+					  </xs:sequence>
+					</xs:complexType>
+				  </xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

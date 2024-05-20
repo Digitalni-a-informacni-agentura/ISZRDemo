@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns="urn:cz:isvs:iszr:services:IszrEidentitaPosliAifoInfo:v1" xmlns:tns="urn:cz:isvs:iszr:services:IszrEidentitaPosliAifoInfo:v1" xmlns:e267="urn:cz:isvs:iszr:schemas:IszrEidentitaPosliAifoInfo:v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" name="IszrEidentitaPosliAifoInfo" targetNamespace="urn:cz:isvs:iszr:services:IszrEidentitaPosliAifoInfo:v1">
+	<wsdl:documentation>Služba E22ž pro externí rozhraní.</wsdl:documentation>
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrEidentitaPosliAifoInfo:v1" schemaLocation="../xsd/IszrEidentitaPosliAifoInfo.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrEidentitaPosliAifoInfo">
+		<wsdl:part name="parametry" element="e267:IszrEidentitaPosliAifoInfo"/>
+	</wsdl:message>
+	<wsdl:message name="IszrEidentitaPosliAifoInfoResponse">
+		<wsdl:part name="vysledek" element="e267:IszrEidentitaPosliAifoInfoResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrEidentitaPosliAifoInfoPortType">
+		<wsdl:operation name="IszrEidentitaPosliAifoInfo">
+			<wsdl:input message="IszrEidentitaPosliAifoInfo"/>
+			<wsdl:output message="IszrEidentitaPosliAifoInfoResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrEidentitaPosliAifoInfoBinding" type="tns:IszrEidentitaPosliAifoInfoPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrEidentitaPosliAifoInfo">
+			<soap:operation soapAction="IszrEidentitaPosliAifoInfo"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrEidentitaPosliAifoInfoService">
+		<wsdl:port name="IszrEidentitaPosliAifoInfoPortService" binding="tns:IszrEidentitaPosliAifoInfoBinding">
+			<soap:address location="IszrEidentitaPosliAifoInfo"/>
+		</wsdl:port>
+	</wsdl:service>
+	<!-- Verze 1.0.0, 27.10.2017 Pavel Odstrčil -->
+	<!-- AutoCont CZ a.s. -->
+</wsdl:definitions>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrIsuiCtiPrvekMomcKDatu2:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrIsuiCtiPrvekMomcKDatu2:v1"
+	xmlns:e252f="urn:cz:isvs:iszr:schemas:IszrIsuiCtiPrvekMomcKDatu2:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:ctiMcKD="urn:cz:isvs:isui:schemas:CtiMomcKDatu:v2"
+	xmlns:ctiMc="urn:cz:isvs:ruian:schemas:CtiMomc:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="2.0.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E252F externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Výchozí verze 2.0.0, 13.10.2020 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:isui:schemas:CtiMomcKDatu:v2" schemaLocation="../../isui/xsd/ext/v2/cti_historii/CtiMomcKDatu.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiMomc:v2" schemaLocation="ref/RuianCtiPrvekMomc2.xsd"/>
+
+	<xs:element name="IsuiCtiPrvekMomcKDatu2" type="IsuiCtiPrvekMomcKDatu2Type"/>
+	<xs:element name="IsuiCtiPrvekMomcKDatu2Response" type="IsuiCtiPrvekMomcKDatu2ResponseType"/>
+
+	<xs:complexType name="IsuiCtiPrvekMomcKDatu2Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E252F externího rozhraní - žádost. Služba která vrátí požadované atributy prvku RUIAN editovaného v ISUI k požadovanému datu. ISUI služba, operace ctiMomcKDatu.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IsuiCtiPrvekMomcKDatu2Data" type="ctiMcKD:CtiMomcKDatuDotazType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="IsuiCtiPrvekMomcKDatu2ResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E252F externího rozhraní - odpověď. Služba která vrátí požadované atributy prvku RUIAN editovaného v ISUI k požadovanému datu. ISUI služba, operace ctiMomcKDatu.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="IsuiOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IsuiCtiPrvekMomcKDatu2DataResponse">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element ref="ctiMc:Momc"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

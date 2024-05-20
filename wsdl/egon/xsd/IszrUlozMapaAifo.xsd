@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:iszr:schemas:IszrUlozMapaAifo:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" xmlns:i25="urn:cz:isvs:iszr:schemas:IszrDataUlozMapaAifo:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:cz:isvs:iszr:schemas:IszrUlozMapaAifo:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.1.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">XML schéma s definicemi datových prvků ISZR. Služba E175 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	<!-- Vývojová verze 0.1.0, 19.11.2013, Pavel Odstrčil, vznik -->
+	<!-- 1.0.1, 17.3.2016, Pavel Odstrčil, změna bázového typu, doplnění AutorizaceInfo -->
+	<!-- 1.1.0, 15.7.2019, Pavel Odstrčil, doplnění nepovinné MapaAifo na výstup -->
+	<!-- AutoCont CZ a.s. -->
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrDataUlozMapaAifo:v1" schemaLocation="../../iszr/xsd/IszrDataUlozMapaAifo.xsd"/>
+	<xs:element name="IszrUlozMapaAifo" type="IszrUlozMapaAifoType"/>
+	<xs:element name="IszrUlozMapaAifoResponse" type="IszrUlozMapaAifoResponseType"/>
+	<xs:complexType name="IszrUlozMapaAifoType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E175 externího rozhraní - typ pro žádost. Služba umožňuje uložit mapu AIFO pro překlad pro jiný AIS.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostRAifoAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost" minOccurs="1">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IszrUlozMapaAifoData" type="i25:IszrUlozMapaAifoDataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="IszrUlozMapaAifoResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E175 externího rozhraní - typ pro odpověď. Služba umožňuje uložit mapu AIFO pro překlad pro jiný AIS.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAifoAbstractType">
+				<xs:sequence>
+					<xs:element name="IszrOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IszrUlozMapaAifoDataResponse" type="i25:IszrUlozMapaAifoDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

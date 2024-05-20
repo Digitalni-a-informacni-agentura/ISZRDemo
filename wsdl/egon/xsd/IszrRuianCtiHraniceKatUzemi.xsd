@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRuianCtiHraniceKatUzemi:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRuianCtiHraniceKatUzemi:v1" 
+	xmlns:e155="urn:cz:isvs:iszr:schemas:IszrRuianCtiHraniceKatUzemi:v1" 
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" 
+	xmlns:hrku="urn:cz:isvs:ruian:schemas:CtiHraniceKatUzemi:v1" 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"  
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified" 
+	version="1.1.1">
+	
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E155 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	
+	<!-- Vývojová verze 0.0.1, 20.03.2012, Jan Sluka -->
+	<!-- Vývojová verze 0.0.2, 27.03.2012, Aleš Teplý, úrpava alias, názvu elementu -->
+	<!-- Katalog.7.2 verze 1.1.1, 28.06.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+	
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiHraniceKatUzemi:v1" schemaLocation="ref/RuianCtiHraniceKatUzemi.xsd"/>
+	
+	<xs:element name="RuianCtiHraniceKatUzemi" type="RuianCtiHraniceKatUzemiType"/>
+	<xs:element name="RuianCtiHraniceKatUzemiResponse" type="RuianCtiHraniceKatUzemiResponseType"/>
+	
+	<xs:complexType name="RuianCtiHraniceKatUzemiType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E155 externího rozhraní - žádost.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianCtiHraniceKatUzemiData" type="hrku:CtiHraniceKatUzemiDotazType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="RuianCtiHraniceKatUzemiResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E155 externího rozhraní - odpověď.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="RuianOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianCtiHraniceKatUzemiDataResponse">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element ref="hrku:Odpoved"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:vypf="urn:cz:isvs:iszr:schemas:IszrAsyncVypisFronty:v1" xmlns:tns="urn:cz:isvs:iszr:services:IszrAsyncVypisFronty:v1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns="urn:cz:isvs:iszr:services:IszrAsyncVypisFronty:v1" name="IszrAsyncVypisFronty" targetNamespace="urn:cz:isvs:iszr:services:IszrAsyncVypisFronty:v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation>Služba na výpis fronty odpovědí asynchronních dotazů.</wsdl:documentation>
+  <wsdl:types>
+    <xsd:schema>
+      <xsd:import schemaLocation="../xsd/IszrAsyncVypisFronty.xsd" namespace="urn:cz:isvs:iszr:schemas:IszrAsyncVypisFronty:v1" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IszrAsyncVypisFronty">
+    <wsdl:part name="parametry" element="vypf:IszrAsyncVypisFronty" />
+  </wsdl:message>
+  <wsdl:message name="IszrAsyncVypisFrontyResponse">
+    <wsdl:part name="vysledek" element="vypf:IszrAsyncVypisFrontyResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IszrAsyncVypisFrontyPortType">
+    <wsdl:operation name="IszrAsyncVypisFronty">
+      <wsdl:input message="tns:IszrAsyncVypisFronty" />
+      <wsdl:output message="tns:IszrAsyncVypisFrontyResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="IszrAsyncVypisFrontyBinding" type="tns:IszrAsyncVypisFrontyPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="IszrAsyncVypisFronty">
+      <soap:operation soapAction="IszrAsyncVypisFronty" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="IszrAsyncVypisFrontyService">
+    <wsdl:port name="IszrAsyncVypisFrontyPortService" binding="tns:IszrAsyncVypisFrontyBinding">
+      <soap:address location="IszrAsyncVypisFronty" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

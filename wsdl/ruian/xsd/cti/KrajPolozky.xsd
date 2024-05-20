@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:KrajPolozky:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:KrajPolozky:v1" xmlns:krPol="urn:cz:isvs:ruian:schemas:KrajPolozky:v1" xmlns:krPolBase="urn:cz:isvs:ruian:schemas:KrajPolozkyBase:v1" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:stPolBase="urn:cz:isvs:ruian:schemas:StatPolozkyBase:v1" elementFormDefault="qualified" version="0.40.0">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../ruian/xsd/typy/CommonTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:KrajPolozkyBase:v1" schemaLocation="../../../ruian/xsd/vyhledej/KrajPolozkyBase.xsd"/>
+	<xs:complexType name="KrajPolozkyType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na kraj</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:group ref="krPolBase:KrajPolozkyGroup" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="PlatiOd" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="IdTransakce" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="GlobalniIdNavrhuZmeny" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="DefinicniBod" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Hranice" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

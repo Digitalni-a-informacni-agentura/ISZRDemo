@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekSpravniObvod2:v1" 
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekSpravniObvod2:v1" 
+	xmlns:e250n="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekSpravniObvod2:v1" 
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:ctiSp="urn:cz:isvs:ruian:schemas:CtiSpravniObvod:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified" 
+	version="2.0.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E250n externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	
+	<!-- Výchozí verze 2.0.0, 6.10.2020 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiSpravniObvod:v2" schemaLocation="../../ruian/xsd/ext/v2/cti/CtiSpravniObvod.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiSpravniObvod:v2" schemaLocation="ref/RuianCtiPrvekSpravniObvod2.xsd"/>
+
+	<xs:element name="RuianCtiPrvekSpravniObvod2" type="RuianCtiPrvekSpravniObvod2Type"/>
+	<xs:element name="RuianCtiPrvekSpravniObvod2Response" type="RuianCtiPrvekSpravniObvod2ResponseType"/>
+	
+	<xs:complexType name="RuianCtiPrvekSpravniObvod2Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E250n externího rozhraní - žádost. Načtení Správního obvodu z RUIAN. RUIAN služba, operace ctiSpravniObvod.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianCtiPrvekSpravniObvod2Data" type="ctiSp:CtiSpravniObvodDotazType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="RuianCtiPrvekSpravniObvod2ResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E250n externího rozhraní - odpověď. Načtení Správního obvodu z RUIAN. RUIAN služba, operace ctiSpravniObvod.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+				  <xs:element name="RuianOdpoved" minOccurs="0">
+					<xs:complexType>
+					  <xs:sequence>
+						<xs:element name="RuianCtiPrvekSpravniObvod2DataResponse">
+						  <xs:complexType>
+							<xs:sequence>
+							  <xs:element ref="ctiSp:SpravniObvod"/>
+							</xs:sequence>
+						  </xs:complexType>
+						</xs:element>
+					  </xs:sequence>
+					</xs:complexType>
+				  </xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

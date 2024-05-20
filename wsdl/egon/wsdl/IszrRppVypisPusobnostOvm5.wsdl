@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRppVypisPusobnostOvm5:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRppVypisPusobnostOvm5:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRppVypisPusobnostOvm5:v1"
+	xmlns:e261="urn:cz:isvs:iszr:schemas:IszrRppVypisPusobnostOvm5:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRppVypisPusobnostOvm5">
+
+	<wsdl:documentation>Služba E261 externího rozhraní - Služba vypíše detailní informace o působnosti OVM v agendě ve struktuře po novele zákona 111/2009 včetně stavu zpochybnění - RPP služba P81.</wsdl:documentation>
+
+	<!-- Vytvoření nové verze služby, která vypíše údaje o působnosti pro OVM či SPUU v agendě, včetně stavu zpochybnění, RPP 1.10.0, 12.10.2020, Aleš Teplý -->
+	<!-- Verze po revizi 1.10.1, 14.10.2020, Aleš Teplý, RuianCtiProRobDataResponse v1 i v2 -->
+	<!-- Verze po revizi 1.10.2, 29.10.2020, Aleš Teplý, RppVypisPusobnostOvm5DataResponseType, doplneni minOccurs="0" -->
+	<!-- Verze po revizi 1.10.3, 15.10.2021, Aleš Teplý, AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- Verze po revizi 1.11.0, 25.5.2022, Aleš Teplý, Response - AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRppVypisPusobnostOvm5:v1" schemaLocation="../xsd/IszrRppVypisPusobnostOvm5.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrRppVypisPusobnostOvm5">
+		<wsdl:part name="parametry" element="e261:RppVypisPusobnostOvm5"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRppVypisPusobnostOvm5Response">
+		<wsdl:part name="vysledek" element="e261:RppVypisPusobnostOvm5Response"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRppVypisPusobnostOvm5PortType">
+		<wsdl:operation name="IszrRppVypisPusobnostOvm5">
+			<wsdl:input message="IszrRppVypisPusobnostOvm5"/>
+			<wsdl:output message="IszrRppVypisPusobnostOvm5Response"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRppVypisPusobnostOvm5Binding" type="tns:IszrRppVypisPusobnostOvm5PortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRppVypisPusobnostOvm5">
+			<soap:operation soapAction="IszrRppVypisPusobnostOvm5"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRppVypisPusobnostOvm5Service">
+		<wsdl:port name="IszrRppVypisPusobnostOvm5PortService" binding="tns:IszrRppVypisPusobnostOvm5Binding">
+			<soap:address location="IszrRppVypisPusobnostOvm5"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

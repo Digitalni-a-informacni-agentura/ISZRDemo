@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns="urn:cz:isvs:iszr:services:IszrRobVypisSouhlasuPoskytnutiTretiOsobe:v1" xmlns:tns="urn:cz:isvs:iszr:services:IszrRobVypisSouhlasuPoskytnutiTretiOsobe:v1" xmlns:e224="urn:cz:isvs:iszr:schemas:IszrRobVypisSouhlasuPoskytnutiTretiOsobe:v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" name="IszrRobVypisSouhlasuPoskytnutiTretiOsobe" targetNamespace="urn:cz:isvs:iszr:services:IszrRobVypisSouhlasuPoskytnutiTretiOsobe:v1">
+	<wsdl:documentation>Výpis souhlasů z ROB pro DS třetí strany, do které se při změně mají údaje odeslat. Služba E224 externího rozhraní.</wsdl:documentation>
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRobVypisSouhlasuPoskytnutiTretiOsobe:v1" schemaLocation="../xsd/IszrRobVypisSouhlasuPoskytnutiTretiOsobe.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrRobVypisSouhlasuPoskytnutiTretiOsobe">
+		<wsdl:part name="parametry" element="e224:RobVypisSouhlasuPoskytnutiTretiOsobe"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRobVypisSouhlasuPoskytnutiTretiOsobeResponse">
+		<wsdl:part name="vysledek" element="e224:RobVypisSouhlasuPoskytnutiTretiOsobeResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRobVypisSouhlasuPoskytnutiTretiOsobePortType">
+		<wsdl:operation name="IszrRobVypisSouhlasuPoskytnutiTretiOsobe">
+			<wsdl:input message="IszrRobVypisSouhlasuPoskytnutiTretiOsobe"/>
+			<wsdl:output message="IszrRobVypisSouhlasuPoskytnutiTretiOsobeResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRobVypisSouhlasuPoskytnutiTretiOsobeBinding" type="tns:IszrRobVypisSouhlasuPoskytnutiTretiOsobePortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRobVypisSouhlasuPoskytnutiTretiOsobe">
+			<soap:operation soapAction="IszrRobVypisSouhlasuPoskytnutiTretiOsobe"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRobVypisSouhlasuPoskytnutiTretiOsobeService">
+		<wsdl:port name="IszrRobVypisSouhlasuPoskytnutiTretiOsobePortService" binding="tns:IszrRobVypisSouhlasuPoskytnutiTretiOsobeBinding">
+			<soap:address location="IszrRobVypisSouhlasuPoskytnutiTretiOsobe"/>
+		</wsdl:port>
+	</wsdl:service>
+	<!-- Novela zákona o ZR, nova sluzba, 6..3.2017 Pavel Odstrčil -->
+	<!-- AutoCont CZ a.s. -->
+</wsdl:definitions>

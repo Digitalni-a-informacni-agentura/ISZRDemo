@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRppCtiZmenySluzebVs:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRppCtiZmenySluzebVs:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRppCtiZmenySluzebVs:v1"
+	xmlns:e262="urn:cz:isvs:iszr:schemas:IszrRppCtiZmenySluzebVs:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRppCtiZmenySluzebVs">
+
+	<wsdl:documentation>Služba E262 externího rozhraní, RPP služba P86.</wsdl:documentation>
+
+	<!-- Vytvoření nové verze služby, RPP 1.10.1, 13.10.2020, Aleš Teplý -->
+	<!-- Verze po revizi 1.10.2, 15.10.2021, Aleš Teplý, AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- Verze po revizi 1.11.0, 25.5.2022, Aleš Teplý, Response - AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRppCtiZmenySluzebVs:v1" schemaLocation="../xsd/IszrRppCtiZmenySluzebVs.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrRppCtiZmenySluzebVs">
+		<wsdl:part name="parametry" element="e262:RppCtiZmenySluzebVs"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRppCtiZmenySluzebVsResponse">
+		<wsdl:part name="vysledek" element="e262:RppCtiZmenySluzebVsResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRppCtiZmenySluzebVsPortType">
+		<wsdl:operation name="IszrRppCtiZmenySluzebVs">
+			<wsdl:input message="IszrRppCtiZmenySluzebVs"/>
+			<wsdl:output message="IszrRppCtiZmenySluzebVsResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRppCtiZmenySluzebVsBinding" type="tns:IszrRppCtiZmenySluzebVsPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRppCtiZmenySluzebVs">
+			<soap:operation soapAction="IszrRppCtiZmenySluzebVs"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRppCtiZmenySluzebVsService">
+		<wsdl:port name="IszrRppCtiZmenySluzebVsPortService" binding="tns:IszrRppCtiZmenySluzebVsBinding">
+			<soap:address location="IszrRppCtiZmenySluzebVs"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

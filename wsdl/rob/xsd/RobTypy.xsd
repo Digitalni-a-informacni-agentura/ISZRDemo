@@ -1,0 +1,765 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:rob:schemas:RobTypy:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" targetNamespace="urn:cz:isvs:rob:schemas:RobTypy:v1"
+    elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.0">
+    <xs:annotation>
+        <xs:documentation xml:lang="cs">Návrh XML schématu s definicemi společných datových prvků IS ROB.
+            Toto schéma obsahuje definice záklaních datových prvků, používaných pro dotazy a odpovědi do registru osob
+            (ROB).
+        </xs:documentation>
+    </xs:annotation>
+    <!-- Vývojová verze 0.0.24, 27.5.2010, Vladimír Hudec -->
+    <!-- Vývojová verze 0.0.25, 20.1.2011, Ludmila.Kotlarova@i.cz -->
+    <!-- Vývojová verze 0.0.26, 26.1.2011, Ludmila.Kotlarova@i.cz -->
+    <!-- Vývojová verze 0.0.27, 4.2.2011, Ludmila.Kotlarova@i.cz -->
+    <!-- Vývojová verze 0.0.28, 4.2.2011, Jiri.Gallas@i.cz -->
+    <!-- Vývojová verze 0.0.29, 4.3.2011, Ludmila.Kotlarova@i.cz -->
+    <!-- Vývojová verze 0.0.30, 14.3.2011, Vladimír Hudec -->
+    <!-- Vývojová verze 0.1.0, 19.8.2011, Vladimír Hudec -->
+    <!-- Vývojová verze 0.1.1, 29.8.2011, Vladimír Hudec -->
+    <!-- Vývojová verze 0.1.2, 30.8.2011, Vladimír Hudec -->
+    <!-- Vývojová verze 0.1.3, 30.8.2011, Vladimír Hudec -->
+    <!-- Vývojová verze 0.1.4, 1.9.2011, Vladimír Hudec -->
+    <!-- Vývojová verze 0.1.5, 5.9.2011, Vladimír Hudec -->
+    <!-- Vývojová verze 0.1.6, 13.9.2011, Vladimír Hudec -->
+    <!-- Vývojová verze 0.1.6, 16.9.2011, Vladimir.Hudec@i.cz -->
+    <!-- Vývojová verze 0.1.7, 26.9.2011, Vladimir.Hudec@i.cz -->
+    <!-- Vývojová verze 0.1.8, 17.10.2011, Vladimir.Hudec@i.cz -->
+    <!-- Vývojová verze 0.1.9, 10.11.2011, Jakub.Faryad@i.cz -->
+    <!-- Verze 1.0.0, 31.1.2012, Vladimir.Hudec@i.cz -->
+    <xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd" />
+
+    <xs:complexType name="MistoCrType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odkaz do RUAIN, kód obce nebo pražského obvodu.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="reg:AdresniLokalitaType">
+                <xs:attribute name="obec" type="xs:boolean" />
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="MistoSvetType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Místo a stát pro narození a úmrtí mimo ČR.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="MistoSvet">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="100" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="Stat" type="reg:KodStatType" />
+        </xs:sequence>
+    </xs:complexType>
+    <!-- chyby -->
+    <xs:simpleType name="VysledekSubKodRobType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Detailní kód výsledku, výčtový typ.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="CHYBA MAPA ADRES">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Neshoda mezi použitými kódy RUIAN v datové části a mapě
+                        nebo mapa chybí.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="CHYBA MAPA AIFO">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Neshoda mezi použitými AIFO v datové části a mapě nebo
+                        mapa chybí.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="CHYBA ROZSAHU">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Údaj na vstupu nevyhovuje povolené délce.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="CHYBA TYPU">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Chybný datový typ údaje vstupu.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEVALIDNI DATA">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Aplikační data nejsou validní podle aplikačních omezení.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEVALIDNI ZADOST">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Kód služby neodpovídá XML struktuře žádosti.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="OBECNA CHYBA SLUZBY">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Službu nebylo možné provést z důvodu chyby na straně
+                        poskytovatel služby
+                        (chyba databázového nebo aplikačního serveru, ...).
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="PREKROCEN POCET">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Překročen počet povolených záznamů. Je nutno upřesnit
+                        podmínky pro vyhledání.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEPOVOLENA KOMBINACE">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Vyhledávací dotaz neobsahuje žádnou z minimálních
+                        povolených
+                        kombinací parametrů dotazu
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEPOVOLENY PARAMETR">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Vyhledávací dotaz obsahuje nepovolený parametr datazu.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ZAZNAM NENALEZEN">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        stupní kombinaci údajů neodpovídá žádný záznam.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NENI OPRAVNENI">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Není oprávnění k požadované interní službě, rozhodnutí
+                        základního registru.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NENI K DISPOZICI">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Služba není dočasně k dispozici.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NENI IMPLEMENTOVANO">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">
+                        Služba není implementována.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="RobAplikacniStatusType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Aplikační chyba, doplnění k StatusType ze systémové části
+                zprávy, odpověď.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="VysledekRobKodType" type="reg:VysledekKodType" />
+            <xs:element name="VysledekDetail" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="VysledekSubKod" type="VysledekSubKodRobType" />
+                        <xs:element name="VysledekPopis" type="reg:VysledekPopisType" minOccurs="0" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <!-- osoba -->
+    <xs:simpleType name="AdresaPobytuType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Adresa místa pobytu v ČR.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:KodAdresniMistoType" />
+    </xs:simpleType>
+    <xs:complexType name="AdresaPobytuStavType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Adresa místa pobytu v ČR včetně stavu a času poslední změny.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="AdresaPobytuType">
+                <xs:attribute name="stav" type="reg:StavType" />
+                <xs:attribute name="zmenaCas" type="ZmenaCasType" />
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="LokalniAifoStavType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Agendový identifikátor fyzické osoby včetně stavu a času
+                poslední změny.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="reg:LokalniAifoType">
+                <xs:attribute name="stav" type="reg:StavType" />
+                <xs:attribute name="zmenaCas" type="ZmenaCasType" />
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:simpleType name="BokType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Bezpečnostní osobní kód elektronicky čitelného dokladu.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:base64Binary">
+            <xs:maxLength value="20" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="BokStavType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">BOK včetně stavu.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="BokType">
+                <xs:attribute name="stav" type="reg:StavType" />
+                <xs:attribute name="zmenaCas" type="ZmenaCasType" />
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="DatovaSchrankaStavType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Datová schránka včetně stavu a času poslední změny.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="reg:DatovaSchrankaIdType">
+                <xs:attribute name="stav" type="reg:StavType" />
+                <xs:attribute name="zmenaCas" type="ZmenaCasType" />
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:simpleType name="DatumNarozeniType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Datum narození fyzické osoby.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:date" />
+    </xs:simpleType>
+    <xs:complexType name="DatumNarozeniStavType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Datum narození fyzické osoby včetně stavu a času poslední změny.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="DatumNarozeniType">
+                <xs:attribute name="stav" type="reg:StavType" />
+                <xs:attribute name="zmenaCas" type="ZmenaCasType" />
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:simpleType name="DatumPravniMociUmrtiType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Datum nabytí právní moci rozhodnutí soudu o úmrtí.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:date" />
+    </xs:simpleType>
+    <xs:complexType name="DatumPravniMociUmrtiStavType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Datum nabytí právní moci rozhodnutí soudu o úmrtí včetně
+                stavu a
+                času poslední změny.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="DatumPravniMociUmrtiType">
+                <xs:attribute name="stav" type="reg:StavType" />
+                <xs:attribute name="zmenaCas" type="ZmenaCasType" />
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:simpleType name="DatumUmrtiType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Datum úmrtí fyzické osoby.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:date" />
+    </xs:simpleType>
+    <xs:complexType name="DatumUmrtiStavType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Datum úmrtí fyzické osoby včetně stavu a času
+                poslední změny.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="DatumUmrtiType">
+                <xs:attribute name="stav" type="reg:StavType" />
+                <xs:attribute name="zmenaCas" type="ZmenaCasType" />
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:simpleType name="DorucovaciAdresaCrType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Nepovinná adresa, na kterou mají být doručovány
+                písemnosti v ČR.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:KodAdresniMistoType" />
+    </xs:simpleType>
+    <xs:simpleType name="DorucovaciAdresaOstatniType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Nepovinná adresa, na kterou mají být doručovány písemnosti
+                mimo
+                ČR.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="255" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="DorucovaciAdresaType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Nepovinná adresa, na kterou mají být doručovány písemnosti.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="AdresaCr" type="DorucovaciAdresaCrType" minOccurs="0" />
+            <xs:element name="AdresaOstatni" type="DorucovaciAdresaOstatniType" minOccurs="0" />
+        </xs:sequence>
+        <xs:attribute name="typAdresy" type="TypDorucovaciAdresyType" />
+    </xs:complexType>
+    <xs:simpleType name="TypDorucovaciAdresyType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Typ adresy, na kterou mají být doručovány písemnosti.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="adresaCrOdkaz" />
+            <xs:enumeration value="adresaCrOdkazProstrednik" />
+            <xs:enumeration value="adresaCrText" />
+            <xs:enumeration value="adresaSvet" />
+            <xs:enumeration value="adresaPostovniPrihradky" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="DorucovaciAdresaStavType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Nepovinná adresa, na kterou mají být doručovány písemnosti
+                včetně stavu a času poslední změny.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="DorucovaciAdresaType">
+                <xs:attribute name="stav" type="reg:StavType" />
+                <xs:attribute name="zmenaCas" type="ZmenaCasType" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:simpleType name="EditorType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Agenda = editor záznamu.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:KodAgendyType" />
+    </xs:simpleType>
+    <xs:simpleType name="JmenoType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Jméno popřípadě jména fyzické osoby.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="100" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="JmenoStavType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Jméno popřípadě jména fyzické osoby včetně stavu a času
+                poslední
+                změny.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="JmenoType">
+                <xs:attribute name="stav" type="reg:StavType" />
+                <xs:attribute name="zmenaCas" type="ZmenaCasType" />
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="MistoNarozeniType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Místo a okres narození v ČR nebo místo a stát narození.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:choice>
+            <xs:element name="NarozeniCr" type="MistoCrType">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Místo narození v ČR.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="NarozeniSvet" type="MistoSvetType">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Místo narození mimo ČR.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="MistoNarozeniStavType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">>Místo a okres narození v ČR nebo místo a stát narození
+                včetně
+                stavu a času poslední změny.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="MistoNarozeniType">
+                <xs:attribute name="stav" type="reg:StavType" />
+                <xs:attribute name="zmenaCas" type="ZmenaCasType" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="MistoUmrtiType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Místo a okres úmrtí v ČR nebo místo a stát úmrtí.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:choice>
+            <xs:element name="UmrtiCr" type="MistoCrType">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Místo úmrtí v ČR.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="UmrtiSvet" type="MistoSvetType">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Místo úmrtí mimo ČR.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="MistoUmrtiStavType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Místo a okres úmrtí v ČR nebo místo a stát úmrtí včetně
+                stavu a
+                času poslední změny.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="MistoUmrtiType">
+                <xs:attribute name="stav" type="reg:StavType" />
+                <xs:attribute name="zmenaCas" type="ZmenaCasType" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:simpleType name="PrijmeniType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Příjmení fyzické osoby.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="100" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="PrijmeniStavType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Příjmení fyzické osoby včetně stavu a času poslední změny.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="PrijmeniType">
+                <xs:attribute name="stav" type="reg:StavType" />
+                <xs:attribute name="zmenaCas" type="ZmenaCasType" />
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:simpleType name="TypOsobyType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Typ osoby pro kontrolu oprávnění požadavku.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:enumeration value="obyvatel" />
+            <xs:enumeration value="cizinec" />
+            <xs:enumeration value="jiny" />
+        </xs:restriction>
+    </xs:simpleType>
+    <!-- obcanstvi -->
+    <xs:simpleType name="ObcanstviType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Státní občanství.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:KodStatType" />
+    </xs:simpleType>
+    <xs:complexType name="ObcanstviStavType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Státní občanství včetně stavu a času poslední změny.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="ObcanstviType">
+                <xs:attribute name="stav" type="reg:StavType" />
+                <xs:attribute name="zmenaCas" type="ZmenaCasType" />
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="ObcanstviZmenaType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Změna občanství.
+                Pokud je daná jenom položka Puvodni, jde o
+                zrušení občanství.
+                Pokud je daná jenom položka Novy, jde o zavedení občanství.
+                Jinak jde o změnu
+                občanství.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Puvodni" type="ObcanstviType" minOccurs="0" />
+            <xs:element name="Novy" type="ObcanstviType" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ObcanstviZmenaStavType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Změna občanství včetně stavu a času poslední změny.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="ObcanstviZmenaType">
+                <xs:attribute name="stav" type="reg:StavType" />
+                <xs:attribute name="zmenaCas" type="ZmenaCasType" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <!-- doklady -->
+    <xs:simpleType name="DokladCisloType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Číslo elektronicky čitelného dokladu.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="9" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="DokladDruhType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Druh elektronicky čitelného dokladu.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:NonEmptyNormStringType">
+            <xs:maxLength value="2" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="DokladType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Elektronicky čitelný doklad.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Cislo" type="DokladCisloType" />
+            <xs:element name="Druh" type="DokladDruhType" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="DokladStavType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Elektronicky čitelný doklad včetně stavu a času
+                poslední změny.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="DokladType">
+                <xs:attribute name="stav" type="reg:StavType" />
+                <xs:attribute name="zmenaCas" type="ZmenaCasType" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="DokladZmenaType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Změna elektronicky čitelného dokladu.
+                Pokud je daná jenom položka
+                Puvodni, jde o zrušení dokladu.
+                Pokud je daná jenom položka Novy, jde o zavedení dokladu.
+                Jinak jde o
+                změnu dokladu.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Puvodni" type="DokladType" minOccurs="0" />
+            <xs:element name="Novy" type="DokladType" minOccurs="0" />
+            <xs:element name="Bok" type="BokStavType" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="DokladZmenaStavType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Změna elektronicky čitelného dokladu včetně stavu
+                a času poslední
+                změny.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="DokladZmenaType">
+                <xs:attribute name="stav" type="reg:StavType" />
+                <xs:attribute name="zmenaCas" type="ZmenaCasType" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <!-- zmeny -->
+    <xs:simpleType name="ZmenaCasType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Datum a čas změny fyzické osoby.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:CasovaZnackaType" />
+    </xs:simpleType>
+    <xs:simpleType name="ZmenaSpecifikaceType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Specifikace změny, seznam názvů datových položek.
+                Bitově
+                orientovaná hodnota.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:long" />
+    </xs:simpleType>
+    <xs:simpleType name="ZmenaIdType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Jednoznačný identifikátor změny.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:long" />
+    </xs:simpleType>
+    <!-- znepristupneni -->
+    <xs:simpleType name="ZnepristupneniDatumCasType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Datum a čas žádosti, kdy došlo k znepřístupnění.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="reg:CasovaZnackaType" />
+    </xs:simpleType>
+    <xs:simpleType name="ZnepristupneniDatumType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Datum žádosti, kdy došlo k znepřístupnění.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:date" />
+    </xs:simpleType>
+    <!-- poskytnuti jine osobe -->
+    <xs:complexType name="PoskytnutiJineOsobeType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Seznam záznamů o DS, do kterých se při změně mají údaje odeslat.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="IdSouhlasu" type="PoskytnutiJineOsobeIdType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Jednoznačný identifikátor poskytnutí jiné osobě.
+                        Pokud
+                        není uveden, jedná se o nový záznam.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SouhlasCas" type="reg:CasovaZnackaType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Datum a čas vložení souhlasu.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:choice minOccurs="0">
+                <xs:element name="AifoPoskytnuti" type="reg:LokalniAifoType">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="cs">AIFO osoby, jíž jsou údaje poskytovány.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="IcoPoskytnuti" type="reg:IcoType">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="cs">IČO osoby, jíž jsou údaje poskytovány.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:choice>
+            <xs:element name="DatovaSchrankaPoskytnuti" type="reg:DatovaSchrankaIdType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Identifikátor datové schránky. Povinný údaj pro nový
+                        záznam.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SeznamUdajuPoskytnuti" type="VyuzitiPoskytnutiSpecifikaceType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Seznam poskytovaných údajů.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="PoskytnutiJineOsobeIdType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Jednoznačný identifikátor poskytnutí jiné osobě.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:long" />
+    </xs:simpleType>
+    <!-- vyuziti a poskytnuti -->
+    <xs:simpleType name="TypVyuzitiPoskytnutiType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Indikátor, zda se jedná o využití nebo poskytnutí údajů.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="vyuziti" />
+            <xs:enumeration value="poskytnuti" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="VyuzitiPoskytnutiSpecifikaceType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Specifikace využití nebo poskytnutí, seznam názvů datových
+                položek.
+                Bitově orientovaná hodnota.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:long" />
+    </xs:simpleType>
+    <!-- kontrolni soucet -->
+    <xs:simpleType name="AifoKontrolaType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Součet pro kontrolu integrity AIFO a údajů.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:base64Binary">
+            <xs:length value="64" />
+        </xs:restriction>
+    </xs:simpleType>
+    <!-- typ hledani podle udaju -->
+    <xs:simpleType name="TypPorovnaniType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Indikátor, jaký typ porovnání hledaných dat vůči DB
+                je nutno
+                použít.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="striktni">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Respektování diakritiky a velikosti písmen.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="diakritika">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Respektování diakritiky bez ohledu na velikost písmen.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ascii">
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Nerespektování diakritiky a velikosti písmen.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="CisloZaznamu">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Číslování záznamů - od.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:int">
+            <xs:minInclusive value="1"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:iszr:schemas:IszrAispCtiZmenyIs:v1" xmlns:e237="urn:cz:isvs:iszr:schemas:IszrAispCtiZmenyIs:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" xmlns:z1="urn:cz:isvs:aisp:schemas:AispDotazyData:v1" xmlns:aisse="urn:cz:isvs:aisse:schemas:AisSeTypy:v1" xmlns:rod="urn:cz:isvs:rob:schemas:RobDotazyData:v1" xmlns:crob="urn:cz:isvs:ruian:schemas:CtiProRob:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:cz:isvs:iszr:schemas:IszrAispCtiZmenyIs:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E237 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	<!-- Vznik verze 1.0.0, Pavel Odstrcil -->
+	<!-- AutoCont CZ a.s. -->
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstractOrg.xsd"/>
+	<xs:import namespace="urn:cz:isvs:aisp:schemas:AispDotazyData:v1" schemaLocation="../../aisp/xsd/AispDotazyData.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rob:schemas:RobDotazyData:v1" schemaLocation="../../rob/xsd/RobDotazyData.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiProRob:v1" schemaLocation="ref/RuianCtiProRob.xsd"/>
+	<xs:element name="AispCtiZmenyIs" type="AispCtiZmenyIsType"/>
+	<xs:element name="AispCtiZmenyIsResponse" type="AispCtiZmenyIsResponseType"/>
+	<xs:complexType name="AispCtiZmenyIsType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E237 externího rozhraní - typ pro žádost. Služba umožňuje načítat z AISP nereferenční údaje, seznam změn AIS.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="AispCtiZmenyIsData" type="z1:AispCtiZmenyIsDataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="AispCtiZmenyIsResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E237 externího rozhraní - typ pro odpověď. Služba umožňuje načítat z AISP nereferenční údaje, seznam změn AIS.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="AispOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="AispCtiZmenyIsDataResponse" type="z1:AispCtiZmenyIsDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrIsuiCtiPrvekObvodPrahyKDatu2:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrIsuiCtiPrvekObvodPrahyKDatu2:v1"
+	xmlns:e252g="urn:cz:isvs:iszr:schemas:IszrIsuiCtiPrvekObvodPrahyKDatu2:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:ctiMpKD="urn:cz:isvs:isui:schemas:CtiObvodPrahyKDatu:v2"
+	xmlns:ctiMp="urn:cz:isvs:ruian:schemas:CtiObvodPrahy:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="2.0.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E252G externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Výchozí verze 2.0.0, 14.10.2020 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:isui:schemas:CtiObvodPrahyKDatu:v2" schemaLocation="../../isui/xsd/ext/v2/cti_historii/CtiObvodPrahyKDatu.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiObvodPrahy:v2" schemaLocation="ref/RuianCtiPrvekObvodPrahy2.xsd"/>
+
+	<xs:element name="IsuiCtiPrvekObvodPrahyKDatu2" type="IsuiCtiPrvekObvodPrahyKDatu2Type"/>
+	<xs:element name="IsuiCtiPrvekObvodPrahyKDatu2Response" type="IsuiCtiPrvekObvodPrahyKDatu2ResponseType"/>
+
+	<xs:complexType name="IsuiCtiPrvekObvodPrahyKDatu2Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E252G externího rozhraní - žádost. Služba která vrátí požadované atributy prvku RUIAN editovaného v ISUI k požadovanému datu. ISUI služba, operace ctiObvodPrahyKDatu.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IsuiCtiPrvekObvodPrahyKDatu2Data" type="ctiMpKD:CtiObvodPrahyKDatuDotazType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="IsuiCtiPrvekObvodPrahyKDatu2ResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E252G externího rozhraní - odpověď. Služba která vrátí požadované atributy prvku RUIAN editovaného v ISUI k požadovanému datu. ISUI služba, operace ctiObvodPrahyKDatu.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="IsuiOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IsuiCtiPrvekObvodPrahyKDatu2DataResponse">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element ref="ctiMp:ObvodPrahy"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

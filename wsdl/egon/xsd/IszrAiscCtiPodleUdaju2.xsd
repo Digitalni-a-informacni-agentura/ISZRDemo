@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrAiscCtiPodleUdaju2:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrAiscCtiPodleUdaju2:v1"
+	xmlns:e174="urn:cz:isvs:iszr:schemas:IszrAiscCtiPodleUdaju2:v1"
+	xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:aiscd="urn:cz:isvs:aisc:schemas:AiscDotazyData:v2"
+	xmlns:rob="urn:cz:isvs:rob:schemas:RobTypy:v1"
+	xmlns:rod="urn:cz:isvs:rob:schemas:RobDotazyData:v1"
+	xmlns:crob2="urn:cz:isvs:ruian:schemas:CtiProRob:v2"
+	xmlns:isdd="urn:cz:isvs:iszr:schemas:IszrDotazyData:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.2.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba e174 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	
+	<!-- Výchozí verze 1.0.0, 4.8.2019, ales.teply@autocont.cz -->
+	<!-- Verze po revizi 1.1.0, 26.11.2019, Aleš Teplý, změna Response: odebrána nepovinná odpověď RobCtiAifo, přidána nepovinná odpověď RobCtiHromadneAifo -->
+	<!-- Verze po revizi 1.1.1, 14.10.2020, Aleš Teplý, RuianCtiProRobDataResponse v1 i v2 -->
+	<!-- Verze po revizi 1.2.0, 13.8.2021, Aleš Teplý, rozšíření struktury Response ROB v2.0.0, aplikačně zatím omezeno na kompatibilitu s ROB v1.0.9 -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstractOrg.xsd"/>
+	<xs:import namespace="urn:cz:isvs:aisc:schemas:AiscDotazyData:v2" schemaLocation="../../aisc2/xsd/AiscDotazyData.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rob:schemas:RobTypy:v1" schemaLocation="../../rob/xsd/RobTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rob:schemas:RobDotazyData:v1" schemaLocation="../../rob/xsd/RobDotazyData.xsd"/>	
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiProRob:v2" schemaLocation="ref/RuianCtiProRob2.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrDotazyData:v1" schemaLocation="../../iszr/xsd/IszrDotazyData.xsd"/>
+
+	<xs:element name="AiscCtiPodleUdaju2" type="AiscCtiPodleUdaju2Type"/>
+	<xs:element name="AiscCtiPodleUdaju2Response" type="AiscCtiPodleUdaju2ResponseType"/>
+
+	<xs:complexType name="AiscCtiPodleUdaju2Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba e174 externího rozhraní - typ pro žádost. Služba umožňuje provést hledání v AIS CIS podle jména, příjmení, rodného příjmení, data narození a rodného čísla. Služba vrací AIFO a příznak, zda bylo AIFO ověřeno v ROB (služba AIS CIS C02).</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="AiscCtiPodleUdajuData" type="aiscd:AiscCtiPodleUdajuDataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="AiscCtiPodleUdaju2ResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba e174 externího rozhraní - typ pro odpověď. Služba umožňuje provést hledání v AIS CIS podle jména, příjmení, rodného příjmení, data narození a rodného čísla. Služba vrací AIFO a příznak, zda bylo AIFO ověřeno v ROB (služba AIS CIS C02).</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAifoStIdAdrAbstractType">
+				<xs:sequence>
+					<xs:element name="AiscOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="AiscCtiPodleUdajuDataResponse" type="aiscd:AiscCtiPodleUdaju2DataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="RobOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RobOverHromadneAifoDataResponse" type="rod:RobOverHromadneAifoDataResponseType" minOccurs="0"/>
+								<xs:element name="RobCtiHromadneAifoDataResponse" type="rod:RobCtiHromadneAifoDataResponseType" minOccurs="0"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="RuianOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianCtiProRobDataResponse" type="crob2:RuianCtiProRobDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="IszrOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IszrStatusDataResponse" type="IszrStatusDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="IszrStatusDataResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Hlášení problémů ISZR (např. s konverzí AIFO CIS-ROB).</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="isdd:IszrDotazyDataResponseType">
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

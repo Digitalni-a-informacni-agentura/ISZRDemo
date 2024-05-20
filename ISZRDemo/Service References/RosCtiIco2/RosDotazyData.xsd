@@ -1,0 +1,735 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:dot="urn:cz:isvs:ros:schemas:RosDotazyTypy:v1" xmlns:ros="urn:cz:isvs:ros:schemas:RosTypy:v2" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns="urn:cz:isvs:ros:schemas:RosDotazyData:v2" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:cz:isvs:ros:schemas:RosDotazyData:v2" version="2.3.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="RosTypy.xsd" namespace="urn:cz:isvs:ros:schemas:RosTypy:v2" />
+  <xs:import schemaLocation="../../RegTypy.xsd" namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" />
+  <xs:import schemaLocation="RosDotazyTypy.xsd" namespace="urn:cz:isvs:ros:schemas:RosDotazyTypy:v1" />
+  <xs:annotation>
+    <xs:documentation xml:lang="cs">Návrh XML schématu s definicemi dotazovacích datových prvků IS ROS.
+          Toto schéma obsahuje definice datových prvků vstupu a výstupu jednotlivých dotazovacích služeb
+          registru osob (ROS).
+        </xs:documentation>
+  </xs:annotation>
+  <xs:element name="RosCtiIcoData" type="RosCtiIcoDataType" />
+  <xs:element name="RosCtiIcoDataResponse" type="RosCtiIcoDataResponseType" />
+  <xs:element name="RosCtiIco2Data" type="RosCtiIco2DataType" />
+  <xs:element name="RosCtiIco2DataResponse" type="RosCtiIco2DataResponseType" />
+  <xs:element name="RosCtiAifoData" type="RosCtiAifoDataType" />
+  <xs:element name="RosCtiAifoDataResponse" type="RosCtiAifoDataResponseType" />
+  <xs:element name="RosCtiAifo2Data" type="RosCtiAifo2DataType" />
+  <xs:element name="RosCtiAifo2DataResponse" type="RosCtiAifo2DataResponseType" />
+  <xs:element name="RosCtiPodleUdajuData" type="RosCtiPodleUdajuDataType" />
+  <xs:element name="RosCtiPodleUdajuDataResponse" type="RosCtiPodleUdajuDataResponseType" />
+  <xs:element name="RosCtiPodleUdaju2Data" type="RosCtiPodleUdaju2DataType" />
+  <xs:element name="RosCtiPodleUdaju2DataResponse" type="RosCtiPodleUdaju2DataResponseType" />
+  <xs:element name="RosCtiZmenyData" type="RosCtiZmenyDataType" />
+  <xs:element name="RosCtiZmenyResponse" type="RosCtiZmenyDataResponseType" />
+  <xs:element name="RosCtiSeznamIcoData" type="RosCtiSeznamIcoDataType" />
+  <xs:element name="RosCtiSeznamIcoDataResponse" type="RosCtiSeznamIcoDataResponseType" />
+  <xs:element name="RosCtiSeznamIco2Data" type="RosCtiSeznamIco2DataType" />
+  <xs:element name="RosCtiSeznamIco2DataResponse" type="RosCtiSeznamIco2DataResponseType" />
+  <xs:element name="RosVypisVyuzitiData" type="RosVypisVyuzitiDataType" />
+  <xs:element name="RosVypisVyuzitiDataResponse" type="RosVypisVyuzitiDataResponseType" />
+  <xs:element name="RosCtiSeznamEditoruData" type="RosCtiSeznamEditoruDataType" />
+  <xs:element name="RosCtiSeznamEditoruDataResponse" type="RosCtiSeznamEditoruDataResponseType" />
+  <xs:element name="RosVypisZnepristupneniData" type="RosVypisZnepristupneniDataType" />
+  <xs:element name="RosVypisZnepristupneniDataResponse" type="RosVypisZnepristupneniDataResponseType" />
+  <xs:complexType name="RosDotazyDataResponseAbstractType" abstract="true">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">
+              Společný předek všech odpovědí na dotazy ROS.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="AplikacniStatus" type="ros:AplikacniStatusType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RosCtiIcoDataType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">
+              Čtení referenčních údajů podle IČO - služba S05
+            </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Ico" type="reg:IcoType" />
+    </xs:sequence>
+    <xs:attribute name="znepristupniLog" type="xs:boolean" />
+  </xs:complexType>
+  <xs:complexType name="RosCtiIcoDataResponseType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">
+              Čtení referenčních údajů podle IČO - služba S05, odpověď.
+              Pokud pro předané IČO nebyla osoba zapsána, ale bylo jen zažádáno o jeho přidělení,
+              služba vrátí údaje z žádosti o přidělení IČO a chybový status.
+              Pokud pro předané IČO nebyla osoba zapsána, ale IČO bylo hromadně přiděleno,
+              služba vrátí kód agendy a chybový status.              
+              Jinak služba vrací kompletní referenční údaje fyzické nebo právnické osoby a identifikátor poslední změny
+              osoby nebo chybový status.
+            </xs:documentation>
+      <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                OBECNA CHYBA SLUZBY
+                ICO NEEXISTUJE
+                ICO NEPRIDELENO
+                ICO PRIDELENO
+                ICO HROMADNE PRIDELENO
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+                NEPOVOLENE ZNEPRISTUPNENI
+            </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="RosDotazyDataResponseAbstractType">
+        <xs:choice minOccurs="0">
+          <xs:element name="PravnickaOsoba" type="dot:PravnickaOsobaStavResponseType" />
+          <xs:element name="FyzickaOsoba" type="dot:FyzickaOsobaStavResponseType" />
+          <xs:element name="UdajeZadosti" type="ros:UdajeZadostiIcoResponseType" />
+          <xs:element name="KodAgendy" type="reg:KodAgendyType" />
+        </xs:choice>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="RosCtiAifoDataType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">
+              Čtení referenčních údajů podle AIFO - služba S06.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Aifo" type="reg:LokalniAifoType" />
+    </xs:sequence>
+    <xs:attribute name="znepristupniLog" type="xs:boolean" />
+  </xs:complexType>
+  <xs:complexType name="RosCtiAifoDataResponseType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">
+              Čtení referenčních údajů podle AIFO - služba S06, odpověď.
+              Pokud pro předané AIFO nebyla osoba zapsána, ale bylo jen zažádáno o přidělení IČO s předaným AIFO,
+              služba vrátí údaje z žádosti o přidělení IČO a chybový status.
+              Pokud pro předané AIFO nebyla osoba zapsána, ale IČO pro předané AIFO bylo hromadně přiděleno,
+              služba vrátí kód agendy a chybový status.                            
+              V případě nalezení více než jedné zapsané osoby s předaným AIFO, vrací služba seznam fyzických osob
+              s jejich referenčními a provozními údaji a chybový status.
+              Jinak služba vrací kompletní referenční údaje fyzické osoby a identifikátor poslední změny
+              osoby nebo chybový status.
+            </xs:documentation>
+      <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                OBECNA CHYBA SLUZBY
+                ICO NEEXISTUJE
+                ICO PRIDELENO
+                CHYBA MAPA AIFO                
+                ZAPSANO VICE OSOB
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+                NEPOVOLENE ZNEPRISTUPNENI
+            </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="RosDotazyDataResponseAbstractType">
+        <xs:choice minOccurs="0">
+          <xs:element maxOccurs="unbounded" name="FyzickaOsoba" type="dot:FyzickaOsobaStavResponseType" />
+          <xs:element name="UdajeZadosti" type="ros:UdajeZadostiIcoResponseType" />
+          <xs:element name="KodAgendy" type="reg:KodAgendyType" />
+        </xs:choice>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="RosCtiIco2DataType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">
+              Čtení referenčních údajů podle IČO - služba S31
+            </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Ico" type="reg:IcoType" />
+    </xs:sequence>
+    <xs:attribute name="znepristupniLog" type="xs:boolean" />
+  </xs:complexType>
+  <xs:complexType name="RosCtiIco2DataResponseType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">
+              Čtení referenčních údajů podle IČO - služba S31, odpověď.
+              Pokud pro předané IČO nebyla osoba zapsána, ale bylo jen zažádáno o jeho přidělení,
+              služba vrátí údaje z žádosti o přidělení IČO a chybový status.
+              Pokud pro předané IČO nebyla osoba zapsána, ale IČO bylo hromadně přiděleno,
+              služba vrátí kód agendy a chybový status.              
+              Jinak služba vrací kompletní referenční údaje fyzické nebo právnické osoby a identifikátor poslední změny
+              osoby nebo chybový status.
+            </xs:documentation>
+      <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                OBECNA CHYBA SLUZBY
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+                ICO NEEXISTUJE
+                NEPOVOLENE ZNEPRISTUPNENI
+                ICO NEPRIDELENO
+                ICO PRIDELENO
+                ICO HROMADNE PRIDELENO
+                CHYBI FO V SEZNAM UDAJU
+                CHYBI ANGAZMA V SEZNAM UDAJU
+                CHYBI PROVOZOVNY V SEZNAM UDAJU
+            </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="RosDotazyDataResponseAbstractType">
+        <xs:choice minOccurs="0">
+          <xs:element name="PravnickaOsoba" type="dot:PravnickaOsobaStavResponse2Type" />
+          <xs:element name="FyzickaOsoba" type="dot:FyzickaOsobaStavResponse2Type" />
+          <xs:element name="UdajeZadosti" type="ros:UdajeZadostiIcoResponseType" />
+          <xs:element name="KodAgendy" type="reg:KodAgendyType" />
+        </xs:choice>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="RosCtiAifo2DataType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">
+              Čtení referenčních údajů podle AIFO - služba S32.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Aifo" type="reg:LokalniAifoType" />
+    </xs:sequence>
+    <xs:attribute name="znepristupniLog" type="xs:boolean" />
+  </xs:complexType>
+  <xs:complexType name="RosCtiAifo2DataResponseType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">
+              Čtení referenčních údajů podle AIFO - služba S32, odpověď.
+              Pokud pro předané AIFO nebyla osoba zapsána, ale bylo jen zažádáno o přidělení IČO s předaným AIFO,
+              služba vrátí údaje z žádosti o přidělení IČO a chybový status.
+              Pokud pro předané AIFO nebyla osoba zapsána, ale IČO pro předané AIFO bylo hromadně přiděleno,
+              služba vrátí kód agendy a chybový status.                            
+              V případě nalezení více než jedné zapsané osoby s předaným AIFO, vrací služba seznam fyzických osob
+              s jejich referenčními a provozními údaji a chybový status.
+              Jinak služba vrací kompletní referenční údaje fyzické osoby a identifikátor poslední změny
+              osoby nebo chybový status.
+            </xs:documentation>
+      <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                OBECNA CHYBA SLUZBY
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+                ICO NEEXISTUJE
+                NEPOVOLENE ZNEPRISTUPNENI
+                ICO PRIDELENO
+                CHYBA MAPA AIFO
+                ZAPSANO VICE OSOB
+                CHYBI FO V SEZNAM UDAJU
+                CHYBI ANGAZMA V SEZNAM UDAJU
+                CHYBI PROVOZOVNY V SEZNAM UDAJU
+            </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="RosDotazyDataResponseAbstractType">
+        <xs:choice minOccurs="0">
+          <xs:element name="FyzickaOsoba" type="dot:FyzickaOsobaStavResponse2Type" />
+          <xs:element name="UdajeZadosti" type="ros:UdajeZadostiIcoResponseType" />
+          <xs:element name="KodAgendy" type="reg:KodAgendyType" />
+        </xs:choice>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="RosCtiPodleUdajuDataType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">
+              Čtení referenčních údajů osoby (osob) na základě vyhledávacích kritérií - služba S07.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="MaximalniPocet" type="reg:MaximalniPocetType" />
+      <xs:element minOccurs="0" name="Ico" type="reg:IcoType" />
+      <xs:element minOccurs="0" name="DatovaSchranka" type="dot:DatovaSchrankaFiltrType" />
+      <xs:element minOccurs="0" name="KodPravniFormy" type="ros:KodPravniFormyType" />
+      <xs:element minOccurs="0" name="KodPravnihoStavu" type="ros:KodPravnihoStavuType" />
+      <xs:element minOccurs="0" name="VerejnaProspesnost" type="ros:VerejnaProspesnostType" />
+      <xs:element minOccurs="0" name="StatutarniOrgan" type="dot:StatutarniOrganFiltrType" />
+      <xs:element minOccurs="0" name="Likvidator" type="dot:AngazovanaOsobaFiltrType" />
+      <xs:element minOccurs="0" name="Opatrovnik" type="dot:AngazovanaOsobaFiltrType" />
+      <xs:element minOccurs="0" name="NucenySpravce" type="dot:AngazovanaOsobaFiltrType" />
+      <xs:element minOccurs="0" name="InsolvencniSpravce" type="dot:AngazovanaOsobaFiltrType" />
+      <xs:element minOccurs="0" name="Provozovna" type="dot:ProvozovnaFiltrType" />
+      <xs:element minOccurs="0" name="OsobaAgendy" type="dot:OsobaAgendyFiltrType" />
+      <xs:element minOccurs="0" name="Fo" type="dot:FoFiltrType" />
+    </xs:sequence>
+    <xs:attribute name="znepristupniLog" type="xs:boolean" />
+  </xs:complexType>
+  <xs:complexType name="RosCtiPodleUdajuDataResponseType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">
+              Čtení referenčních údajů osoby (osob) na základě vyhledávacích kritérií - služba S07, odpověď.
+              Služba vrací seznam fyzických nebo právnických osob s jejich referenčními údaji
+              a v případě překročení povoleného maximálního počtu i chybový status. 
+              Jinak služba vrací jen chybový status.
+            </xs:documentation>
+      <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                OBECNA CHYBA SLUZBY
+                PREKROCEN POCET
+                NEVYHOVUJE ZADNY ZAZNAM OSOBY
+                CHYBA MAPA AIFO
+                CHYBA MAPA ADRES
+                CHYBA ROZSAHU
+                CHYBA OPRAVNENI
+                NEPOVOLENY KOD PRAVNI FORMY
+                NEPOVOLENY KOD PRAVNIHO STAVU
+                NEPOVOLENY KOD AGENDY
+                NEPOVOLENY KOD OVM
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+                NEPOVOLENE ZNEPRISTUPNENI
+            </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="RosDotazyDataResponseAbstractType">
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="PravnickaOsoba" type="dot:PravnickaOsobaHrStavResponseType" />
+          <xs:element name="FyzickaOsoba" type="dot:FyzickaOsobaHrStavResponseType" />
+        </xs:choice>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="RosCtiPodleUdaju2DataType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">
+              Čtení referenčních údajů osoby (osob) na základě vyhledávacích kritérií - služba S33.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="OdIco" type="reg:IcoType" />
+      <xs:element minOccurs="0" name="MaximalniPocet" type="reg:MaximalniPocetType" />
+      <xs:element minOccurs="0" name="Ico" type="reg:IcoType" />
+      <xs:element minOccurs="0" name="DatovaSchranka" type="dot:DatovaSchrankaFiltrType" />
+      <xs:element minOccurs="0" name="KodPravniFormy" type="ros:KodPravniFormyType" />
+      <xs:element minOccurs="0" name="KodPravnihoStavu" type="ros:KodPravnihoStavuType" />
+      <xs:element minOccurs="0" name="StatutarniOrganZastupce" type="dot:StatutarniOrganZastupceFiltr2Type" />
+      <xs:element minOccurs="0" name="Likvidator" type="dot:AngazovanaOsobaFiltr2Type" />
+      <xs:element minOccurs="0" name="Opatrovnik" type="dot:AngazovanaOsobaFiltr2Type" />
+      <xs:element minOccurs="0" name="NucenySpravce" type="dot:AngazovanaOsobaFiltr2Type" />
+      <xs:element minOccurs="0" name="InsolvencniSpravce" type="dot:AngazovanaOsobaFiltr2Type" />
+      <xs:element minOccurs="0" name="Provozovna" type="dot:ProvozovnaFiltr2Type" />
+      <xs:element minOccurs="0" name="OsobaAgendy" type="dot:OsobaAgendyFiltr2Type" />
+      <xs:element minOccurs="0" name="Fo" type="dot:FoFiltr2Type" />
+      <xs:element minOccurs="0" name="KontaktniUdaje" type="dot:KontaktniUdajeFiltrType" />
+    </xs:sequence>
+    <xs:attribute name="znepristupniLog" type="xs:boolean" />
+  </xs:complexType>
+  <xs:complexType name="RosCtiPodleUdaju2DataResponseType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">
+              Čtení referenčních údajů osoby (osob) na základě vyhledávacích kritérií - služba S33, odpověď.
+              Služba vrací seznam fyzických nebo právnických osob s jejich referenčními údaji
+              a v případě překročení povoleného maximálního počtu i chybový status. 
+              Jinak služba vrací jen chybový status.
+            </xs:documentation>
+      <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+                OBECNA CHYBA SLUZBY
+                PREKROCEN POCET
+                NEVYHOVUJE ZAZNAM OSOBY
+                CHYBA MAPA AIFO
+                CHYBA MAPA ADRES
+                CHYBA ROZSAHU
+                CHYBA OPRAVNENI
+                NEPOVOLENE ZNEPRISTUPNENI
+                NEPOVOLENY KOD PRAVNI FORMY
+                NEPOVOLENY KOD PRAVNIHO STAVU
+                NEPOVOLENY KOD AGENDY
+                NEPOVOLENY KOD OVM
+                CHYBI FO V SEZNAM UDAJU
+                CHYBI ANGAZMA V SEZNAM UDAJU
+                CHYBI PROVOZOVNY V SEZNAM UDAJU
+            </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="RosDotazyDataResponseAbstractType">
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="PravnickaOsoba" type="dot:PravnickaOsobaStavResponse2Type" />
+          <xs:element name="FyzickaOsoba" type="dot:FyzickaOsobaStavResponse2Type" />
+        </xs:choice>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="RosCtiZmenyDataType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">
+              Vydání seznamu IČO, u kterých došlo ke změně referenčních údajů - služba S13.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="MaximalniPocet" type="reg:MaximalniPocetType" />
+      <xs:choice>
+        <xs:sequence>
+          <xs:element name="CasZmenyOd" type="ros:ZmenaCasType" />
+          <xs:element minOccurs="0" name="CasZmenyDo" type="ros:ZmenaCasType" />
+        </xs:sequence>
+        <xs:element name="IdZmeny" type="ros:ZmenaIdType" />
+      </xs:choice>
+      <xs:element name="TypZmeny" type="dot:TypZmenyType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RosCtiZmenyDataResponseType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">
+              Vydání seznamu IČO, u kterých došlo ke změně referenčních údajů - služba S13, odpověď.
+              Služba vrací seznam IČO, u kterých došlo ke změně, společně s typem, identifikátorem a časem změny
+              každého IČO nebo jen chybový status. Seznam je setříděn vzestupně dle identifikátoru změny.
+            </xs:documentation>
+      <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                OBECNA CHYBA SLUZBY
+                PREKROCEN POCET
+                PRAZDNY SEZNAM
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+                CHYBA ROZSAHU
+            </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="RosDotazyDataResponseAbstractType">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Zmeny">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element maxOccurs="unbounded" name="Zmena">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="Ico" type="reg:IcoType" />
+                      <xs:element name="TypZmeny">
+                        <xs:simpleType>
+                          <xs:restriction base="dot:TypZmenyType">
+                            <xs:enumeration value="I" />
+                            <xs:enumeration value="U" />
+                            <xs:enumeration value="D" />
+                          </xs:restriction>
+                        </xs:simpleType>
+                      </xs:element>
+                      <xs:element name="CasZmeny" type="ros:ZmenaCasType" />
+                      <xs:element name="IdZmeny" type="ros:ZmenaIdType" />
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="RosCtiSeznamIcoDataType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">
+              Vydání seznamu osob podle seznamu IČO - služba S14.
+                Je možné určit, zda budou vydány také provozní údaje osob.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="NacistProvozniUdaje" type="xs:boolean" />
+      <xs:element maxOccurs="unbounded" name="Ico" type="reg:IcoType" />
+    </xs:sequence>
+    <xs:attribute name="znepristupniLog" type="xs:boolean" />
+  </xs:complexType>
+  <xs:complexType name="RosCtiSeznamIcoDataResponseType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">
+              Odpověď na žádost o vydání seznamu osob podle seznamu IČO - služba S14.
+              Služba vrací alespoň jeden ze seznamů - nalezené osoby a nenalezená IČO nebo chybový status.
+              Nalezené osoby mohou být fyzické nebo právnické osoby s jejich referenčními údaji nebo fyzické
+              nebo právnické osoby s jejich referenčními i provozními údaji.
+              V případě nenalezených IČO se jedná o seznam požadovaných IČO s chybovým statusem, pro která
+              nebyly nalezeny a vráceny referenční údaje z ROS.
+            </xs:documentation>
+      <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                OBECNA CHYBA SLUZBY
+                CHYBA SEZNAMU
+                PREKROCEN INTERNI PARAMETR
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+                NEPOVOLENE ZNEPRISTUPNENI
+            </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="RosDotazyDataResponseAbstractType">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="NalezeneOsoby">
+            <xs:complexType>
+              <xs:choice>
+                <xs:choice maxOccurs="unbounded">
+                  <xs:element name="PravnickaOsoba" type="dot:PravnickaOsobaHrStavResponseType" />
+                  <xs:element name="FyzickaOsoba" type="dot:FyzickaOsobaHrStavResponseType" />
+                </xs:choice>
+                <xs:choice maxOccurs="unbounded">
+                  <xs:element name="PravnickaOsobaProvozniUdaje" type="dot:PravnickaOsobaResponseType" />
+                  <xs:element name="FyzickaOsobaProvozniUdaje" type="dot:FyzickaOsobaResponseType" />
+                </xs:choice>
+              </xs:choice>
+            </xs:complexType>
+          </xs:element>
+          <xs:element minOccurs="0" name="NenalezenaIco">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element maxOccurs="unbounded" name="NenalezeneIco" type="ros:IcoStatusType" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="RosCtiSeznamIco2DataType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">
+              Vydání seznamu osob podle seznamu IČO - služba S34.
+                Je možné určit, zda budou vydány také provozní údaje osob.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="NacistProvozniUdaje" type="xs:boolean" />
+      <xs:element maxOccurs="unbounded" name="Ico" type="reg:IcoType" />
+    </xs:sequence>
+    <xs:attribute name="znepristupniLog" type="xs:boolean" />
+  </xs:complexType>
+  <xs:complexType name="RosCtiSeznamIco2DataResponseType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">
+              Odpověď na žádost o vydání seznamu osob podle seznamu IČO - služba S34.
+              Služba vrací alespoň jeden ze seznamů - nalezené osoby a nenalezená IČO nebo chybový status.
+              Nalezené osoby mohou být fyzické nebo právnické osoby s jejich referenčními údaji nebo fyzické
+              nebo právnické osoby s jejich referenčními i provozními údaji.
+              V případě nenalezených IČO se jedná o seznam požadovaných IČO s chybovým statusem, pro která
+              nebyly nalezeny a vráceny referenční údaje z ROS.
+            </xs:documentation>
+      <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+                OBECNA CHYBA SLUZBY
+                NEPOVOLENE ZNEPRISTUPNENI
+                CHYBA SEZNAMU
+                PREKROCEN INTERNI PARAMETR
+                CHYBI FO V SEZNAM UDAJU
+                CHYBI ANGAZMA V SEZNAM UDAJU
+                CHYBI PROVOZOVNY V SEZNAM UDAJU
+            </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="RosDotazyDataResponseAbstractType">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="NalezeneOsoby">
+            <xs:complexType>
+              <xs:choice>
+                <xs:choice maxOccurs="unbounded">
+                  <xs:element name="PravnickaOsoba" type="dot:PravnickaOsobaStavResponse2Type" />
+                  <xs:element name="FyzickaOsoba" type="dot:FyzickaOsobaStavResponse2Type" />
+                </xs:choice>
+                <xs:choice maxOccurs="unbounded">
+                  <xs:element name="PravnickaOsobaProvozniUdaje" type="dot:PravnickaOsobaResponse2Type" />
+                  <xs:element name="FyzickaOsobaProvozniUdaje" type="dot:FyzickaOsobaResponse2Type" />
+                </xs:choice>
+              </xs:choice>
+            </xs:complexType>
+          </xs:element>
+          <xs:element minOccurs="0" name="NenalezenaIco">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element maxOccurs="unbounded" name="NenalezeneIco" type="ros:IcoStatusType" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="RosVypisVyuzitiDataType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">
+                Vydání informace o využití údajů osoby - služba S15.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:choice>
+        <xs:sequence>
+          <xs:element name="Ico" type="reg:IcoType" />
+          <xs:element name="CasOd" type="reg:CasovaZnackaType" />
+          <xs:element minOccurs="0" name="CasDo" type="reg:CasovaZnackaType" />
+        </xs:sequence>
+        <xs:element name="PoradoveCislo" type="reg:KladneCeleCisloType" />
+      </xs:choice>
+      <xs:element minOccurs="0" name="StrankaVypisu" type="reg:KladneCeleCisloType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RosVypisVyuzitiDataResponseType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">
+              Vydání údajů o využití záznamů - služba S15, odpověď.
+              Služba vrací informace o využití záznamů dané osoby nebo chybový status.                                          
+            </xs:documentation>
+      <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+                OBECNA CHYBA SLUZBY
+                CHYBA ROZSAHU
+                ICO NEEXISTUJE
+                NEEXISTUJICI DS
+                SEZNAM VYCERPAN
+                NENI VYUZITI
+                ZMENA OBDOBI
+                PREKROCEN POCET                
+            </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="RosDotazyDataResponseAbstractType">
+        <xs:sequence minOccurs="0">
+          <xs:sequence>
+            <xs:element name="Ico" type="reg:IcoType" />
+            <xs:element name="PoradoveCislo" type="reg:KladneCeleCisloType" />
+            <xs:element minOccurs="0" name="DatoveSchranky">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element maxOccurs="unbounded" name="DatovaSchranka" type="reg:DatovaSchrankaIdType" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="Vyuziti">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element maxOccurs="unbounded" name="UdajeVyuziti">
+                    <xs:complexType>
+                      <xs:sequence>
+                        <xs:element name="CasZadosti" type="reg:CasovaZnackaType" />
+                        <xs:element name="Agenda" type="reg:KodAgendyType" />
+                        <xs:element name="AgendovaRole" type="reg:AgendovaRoleType" />
+                        <xs:element name="Ovm" type="reg:KodOvmType" />
+                        <xs:element minOccurs="0" name="Ais" type="reg:KodAisType" />
+                        <xs:element minOccurs="0" name="Subjekt" type="reg:SubjektType" />
+                        <xs:element minOccurs="0" name="Uzivatel" type="reg:UzivatelType" />
+                        <xs:element minOccurs="0" name="DuvodUcel" type="reg:DuvodUcelType" />
+                        <xs:element name="SeznamUdaju">
+                          <xs:complexType>
+                            <xs:sequence>
+                              <xs:element maxOccurs="unbounded" name="Udaj" type="reg:RosUdajType" />
+                            </xs:sequence>
+                          </xs:complexType>
+                        </xs:element>
+                      </xs:sequence>
+                    </xs:complexType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="RosCtiSeznamEditoruDataType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">
+              Vydání seznamu editorů osoby dané IČO - služba S16.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Ico" type="reg:IcoType" />
+      <xs:element name="Udaj" type="reg:RosUdajType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RosCtiSeznamEditoruDataResponseType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">
+              Vydání seznamu editorů údaje podle IČO - služba S16, odpověď.
+              Služba vrací seznam editorů dané osoby nebo chybový status.                            
+            </xs:documentation>
+      <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                OBECNA CHYBA SLUZBY
+                ICO NEEXISTUJE
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+                NEEXISTUJE EDITOR
+            </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:annotation>
+        <xs:documentation xml:lang="cs">
+                  Možná bude vhodné vypisovat také ke každé agendě stav dané osoby podle vyplnění 
+                  data zániku oprávnění k činnosti v dané agendě.
+                </xs:documentation>
+      </xs:annotation>
+      <xs:extension base="RosDotazyDataResponseAbstractType">
+        <xs:sequence minOccurs="0">
+          <xs:element name="Editori">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element maxOccurs="unbounded" name="Editor">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="KodAgendy" type="reg:KodAgendyType" />
+                      <xs:element name="KodOvm" type="reg:KodOvmType" />
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="RosVypisZnepristupneniDataType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">
+                Vydání seznamu znepřístupnění podle vstupních parametrů - služba S26.
+            </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="MaximalniPocet" type="reg:MaximalniPocetType" />
+      <xs:element minOccurs="0" name="Ico" type="reg:IcoType" />
+      <xs:element name="CasZadostiOd" type="reg:CasovaZnackaType" />
+      <xs:element minOccurs="0" name="CasZadostiDo" type="reg:CasovaZnackaType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RosVypisZnepristupneniDataResponseType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">
+              Vydání seznamu znepřístupnění - služba S26, odpověď.
+              Služba vrací seznam údajů o znepřístupnění údajů výdejů osob podle vstupních parametrů nebo chybový status.                            
+            </xs:documentation>
+      <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                OBECNA CHYBA SLUZBY
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+                CHYBA ROZSAHU
+                PREKROCEN POCET
+                NENI VYUZITI
+                ZMENA OBDOBI
+            </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="RosDotazyDataResponseAbstractType">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="SeznamZnepristupneni">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element maxOccurs="unbounded" name="Znepristupneni">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="Ico" type="reg:IcoType" />
+                      <xs:element name="CasZadosti" type="reg:CasovaZnackaType" />
+                      <xs:element name="AgendaZadostId" type="reg:AgendaZadostIdType" />
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>

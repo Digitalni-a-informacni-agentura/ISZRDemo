@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekRegionSoudrznosti2:v1" 
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekRegionSoudrznosti2:v1" 
+	xmlns:e249m="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekRegionSoudrznosti2:v1" 
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:vyhRs="urn:cz:isvs:ruian:schemas:VyhledejRegionSoudrznosti:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified" 
+	version="2.0.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E249m externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	
+	<!-- Výchozí verze 2.0.0, 29.09.2020 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:VyhledejRegionSoudrznosti:v2" schemaLocation="ref/RuianVyhledejPrvekRegionSoudrznosti2.xsd"/>
+	
+	<xs:element name="RuianVyhledejPrvekRegionSoudrznosti2" type="RuianVyhledejPrvekRegionSoudrznosti2Type"/>
+	<xs:element name="RuianVyhledejPrvekRegionSoudrznosti2Response" type="RuianVyhledejPrvekRegionSoudrznosti2ResponseType"/>
+	
+	<xs:complexType name="RuianVyhledejPrvekRegionSoudrznosti2Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E249m externího rozhraní - žádost. Vyhledání regionu soudržnosti z RUIAN. RUIAN služba, operace VyhledejRegionSoudrznosti.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+		 						<xs:element name="RuianVyhledejPrvekRegionSoudrznosti2Data" type="vyhRs:VyhledejRegionSoudrznostiDotazType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="RuianVyhledejPrvekRegionSoudrznosti2ResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E249m externího rozhraní - odpověď. Vyhledání regionu soudržnosti z RUIAN. RUIAN služba, operace VyhledejRegionSoudrznosti.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="RuianOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianVyhledejPrvekRegionSoudrznosti2DataResponse">
+									<xs:complexType>
+										<xs:sequence>
+										  <xs:element ref="vyhRs:RegionySoudrznosti"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

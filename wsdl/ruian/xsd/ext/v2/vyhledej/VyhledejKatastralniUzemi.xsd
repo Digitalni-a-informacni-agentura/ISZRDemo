@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:VyhledejKatastralniUzemi:v2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:VyhledejKatastralniUzemi:v2" xmlns:vyhKu="urn:cz:isvs:ruian:schemas:VyhledejKatastralniUzemi:v2" xmlns:ku="urn:cz:isvs:ruian:schemas:KatastralniUzemi:v2" xmlns:kuPodm="urn:cz:isvs:ruian:schemas:KatastralniUzemiPodminka:v2" xmlns:kuPolBase="urn:cz:isvs:ruian:schemas:KatastralniUzemiPolozkyBase:v2" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" elementFormDefault="qualified" version="2.0.0">
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:KatastralniUzemiPolozkyBase:v2" schemaLocation="KatastralniUzemiPolozkyBase.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:KatastralniUzemiPodminka:v2" schemaLocation="KatastralniUzemiPodminka.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:KatastralniUzemi:v2" schemaLocation="../prvky/KatastralniUzemi.xsd"/>
+	<xs:complexType name="KatastralniUzemiSeznamType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam katastralnich uzemi</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="KatastralniUzemi" type="ku:KatastralniUzemiType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VyhledejKatastralniUzemiDotazType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Parametry katastralniho uzemi</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Podminka" type="kuPodm:KatastralniUzemiPodminkaType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="PozadovaneUdaje" type="kuPolBase:KatastralniUzemiPolozkyBaseType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="VyhledejKatastralniUzemiRequest" type="vyhKu:VyhledejKatastralniUzemiRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na vyhledani katastralniho uzemi</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="VyhledejKatastralniUzemiRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na vyhledani katastralniho uzemi</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Dotaz" type="VyhledejKatastralniUzemiDotazType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="VyhledejKatastralniUzemiResponse" type="vyhKu:VyhledejKatastralniUzemiResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved na vyhledani katastralniho uzemi</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="VyhledejKatastralniUzemiResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved na vyhledani katastralniho uzemi</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="KatastralniUzemi" type="KatastralniUzemiSeznamType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

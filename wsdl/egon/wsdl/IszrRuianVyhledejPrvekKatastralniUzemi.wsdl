@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRuianVyhledejPrvekKatastralniUzemi:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRuianVyhledejPrvekKatastralniUzemi:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRuianVyhledejPrvekKatastralniUzemi:v1"
+	xmlns:e34d="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekKatastralniUzemi:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRuianVyhledejPrvekKatastralniUzemi">
+
+	<wsdl:documentation>Služba E34d externího rozhraní - Vyhledání katastrálního území z RUIAN. RUIAN služba A03, operace VyhledejKatastralniUzemi.</wsdl:documentation>
+	
+	<!-- Vývojová verze 0.0.1, 21.07.2011, Pavel Kirchner -->
+	<!-- Fixovaná verze 1.0.0, 25.10.2011, Aleš Teplý -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+	
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekKatastralniUzemi:v1" schemaLocation="../xsd/IszrRuianVyhledejPrvekKatastralniUzemi.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrRuianVyhledejPrvekKatastralniUzemi">
+		<wsdl:part name="parametry" element="e34d:RuianVyhledejPrvekKatastralniUzemi"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRuianVyhledejPrvekKatastralniUzemiResponse">
+		<wsdl:part name="vysledek" element="e34d:RuianVyhledejPrvekKatastralniUzemiResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRuianVyhledejPrvekKatastralniUzemiPortType">
+		<wsdl:operation name="IszrRuianVyhledejPrvekKatastralniUzemi">
+			<wsdl:input message="tns:IszrRuianVyhledejPrvekKatastralniUzemi"/>
+			<wsdl:output message="tns:IszrRuianVyhledejPrvekKatastralniUzemiResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRuianVyhledejPrvekKatastralniUzemiBinding" type="tns:IszrRuianVyhledejPrvekKatastralniUzemiPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRuianVyhledejPrvekKatastralniUzemi">
+			<soap:operation soapAction="IszrRuianVyhledejPrvekKatastralniUzemi"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRuianVyhledejPrvekKatastralniUzemiService">
+		<wsdl:port name="IszrRuianVyhledejPrvekKatastralniUzemiPortService" binding="tns:IszrRuianVyhledejPrvekKatastralniUzemiBinding">
+			<soap:address location="IszrRuianVyhledejPrvekKatastralniUzemi"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

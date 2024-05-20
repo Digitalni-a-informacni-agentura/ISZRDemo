@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRuianCtiPrvekVolebniOkrsek2:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRuianCtiPrvekVolebniOkrsek2:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRuianCtiPrvekVolebniOkrsek2:v1"
+	xmlns:e250t="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekVolebniOkrsek2:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRuianCtiPrvekVolebniOkrsek2">
+
+	<wsdl:documentation>Služba E250t externího rozhraní - Načtení volebního okrsku z RUIAN. RUIAN služba, operace ctiVolebniOkrsek.</wsdl:documentation>
+	
+	<!-- Výchozí verze 2.0.0, 6.10.2020 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekVolebniOkrsek2:v1" schemaLocation="../xsd/IszrRuianCtiPrvekVolebniOkrsek2.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrRuianCtiPrvekVolebniOkrsek2">
+		<wsdl:part name="parametry" element="e250t:RuianCtiPrvekVolebniOkrsek2"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRuianCtiPrvekVolebniOkrsek2Response">
+		<wsdl:part name="vysledek" element="e250t:RuianCtiPrvekVolebniOkrsek2Response"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRuianCtiPrvekVolebniOkrsek2PortType">
+		<wsdl:operation name="IszrRuianCtiPrvekVolebniOkrsek2">
+			<wsdl:input message="tns:IszrRuianCtiPrvekVolebniOkrsek2"/>
+			<wsdl:output message="tns:IszrRuianCtiPrvekVolebniOkrsek2Response"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRuianCtiPrvekVolebniOkrsek2Binding" type="tns:IszrRuianCtiPrvekVolebniOkrsek2PortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRuianCtiPrvekVolebniOkrsek2">
+			<soap:operation soapAction="IszrRuianCtiPrvekVolebniOkrsek2"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRuianCtiPrvekVolebniOkrsek2Service">
+		<wsdl:port name="IszrRuianCtiPrvekVolebniOkrsek2PortService" binding="tns:IszrRuianCtiPrvekVolebniOkrsek2Binding">
+			<soap:address location="IszrRuianCtiPrvekVolebniOkrsek2"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

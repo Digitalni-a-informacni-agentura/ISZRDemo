@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrReklamujUdajeRos:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrReklamujUdajeRos:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrReklamujUdajeRos:v1"
+	xmlns:e63="urn:cz:isvs:iszr:schemas:IszrReklamujUdajeRos:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrReklamujUdajeRos">
+
+	<wsdl:documentation>Služba realizuje zaslání avíza o nesprávném údaji v registru ROS příslušnému editorovi údaje.</wsdl:documentation>
+
+	<!-- Vývojová verze 0.0.1, 17.10.2011 Pavel Odstrčil, vznik -->
+	<!-- Vývojová verze 0.0.2, 26.10.2011 Aleš Teplý, formální úpravy -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- Verze pro revizi 1.1.1, 22.05.2012, ales.teply@autocont.cz, Zduvodneni nepovinné -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrReklamujUdajeRos:v1" schemaLocation="../xsd/IszrReklamujUdajeRos.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrReklamujUdajeRos">
+		<wsdl:part name="parametry" element="e63:IszrReklamujUdajeRos"/>
+	</wsdl:message>
+	<wsdl:message name="IszrReklamujUdajeRosResponse">
+		<wsdl:part name="vysledek" element="e63:IszrReklamujUdajeRosResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrReklamujUdajeRosPortType">
+		<wsdl:operation name="IszrReklamujUdajeRos">
+			<wsdl:input message="tns:IszrReklamujUdajeRos"/>
+			<wsdl:output message="tns:IszrReklamujUdajeRosResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrReklamujUdajeRosBinding" type="tns:IszrReklamujUdajeRosPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrReklamujUdajeRos">
+			<soap:operation soapAction="IszrReklamujUdajeRos"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrReklamujUdajeRosService">
+		<wsdl:port name="IszrReklamujUdajeRosPortService" binding="tns:IszrReklamujUdajeRosBinding">
+			<soap:address location="IszrReklamujUdajeRos"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

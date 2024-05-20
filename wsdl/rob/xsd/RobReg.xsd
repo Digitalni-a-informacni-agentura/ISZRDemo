@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:rob:schemas:RobReg:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" targetNamespace="urn:cz:isvs:rob:schemas:RobReg:v1" 
+	elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi specifickými pro interní služby ROB.
+    </xs:documentation>
+	</xs:annotation>
+	
+	<!-- Vývojová verze 0.0.24, 27.5.2010, Vladimír Hudec -->
+    <!-- Vývojová verze 0.1.0, 15.8.2011, Vladimír Hudec -->
+    <!-- Vývojová verze 0.1.1, 1.9.2011, Vladimír Hudec -->
+    <!-- Vývojová verze 0.1.6, 16.9.2011, Vladimir.Hudec@i.cz -->
+    <!-- Vývojová verze 0.1.7, 17.10.2011, Vladimir.Hudec@i.cz -->
+    <!-- Verze 1.0.0, 31.1.2012, Vladimir.Hudec@i.cz -->
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+
+	<!-- Číselník ROB služeb -->
+	<xs:simpleType name="KodRobSluzbyType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Kód služby, výčtový typ všech dotazovacích a editačních služeb ROB.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="reg:NazevSluzbyType">
+	      <!-- S1 -->
+    	  <xs:enumeration value="RobCtiAifo"/>
+	      <xs:enumeration value="RobAutentizace"/>
+          <xs:enumeration value="RobCtiEditora"/>
+    	  <!-- S2 -->
+          <xs:enumeration value="RobCtiHromadneAifo"/>
+          <!-- S3 -->
+          <xs:enumeration value="RobCtiPodleUdaju"/>
+	      <!-- S4 -->
+          <xs:enumeration value="RobCtiZmeny"/>
+          <xs:enumeration value="RobCtiZmenyZaloz"/>
+          <xs:enumeration value="RobVypisBlokace"/>
+	      <xs:enumeration value="RobVypisVyuzitiPoskytnuti"/>
+	      <!-- Editace -->
+    	  <xs:enumeration value="RobVlozObyvatele"/>
+	      <xs:enumeration value="RobZmenObyvatele"/>
+    	  <xs:enumeration value="RobVymazObyvatele"/>
+	      <xs:enumeration value="RobVytvorBlokaci"/>
+    	  <xs:enumeration value="RobZrusBlokaci"/>
+          <xs:enumeration value="RobPoskytnutiJineOsobe"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

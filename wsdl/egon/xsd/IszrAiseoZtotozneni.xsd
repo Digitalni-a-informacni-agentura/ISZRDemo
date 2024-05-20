@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:iszr:schemas:IszrAiseoZtotozneni:v1" xmlns:e158="urn:cz:isvs:iszr:schemas:IszrAiseoZtotozneni:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" xmlns:x10="urn:cz:isvs:aiseo:schemas:AiseoZtotozneni:v1" xmlns:rod="urn:cz:isvs:rob:schemas:RobDotazyData:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:cz:isvs:iszr:schemas:IszrAiseoZtotozneni:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.2.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E158 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	<!-- Vývojová verze 0.1.0, 27.03.2012, Aleš Teplý -->
+	<!-- Vývojová verze 0.1.1, 10.04.2012, Aleš Teplý, úpravy popisů -->
+	<!-- Vývojová verze 0.1.2, 23.04.2012, Aleš Teplý, doplnění DatumNarozeni na vstup a změna pořadí elementů -->
+	<!-- Vývojová verze 0.2.0, 17.05.2012, Aleš Teplý, dle výchozí IS EO ze 17.5.2012 -->
+	<!-- Vývojová verze 0.2.1, 21.05.2012, Aleš Teplý, přejmenování Iseo na Aiseo, dle verze AIS EO z 21.5.2012 -->
+	<!-- Katalog.7.2 verze 1.1.1, 28.06.2012 Aleš Teplý -->
+	<!-- Verze 1.1.2, Pavel Odstčil, doplnění atributu znepristupniLog -->
+	<!-- Verze po revizi 1.2.0, 13.8.2021, Aleš Teplý, rozšíření struktury Response ROB v2.0.0, aplikačně zatím omezeno na kompatibilitu s ROB v1.0.9 -->
+	<!-- AutoCont CZ a.s. -->
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstractOrg.xsd"/>
+	<xs:import namespace="urn:cz:isvs:aiseo:schemas:AiseoZtotozneni:v1" schemaLocation="../../aiseo/xsd/AiseoZtotozneni.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rob:schemas:RobDotazyData:v1" schemaLocation="../../rob/xsd/RobDotazyData.xsd"/>
+	<xs:element name="AiseoZtotozneni" type="AiseoZtotozneniType"/>
+	<xs:element name="AiseoZtotozneniResponse" type="AiseoZtotozneniResponseType"/>
+	<xs:complexType name="AiseoZtotozneniType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E158 externího rozhraní - typ pro žádost. Služba čte z AISEO podle údajů jméno, příjmení, datum narození a RČ. Všechny položky jsou povinné. Pokud nalezne, ověří, zda jméno, příjmení a datum narození pro
+výsledek z AISEO se shodují s daty v ROB. Pokud ano, vrací AIFO, poud ne, AIFO nevrací. Vrací maximálně 1 AIFO.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="AiseoZtotozneniData">
+									<xs:complexType>
+										<xs:complexContent>
+											<xs:extension base="x10:AiseoZtotozneniDataType">
+												<xs:attribute name="znepristupniLog" type="xs:boolean"/>
+											</xs:extension>
+										</xs:complexContent>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="AiseoZtotozneniResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E158 externího rozhraní - typ pro odpověď. Služba čte z ROB podle údajů jméno, příjmení a datum narození. Pokud není schopna jednoznačně nalézt (nenalezne, nebo nalezne více záznamů), čte v AIS EO podle RČ, jméno a příjmení (služba AIS EO X10). Pokud v AIS EO nenalezne jednoznačně, nevrací se žádný výsledek. Pokud nalezne 1 záznam, doplní z ROB jméno a příjmení voláním robCtiHromadneAifo.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAifoStAbstractType">
+				<xs:sequence>
+					<xs:element name="AiseoOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="AiseoZtotozneniDataResponse" type="x10:AiseoZtotozneniDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="RobOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RobCtiHromadneAifoDataResponse" type="rod:RobCtiHromadneAifoDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

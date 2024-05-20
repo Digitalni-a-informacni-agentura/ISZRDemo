@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrOrgCtiDavkuAifo:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrOrgCtiDavkuAifo:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrOrgCtiDavkuAifo:v1"
+	xmlns:e75="urn:cz:isvs:iszr:schemas:IszrOrgCtiDavkuAifo:v1"
+	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+	xmlns:pol="urn:cz:isvs:iszr:services:IszrPolicy:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrOrgCtiDavkuAifo">
+
+	<!-- Vývojová verze 0.0.1, 31.07.2011, Jan Sluka -->
+	<!-- Vývojová verze 0.0.2, 12.08.2011, Jan Sluka, CaseSensitive upravy -->
+	<!-- Vývojová verze 0.0.3, 12.08.2011, Jan Sluka, Pripojeni zabezpeceni prenosu -->
+	<!-- Vývojová verze 0.0.4, 23.08.2011, Jan Sluka, Zacleneni zabezpeceni pod wsdl:import -->
+	<!-- Vývojová verze 0.0.5, 23.08.2011, Jan Sluka, Zcela novy zpusob importu -->
+	<!-- Vývojová verze 0.0.6, 14.09.2011, Aleš Teplý, ponechání jen nezbytných namespace -->
+	<!-- Vývojová verze 0.0.7, 11.11.2011, Aleš Teplý, oprava "name" -->
+	<!-- Fixovaná verze 1.0.0, 30.11.2011, Aleš Teplý -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<import namespace="urn:cz:isvs:iszr:services:IszrPolicy:v1" location="ref/IszrPolicy.wsdl"/>
+
+	<wsdl:documentation>Služba E75 externího rozhraní.</wsdl:documentation>
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrOrgCtiDavkuAifo:v1" schemaLocation="../xsd/IszrOrgCtiDavkuAifo.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="IszrOrgCtiDavkuAifo">
+		<wsdl:part name="parametry" element="e75:OrgCtiDavkuAifo"/>
+	</wsdl:message>
+	<wsdl:message name="IszrOrgCtiDavkuAifoResponse">
+		<wsdl:part name="vysledek" element="e75:OrgCtiDavkuAifoResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrOrgCtiDavkuAifoPortType">
+		<wsdl:operation name="IszrOrgCtiDavkuAifo">
+			<wsdl:input message="IszrOrgCtiDavkuAifo"/>
+			<wsdl:output message="IszrOrgCtiDavkuAifoResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrOrgCtiDavkuAifoBinding" type="tns:IszrOrgCtiDavkuAifoPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsp:PolicyReference uri="#IszrPolicy"/>
+		<wsdl:operation name="IszrOrgCtiDavkuAifo">
+			<soap:operation soapAction="IszrOrgCtiDavkuAifo"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrOrgCtiDavkuAifoService">
+		<wsdl:port name="IIszrOrgCtiDavkuAifoPortService" binding="tns:IszrOrgCtiDavkuAifoBinding">
+			<soap:address location="IszrOrgCtiDavkuAifo"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:aisecd:schemas:AisEcdCtiPodleUdaju:v2" 
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:aisse="urn:cz:isvs:aisse:schemas:AisSeTypy:v2" 
+           xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" 
+		   xmlns:dt="urn:cz:isvs:aisse:schemas:DataTypy:v1"
+           targetNamespace="urn:cz:isvs:aisecd:schemas:AisEcdCtiPodleUdaju:v2"
+           elementFormDefault="qualified" 
+           attributeFormDefault="unqualified" 
+           version="2.0.0">
+    
+        <xs:annotation>
+		<xs:documentation xml:lang="cs">Definice prvků pro AIS ECD pro službu AisEcdCtiPodleUdaju.</xs:documentation>
+	</xs:annotation>
+        
+    <!-- Úvodní verze pro atomické služby AIS ECD pro ZR v.2.0.0, 12.04.2018, KOMIX: Libor Málek, Jan Štastný, Andrea Vataščinová  -->
+        
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd" />
+	<xs:import namespace="urn:cz:isvs:aisse:schemas:AisSeTypy:v2" schemaLocation="../../aisse/xsd/AisSeTypyV2.xsd" />
+	<xs:import namespace="urn:cz:isvs:aisse:schemas:DataTypy:v1" schemaLocation="../../aisse/xsd/DataTypy.xsd" />
+
+	<xs:element name="AisEcdSyncCtiPodleUdaju" type="AisEcdCtiPodleUdajuType" />
+	<xs:element name="AisEcdSyncCtiPodleUdajuResponse" type="AisEcdCtiPodleUdajuResponseType" />
+
+	<xs:complexType name="AisEcdCtiPodleUdajuType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na data.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" />
+			<xs:element name="AutorizaceInfo" type="reg:AutorizaceType" minOccurs="0" />
+			<xs:element name="MapaAifo" type="reg:MapaAifoType" minOccurs="0" />
+			<xs:element name="SeznamIdAdres" type="reg:SeznamIdAdresType" minOccurs="0" />
+			<xs:element name="Dotaz" type="AisEcdCtiPodleUdajuDataType" />
+		</xs:sequence>
+		<xs:attribute name="verzeZadosti" type="reg:VerzeType" />
+	</xs:complexType>
+
+	<xs:complexType name="AisEcdCtiPodleUdajuResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpověd na dotaz.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" />
+			<xs:element name="MapaAifo" type="reg:MapaAifoType" minOccurs="0" />
+			<xs:element name="SeznamIdAdres" type="reg:SeznamIdAdresType" minOccurs="0" />
+			<xs:element name="EcdOdpoved" type="AisEcdCtiPodleUdajuDataResponseType" minOccurs="0" />
+		</xs:sequence>
+		<xs:attribute name="verzeZadosti" type="reg:VerzeType" />
+	</xs:complexType>
+
+	<xs:complexType name="AisEcdCtiPodleUdajuDataType">
+            <xs:annotation>
+                <xs:documentation xml:lang="cs">Příprava dotazu na data.</xs:documentation>
+            </xs:annotation>
+            <xs:sequence>
+                <xs:choice>
+                    <xs:element name="AisEcdCtiPodleUdajuData" type="AisEcdCtiPodleUdajuDotazDataType"  minOccurs="0" />
+                    <xs:element name="AisEcdCtiPodleDokladData" type="AisEcdCtiPodleDokladDataType"  minOccurs="0" />
+                </xs:choice>    
+            </xs:sequence>
+            <xs:attribute name="verzeSluzby" type="dt:Text2" />
+        </xs:complexType>
+                 
+	<xs:complexType name="AisEcdCtiPodleUdajuDotazDataType">
+            <xs:annotation>
+                <xs:documentation xml:lang="cs">Dotaz na data - povolená kombinace dotazů.</xs:documentation>
+            </xs:annotation>     
+            <xs:complexContent>
+                <xs:extension base="aisse:AisSeCtiPodleUdajuDataType">                       
+                    <xs:choice>
+                        <xs:element name="Dotaz1JmPrijRC">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="Jmeno" type="dt:JmenoType" />
+                                    <xs:element name="Prijmeni" type="dt:PrijmeniType" />
+                                    <xs:element name="RodneCislo" type="dt:RodneCisloType" />
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element name="Dotaz2JmPrijDatNar">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="Jmeno" type="dt:JmenoType" />
+                                    <xs:element name="Prijmeni" type="dt:PrijmeniType" />
+                                    <xs:element name="DatumNarozeni" type="dt:DatumType" />
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element name="Dotaz3JmPrijDatNarMN">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="Jmeno" type="dt:JmenoType" />
+                                    <xs:element name="Prijmeni" type="dt:PrijmeniType" />
+                                    <xs:element name="DatumNarozeni" type="dt:DatumType" />
+                                    <xs:element name="MistoNarozeni" type="aisse:MistoType" />
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element name="Dotaz4JmPrijDatNarTP">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="Jmeno" type="dt:JmenoType" />
+                                    <xs:element name="Prijmeni" type="dt:PrijmeniType" />
+                                    <xs:element name="DatumNarozeni" type="dt:DatumType" />
+                                    <xs:element name="TrvalyPobyt" type="reg:KodAdresniMistoType" />
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element name="Dotaz5JmPrijCD">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="Jmeno" type="dt:JmenoType" />
+                                    <xs:element name="Prijmeni" type="dt:PrijmeniType" />
+                                    <xs:element name="CdCislo" type="dt:CDCisloType" />
+                                    <xs:element name="CdDruh" type="dt:DruhCestovnihoDokladuType" minOccurs="0" />
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:choice>
+                </xs:extension>
+            </xs:complexContent>
+	</xs:complexType>
+        
+        
+    <xs:complexType name="AisEcdCtiPodleDokladDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz na data - podle dokladu.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="aisse:AisSeCtiPodleDokladDataType">
+                <xs:sequence>                         
+                    <xs:element name="CdCislo" type="dt:CDCisloType" />
+                    <xs:element name="CdDruh" type="dt:DruhCestovnihoDokladuType" minOccurs="0" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>          
+        
+        
+
+	<xs:complexType name="AisEcdCtiPodleUdajuDataResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpověd na dotaz - data AIS ECD.</xs:documentation>
+		</xs:annotation>		
+                    <xs:sequence>
+			<xs:element name="EcdOdpovedV1" type="AisEcdCtiPodleUdajuDataResponseTypeV1" minOccurs="0" />
+                    </xs:sequence>    
+	</xs:complexType>
+        
+	<xs:complexType name="AisEcdCtiPodleUdajuDataResponseTypeV1">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpověd na dotaz - data AIS ECD. Verze 1.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="aisse:AisSeDotazyDataResponseType">
+				<xs:sequence minOccurs="0">
+					<xs:element name="Aifo" type="reg:LokalniAifoType" />
+					<xs:element name="KompletniUdaje" type="aisse:KompletniUdajeCDType" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:aisp:schemas:AispCtiZmenyIs:v1" xmlns:aispd="urn:cz:isvs:aisp:schemas:AispDotazyData:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:rdt="urn:cz:isvs:rpp:schemas:RppDotazyTypy:v1" xmlns:aisp="urn:cz:isvs:aisp:schemas:AispTypy:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:rpp="urn:cz:isvs:rpp:schemas:RppTypy:v1" targetNamespace="urn:cz:isvs:aisp:schemas:AispCtiZmenyIs:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.0.1">
+    <xs:annotation>
+        <xs:documentation xml:lang="cs">Seznam informačních systémů pro ISZR.</xs:documentation>
+    </xs:annotation>
+    <!-- Vývojová verze 0.0.1, 4.10.2018, Petr Roušar -->
+    <xs:import namespace="urn:cz:isvs:aisp:schemas:AispDotazyData:v1" schemaLocation="AispDotazyData.xsd"/>
+    <xs:import namespace="urn:cz:isvs:aisp:schemas:AispTypy:v1" schemaLocation="AispTypy.xsd"/>
+    <xs:import namespace="urn:cz:isvs:rpp:schemas:RppTypy:v1" schemaLocation="../../rpp/xsd/RppTypy.xsd"/>
+    <xs:import namespace="urn:cz:isvs:rpp:schemas:RppDotazyTypy:v1" schemaLocation="../../rpp/xsd/RppDotazyTypy.xsd"/>
+    <xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+    <xs:element name="AispCtiZmenyIs" type="AispCtiZmenyIsType"/>
+    <xs:element name="AispCtiZmenyIsResponse" type="AispCtiZmenyIsResponseType"/>
+    <xs:complexType name="AispCtiZmenyIsType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz na seznam změn informačních systémů.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="aispd:ZadostAbstractType">
+                <xs:sequence>
+                    <xs:element name="Zadost">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="AispCtiZmenyIsData" type="aispd:AispCtiZmenyIsDataType"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="AispCtiZmenyIsResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz na seznam změn informačních systémů.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="aispd:OdpovedAbstractType">
+                <xs:sequence>
+                    <xs:element name="AispOdpoved" minOccurs="0">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="AispCtiZmenyIsDataResponse" type="aispd:AispCtiZmenyIsDataResponseType"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>

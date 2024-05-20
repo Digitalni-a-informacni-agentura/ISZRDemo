@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:iszr:schemas:IszrRobOverHromadneAifo:v1" xmlns:e183="urn:cz:isvs:iszr:schemas:IszrRobOverHromadneAifo:v1" xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" xmlns:rod="urn:cz:isvs:rob:schemas:RobDotazyData:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:cz:isvs:iszr:schemas:IszrRobOverHromadneAifo:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.1">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E183 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	<!-- Vývojová verze 1.0.0, 5.3.2014, Pavel Odstrcil -->
+	<!-- 1.0.1, 17.3.2016, Pavel Odstrčil, formální zvýšení verze při změně datového obsahu -->
+	<!-- AutoCont CZ a.s. -->
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstractOrg.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rob:schemas:RobDotazyData:v1" schemaLocation="../../rob/xsd/RobDotazyData.xsd"/>
+	<xs:element name="RobOverHromadneAifo" type="e183:RobOverHromadneAifoType"/>
+	<xs:element name="RobOverHromadneAifoResponse" type="RobOverHromadneAifoResponseType"/>
+	<xs:complexType name="RobOverHromadneAifoType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E183 externího rozhraní - typ pro žádost. Služba ověřuje údaje osob z ROB ve formě opakované struktury požadovaných dat podle předaného seznamu AIFO a referenčních údajů.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostRAifoAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RobOverHromadneAifoData" type="rod:RobOverHromadneAifoDataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RobOverHromadneAifoResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E183 externího rozhraní - typ pro odpověď. Služba využívá službu registru ROB (O25).</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAifoStAbstractType">
+				<xs:sequence>
+					<xs:element name="RobOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RobOverHromadneAifoDataResponse" type="rod:RobOverHromadneAifoDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

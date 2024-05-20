@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRuianVyhledejPrvekVusc:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRuianVyhledejPrvekVusc:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRuianVyhledejPrvekVusc:v1"
+	xmlns:e34r="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekVusc:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRuianVyhledejPrvekVusc">
+
+	<wsdl:documentation>Služba E34r externího rozhraní - Vyhledání Vusc z RUIAN. RUIAN služba A03, operace VyhledejVusc.</wsdl:documentation>
+	
+	<!-- Vývojová verze 0.0.1, 22.07.2011, Pavel Kirchner -->
+	<!-- Fixovaná verze 1.0.0, 25.10.2011, Aleš Teplý -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+	
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekVusc:v1" schemaLocation="../xsd/IszrRuianVyhledejPrvekVusc.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrRuianVyhledejPrvekVusc">
+		<wsdl:part name="parametry" element="e34r:RuianVyhledejPrvekVusc"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRuianVyhledejPrvekVuscResponse">
+		<wsdl:part name="vysledek" element="e34r:RuianVyhledejPrvekVuscResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRuianVyhledejPrvekVuscPortType">
+		<wsdl:operation name="IszrRuianVyhledejPrvekVusc">
+			<wsdl:input message="tns:IszrRuianVyhledejPrvekVusc"/>
+			<wsdl:output message="tns:IszrRuianVyhledejPrvekVuscResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRuianVyhledejPrvekVuscBinding" type="tns:IszrRuianVyhledejPrvekVuscPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRuianVyhledejPrvekVusc">
+			<soap:operation soapAction="IszrRuianVyhledejPrvekVusc"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRuianVyhledejPrvekVuscService">
+		<wsdl:port name="IszrRuianVyhledejPrvekVuscPortService" binding="tns:IszrRuianVyhledejPrvekVuscBinding">
+			<soap:address location="IszrRuianVyhledejPrvekVusc"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

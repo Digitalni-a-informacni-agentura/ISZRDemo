@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:rob:schemas:RobDotazyDataInt:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:rdd="urn:cz:isvs:rob:schemas:RobDotazyData:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:rob="urn:cz:isvs:rob:schemas:RobTypy:v1"
+    xmlns:robint="urn:cz:isvs:rob:schemas:RobTypyInt:v1" targetNamespace="urn:cz:isvs:rob:schemas:RobDotazyDataInt:v1"
+    elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.0.0">
+    <xs:annotation>
+        <xs:documentation xml:lang="cs">Návrh XML schématu s definicemi dat pro dotazování registru obyvatel
+            (ROB), interní služby.
+        </xs:documentation>
+    </xs:annotation>
+    <!-- Verze 1.0.0, 26.10.2012, Vladimír Hudec -->
+    <!-- Verze 1.0.1, 15.2.2013, Vladimír Hudec, Výdej dat -->
+    <!-- Verze 1.0.2, 21.3.2013, Vladimír Hudec, Výdej dat -->
+    <!-- Verze 1.0.3, 22.3.2013, Vladimír Hudec, Výdej dat -->
+    <!-- Verze 1.0.4, 25.2.2013, Vladimír Hudec, Výdej dat, oprava názvů typů -->
+    <!-- Verze 1.0.5, 20.6.2013, Vladimír Hudec, Výdej dat, kompletní revize -->
+    <!-- Verze 1.0.6, 27.6.2013, Vladimír Hudec, Výdej dat, SouboryType -->
+    <!-- Verze 1.0.7, 10.7.2013, Vladimír Hudec, Výdej dat, UzemniCelek presunut do RegTypy -->
+    <!-- Verze 1.0.8, 26.7.2013, Vladimír Hudec, Výdej dat, snímky -->
+    <!-- Verze 1.0.9, 21.10.2013, Vladimír Hudec, Výdej dat, Volby -->
+    <!-- Verze 2.0.0, 30.7.2021, Vladimir.Hudec@i.cz, ZoPDS -->
+    <xs:import namespace="urn:cz:isvs:rob:schemas:RobDotazyData:v1" schemaLocation="RobDotazyData.xsd" />
+    <xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd" />
+    <xs:import namespace="urn:cz:isvs:rob:schemas:RobTypy:v1" schemaLocation="RobTypy.xsd" />
+    <xs:import namespace="urn:cz:isvs:rob:schemas:RobTypyInt:v1" schemaLocation="RobTypyInt.xsd" />
+
+    <xs:element name="RobProbeData" type="RobProbeDataType" />
+    <xs:element name="RobProbeDataResponse" type="RobProbeDataResponseType" />
+    <xs:element name="RobVydejDatData" type="RobVydejDatDataType" />
+    <xs:element name="RobVydejDatDataResponse" type="RobVydejDatDataResponseType" />
+    <xs:element name="RobVydejDatStornoData" type="RobVydejDatStornoDataType" />
+    <xs:element name="RobVydejDatStornoDataResponse" type="RobVydejDatStornoDataResponseType" />
+
+    <xs:complexType name="RobProbeDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Zjištění dostupnosti rozhraní ROB.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:complexType>
+
+    <xs:complexType name="RobProbeDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Zjištění dostupnosti rozhraní ROB, odpověď.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="OdpovedRozhrani" type="reg:OdpovedRozhraniType" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="RobVydejDatDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Hromadný výdej dat a statistik.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Zadatel" type="robint:ZadatelVydejeDatType" />
+            <xs:element name="NazevVydeje" type="robint:NazevVydejeDatType" />
+            <xs:element name="VydejVstupniData" type="reg:SouboryType" minOccurs="0" />
+            <xs:element name="KodUzemnihoCelku" type="reg:KodUzemnihoCelkuType" />
+            <xs:element name="TypUzemnihoCelku" type="reg:TypUzemnihoCelkuType" />
+            <xs:element name="KriteriaVyberu" type="robint:KriteriaVyberuDatType" minOccurs="0" />
+            <xs:element name="KriteriaVolby" type="robint:KriteriaVolbyType" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="RobVydejDatDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Hromadný výdej dat a statistik, potvrzení.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="RobAplikacniStatus" type="rob:RobAplikacniStatusType" />
+            <xs:element name="VydejVystupniData" type="reg:SouboryType" minOccurs="0" />
+            <xs:element name="SnimekRob" type="reg:CasovaZnackaType" minOccurs="0" />
+            <xs:element name="SnimekRuian" type="reg:CasovaZnackaType" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="RobVydejDatStornoDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Storno hromadného výdeje dat a statistik.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="IdStorno" type="reg:RegOdpovedIdType" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="RobVydejDatStornoDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Storno hromadného výdeje dat a statistik, potvrzení.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="RobAplikacniStatus" type="rob:RobAplikacniStatusType" />
+       </xs:sequence>
+    </xs:complexType>
+</xs:schema>

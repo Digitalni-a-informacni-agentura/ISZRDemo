@@ -1,0 +1,1543 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:rpp:schemas:RppEditace:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:edi="urn:cz:isvs:rpp:schemas:RppEditaceData:v1" xmlns:edi2="urn:cz:isvs:rpp:schemas:RppEditaceData2:v1" xmlns:int="urn:cz:isvs:rpp:schemas:RppEditaceDataInt:v1" xmlns:rpp="urn:cz:isvs:rpp:schemas:RppReg:v1" targetNamespace="urn:cz:isvs:rpp:schemas:RppEditace:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.11.4">
+    <xs:annotation>
+        <xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků IS RPP.
+          Toto schéma obsahuje definice datových prvků používaných pro Editaceování v (a)synchronním režimu
+          na vybrané editace kategorie S1-S4 na interním rozhraní.
+    </xs:documentation>
+    </xs:annotation>
+    <!-- Verze 1.0.0, 6.2.2012 -->
+    <!-- Verze 1.0.1, 23.8.2012 -->
+    <!-- Verze 1.1.0, 16.8.2016 -->
+    <!-- Verze 1.1.1, 18.11.2016 vypusteni sluzeb RppZrusAgendu, RppZpochybniAgendu, RppZrusPusobnostOvm, RppZpochybniPusobnostOvm z katalogu-->
+    <!-- Verze 1.5.0, 23.9.2019 pridani nove sluzby P517 RppEditaceCiselniku-->
+    <!-- Verze 1.11.1, 23.9.2021 uprav editacnich sluzeb pro DD3-->
+    <!-- Verze 1.11.2, 30.9.2021 uprav editacnich sluzeb pro DD3-->
+    <!-- Verze 1.11.4, 6.1.2022 upravy sluzeb sluzeb DD3, vyrazeni nekterych sluzeb-->        
+    <xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+    <xs:import namespace="urn:cz:isvs:rpp:schemas:RppReg:v1" schemaLocation="RppReg.xsd"/>
+    <xs:import namespace="urn:cz:isvs:rpp:schemas:RppEditaceData:v1" schemaLocation="RppEditaceData.xsd"/>
+    <xs:import namespace="urn:cz:isvs:rpp:schemas:RppEditaceData2:v1" schemaLocation="RppEditaceData2.xsd"/>
+    <xs:import namespace="urn:cz:isvs:rpp:schemas:RppEditaceDataInt:v1" schemaLocation="RppEditaceDataInt.xsd"/>
+    <xs:element name="RppAsyncEditaceResponse" type="reg:OdpovedInfoType"/>
+    <xs:element name="RppSyncVlozAgendu" type="RppSyncVlozAgenduType"/>
+    <xs:element name="RppSyncVlozAgenduResponse" type="RppSyncVlozAgenduResponseType"/>
+    <xs:element name="RppAsyncVlozAgendu" type="RppSyncVlozAgenduType"/>
+    <xs:element name="RppSyncZmenAgendu" type="RppSyncZmenAgenduType"/>
+    <xs:element name="RppSyncZmenAgenduResponse" type="RppSyncZmenAgenduResponseType"/>
+    <xs:element name="RppAsyncZmenAgendu" type="RppSyncZmenAgenduType"/>
+    <xs:element name="RppSyncVlozRozhodnuti" type="RppSyncVlozRozhodnutiType"/>
+    <xs:element name="RppSyncVlozRozhodnutiResponse" type="RppSyncVlozRozhodnutiResponseType"/>
+    <xs:element name="RppAsyncVlozRozhodnuti" type="RppSyncVlozRozhodnutiType"/>
+    <xs:element name="RppSyncZmenRozhodnuti" type="RppSyncZmenRozhodnutiType"/>
+    <xs:element name="RppSyncZmenRozhodnutiResponse" type="RppSyncZmenRozhodnutiResponseType"/>
+    <xs:element name="RppAsyncZmenRozhodnuti" type="RppSyncZmenRozhodnutiType"/>
+    <xs:element name="RppSyncZpochybniRozhodnuti" type="RppSyncZpochybniRozhodnutiType"/>
+    <xs:element name="RppSyncZpochybniRozhodnutiResponse" type="RppSyncZpochybniRozhodnutiResponseType"/>
+    <xs:element name="RppAsyncZpochybniRozhodnuti" type="RppSyncZpochybniRozhodnutiType"/>
+    <xs:element name="RppSyncVymazRozhodnuti" type="RppSyncVymazRozhodnutiType"/>
+    <xs:element name="RppSyncVymazRozhodnutiResponse" type="RppSyncVymazRozhodnutiResponseType"/>
+    <xs:element name="RppAsyncVymazRozhodnuti" type="RppSyncVymazRozhodnutiType"/>
+    <xs:element name="RppSyncVlozProcesniModel" type="RppSyncVlozProcesniModelType"/>
+    <xs:element name="RppSyncVlozProcesniModelResponse" type="RppSyncVlozProcesniModelResponseType"/>
+    <xs:element name="RppAsyncVlozProcesniModel" type="RppSyncVlozProcesniModelType"/>
+    <xs:element name="RppSyncZmenProcesniModel" type="RppSyncZmenProcesniModelType"/>
+    <xs:element name="RppSyncZmenProcesniModelResponse" type="RppSyncZmenProcesniModelResponseType"/>
+    <xs:element name="RppAsyncZmenProcesniModel" type="RppSyncZmenProcesniModelType"/>
+    <xs:element name="RppSyncVymazProcesniModel" type="RppSyncVymazProcesniModelType"/>
+    <xs:element name="RppSyncVymazProcesniModelResponse" type="RppSyncVymazProcesniModelResponseType"/>
+    <xs:element name="RppAsyncVymazProcesniModel" type="RppSyncVymazProcesniModelType"/>
+    <xs:element name="RppSyncVlozPravniPredpis" type="RppSyncVlozPravniPredpisType"/>
+    <xs:element name="RppSyncVlozPravniPredpisResponse" type="RppSyncVlozPravniPredpisResponseType"/>
+    <xs:element name="RppAsyncVlozPravniPredpis" type="RppSyncVlozPravniPredpisType"/>
+    <xs:element name="RppSyncZmenPravniPredpis" type="RppSyncZmenPravniPredpisType"/>
+    <xs:element name="RppSyncZmenPravniPredpisResponse" type="RppSyncZmenPravniPredpisResponseType"/>
+    <xs:element name="RppAsyncZmenPravniPredpis" type="RppSyncZmenPravniPredpisType"/>
+    <xs:element name="RppSyncZrusPravniPredpis" type="RppSyncZrusPravniPredpisType"/>
+    <xs:element name="RppSyncZrusPravniPredpisResponse" type="RppSyncZrusPravniPredpisResponseType"/>
+    <xs:element name="RppAsyncZrusPravniPredpis" type="RppSyncZrusPravniPredpisType"/>
+    <xs:element name="RppSyncVlozPusobnostOvm" type="RppSyncVlozPusobnostOvmType"/>
+    <xs:element name="RppSyncVlozPusobnostOvmResponse" type="RppSyncVlozPusobnostOvmResponseType"/>
+    <xs:element name="RppAsyncVlozPusobnostOvm" type="RppSyncVlozPusobnostOvmType"/>
+    <xs:element name="RppSyncZmenPusobnostOvm" type="RppSyncZmenPusobnostOvmType"/>
+    <xs:element name="RppSyncZmenPusobnostOvmResponse" type="RppSyncZmenPusobnostOvmResponseType"/>
+    <xs:element name="RppAsyncZmenPusobnostOvm" type="RppSyncZmenPusobnostOvmType"/>
+    <xs:element name="RppSyncVlozSluzbu" type="RppSyncVlozSluzbuType"/>
+    <xs:element name="RppSyncVlozSluzbuResponse" type="RppSyncVlozSluzbuResponseType"/>
+    <xs:element name="RppAsyncVlozSluzbu" type="RppSyncVlozSluzbuType"/>
+    <xs:element name="RppSyncZmenSluzbu" type="RppSyncZmenSluzbuType"/>
+    <xs:element name="RppSyncZmenSluzbuResponse" type="RppSyncZmenSluzbuResponseType"/>
+    <xs:element name="RppAsyncZmenSluzbu" type="RppSyncZmenSluzbuType"/>
+    <xs:element name="RppSyncZrusSluzbu" type="RppSyncZrusSluzbuType"/>
+    <xs:element name="RppSyncZrusSluzbuResponse" type="RppSyncZrusSluzbuResponseType"/>
+    <xs:element name="RppAsyncZrusSluzbu" type="RppSyncZrusSluzbuType"/>
+    <xs:element name="RppSyncVlozSla" type="RppSyncVlozSlaType"/>
+    <xs:element name="RppSyncVlozSlaResponse" type="RppSyncVlozSlaResponseType"/>
+    <xs:element name="RppAsyncVlozSla" type="RppSyncVlozSlaType"/>
+    <xs:element name="RppSyncZmenSla" type="RppSyncZmenSlaType"/>
+    <xs:element name="RppSyncZmenSlaResponse" type="RppSyncZmenSlaResponseType"/>
+    <xs:element name="RppAsyncZmenSla" type="RppSyncZmenSlaType"/>
+    <xs:element name="RppSyncZrusSla" type="RppSyncZrusSlaType"/>
+    <xs:element name="RppSyncZrusSlaResponse" type="RppSyncZrusSlaResponseType"/>
+    <xs:element name="RppAsyncZrusSla" type="RppSyncZrusSlaType"/>
+    <xs:element name="RppSyncVlozVazbuAgendaSluzba" type="RppSyncVlozVazbuAgendaSluzbaType"/>
+    <xs:element name="RppSyncVlozVazbuAgendaSluzbaResponse" type="RppSyncVlozVazbuAgendaSluzbaResponseType"/>
+    <xs:element name="RppAsyncVlozVazbuAgendaSluzba" type="RppSyncVlozVazbuAgendaSluzbaType"/>
+    <xs:element name="RppSyncVymazVazbuAgendaSluzba" type="RppSyncVymazVazbuAgendaSluzbaType"/>
+    <xs:element name="RppSyncVymazVazbuAgendaSluzbaResponse" type="RppSyncVymazVazbuAgendaSluzbaResponseType"/>
+    <xs:element name="RppAsyncVymazVazbuAgendaSluzba" type="RppSyncVymazVazbuAgendaSluzbaType"/>
+    <xs:element name="RppSyncSpravaCiselniku" type="RppSyncSpravaCiselnikuType"/>
+    <xs:element name="RppSyncSpravaCiselnikuResponse" type="RppSyncSpravaCiselnikuResponseType"/>
+    <xs:element name="RppAsyncSpravaCiselniku" type="RppSyncSpravaCiselnikuType"/>
+    <xs:element name="RppSyncEditaceCiselniku" type="RppSyncEditaceCiselnikuType"/>
+    <xs:element name="RppSyncEditaceCiselnikuResponse" type="RppSyncEditaceCiselnikuResponseType"/>
+    <xs:element name="RppAsyncEditaceCiselniku" type="RppSyncEditaceCiselnikuType"/>
+    <xs:element name="RppSyncZapisDatovouSchranku" type="RppSyncZapisDatovouSchrankuType"/>
+    <xs:element name="RppSyncZapisDatovouSchrankuResponse" type="RppSyncZapisDatovouSchrankuResponseType"/>
+    <xs:element name="RppAsyncZapisDatovouSchranku" type="RppSyncZapisDatovouSchrankuType"/>
+    <xs:element name="RppSyncVlozKategoriiOvmSpuu" type="RppSyncVlozKategoriiOvmSpuuType"/>
+    <xs:element name="RppSyncVlozKategoriiOvmSpuuResponse" type="RppSyncVlozKategoriiOvmSpuuResponseType"/>
+    <xs:element name="RppAsyncVlozKategoriiOvmSpuu" type="RppSyncVlozKategoriiOvmSpuuType"/>
+    <xs:element name="RppSyncZmenKategoriiOvmSpuu" type="RppSyncZmenKategoriiOvmSpuuType"/>
+    <xs:element name="RppSyncZmenKategoriiOvmSpuuResponse" type="RppSyncZmenKategoriiOvmSpuuResponseType"/>
+    <xs:element name="RppAsyncZmenKategoriiOvmSpuu" type="RppSyncZmenKategoriiOvmSpuuType"/>
+    <xs:element name="RppSyncVlozOvmSpuu" type="RppSyncVlozOvmSpuuType"/>
+    <xs:element name="RppSyncVlozOvmSpuuResponse" type="RppSyncVlozOvmSpuuResponseType"/>
+    <xs:element name="RppAsyncVlozOvmSpuu" type="RppSyncVlozOvmSpuuType"/>
+    <xs:element name="RppSyncZmenOvmSpuu" type="RppSyncZmenOvmSpuuType"/>
+    <xs:element name="RppSyncZmenOvmSpuuResponse" type="RppSyncZmenOvmSpuuResponseType"/>
+    <xs:element name="RppAsyncZmenOvmSpuu" type="RppSyncZmenOvmSpuuType"/>
+    <xs:complexType name="RppEditaceAbstractType" abstract="true">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Editace, předek.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="KodSluzby" type="rpp:KodRppSluzbyType"/>
+            <xs:element name="ZadostInfo" type="reg:ZadostInfoType"/>
+            <xs:element name="AutorizaceInfo" type="reg:AutorizaceType" minOccurs="0"/>
+            <xs:element name="MapaAifo" type="reg:MapaAifoType" minOccurs="0"/>
+            <xs:element name="SeznamIdAdres" type="reg:SeznamIdAdresType" minOccurs="0"/>
+            <xs:element name="SeznamIco" type="reg:SeznamIcoType" minOccurs="0"/>
+            <xs:element name="SeznamPrvku" type="reg:SeznamPrvkuType" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute name="verzeZadosti" type="reg:VerzeType"/>
+    </xs:complexType>
+    <xs:complexType name="RppEditaceResponseAbstractType" abstract="true">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na Editace, předek.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="KodSluzby" type="rpp:KodRppSluzbyType"/>
+            <xs:element name="OdpovedInfo" type="reg:OdpovedInfoType"/>
+            <xs:element name="MapaAifo" type="reg:MapaAifoType" minOccurs="0"/>
+            <xs:element name="SeznamIdAdres" type="reg:SeznamIdAdresType" minOccurs="0"/>
+            <xs:element name="SeznamIco" type="reg:SeznamIcoType" minOccurs="0"/>
+            <xs:element name="SeznamPrvku" type="reg:SeznamPrvkuType" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute name="verzeZadosti" type="reg:VerzeType"/>
+    </xs:complexType>
+    <xs:complexType name="RppEditaceDataAbstractType" abstract="true">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Obálka pro data Editaceu, předek.</xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="verzeSluzby" type="reg:VerzeType"/>
+    </xs:complexType>
+    <xs:complexType name="RppEditaceDataResponseAbstractType" abstract="true">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Obálka pro data odpovědi na Editace, předek.</xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="verzeSluzby" type="reg:VerzeType"/>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVlozAgenduType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Editační dotaz služby P05.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceAbstractType">
+                <xs:sequence>
+                    <xs:element name="Zadost" type="RppSyncVlozAgenduDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVlozAgenduDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Editační dotaz služby P05, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="edi2:RppVlozAgenduData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVlozAgenduResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P05.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVlozAgenduDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVlozAgenduDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P05, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="edi2:RppVlozAgenduDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZmenAgenduType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Editační dotaz služby P06 - předběžná verze služby.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceAbstractType">
+                <xs:sequence>
+                    <xs:element name="Zadost" type="RppSyncZmenAgenduDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZmenAgenduDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Editační dotaz služby P06, obálka pro data - předběžná verze služby.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="edi2:RppZmenAgenduData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZmenAgenduResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P06 - předběžná verze služby.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncZmenAgenduDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZmenAgenduDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P06, obálka pro data - předběžná verze služby.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="edi2:RppZmenAgenduDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVlozRozhodnutiType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Editační dotaz služby P12.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceAbstractType">
+                <xs:sequence>
+                    <xs:element name="Zadost" type="RppSyncVlozRozhodnutiDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVlozRozhodnutiDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Editační dotaz služby P12, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="edi:RppVlozRozhodnutiData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVlozRozhodnutiResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P12.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVlozRozhodnutiDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVlozRozhodnutiDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P12, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="edi:RppVlozRozhodnutiDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZmenRozhodnutiType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Editační dotaz služby P13.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceAbstractType">
+                <xs:sequence>
+                    <xs:element name="Zadost" type="RppSyncZmenRozhodnutiDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZmenRozhodnutiDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Editační dotaz služby P13, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="edi:RppZmenRozhodnutiData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZmenRozhodnutiResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P13.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncZmenRozhodnutiDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZmenRozhodnutiDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P13, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="edi:RppZmenRozhodnutiDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZpochybniRozhodnutiType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Editační dotaz služby P14.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceAbstractType">
+                <xs:sequence>
+                    <xs:element name="Zadost" type="RppSyncZpochybniRozhodnutiDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZpochybniRozhodnutiDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Editační dotaz služby P14, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="edi:RppZpochybniRozhodnutiData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZpochybniRozhodnutiResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P14.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncZpochybniRozhodnutiDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZpochybniRozhodnutiDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P14, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="edi:RppZpochybniRozhodnutiDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVymazRozhodnutiType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Editační dotaz služby P15.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceAbstractType">
+                <xs:sequence>
+                    <xs:element name="Zadost" type="RppSyncVymazRozhodnutiDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVymazRozhodnutiDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Editační dotaz služby P15, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="edi:RppVymazRozhodnutiData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVymazRozhodnutiResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P15.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVymazRozhodnutiDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVymazRozhodnutiDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P15, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="edi:RppVymazRozhodnutiDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVlozProcesniModelType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Editační dotaz služby P18.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceAbstractType">
+                <xs:sequence>
+                    <xs:element name="Zadost" type="RppSyncVlozProcesniModelDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVlozProcesniModelDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Editační dotaz služby P18, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="edi:RppVlozProcesniModelData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVlozProcesniModelResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P18.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVlozProcesniModelDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVlozProcesniModelDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P18, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="edi:RppVlozProcesniModelDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZmenProcesniModelType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Editační dotaz služby P19.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceAbstractType">
+                <xs:sequence>
+                    <xs:element name="Zadost" type="RppSyncZmenProcesniModelDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZmenProcesniModelDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Editační dotaz služby P19, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="edi:RppZmenProcesniModelData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZmenProcesniModelResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P19.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncZmenProcesniModelDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZmenProcesniModelDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P19, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="edi:RppZmenProcesniModelDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVymazProcesniModelType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Editační dotaz služby P20.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceAbstractType">
+                <xs:sequence>
+                    <xs:element name="Zadost" type="RppSyncVymazProcesniModelDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVymazProcesniModelDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Editační dotaz služby P20, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="edi:RppVymazProcesniModelData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVymazProcesniModelResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P20.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVymazProcesniModelDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVymazProcesniModelDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P20, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="edi:RppVymazProcesniModelDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVlozPravniPredpisType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Editační dotaz služby P23.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceAbstractType">
+                <xs:sequence>
+                    <xs:element name="Zadost" type="RppSyncVlozPravniPredpisDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVlozPravniPredpisDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Editační dotaz služby P23, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="edi:RppVlozPravniPredpisData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVlozPravniPredpisResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P23.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVlozPravniPredpisDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVlozPravniPredpisDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P23, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="edi:RppVlozPravniPredpisDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZmenPravniPredpisType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Editační dotaz služby P24.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceAbstractType">
+                <xs:sequence>
+                    <xs:element name="Zadost" type="RppSyncZmenPravniPredpisDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZmenPravniPredpisDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Editační dotaz služby P24, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="edi:RppZmenPravniPredpisData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZmenPravniPredpisResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P24.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncZmenPravniPredpisDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZmenPravniPredpisDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P24, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="edi:RppZmenPravniPredpisDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZrusPravniPredpisType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Editační dotaz služby P25.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceAbstractType">
+                <xs:sequence>
+                    <xs:element name="Zadost" type="RppSyncZrusPravniPredpisDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZrusPravniPredpisDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Editační dotaz služby P25, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="edi:RppZrusPravniPredpisData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZrusPravniPredpisResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P25.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncZrusPravniPredpisDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZrusPravniPredpisDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P25, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="edi:RppZrusPravniPredpisDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVlozPusobnostOvmType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Editační dotaz služby P28.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceAbstractType">
+                <xs:sequence>
+                    <xs:element name="Zadost" type="RppSyncVlozPusobnostOvmDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVlozPusobnostOvmDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Editační dotaz služby P28, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="edi2:RppVlozPusobnostOvmData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVlozPusobnostOvmResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P28.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVlozPusobnostOvmDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVlozPusobnostOvmDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P28, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="edi2:RppVlozPusobnostOvmDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZmenPusobnostOvmType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Editační dotaz služby P29.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceAbstractType">
+                <xs:sequence>
+                    <xs:element name="Zadost" type="RppSyncZmenPusobnostOvmDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZmenPusobnostOvmDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Editační dotaz služby P29, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="edi2:RppZmenPusobnostOvmData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZmenPusobnostOvmResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P29.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncZmenPusobnostOvmDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZmenPusobnostOvmDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P29, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="edi2:RppZmenPusobnostOvmDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVlozSluzbuType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Editační dotaz služby P34.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceAbstractType">
+                <xs:sequence>
+                    <xs:element name="Zadost" type="RppSyncVlozSluzbuDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVlozSluzbuDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Editační dotaz služby P34, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="edi:RppVlozSluzbuData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVlozSluzbuResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P34.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVlozSluzbuDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVlozSluzbuDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P34, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="edi:RppVlozSluzbuDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZmenSluzbuType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Editační dotaz služby P35.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceAbstractType">
+                <xs:sequence>
+                    <xs:element name="Zadost" type="RppSyncZmenSluzbuDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZmenSluzbuDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Editační dotaz služby P35, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="edi:RppZmenSluzbuData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZmenSluzbuResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P35.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncZmenSluzbuDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZmenSluzbuDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P35, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="edi:RppZmenSluzbuDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZrusSluzbuType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Editační dotaz služby P36.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceAbstractType">
+                <xs:sequence>
+                    <xs:element name="Zadost" type="RppSyncZrusSluzbuDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZrusSluzbuDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Editační dotaz služby P36, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="edi:RppZrusSluzbuData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZrusSluzbuResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P36.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncZrusSluzbuDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZrusSluzbuDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P36, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="edi:RppZrusSluzbuDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVlozSlaType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Editační ditaz služby P39.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceAbstractType">
+                <xs:sequence>
+                    <xs:element name="Zadost" type="RppSyncVlozSlaDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVlozSlaDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Editační dotaz služby P39, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="edi:RppVlozSlaData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVlozSlaResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P39.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVlozSlaDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVlozSlaDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P39, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="edi:RppVlozSlaDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZmenSlaType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Editační dotaz služby P40.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceAbstractType">
+                <xs:sequence>
+                    <xs:element name="Zadost" type="RppSyncZmenSlaDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZmenSlaDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Editační dotaz služby P40, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="edi:RppZmenSlaData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZmenSlaResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P40.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncZmenSlaDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZmenSlaDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P40, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="edi:RppZmenSlaDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZrusSlaType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Editační dotaz služby P41.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceAbstractType">
+                <xs:sequence>
+                    <xs:element name="Zadost" type="RppSyncZrusSlaDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZrusSlaDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Editační dotaz služby P41, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="edi:RppZrusSlaData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZrusSlaResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P41.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncZrusSlaDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZrusSlaDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P41, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="edi:RppZrusSlaDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVlozVazbuAgendaSluzbaType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Editační dotaz služby P42.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceAbstractType">
+                <xs:sequence>
+                    <xs:element name="Zadost" type="RppSyncVlozVazbuAgendaSluzbaDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVlozVazbuAgendaSluzbaDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Editační dotaz služby P42, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="edi:RppVlozVazbuAgendaSluzbaData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVlozVazbuAgendaSluzbaResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P42.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVlozVazbuAgendaSluzbaDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVlozVazbuAgendaSluzbaDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P42, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="edi:RppVlozVazbuAgendaSluzbaDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVymazVazbuAgendaSluzbaType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Editační dotaz služby P43.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceAbstractType">
+                <xs:sequence>
+                    <xs:element name="Zadost" type="RppSyncVymazVazbuAgendaSluzbaDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVymazVazbuAgendaSluzbaDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Editační dotaz služby P43, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="edi:RppVymazVazbuAgendaSluzbaData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVymazVazbuAgendaSluzbaResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P43.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVymazVazbuAgendaSluzbaDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVymazVazbuAgendaSluzbaDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P43, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="edi:RppVymazVazbuAgendaSluzbaDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncSpravaCiselnikuType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P48.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncSpravaCiselnikuDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncSpravaCiselnikuDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P48, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="edi2:RppSpravaCiselnikuData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncSpravaCiselnikuResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P48.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncSpravaCiselnikuDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncSpravaCiselnikuDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P48, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="edi2:RppSpravaCiselnikuDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncEditaceCiselnikuType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P517.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncEditaceCiselnikuDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncEditaceCiselnikuDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P517, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="int:RppEditaceCiselnikuData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncEditaceCiselnikuResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P517.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncEditaceCiselnikuDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncEditaceCiselnikuDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P517, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="int:RppEditaceCiselnikuDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZapisDatovouSchrankuType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P56.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceAbstractType">
+                <xs:sequence>
+                    <xs:element name="Zadost" type="RppSyncZapisDatovouSchrankuDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZapisDatovouSchrankuDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P56, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="edi:RppZapisDatovouSchrankuData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZapisDatovouSchrankuResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P56.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncZapisDatovouSchrankuDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZapisDatovouSchrankuDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P56, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="edi:RppZapisDatovouSchrankuDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVlozKategoriiOvmSpuuType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P66.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceAbstractType">
+                <xs:sequence>
+                    <xs:element name="Zadost" type="RppSyncVlozKategoriiOvmSpuuDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVlozKategoriiOvmSpuuDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P66, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="edi:RppVlozKategoriiOvmSpuuData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVlozKategoriiOvmSpuuResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P66.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVlozKategoriiOvmSpuuDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVlozKategoriiOvmSpuuDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P66, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="edi:RppVlozKategoriiOvmSpuuDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZmenKategoriiOvmSpuuType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P67.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceAbstractType">
+                <xs:sequence>
+                    <xs:element name="Zadost" type="RppSyncZmenKategoriiOvmSpuuDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZmenKategoriiOvmSpuuDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P67, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="edi:RppZmenKategoriiOvmSpuuData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZmenKategoriiOvmSpuuResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P67.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncZmenKategoriiOvmSpuuDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZmenKategoriiOvmSpuuDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P67, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="edi:RppZmenKategoriiOvmSpuuDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVlozOvmSpuuType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P62.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceAbstractType">
+                <xs:sequence>
+                    <xs:element name="Zadost" type="RppSyncVlozOvmSpuuDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVlozOvmSpuuDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P62, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="edi:RppVlozOvmSpuuData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVlozOvmSpuuResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P62.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVlozOvmSpuuDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVlozOvmSpuuDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P62, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="edi:RppVlozOvmSpuuDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZmenOvmSpuuType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P63.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceAbstractType">
+                <xs:sequence>
+                    <xs:element name="Zadost" type="RppSyncZmenOvmSpuuDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZmenOvmSpuuDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P63, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="edi:RppZmenOvmSpuuData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZmenOvmSpuuResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P63.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncZmenOvmSpuuDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncZmenOvmSpuuDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P63, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppEditaceDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="edi:RppZmenOvmSpuuDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>

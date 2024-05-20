@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+	targetNamespace="urn:cz:isvs:ruian:schemas:VyhledejStavebniObjekt:v2"
+	xmlns="urn:cz:isvs:ruian:schemas:VyhledejStavebniObjekt:v2"
+	xmlns:vyhSo="urn:cz:isvs:ruian:schemas:VyhledejStavebniObjekt:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified" 
+	version="2.0.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Rozšíření VyhledejStavebniObjekt, definice potřebného elementu v namespace RUIAN.</xs:documentation>
+	</xs:annotation>
+	
+	<!-- Výchozí verze 2.0.0, 29.09.2020 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:include schemaLocation="../../../ruian/xsd/ext/v2/vyhledej/VyhledejStavebniObjekt.xsd"/>
+
+	<xs:element name="StavebniObjekty" type="vyhSo:StavebniObjektSeznamType"/>
+
+</xs:schema>

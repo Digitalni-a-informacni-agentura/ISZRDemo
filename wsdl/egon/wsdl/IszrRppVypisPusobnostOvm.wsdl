@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRppVypisPusobnostOvm:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRppVypisPusobnostOvm:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRppVypisPusobnostOvm:v1"
+	xmlns:e130="urn:cz:isvs:iszr:schemas:IszrRppVypisPusobnostOvm:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRppVypisPusobnostOvm">
+
+	<wsdl:documentation>Služba E130 externího rozhraní - poskytnutí referenčního údaje o rozhodnutích vydaných konkrétním OVM v rámci konkrétní Agendy - RPP služba P27.</wsdl:documentation>
+	
+	<!-- Vývojová verze 0.0.1, 21.12.2011, Aleš Teplý -->
+	<!-- Fixovaná verze 1.0.0, 11.01.2012, Aleš Teplý -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+	
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRppVypisPusobnostOvm:v1" schemaLocation="../xsd/IszrRppVypisPusobnostOvm.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="IszrRppVypisPusobnostOvm">
+		<wsdl:part name="parametry" element="e130:RppVypisPusobnostOvm"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRppVypisPusobnostOvmResponse">
+		<wsdl:part name="vysledek" element="e130:RppVypisPusobnostOvmResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRppVypisPusobnostOvmPortType">
+		<wsdl:operation name="IszrRppVypisPusobnostOvm">
+			<wsdl:input message="tns:IszrRppVypisPusobnostOvm"/>
+			<wsdl:output message="tns:IszrRppVypisPusobnostOvmResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRppVypisPusobnostOvmBinding" type="tns:IszrRppVypisPusobnostOvmPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRppVypisPusobnostOvm">
+			<soap:operation soapAction="IszrRppVypisPusobnostOvm"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRppVypisPusobnostOvmService">
+		<wsdl:port name="IszrRppVypisPusobnostOvmPortService" binding="tns:IszrRppVypisPusobnostOvmBinding">
+			<soap:address location="IszrRppVypisPusobnostOvm"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

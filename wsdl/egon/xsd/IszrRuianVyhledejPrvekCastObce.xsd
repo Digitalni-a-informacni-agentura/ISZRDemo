@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekCastObce:v1" 
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekCastObce:v1" 
+	xmlns:e34c="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekCastObce:v1" 
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:vyhCo="urn:cz:isvs:ruian:schemas:VyhledejCastObce:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified" 
+	version="1.1.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E34c externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	
+	<!-- Vývojová verze 0.0.1, 21.07.2011, Pavel Kirchner -->
+	<!-- Vývojová verze 0.0.2, 28.07.2011, Aleš Teplý, převzetí datového elementu Response pomocí ref (deklaruje AC) -->
+	<!-- Fixovaná verze 1.0.0, 25.10.2011, Aleš Teplý -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:VyhledejCastObce:v1" schemaLocation="ref/RuianVyhledejPrvekCastObce.xsd"/>
+	
+	<xs:element name="RuianVyhledejPrvekCastObce" type="RuianVyhledejPrvekCastObceType"/>
+	<xs:element name="RuianVyhledejPrvekCastObceResponse" type="RuianVyhledejPrvekCastObceResponseType"/>
+	
+	<xs:complexType name="RuianVyhledejPrvekCastObceType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E34c externího rozhraní - žádost. Vyhledání části obce z RUIAN. RUIAN služba A03, operace VyhledejCastObce.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+		 						<xs:element name="RuianVyhledejPrvekCastObceData" type="vyhCo:VyhledejCastObceDotazType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="RuianVyhledejPrvekCastObceResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E34c externího rozhraní - odpověď. Vyhledání části obce z RUIAN. RUIAN služba A03, operace VyhledejCastObce.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="RuianOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianVyhledejPrvekCastObceDataResponse">
+									<xs:complexType>
+										<xs:sequence>
+										  <xs:element ref="vyhCo:CastiObci"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

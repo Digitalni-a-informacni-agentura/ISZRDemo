@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrCtiReklamaci:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrCtiReklamaci:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrCtiReklamaci:v1"
+	xmlns:e177="urn:cz:isvs:iszr:schemas:IszrCtiReklamaci:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrCtiReklamaci">
+
+	<wsdl:documentation>Služba vrací informace o vložené reklamaci.</wsdl:documentation>
+
+	<!-- Vývojová verze 1.0.0, 16.04.2014 Pavel Odstrčil, vznik -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrCtiReklamaci:v1" schemaLocation="../xsd/IszrCtiReklamaci.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrCtiReklamaci">
+		<wsdl:part name="parametry" element="e177:IszrCtiReklamaci"/>
+	</wsdl:message>
+	<wsdl:message name="IszrCtiReklamaciResponse">
+		<wsdl:part name="vysledek" element="e177:IszrCtiReklamaciResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrCtiReklamaciPortType">
+		<wsdl:operation name="IszrCtiReklamaci">
+			<wsdl:input message="tns:IszrCtiReklamaci"/>
+			<wsdl:output message="tns:IszrCtiReklamaciResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrCtiReklamaciBinding" type="tns:IszrCtiReklamaciPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrCtiReklamaci">
+			<soap:operation soapAction="IszrCtiReklamaci"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrCtiReklamaciService">
+		<wsdl:port name="IszrCtiReklamaciPortService" binding="tns:IszrCtiReklamaciBinding">
+			<soap:address location="IszrCtiReklamaci"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

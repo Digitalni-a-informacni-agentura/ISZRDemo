@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrAsyncOdpovedZFronty:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrAsyncOdpovedZFronty:v1"
+	xmlns:odpf="urn:cz:isvs:iszr:schemas:IszrAsyncOdpovedZFronty:v1"
+	xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+	xmlns:xop="http://www.w3.org/2004/08/xop/include"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.1.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Načtení jednoho výsledku z fronty výsledků asynchronních volání.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vývojová verze 0.0.01, 27.06.2011, Aleš Teplý, vznik rozdělením IszrFronta -->
+	<!-- Vývojová verze 0.0.02, 28.06.2011, Aleš Teplý, do OdpovedInfo přidáno CekaciCas -->
+	<!-- Vývojová verze 0.0.03, 13.07.2011, Aleš Teplý, Response nemusí obsahovat data (async) -->
+	<!-- Vývojová verze 0.0.04, 05.09.2011, Aleš Teplý, abs:NazevAsyncSluzbyType, IszrAsyncImport -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="http://www.w3.org/2004/08/xop/include" schemaLocation="../../XopInclude.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+
+	<xs:element name="IszrAsyncOdpovedZFronty" type="IszrAsyncOdpovedZFrontyType"/>
+	<xs:element name="IszrAsyncOdpovedZFrontyResponse" type="IszrAsyncOdpovedZFrontyResponseType"/>
+
+	<xs:complexType name="IszrAsyncOdpovedZFrontyType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na vyzvednuti odpovedi z fronty. Povinný údaj - odkaz = IszrZadostId.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="KodAsyncSluzby" type="reg:NazevSluzbyType"/>
+			<xs:element name="ZadostInfo" type="abs:ZadostInfoIszrType"/>
+			<xs:element name="Zadost">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="IszrAsyncOdpovedZFrontyData">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="IszrZadostId" type="reg:IszrZadostIdType"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="IszrAsyncOdpovedZFrontyResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved na vyzvednuti dat z fronty. V elementu IszrAsyncOdpovedZFrontyDataResponse vrací kompletní asynchronní odpověď z registru - včetně OdpovedInfo, MapaAifo atd. Vrací jako XML (AsyncDotazDataResponse) nebo jako komprimovaná data.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="KodAsyncSluzby" type="reg:NazevSluzbyType"/>
+			<xs:element name="OdpovedInfo" type="OdpovedInfoZFrontyType"/>
+			<xs:element name="IszrOdpoved" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="IszrAsyncOdpovedZFrontyDataResponse">
+							<xs:complexType>
+								<xs:choice>
+									<xs:element name="KomprimovanaData" type="reg:KomprimovanaDataType"/>
+									<xs:element name="AsyncDotazDataResponse" type="reg:AsyncDotazDataResponseType"/>
+								</xs:choice>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+  <xs:simpleType name="CekaciCasType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Za jakou dobu opakovat dotaz (v sekundách).</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int"/>
+  </xs:simpleType>
+
+	<xs:complexType name="OdpovedInfoZFrontyType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Hlavička externí žádosti pro IszrAsyncOdpovedZFronty.</xs:documentation>
+    </xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="reg:OdpovedInfoType">
+				<xs:sequence>
+					<xs:element name="CekaciCas" type="CekaciCasType" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRppVlozRozhodnuti:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRppVlozRozhodnuti:v1"
+	xmlns:e115="urn:cz:isvs:iszr:schemas:IszrRppVlozRozhodnuti:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:ped="urn:cz:isvs:rpp:schemas:RppEditaceData:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.1.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E115 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vývojová verze 0.0.1, 20.12.2011, Aleš Teplý -->
+	<!-- Fixovaná verze 1.0.0, 11.01.2012, Aleš Teplý -->
+	<!-- Verze pro revizi 1.0.1, 10.02.2012 Aleš Teplý, doplnění OrgStatus do Response  -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstractOrg.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rpp:schemas:RppEditaceData:v1" schemaLocation="../../rpp/xsd/RppEditaceData.xsd"/>
+
+	<xs:element name="RppVlozRozhodnuti" type="RppVlozRozhodnutiType"/>
+	<xs:element name="RppVlozRozhodnutiResponse" type="RppVlozRozhodnutiResponseType"/>
+
+	<xs:complexType name="RppVlozRozhodnutiType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E115 externího rozhraní - typ pro žádost. Služba na základě předaných dat zapíše rozhodnutí do RPP. RPP služba P12.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAifoIcoPrvekAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RppVlozRozhodnutiData" type="ped:RppVlozRozhodnutiDataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="RppVlozRozhodnutiResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E115 externího rozhraní - typ pro odpověď. Služba na základě předaných dat zapíše rozhodnutí do RPP. RPP služba P12.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAifoStIcoPrvekAbstractType">
+				<xs:sequence>
+					<xs:element name="RppOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RppVlozRozhodnutiDataResponse" type="ped:RppVlozRozhodnutiDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

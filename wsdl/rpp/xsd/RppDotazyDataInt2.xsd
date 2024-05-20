@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:rpp:schemas:RppDotazyDataInt2:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:rpd="urn:cz:isvs:rpp:schemas:RppDotazyData:v1" xmlns:dot="urn:cz:isvs:rpp:schemas:RppDotazyTypy:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" targetNamespace="urn:cz:isvs:rpp:schemas:RppDotazyDataInt2:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.2.0">
+    <xs:annotation>
+        <xs:documentation xml:lang="cs">Návrh XML schématu s definicemi dotazovacích datových prvků IS RPP.
+          Toto schéma obsahuje definice datových prvků vstupu a výstupu druhé verze jednotlivých výhradně interních dotazovacích služeb
+          registru práv a povinností (RPP).
+        </xs:documentation>
+    </xs:annotation>
+    <!-- Verze 1.0.0, 27.10.2016 -->
+    <!-- Verze 1.0.1, 07.02.2017 - stránkování matic -->
+    <!-- Verze 1.0.2, 08.02.2017 - stránkování matic - nepovinný element MaximalniPocetZaznamu -->
+    <!-- Verze 1.2.0, 20.09.2017 - změna struktury výstupu služby RppPoskytniMaticiOpravneniKOvm -->
+    <xs:import namespace="urn:cz:isvs:rpp:schemas:RppDotazyData:v1" schemaLocation="RppDotazyData.xsd"/>
+    <xs:import namespace="urn:cz:isvs:rpp:schemas:RppDotazyTypy:v1" schemaLocation="RppDotazyTypy.xsd"/>
+    <xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+    <xs:element name="RppPoskytniMaticiOpravneniKCinnostemData" type="RppPoskytniMaticiOpravneniKCinnostemDataType"/>
+    <xs:element name="RppPoskytniMaticiOpravneniKCinnostemDataResponse" type="RppPoskytniMaticiOpravneniKCinnostemDataResponseType"/>
+    <xs:element name="RppPoskytniMaticiOpravneniKOvmData" type="RppPoskytniMaticiOpravneniKOvmDataType"/>
+    <xs:element name="RppPoskytniMaticiOpravneniKOvmDataResponse" type="RppPoskytniMaticiOpravneniKOvmDataResponseType"/>
+    <xs:complexType name="RppPoskytniMaticiOpravneniKCinnostemDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P501.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="DatumMatice" type="dot:DatumMaticeType">
+                <xs:annotation>
+                    <xs:documentation>Datum, pro který matice byla vygenerována.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="StrankaMatice" type="reg:KladneCeleCisloType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Požadovaná stránka matice.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="MaximalniPocetZaznamu" type="reg:MaximalniPocetType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Velikost požadované stránky matice.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="RppPoskytniMaticiOpravneniKCinnostemDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P501, odpověď.
+            </xs:documentation>
+            <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                OBECNA CHYBA SLUZBY
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+                PRAZDNY SEZNAM
+                PRAZDNY POVINNY PARAMETR
+                PREKROCEN POCET
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="rpd:RppDotazyDataResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="SeznamMaticeOpravneniKCinnosti" minOccurs="0">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="MaticeOpravneniKCinnosti" type="dot:MaticeOpravneniKCinnostiType" maxOccurs="unbounded">
+                                    <xs:annotation>
+                                        <xs:documentation>Seznam záznamů z matice iorávnění k činnostem pro daný den matice oprávnění.</xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppPoskytniMaticiOpravneniKOvmDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P502.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="DatumMatice" type="dot:DatumMaticeType">
+                <xs:annotation>
+                    <xs:documentation>Datum, pro který byla matice vygenerována.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="StrankaMatice" type="reg:KladneCeleCisloType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Požadovaná stránka matice.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="MaximalniPocetZaznamu" type="reg:MaximalniPocetType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Velikost požadované stránky matice.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="RppPoskytniMaticiOpravneniKOvmDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+              Služba P502, odpověď.
+            </xs:documentation>
+            <xs:documentation xml:lang="cs">
+                Chybové statusy služby:
+                OBECNA CHYBA SLUZBY
+                NEVALIDNI DATA
+                NEVALIDNI ZADOST
+                PRAZDNY SEZNAM
+                PREKROCEN POCET
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="rpd:RppDotazyDataResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="SeznamMaticeOpravneniKOvm" minOccurs="0">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="MaticeOpravneniKOvm" type="dot:MaticeOpravneniKOvmType" maxOccurs="unbounded">
+                                    <xs:annotation>
+                                        <xs:documentation>Seznam záznamů z matice oprávnění k OVM poskytující údaje pro daný den matice oprávnění.</xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>

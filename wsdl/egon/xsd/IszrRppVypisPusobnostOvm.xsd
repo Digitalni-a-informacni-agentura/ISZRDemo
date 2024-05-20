@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRppVypisPusobnostOvm:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRppVypisPusobnostOvm:v1"
+	xmlns:e130="urn:cz:isvs:iszr:schemas:IszrRppVypisPusobnostOvm:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:pdo="urn:cz:isvs:rpp:schemas:RppDotazyData:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.1.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E130 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vývojová verze 0.0.1, 21.12.2011, Aleš Teplý -->
+	<!-- Fixovaná verze 1.0.0, 11.01.2012, Aleš Teplý -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rpp:schemas:RppDotazyData:v1" schemaLocation="../../rpp/xsd/RppDotazyData.xsd"/>
+
+	<xs:element name="RppVypisPusobnostOvm" type="RppVypisPusobnostOvmType"/>
+	<xs:element name="RppVypisPusobnostOvmResponse" type="RppVypisPusobnostOvmResponseType"/>
+
+	<xs:complexType name="RppVypisPusobnostOvmType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E130 externího rozhraní - typ pro žádost. Poskytnutí detailních informací o působnosti OVM v Agendě definovaných v katalogu působností na základě vstupních parametrů (Agenda, OVM). RPP služba P27.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RppVypisPusobnostOvmData" type="pdo:RppVypisPusobnostOvmDataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="RppVypisPusobnostOvmResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E130 externího rozhraní - typ pro odpověď. Poskytnutí detailních informací o působnosti OVM v Agendě definovaných v katalogu působností na základě vstupních parametrů (Agenda, OVM). RPP služba P27.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="RppOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RppVypisPusobnostOvmDataResponse" type="pdo:RppVypisPusobnostOvmDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

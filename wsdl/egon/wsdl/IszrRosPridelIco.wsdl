@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRosPridelIco:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRosPridelIco:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRosPridelIco:v1"
+	xmlns:e16="urn:cz:isvs:iszr:schemas:IszrRosPridelIco:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRosPridelIco">
+
+	<wsdl:documentation>Služba E16 externího rozhraní - Přidělení IČO na základě předepsaných identifikačních údajů - služba ROS S01.</wsdl:documentation>
+
+	<!-- Vývojová verze 0.0.1, 15.06.2011, Aleš Teplý -->
+	<!-- Vývojová verze 0.0.2, 14.09.2011, Aleš Teplý, ponechání jen nezbytných namespace -->
+	<!-- Fixovaná verze 1.0.0, 18.09.2011, Aleš Teplý -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRosPridelIco:v1" schemaLocation="../xsd/IszrRosPridelIco.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="IszrRosPridelIco">
+		<wsdl:part name="parametry" element="e16:RosPridelIco"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRosPridelIcoResponse">
+		<wsdl:part name="vysledek" element="e16:RosPridelIcoResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRosPridelIcoPortType">
+		<wsdl:operation name="IszrRosPridelIco">
+			<wsdl:input message="tns:IszrRosPridelIco"/>
+			<wsdl:output message="tns:IszrRosPridelIcoResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRosPridelIcoBinding" type="tns:IszrRosPridelIcoPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRosPridelIco">
+			<soap:operation soapAction="IszrRosPridelIco"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRosPridelIcoService">
+		<wsdl:port name="IszrRosPridelIcoPortService" binding="tns:IszrRosPridelIcoBinding">
+			<soap:address location="IszrRosPridelIco"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

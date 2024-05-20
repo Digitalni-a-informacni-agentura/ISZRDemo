@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRuianCtiUup:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRuianCtiUup:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRuianCtiUup:v1"
+	xmlns:e283="urn:cz:isvs:iszr:schemas:IszrRuianCtiUup:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRuianCtiUup">
+
+	<wsdl:documentation>Služba E283 externího rozhraní - Vyhledání Uup z RUIAN. RUIAN služba A43, operace CtiUup.</wsdl:documentation>
+	
+	<!-- Výchozí verze 1.0.0, 6.10.2021 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+	
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRuianCtiUup:v1" schemaLocation="../xsd/IszrRuianCtiUup.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrRuianCtiUup">
+		<wsdl:part name="parametry" element="e283:RuianCtiUup"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRuianCtiUupResponse">
+		<wsdl:part name="vysledek" element="e283:RuianCtiUupResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRuianCtiUupPortType">
+		<wsdl:operation name="IszrRuianCtiUup">
+			<wsdl:input message="tns:IszrRuianCtiUup"/>
+			<wsdl:output message="tns:IszrRuianCtiUupResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRuianCtiUupBinding" type="tns:IszrRuianCtiUupPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRuianCtiUup">
+			<soap:operation soapAction="IszrRuianCtiUup"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRuianCtiUupService">
+		<wsdl:port name="IszrRuianCtiUupPortService" binding="tns:IszrRuianCtiUupBinding">
+			<soap:address location="IszrRuianCtiUup"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:isui:schemas:NavrhZmenyVOTypy:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:isui:schemas:NavrhZmenyVOTypy:v1" xmlns:nzvo="urn:cz:isvs:isui:schemas:NavrhZmenyVOTypy:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:eex="urn:cz:isvs:isui:schemas:EditaceExtTypy:v1" elementFormDefault="qualified" version="0.0.2">
+	<xs:import namespace="urn:cz:isvs:isui:schemas:EditaceExtTypy:v1" schemaLocation="../../../isui/xsd/externi_nz/EditaceExtTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../ruian/xsd/typy/CommonTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../RegTypy.xsd"/>
+	<xs:import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../../common/gml/3.2.1/gml.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:complexType name="VODefinicniBodExtNZType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Vložení definičních bodů k volebnímu okrsku.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="VoKod" type="base:Kod6Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód volebního okrsku.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DefinicniBod" type="gml:MultiPointPropertyType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VOHraniceExtNZType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Vložení nové hranice volebního okrsku.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="VoKod1" type="base:Kod6Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód volebního okrsku - jedna strana okřídlené hrany.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VoKod2" type="base:Kod6Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód volebního okrsku - druhá strana okřídlené hrany.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Geometrie" type="gml:LineStringType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs"></xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="NavrhZmenyVORequest" type="nzvo:NavrhZmenyVORequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na zpracování NZ obsahující změny VO .</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="NavrhZmenyVORequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na zpracování NZ obsahující změny VO.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Standardní hlavička dotazu.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Dotaz" type="EditaceVOType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Seznam změn volebních okrsků.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VOZmenaExtNZType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Změna volebního okrsku v rámci externího NZ.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod6Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód volebního okrsku.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GlobalniIdNavrhuZmeny" type="com:IdNavrhuZmenyType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">ID návrhu změny.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Cislo" type="base:Kod3Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Číslo volebního okrsku (unikátní uživatelská identifikace v rámci obce nebo MOMC).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ObecKod" type="base:Kod6Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód nadřazené obce.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MomcKod" type="base:Kod6Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód nadřazené MOMC.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Poznamka" type="base:Text60Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Poznámka volebního okrsku.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VOVytvoreniExtNZType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Vznik volebního okrsku v rámci externího NZ.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod6Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Externí kód volebního okrsku.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Cislo" type="base:Kod3Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Číslo volebního okrsku (unikátní uživatelská identifikace v rámci obce nebo MOMC).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ObecKod" type="base:Kod6Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód nadřazené obce.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MomcKod" type="base:Kod6Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód nadřazené MOMC.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Poznamka" type="base:Text60Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Poznámka volebního okrsku.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VOZruseniExtNZType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Zrušení volebního okrsku v rámci externího NZ.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod6Type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód volebního okrsku.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GlobalniIdNavrhuZmeny" type="com:IdNavrhuZmenyType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">ID návrhu změny.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PrvekListEditaceVOType">
+		<xs:sequence>
+			<xs:element name="Prvek" type="PrvekEditaceVOType" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PrvekEditaceVOType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Prvky volebního okrsku v rámci externího NZ.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="VytvoreniVolebniOkrsek" type="VOVytvoreniExtNZType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Vznik volebního okrsku.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ZmenaVolebniOkrsek" type="VOZmenaExtNZType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Změna volebního okrsku.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ZruseniVolebniOkrsek" type="VOZruseniExtNZType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Zrušení volebního okrsku.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DefinicniBodVolebniOkrsek" type="VODefinicniBodExtNZType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="HraniceVolebniOkrsek" type="VOHraniceExtNZType" minOccurs="0" maxOccurs="1"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="EditaceVOType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Typ volebního okrsku v rámci externího NZ.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="HlavickaNZ" type="eex:HlavickaNzType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="PodkladyNZ" type="eex:PodkladNzSeznamType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Prvky" type="PrvekListEditaceVOType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

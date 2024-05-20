@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRuianZmenCiselnikIsui:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRuianZmenCiselnikIsui:v1"
+	xmlns:e91="urn:cz:isvs:iszr:schemas:IszrRuianZmenCiselnikIsui:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:zcui="urn:cz:isvs:ruian:schemas:ZmenCiselnikIsui:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.1.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E91 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vývojová verze 0.0.1, 22.09.2011, Jan Sluka -->
+	<!-- Fixovaná verze 1.0.0, 22.09.2011, Aleš Teplý -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenCiselnikIsui:v1" schemaLocation="../../ruian/xsd/editace_isui/ZmenCiselnikIsui.xsd"/>
+
+	<xs:element name="RuianZmenCiselnikIsui" type="RuianZmenCiselnikIsuiType"/>
+	<xs:element name="RuianZmenCiselnikIsuiResponse" type="RuianZmenCiselnikIsuiResponseType"/>
+
+	<xs:complexType name="RuianZmenCiselnikIsuiType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E91 externího rozhraní - žádost. Rozhraní pro uložení změn číselníků udržovaných v ISUI – v RUIAN jsou změněny nebo doplněny záznamy. Služba RUIAN A24.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianZmenCiselnikIsuiData" type="zcui:EditaceCiselnikuISUIType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RuianZmenCiselnikIsuiResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E91 externího rozhraní - odpověď.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType"/>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRuianZmenNespravnostIsui:v1" 
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRuianZmenNespravnostIsui:v1" 
+	xmlns:e90="urn:cz:isvs:iszr:schemas:IszrRuianZmenNespravnostIsui:v1" 
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:znui="urn:cz:isvs:ruian:schemas:ZmenNespravnostIsui:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified" 
+	version="1.1.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E90 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	
+	<!-- Vývojová verze 0.0.1, 01.07.2011, Pavel Kirchner -->
+	<!-- Vývojová verze 0.0.2, 29.07.2011, Aleš Teplý, úprava na RUIAN 3 -->
+	<!-- Vývojová verze 0.0.3, 14.09.2011, Aleš Teplý, podadresáře registrů malými písmeny, CamelCase -->
+	<!-- Fixovaná verze 1.0.0, 22.09.2011, Aleš Teplý -->
+	<!-- Verze po revizi 1.0.1, 30.11.2011, Aleš Teplý, změny RuianZmenNespravnostIsuiData -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenNespravnostIsui:v1" schemaLocation="../../ruian/xsd/editace_isui/ZmenNespravnostIsui.xsd"/>
+	
+	<xs:element name="RuianZmenNespravnostIsui" type="RuianZmenNespravnostIsuiType"/>
+	<xs:element name="RuianZmenNespravnostIsuiResponse" type="RuianZmenNespravnostIsuiResponseType"/>
+	
+	<xs:complexType name="RuianZmenNespravnostIsuiType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E90 externího rozhraní - žádost. Služba pro změnu příznaku nesprávnosti referenčních údajů spravovaných aplikací ISUI do RUIAN. RUIAN služba A23.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+		 						<xs:element name="RuianZmenNespravnostIsuiData" type="znui:EditaceNespravnostiISUIType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RuianZmenNespravnostIsuiResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E90 externího rozhraní - odpověď. Služba pro změnu příznaku nesprávnosti referenčních údajů spravovaných aplikací ISUI do RUIAN. RUIAN služba A23.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType" />
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

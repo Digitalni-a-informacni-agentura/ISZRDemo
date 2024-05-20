@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrIsuiCtiPrvekAdresniMistoKDatu2:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrIsuiCtiPrvekAdresniMistoKDatu2:v1"
+	xmlns:e252a="urn:cz:isvs:iszr:schemas:IszrIsuiCtiPrvekAdresniMistoKDatu2:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:ctiAdKD="urn:cz:isvs:isui:schemas:CtiAdresniMistoKDatu:v2"
+	xmlns:ctiAd="urn:cz:isvs:ruian:schemas:CtiAdresniMisto:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="2.0.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E252a externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Výchozí verze 2.0.0, 13.10.2020 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:isui:schemas:CtiAdresniMistoKDatu:v2" schemaLocation="../../isui/xsd/ext/v2/cti_historii/CtiAdresniMistoKDatu.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiAdresniMisto:v2" schemaLocation="ref/RuianCtiPrvekAdresniMisto2.xsd"/>
+
+	<xs:element name="IsuiCtiPrvekAdresniMistoKDatu2" type="IsuiCtiPrvekAdresniMistoKDatu2Type"/>
+	<xs:element name="IsuiCtiPrvekAdresniMistoKDatu2Response" type="IsuiCtiPrvekAdresniMistoKDatu2ResponseType"/>
+
+	<xs:complexType name="IsuiCtiPrvekAdresniMistoKDatu2Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E252A externího rozhraní - žádost. Služba která vrátí požadované atributy prvku RUIAN editovaného v ISUI k požadovanému datu. ISUI služba A16, operace ctiAdresniMistoKDatu.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IsuiCtiPrvekAdresniMistoKDatu2Data" type="ctiAdKD:CtiAdresniMistoKDatuDotazType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="IsuiCtiPrvekAdresniMistoKDatu2ResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E252A externího rozhraní - odpověď. Služba která vrátí požadované atributy prvku RUIAN editovaného v ISUI k požadovanému datu. ISUI služba A16, operace ctiAdresniMistoKDatu.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="IsuiOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IsuiCtiPrvekAdresniMistoKDatu2DataResponse">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element ref="ctiAd:AdresniMisto"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

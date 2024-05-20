@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:aiseo:schemas:AiseoCtiPodleUdaju2:v1" xmlns:i16="urn:cz:isvs:aiseo:schemas:AiseoCtiPodleUdaju2:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:aiseo="urn:cz:isvs:aiseo:schemas:AiseoTypy:v1" xmlns:rob="urn:cz:isvs:rob:schemas:RobTypy:v1" xmlns:iszd="urn:cz:isvs:aiseo:schemas:AiseoDotazyData:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" targetNamespace="urn:cz:isvs:aiseo:schemas:AiseoCtiPodleUdaju2:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.1.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">XML schéma s definicemi dat pro služby AISEO, služba AiseoCtiPodleUdaju2.</xs:documentation>
+	</xs:annotation>
+	<!-- Vývojová verze 0.1.0, 21.10.2013 Kamil Jindra, výchozí verze -->
+	<!-- Vývojová verze 0.1.1, 29.10.2013, Kamil Jindra, zmeneny nazvy vstupnich parametru-->
+	<!-- Vývojová verze 0.1.2, 07.11.2013, Kamil Jindra, zmeneny typy vstupnich parametru-->
+	<xs:import namespace="urn:cz:isvs:rob:schemas:RobTypy:v1" schemaLocation="../../rob/xsd/RobTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:aiseo:schemas:AiseoTypy:v1" schemaLocation="AiseoTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:aiseo:schemas:AiseoDotazyData:v1" schemaLocation="AiseoDotazyData.xsd"/>
+	<xs:element name="AiseoSyncCtiPodleUdaju2" type="AiseoSyncCtiPodleUdaju2Type">
+		<xs:annotation>
+			<xs:documentation>Služba umožňuje přijmout definovanou žádost na vyhledání dle RČ a ostatních Kombinací:  Jmeno+Prijmeni+Datum nar; Datum nar+Rodné příjm, </xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="AiseoSyncCtiPodleUdaju2Response" type="AiseoCtiPodleUdaju2ResponseType"/>
+	<xs:element name="AiseoCtiPodleUdaju2Data" type="AiseoCtiPodleUdaju2DataType"/>
+	<xs:complexType name="AiseoSyncCtiPodleUdaju2Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Synchronní dotaz.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType"/>
+			<xs:element name="AutorizaceInfo" type="reg:AutorizaceType"/>
+			<xs:element name="Dotaz">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="AiseoCtiPodleUdaju2DataType">
+							<xs:attribute name="typPorovnani" type="rob:TypPorovnaniType"/>
+							<xs:attribute name="znepristupniLog" type="xs:boolean">
+								<xs:annotation>
+									<xs:documentation>Zapis do sledovani dotazu</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AiseoCtiPodleUdaju2DataType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba umožňuje přijmout definovanou žádost na vyhledání dle RČ.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="Parametr1RCJmPrij">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="RodneCislo"/>
+						<xs:element ref="Jmeno"/>
+						<xs:element ref="Prijmeni"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Parametr2RCJmMinPrij">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="RodneCislo"/>
+						<xs:element ref="Jmeno"/>
+						<xs:element ref="MinulePrijmeni"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Parametr3RCMinJmMinPrij">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="RodneCislo"/>
+						<xs:element ref="MinuleJmeno"/>
+						<xs:element ref="MinulePrijmeni"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Parametr4RCMinJmPrij">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="RodneCislo"/>
+						<xs:element ref="MinuleJmeno"/>
+						<xs:element ref="Prijmeni"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Parametr5RCJmRodPrij">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="RodneCislo"/>
+						<xs:element ref="Jmeno"/>
+						<xs:element ref="RodnePrijmeni"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Parametr6RCMinJmRodPrij">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="RodneCislo"/>
+						<xs:element ref="MinuleJmeno"/>
+						<xs:element ref="RodnePrijmeni"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Parametr7RCMinJmMinRodPrij">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="RodneCislo"/>
+						<xs:element ref="MinuleJmeno"/>
+						<xs:element ref="MinuleRodnePrijmeni"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Parametr8RCJmMinRodPrij">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="RodneCislo"/>
+						<xs:element ref="Jmeno"/>
+						<xs:element ref="MinuleRodnePrijmeni"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Parametr9JmPrijDatNar">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="Jmeno"/>
+						<xs:element ref="Prijmeni"/>
+						<xs:element ref="DatumNarozeni"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Parametr10JmRodPrijDatNar">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="Jmeno"/>
+						<xs:element ref="RodnePrijmeni"/>
+						<xs:element ref="DatumNarozeni"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Parametr11JmPrijRodPrijDatNarMisNar">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="Jmeno"/>
+						<xs:element ref="Prijmeni"/>
+						<xs:element ref="RodnePrijmeni"/>
+						<xs:element ref="DatumNarozeni"/>
+						<xs:element name="MistoNarozeni" type="aiseo:MistoNarozeniType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Parametr12RCJmPrijDatNar">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="RodneCislo"/>
+						<xs:element ref="Jmeno"/>
+						<xs:element ref="Prijmeni"/>
+						<xs:element ref="DatumNarozeni"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="AiseoSyncCtiPodleUdaju2DataResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Obecná definice datové části Response.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AiseoAplikacniStatus" type="aiseo:AiseoAplikacniStatusType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AiseoCtiPodleUdaju2ResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Synchronní odpověd na dotaz.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType"/>
+			<xs:element name="MapaAifo" type="reg:MapaAifoType" minOccurs="0"/>
+			<xs:element name="Odpoved" type="AiseoSyncCtiPodleUdaju2DataResponseType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="RodneCislo" type="aiseo:RCEOType"/>
+	<xs:element name="Jmeno" type="aiseo:JmenoEOType"/>
+	<xs:element name="Prijmeni" type="aiseo:PrijmeniEOType"/>
+	<xs:element name="DatumNarozeni" type="aiseo:DatumEOType"/>
+	<xs:element name="MinuleJmeno" type="aiseo:JmenoEOType"/>
+	<xs:element name="RodnePrijmeni" type="aiseo:RodnePrijmeniEOType"/>
+	<xs:element name="MinulePrijmeni" type="aiseo:PrijmeniEOType"/>
+	<xs:element name="MinuleRodnePrijmeni" type="aiseo:RodnePrijmeniEOType"/>
+</xs:schema>

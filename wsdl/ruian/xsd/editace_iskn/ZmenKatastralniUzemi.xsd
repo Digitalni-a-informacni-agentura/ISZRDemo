@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:ZmenKatastralniUzemi:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:ZmenKatastralniUzemi:v1" xmlns:zku="urn:cz:isvs:ruian:schemas:ZmenKatastralniUzemi:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:zt="urn:cz:isvs:ruian:schemas:ZmenaTypy:v1" elementFormDefault="qualified" version="0.41.0">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenaTypy:v1" schemaLocation="../../../ruian/xsd/typy/ZmenaTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:complexType name="KatastralniUzemiZmenaType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Zmena katastralniho uzemi</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod6Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Nazev" type="zt:Nazev48ZmenaType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Nespravny" type="zt:NespravnyZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ExistujeDigitalniMapa" type="zt:ExistujeDigitalniMapaZmenaType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="MluvnickaCharakteristikaPad2" type="zt:Nazev48ZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="MluvnickaCharakteristikaPad3" type="zt:Nazev48ZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="MluvnickaCharakteristikaPad4" type="zt:Nazev48ZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="MluvnickaCharakteristikaPad5" type="zt:Nazev48ZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="MluvnickaCharakteristikaPad6" type="zt:Nazev48ZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="MluvnickaCharakteristikaPad7" type="zt:Nazev48ZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PlatiOd" type="zt:DatumCasZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="RizeniId" type="zt:IdRizeniZmenaType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

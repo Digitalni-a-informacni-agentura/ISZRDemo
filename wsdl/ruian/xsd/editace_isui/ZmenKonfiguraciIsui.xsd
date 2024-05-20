@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:ZmenKonfiguraciIsui:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:ZmenKonfiguraciIsui:v1" xmlns:zkui="urn:cz:isvs:ruian:schemas:ZmenKonfiguraciIsui:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" elementFormDefault="qualified" version="1.0.0">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../RegTypy.xsd"/>
+	<xs:complexType name="EditaceKonfiguraceISUIType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Editace ciselniku z ISUI</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="RelaceUUP" type="RelaceUUPType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="VlastnostiUUP" type="VlastnostiUUPType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="UdajeUUP" type="UdajeUUPType" minOccurs="0" maxOccurs="1"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="ZmenKonfiguraciISUIRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na zmenu ciselniku z ISUI</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Dotaz" type="EditaceKonfiguraceISUIType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PolozkaVlastnostiUUPType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Polozka konfigurace relací účelových prvků.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Id" type="base:Id18Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="TypUUPKod" type="base:Kod4Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="TypVlastnostiUUPKod" type="base:Kod5TextType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Hodnota" type="base:Text4000Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PlatiOd" type="base:DatumCasType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RelaceUUPType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Konfigurace relací účelových prvků.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Polozka" type="PolozkaRelaceUUPType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PolozkaRelaceUUPType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Polozka konfigurace relací účelových prvků.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Id" type="base:Id18Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="TypUUPKod1" type="base:Kod4Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="TypUUPKod2" type="base:Kod4Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="TypRelaceKod" type="base:Kod5TextType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="PlatiOd" type="base:DatumCasType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VlastnostiUUPType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Konfigurace vlastností účelových prvků.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Polozka" type="PolozkaVlastnostiUUPType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PolozkaUdajeUUPType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Polozka konfigurace údaje účelového prvku.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Id" type="base:Id18Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="TypUUPKod" type="base:Kod4Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="TypUdajeKod" type="base:Kod30TextType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Povinny" type="xs:boolean" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Zda jde o povinný údaj.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Nasobny" type="xs:boolean" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Zda jde o násobný údaj.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PlatiOd" type="base:DatumCasType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="UdajeUUPType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Konfigurace údajů účelových prvků.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Polozka" type="PolozkaUdajeUUPType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ZmenKonfiguraciISUIResponse" type="zkui:ZmenKonfiguraciISUIResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Opověď na požadavek na změnu konfigurace z ISUI.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ZmenKonfiguraciISUIRequest" type="zkui:ZmenKonfiguraciISUIRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Požadavek na změnu konfigurace z ISUI.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="ZmenKonfiguraciISUIResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpověď na změny konfigurace ISUI.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

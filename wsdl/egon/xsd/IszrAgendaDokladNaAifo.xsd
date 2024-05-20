@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrAgendaDokladNaAifo:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrAgendaDokladNaAifo:v1"
+	xmlns:e248="urn:cz:isvs:iszr:schemas:IszrAgendaDokladNaAifo:v1"
+	xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:z10a="urn:cz:isvs:aiseop:schemas:AisEopCtiPodleUdaju:v2"
+	xmlns:z10b="urn:cz:isvs:aisecd:schemas:AisEcdCtiPodleUdaju:v2"
+	xmlns:rod="urn:cz:isvs:rob:schemas:RobDotazyData:v1"
+	xmlns:crob2="urn:cz:isvs:ruian:schemas:CtiProRob:v2"
+	xmlns:iszr="urn:cz:isvs:iszr:schemas:IszrDataAgendaDokladNaAifo:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.2.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E248 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vznik verze 1.0.0, 04.10.2020, vznik, autocont.cz-->
+	<!-- Verze po revizi 1.0.1, 14.10.2020, Aleš Teplý, RuianCtiProRobDataResponse v1 i v2 -->
+	<!-- Verze po revizi 1.2.0, 13.8.2021, Aleš Teplý, rozšíření struktury Response ROB v2.0.0, aplikačně zatím omezeno na kompatibilitu s ROB v1.0.9 -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstractOrg.xsd"/>
+	<xs:import namespace="urn:cz:isvs:aiseop:schemas:AisEopCtiPodleUdaju:v2" schemaLocation="../../aiseop/xsd/AisEopCtiPodleUdaju.xsd"/>
+	<xs:import namespace="urn:cz:isvs:aisecd:schemas:AisEcdCtiPodleUdaju:v2" schemaLocation="../../aisecd/xsd/AisEcdCtiPodleUdaju.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rob:schemas:RobDotazyData:v1" schemaLocation="../../rob/xsd/RobDotazyData.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiProRob:v2" schemaLocation="ref/RuianCtiProRob2.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrDataAgendaDokladNaAifo:v1" schemaLocation="../../iszr/xsd/IszrDataAgendaDokladNaAifo.xsd"/>
+
+	<!-- -->
+	<xs:element name="AgendaDokladNaAifo" type="AgendaDokladNaAifoType"/>
+	<xs:element name="AgendaDokladNaAifoResponse" type="AgendaDokladNaAifoResponseType"/>
+	<xs:complexType name="AgendaDokladNaAifoType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E248 externího rozhraní - typ pro žádost.  Služba pro vyhledání dle čísla dokladu v AIS editorů bez ohledu na jeho historickou platnost.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IszrAgendaDokladNaAifoData" type="iszr:IszrAgendaDokladNaAifoDataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="AgendaDokladNaAifoResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E248 externího rozhraní - typ pro odpověď.  Služba pro vyhledání dle čísla dokladu v AIS editorů bez ohledu na jeho historickou platnost.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAifoStIdAdrAbstractType">
+				<xs:sequence>
+					<xs:element name="RobOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RobOverHromadneAifoDataResponse" type="rod:RobOverHromadneAifoDataResponseType" minOccurs="0"/>
+								<xs:element name="RobCtiPodleUdajuDataResponse" type="rod:RobCtiPodleUdajuDataResponseType" minOccurs="0"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="RuianOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianCtiProRobDataResponse" type="crob2:RuianCtiProRobDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="EopOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="EopOdpoved" type="z10a:AisEopCtiPodleUdajuDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="EcdOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="EcdOdpoved" type="z10b:AisEcdCtiPodleUdajuDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

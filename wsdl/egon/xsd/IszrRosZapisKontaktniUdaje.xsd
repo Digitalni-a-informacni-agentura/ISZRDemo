@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRosZapisKontaktniUdaje:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRosZapisKontaktniUdaje:v1"
+	xmlns:e273="urn:cz:isvs:iszr:schemas:IszrRosZapisKontaktniUdaje:v1"
+	xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:sed="urn:cz:isvs:ros:schemas:RosEditaceData:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.0.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E273 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vývojová verze 1.0.0, 5.8.2021, Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<!-- 
+	<xs:import namespace="urn:cz:isvs:ros:schemas:RosEditaceData:v2" schemaLocation="../../ros/xsd/RosEditaceData.xsd"/>
+	-->
+	<xs:import namespace="urn:cz:isvs:ros:schemas:RosEditaceData:v2" schemaLocation="ref/RosEditaceData.xsd"/>
+
+	<xs:element name="RosZapisKontaktniUdaje" type="RosZapisKontaktniUdajeType"/>
+	<xs:element name="RosZapisKontaktniUdajeResponse" type="RosZapisKontaktniUdajeResponseType"/>
+
+	<xs:complexType name="RosZapisKontaktniUdajeType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E273 externího rozhraní - typ pro žádost. Služba provádí zápis kontaktních údajů osoby do ROS - služba ROS S37. Vstupní údaje (IČO, telefon, email).</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RosZapisKontaktniUdajeData" type="sed:RosZapisKontaktniUdajeDataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="RosZapisKontaktniUdajeResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E273 externího rozhraní - typ pro odpověď. Služba provádí zápis kontaktních údajů osoby do ROS - služba ROS S37. Služba vrací identifikátor a čas změny v případě úspěšného zápisu nebo chybový status.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="RosOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RosZapisKontaktniUdajeDataResponse" type="sed:RosZapisKontaktniUdajeDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

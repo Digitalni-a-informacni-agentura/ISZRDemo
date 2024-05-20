@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:AdresniMistoPolozky:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:AdresniMistoPolozky:v1" xmlns:adPol="urn:cz:isvs:ruian:schemas:AdresniMistoPolozky:v1" xmlns:adPolBase="urn:cz:isvs:ruian:schemas:AdresniMistoPolozkyBase:v1" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:soPolBase="urn:cz:isvs:ruian:schemas:StavebniObjektPolozkyBase:v1" xmlns:ulPolBase="urn:cz:isvs:ruian:schemas:UlicePolozkyBase:v1" elementFormDefault="qualified" version="0.40.0">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../ruian/xsd/typy/CommonTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:AdresniMistoPolozkyBase:v1" schemaLocation="../../../ruian/xsd/vyhledej/AdresniMistoPolozkyBase.xsd"/>
+	<xs:complexType name="AdresniMistoPolozkyType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na adresni misto</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:group ref="adPolBase:AdresniMistoPolozkyGroup" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="PlatiOd" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="IdTransakce" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="GlobalniIdNavrhuZmeny" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="DefinicniBod" type="com:PozadovanyUdajType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

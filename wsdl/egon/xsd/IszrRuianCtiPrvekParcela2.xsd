@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekParcela2:v1" 
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekParcela2:v1" 
+	xmlns:e250k="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekParcela2:v1" 
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:ctiPa="urn:cz:isvs:ruian:schemas:CtiParcela:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified" 
+	version="2.0.1">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E250k externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	
+	<!-- Výchozí verze 2.0.0, 6.10.2020 Aleš Teplý -->
+	<!-- Verze po revizi 2.0.1, 15.9.2021, Aleš Teplý, rozšíření Request, rozšíření Response -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiParcela:v2" schemaLocation="../../ruian/xsd/ext/v2/cti/CtiParcela.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiParcela:v2" schemaLocation="ref/RuianCtiPrvekParcela2.xsd"/>
+
+	<xs:element name="RuianCtiPrvekParcela2" type="RuianCtiPrvekParcela2Type"/>
+	<xs:element name="RuianCtiPrvekParcela2Response" type="RuianCtiPrvekParcela2ResponseType"/>
+	
+	<xs:complexType name="RuianCtiPrvekParcela2Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E250k externího rozhraní - žádost. Načtení parcely z RUIAN. RUIAN služba, operace ctiParcela.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianCtiPrvekParcela2Data" type="ctiPa:CtiParcelaDotazType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="RuianCtiPrvekParcela2ResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E250k externího rozhraní - odpověď. Načtení parcely z RUIAN. RUIAN služba, operace ctiParcela.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="RuianOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianCtiPrvekParcela2DataResponse">
+									<xs:complexType>
+										<xs:sequence>
+										  <xs:element ref="ctiPa:Parcela"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrIsuiCtiPrvekRegionSoudrznostiKDatu:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrIsuiCtiPrvekRegionSoudrznostiKDatu:v1"
+	xmlns:e67m="urn:cz:isvs:iszr:schemas:IszrIsuiCtiPrvekRegionSoudrznostiKDatu:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:ctiRsKD="urn:cz:isvs:isui:schemas:CtiRegionSoudrznostiKDatu:v1"
+	xmlns:ctiRs="urn:cz:isvs:ruian:schemas:CtiRegionSoudrznosti:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.1.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E67M externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vývojová verze 0.0.1, 10.2.2012, Jan Sluka -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:isui:schemas:CtiRegionSoudrznostiKDatu:v1" schemaLocation="../../isui/xsd/cti_historii/CtiRegionSoudrznostiKDatu.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiRegionSoudrznosti:v1" schemaLocation="ref/RuianCtiPrvekRegionSoudrznosti.xsd"/>
+
+	<xs:element name="IsuiCtiPrvekRegionSoudrznostiKDatu" type="IsuiCtiPrvekRegionSoudrznostiKDatuType"/>
+	<xs:element name="IsuiCtiPrvekRegionSoudrznostiKDatuResponse" type="IsuiCtiPrvekRegionSoudrznostiKDatuResponseType"/>
+
+	<xs:complexType name="IsuiCtiPrvekRegionSoudrznostiKDatuType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E67M externího rozhraní - žádost. Služba která vrátí požadované atributy prvku RUIAN editovaného v ISUI k požadovanému datu. ISUI služba A16, operace ctiRegionSoudrznostiKDatu.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IsuiCtiPrvekRegionSoudrznostiKDatuData" type="ctiRsKD:CtiRegionKDatuDotazType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="IsuiCtiPrvekRegionSoudrznostiKDatuResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E67M externího rozhraní - odpověď. Služba která vrátí požadované atributy prvku RUIAN editovaného v ISUI k požadovanému datu. ISUI služba A16, operace ctiRegionSoudrznostiKDatu.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="IsuiOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IsuiCtiPrvekRegionSoudrznostiKDatuDataResponse">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element ref="ctiRs:RegionSoudrznosti"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

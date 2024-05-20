@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekUlice2:v1" 
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekUlice2:v1" 
+	xmlns:e249q="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekUlice2:v1" 
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:vyhUl="urn:cz:isvs:ruian:schemas:VyhledejUlice:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified" 
+	version="2.0.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E249q externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	
+	<!-- Výchozí verze 2.0.0, 29.09.2020 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:VyhledejUlice:v2" schemaLocation="ref/RuianVyhledejPrvekUlice2.xsd"/>
+	
+	<xs:element name="RuianVyhledejPrvekUlice2" type="RuianVyhledejPrvekUlice2Type"/>
+	<xs:element name="RuianVyhledejPrvekUlice2Response" type="RuianVyhledejPrvekUlice2ResponseType"/>
+	
+	<xs:complexType name="RuianVyhledejPrvekUlice2Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E249q externího rozhraní - žádost. Vyhledání Ulice z RUIAN. RUIAN služba, operace VyhledejUlice.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+		 						<xs:element name="RuianVyhledejPrvekUlice2Data" type="vyhUl:VyhledejUliceDotazType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="RuianVyhledejPrvekUlice2ResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E249q externího rozhraní - odpověď. Vyhledání Ulice z RUIAN. RUIAN služba, operace VyhledejUlice.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="RuianOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianVyhledejPrvekUlice2DataResponse">
+									<xs:complexType>
+										<xs:sequence>
+										  <xs:element ref="vyhUl:Ulice"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

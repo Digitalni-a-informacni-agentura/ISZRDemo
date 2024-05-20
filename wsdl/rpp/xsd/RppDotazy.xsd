@@ -1,0 +1,3343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:rpp:schemas:RppDotazy:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:dot="urn:cz:isvs:rpp:schemas:RppDotazyData:v1" xmlns:rpp="urn:cz:isvs:rpp:schemas:RppReg:v1" xmlns:int="urn:cz:isvs:rpp:schemas:RppDotazyDataInt:v1" xmlns:int2="urn:cz:isvs:rpp:schemas:RppDotazyDataInt2:v1" xmlns:local="urn:cz:isvs:rpp:schemas:RppDotazy:v2" targetNamespace="urn:cz:isvs:rpp:schemas:RppDotazy:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.11.4">
+    <xs:annotation>
+        <xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků IS RPP.
+          Toto schéma obsahuje definice datových prvků používaných pro dotazování v (a)synchronním režimu
+          na vybrané dotazy kategorie S1-S4 na interním rozhraní.
+    </xs:documentation>
+    </xs:annotation>
+    <!-- Verze 1.0.0, 6.2.2012 -->
+    <!-- Verze 1.0.1, 24.5.2012 -->
+    <!-- Verze 1.0.2, 26.7.2012 -->
+    <!-- Verze 1.0.3, 23.8.2012 -->
+    <!-- Verze 1.1.0, 12.8.2016 -->
+    <!-- Verze 1.1.2, 7.11.2016 nova sluzba RppVypisSeznamPusobnostiOvm2-->
+    <!-- Verze 1.1.3, 9.1.2017 vypusteni datovych typu pro sluzbu AisReklamujUdajeRpp-->
+    <!-- Verze 1.2.0, 20.9.2017 odstraneni struktur pro sluzby RppPoskytniMaticiOpravneni a RppPoskytniMaticiOpravneniKUdajum, pridani struktur pro sluzbu RppPoskytniMaticiUdaju, RppPoskytniMaticiSkupinOpravneni, RppPoskytniMaticiNesprOpravneni -->
+    <!-- Verze 1.3.0, 24.4.2018  nove sluzby RppVypisOvmSpuu2, RppVypisUkonNaZadost, RppVypisSeznamUkonuNaZadost, RppCtiZmenyUkonuNaZadost, RppVypisAgendu3, RppVypisPusobnostOvm3-->
+    <!-- Verze 1.5.0, 25.9.2019 pridani nove sluzby P80 RppVypisSeznamUdajuAgendy-->
+    <!-- Verze 1.6.0, 24.1.2020 pridani novych sluzeb P81 RppVypisPusobnostOvm4, P82 RppVypisAgendu4, P83 RppVypisUkonNaZadost2-->
+    <!-- Verze 1.7.0, 4.9.2020 pridani novych sluzeb P84 VypisSluzbuVs, P85 VypisSeznamSluzebVs, P86 CtiZmenySluzebVs, P87 VypisAgendu5, P88 VypisPusobnostOvm5-->
+    <!-- Verze 1.11.0, 14.9.2021 pridani novych sluzeb P100 CtiOpravneni, P101 CtiNeplatnaOpravneni-->
+    <!-- Verze 1.11.1, 23.9.2021 pridani dalsich novych sluzeb DD3-->
+    <!-- Verze 1.11.2, 30.9.2021 pridani dalsich novych sluzeb DD3-->
+    <!-- Verze 1.11.4, 6.1.2022 upravy sluzeb sluzeb DD3, vyrazeni nekterych sluzeb-->        
+    <xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+    <xs:import namespace="urn:cz:isvs:rpp:schemas:RppReg:v1" schemaLocation="RppReg.xsd"/>
+    <xs:import namespace="urn:cz:isvs:rpp:schemas:RppDotazyData:v1" schemaLocation="RppDotazyData.xsd"/>
+    <xs:import namespace="urn:cz:isvs:rpp:schemas:RppDotazyDataInt:v1" schemaLocation="RppDotazyDataInt.xsd"/>
+    <xs:import namespace="urn:cz:isvs:rpp:schemas:RppDotazyDataInt2:v1" schemaLocation="RppDotazyDataInt2.xsd"/>
+    <xs:element name="RppAsyncDotazResponse" type="reg:OdpovedInfoType"/>
+    <xs:element name="RppSyncVypisVyuzitiRefUdaju" type="RppSyncVypisVyuzitiRefUdajuType"/>
+    <xs:element name="RppSyncVypisVyuzitiRefUdajuResponse" type="RppSyncVypisVyuzitiRefUdajuResponseType"/>
+    <xs:element name="RppAsyncVypisVyuzitiRefUdaju" type="RppSyncVypisVyuzitiRefUdajuType"/>
+    <xs:element name="RppSyncCtiZmeny" type="RppSyncCtiZmenyType"/>
+    <xs:element name="RppSyncCtiZmenyResponse" type="RppSyncCtiZmenyResponseType"/>
+    <xs:element name="RppAsyncCtiZmeny" type="RppSyncCtiZmenyType"/>
+    <xs:element name="RppSyncVypisSeznamAgend" type="RppSyncVypisSeznamAgendType"/>
+    <xs:element name="RppSyncVypisSeznamAgendResponse" type="RppSyncVypisSeznamAgendResponseType"/>
+    <xs:element name="RppAsyncVypisSeznamAgend" type="RppSyncVypisSeznamAgendType"/>
+    <xs:element name="RppSyncVypisAgendu" type="RppSyncVypisAgenduType"/>
+    <xs:element name="RppSyncVypisAgenduResponse" type="RppSyncVypisAgenduResponseType"/>
+    <xs:element name="RppAsyncVypisAgendu" type="RppSyncVypisAgenduType"/>
+    <xs:element name="RppSyncVypisRozhodnuti" type="RppSyncVypisRozhodnutiType"/>
+    <xs:element name="RppSyncVypisRozhodnutiResponse" type="RppSyncVypisRozhodnutiResponseType"/>
+    <xs:element name="RppAsyncVypisRozhodnuti" type="RppSyncVypisRozhodnutiType"/>
+    <xs:element name="RppSyncVypisSeznamRozhodnuti" type="RppSyncVypisSeznamRozhodnutiType"/>
+    <xs:element name="RppSyncVypisSeznamRozhodnutiResponse" type="RppSyncVypisSeznamRozhodnutiResponseType"/>
+    <xs:element name="RppAsyncVypisSeznamRozhodnuti" type="RppSyncVypisSeznamRozhodnutiType"/>
+    <xs:element name="RppSyncVypisSeznamProcesnichModelu" type="RppSyncVypisSeznamProcesnichModeluType"/>
+    <xs:element name="RppSyncVypisSeznamProcesnichModeluResponse" type="RppSyncVypisSeznamProcesnichModeluResponseType"/>
+    <xs:element name="RppAsyncVypisSeznamProcesnichModelu" type="RppSyncVypisSeznamProcesnichModeluType"/>
+    <xs:element name="RppSyncVypisProcesniModel" type="RppSyncVypisProcesniModelType"/>
+    <xs:element name="RppSyncVypisProcesniModelResponse" type="RppSyncVypisProcesniModelResponseType"/>
+    <xs:element name="RppAsyncVypisProcesniModel" type="RppSyncVypisProcesniModelType"/>
+    <xs:element name="RppSyncVypisSeznamPravnichPredpisu" type="RppSyncVypisSeznamPravnichPredpisuType"/>
+    <xs:element name="RppSyncVypisSeznamPravnichPredpisuResponse" type="RppSyncVypisSeznamPravnichPredpisuResponseType"/>
+    <xs:element name="RppAsyncVypisSeznamPravnichPredpisu" type="RppSyncVypisSeznamPravnichPredpisuType"/>
+    <xs:element name="RppSyncVypisPravniPredpis" type="RppSyncVypisPravniPredpisType"/>
+    <xs:element name="RppSyncVypisPravniPredpisResponse" type="RppSyncVypisPravniPredpisResponseType"/>
+    <xs:element name="RppAsyncVypisPravniPredpis" type="RppSyncVypisPravniPredpisType"/>
+    <xs:element name="RppSyncVypisSeznamPusobnostiOvm" type="RppSyncVypisSeznamPusobnostiOvmType"/>
+    <xs:element name="RppSyncVypisSeznamPusobnostiOvmResponse" type="RppSyncVypisSeznamPusobnostiOvmResponseType"/>
+    <xs:element name="RppAsyncVypisSeznamPusobnostiOvm" type="RppSyncVypisSeznamPusobnostiOvmType"/>
+    <xs:element name="RppSyncVypisPusobnostOvm" type="RppSyncVypisPusobnostOvmType"/>
+    <xs:element name="RppSyncVypisPusobnostOvmResponse" type="RppSyncVypisPusobnostOvmResponseType"/>
+    <xs:element name="RppAsyncVypisPusobnostOvm" type="RppSyncVypisPusobnostOvmType"/>
+    <xs:element name="RppSyncVypisSeznamSluzeb" type="RppSyncVypisSeznamSluzebType"/>
+    <xs:element name="RppSyncVypisSeznamSluzebResponse" type="RppSyncVypisSeznamSluzebResponseType"/>
+    <xs:element name="RppAsyncVypisSeznamSluzeb" type="RppSyncVypisSeznamSluzebType"/>
+    <xs:element name="RppSyncVypisSluzbu" type="RppSyncVypisSluzbuType"/>
+    <xs:element name="RppSyncVypisSluzbuResponse" type="RppSyncVypisSluzbuResponseType"/>
+    <xs:element name="RppAsyncVypisSluzbu" type="RppSyncVypisSluzbuType"/>
+    <xs:element name="RppSyncVypisSeznamSla" type="RppSyncVypisSeznamSlaType"/>
+    <xs:element name="RppSyncVypisSeznamSlaResponse" type="RppSyncVypisSeznamSlaResponseType"/>
+    <xs:element name="RppAsyncVypisSeznamSla" type="RppSyncVypisSeznamSlaType"/>
+    <xs:element name="RppSyncVypisSla" type="RppSyncVypisSlaType"/>
+    <xs:element name="RppSyncVypisSlaResponse" type="RppSyncVypisSlaResponseType"/>
+    <xs:element name="RppAsyncVypisSla" type="RppSyncVypisSlaType"/>
+    <xs:element name="RppSyncVypisOpravneni" type="RppSyncVypisOpravneniType"/>
+    <xs:element name="RppSyncVypisOpravneniResponse" type="RppSyncVypisOpravneniResponseType"/>
+    <xs:element name="RppAsyncVypisOpravneni" type="RppSyncVypisOpravneniType"/>
+    <xs:element name="RppSyncPoskytniKatalogSluzeb" type="RppSyncPoskytniKatalogSluzebType"/>
+    <xs:element name="RppSyncPoskytniKatalogSluzebResponse" type="RppSyncPoskytniKatalogSluzebResponseType"/>
+    <xs:element name="RppAsyncPoskytniKatalogSluzeb" type="RppSyncPoskytniKatalogSluzebType"/>
+    <xs:element name="RppSyncPoskytniMaticiOpravneniKCinnostem" type="RppSyncPoskytniMaticiOpravneniKCinnostemType"/>
+    <xs:element name="RppSyncPoskytniMaticiOpravneniKCinnostemResponse" type="RppSyncPoskytniMaticiOpravneniKCinnostemResponseType"/>
+    <xs:element name="RppAsyncPoskytniMaticiOpravneniKCinnostem" type="RppSyncPoskytniMaticiOpravneniKCinnostemType"/>
+    <xs:element name="RppSyncPoskytniMaticiOpravneniKOvm" type="RppSyncPoskytniMaticiOpravneniKOvmType"/>
+    <xs:element name="RppSyncPoskytniMaticiOpravneniKOvmResponse" type="RppSyncPoskytniMaticiOpravneniKOvmResponseType"/>
+    <xs:element name="RppAsyncPoskytniMaticiOpravneniKOvm" type="RppSyncPoskytniMaticiOpravneniKOvmType"/>
+    <xs:element name="RppSyncPoskytniMaticiUdaju" type="RppSyncPoskytniMaticiUdajuType"/>
+    <xs:element name="RppSyncPoskytniMaticiUdajuResponse" type="RppSyncPoskytniMaticiUdajuResponseType"/>
+    <xs:element name="RppAsyncPoskytniMaticiUdaju" type="RppSyncPoskytniMaticiUdajuType"/>
+    <xs:element name="RppSyncPoskytniMaticiSkupinOpravneni" type="RppSyncPoskytniMaticiSkupinOpravneniType"/>
+    <xs:element name="RppSyncPoskytniMaticiSkupinOpravneniResponse" type="RppSyncPoskytniMaticiSkupinOpravneniResponseType"/>
+    <xs:element name="RppAsyncPoskytniMaticiSkupinOpravneni" type="RppSyncPoskytniMaticiSkupinOpravneniType"/>
+    <xs:element name="RppSyncPoskytniMaticiNesprOpravneni" type="RppSyncPoskytniMaticiNesprOpravneniType"/>
+    <xs:element name="RppSyncPoskytniMaticiNesprOpravneniResponse" type="RppSyncPoskytniMaticiNesprOpravneniResponseType"/>
+    <xs:element name="RppAsyncPoskytniMaticiNesprOpravneni" type="RppSyncPoskytniMaticiNesprOpravneniType"/>
+    <xs:element name="RppSyncCtiEditora" type="RppSyncCtiEditoraType"/>
+    <xs:element name="RppSyncCtiEditoraResponse" type="RppSyncCtiEditoraResponseType"/>
+    <xs:element name="RppAsyncCtiEditora" type="RppSyncCtiEditoraType"/>
+    <xs:element name="RppSyncVypisVyuzitiRocni" type="RppSyncVypisVyuzitiRocniType"/>
+    <xs:element name="RppSyncVypisVyuzitiRocniResponse" type="RppSyncVypisVyuzitiRocniResponseType"/>
+    <xs:element name="RppAsyncVypisVyuzitiRocni" type="RppSyncVypisVyuzitiRocniType"/>
+    <xs:element name="RppSyncProbe" type="RppSyncProbeType"/>
+    <xs:element name="RppSyncProbeResponse" type="RppSyncProbeResponseType"/>
+    <xs:element name="RppSyncCtiZmenyOvmSpuu" type="RppSyncCtiZmenyOvmSpuuType"/>
+    <xs:element name="RppSyncCtiZmenyOvmSpuuResponse" type="RppSyncCtiZmenyOvmSpuuResponseType"/>
+    <xs:element name="RppAsyncCtiZmenyOvmSpuu" type="RppSyncCtiZmenyOvmSpuuType"/>
+    <xs:element name="RppSyncVypisKategoriiOvmSpuu" type="RppSyncVypisKategoriiOvmSpuuType"/>
+    <xs:element name="RppSyncVypisKategoriiOvmSpuuResponse" type="RppSyncVypisKategoriiOvmSpuuResponseType"/>
+    <xs:element name="RppAsyncVypisKategoriiOvmSpuu" type="RppSyncVypisKategoriiOvmSpuuType"/>
+    <xs:element name="RppSyncVypisOvmSpuu" type="RppSyncVypisOvmSpuuType"/>
+    <xs:element name="RppSyncVypisOvmSpuuResponse" type="RppSyncVypisOvmSpuuResponseType"/>
+    <xs:element name="RppAsyncVypisOvmSpuu" type="RppSyncVypisOvmSpuuType"/>
+    <xs:element name="RppSyncVypisSeznamKategoriiOvmSpuu" type="RppSyncVypisSeznamKategoriiOvmSpuuType"/>
+    <xs:element name="RppSyncVypisSeznamKategoriiOvmSpuuResponse" type="RppSyncVypisSeznamKategoriiOvmSpuuResponseType"/>
+    <xs:element name="RppAsyncVypisSeznamKategoriiOvmSpuu" type="RppSyncVypisSeznamKategoriiOvmSpuuType"/>
+    <xs:element name="RppSyncVypisSeznamOvmSpuu" type="RppSyncVypisSeznamOvmSpuuType"/>
+    <xs:element name="RppSyncVypisSeznamOvmSpuuResponse" type="RppSyncVypisSeznamOvmSpuuResponseType"/>
+    <xs:element name="RppAsyncVypisSeznamOvmSpuu" type="RppSyncVypisSeznamOvmSpuuType"/>
+    <xs:element name="RppSyncCtiEditoraOvmSpuu" type="RppSyncCtiEditoraOvmSpuuType"/>
+    <xs:element name="RppSyncCtiEditoraOvmSpuuResponse" type="RppSyncCtiEditoraOvmSpuuResponseType"/>
+    <xs:element name="RppAsyncCtiEditoraOvmSpuu" type="RppSyncCtiEditoraOvmSpuuType"/>
+    <xs:element name="RppSyncPoskytniMaticiAisVykonavajici" type="RppSyncPoskytniMaticiAisVykonavajiciType"/>
+    <xs:element name="RppSyncPoskytniMaticiAisVykonavajiciResponse" type="RppSyncPoskytniMaticiAisVykonavajiciResponseType"/>
+    <xs:element name="RppAsyncPoskytniMaticiAisVykonavajici" type="RppSyncPoskytniMaticiAisVykonavajiciType"/>        
+    <xs:element name="RppSyncVypisSeznamZmenOpravneni" type="RppSyncVypisSeznamZmenOpravneniType"/>
+    <xs:element name="RppSyncVypisSeznamZmenOpravneniResponse" type="RppSyncVypisSeznamZmenOpravneniResponseType"/>
+    <xs:element name="RppAsyncVypisSeznamZmenOpravneni" type="RppSyncVypisSeznamZmenOpravneniType"/>
+    <xs:element name="RppSyncVypisOpravneniKonzumace" type="RppSyncVypisOpravneniKonzumaceType"/>
+    <xs:element name="RppSyncVypisOpravneniKonzumaceResponse" type="RppSyncVypisOpravneniKonzumaceResponseType"/>
+    <xs:element name="RppAsyncVypisOpravneniKonzumace" type="RppSyncVypisOpravneniKonzumaceType"/>
+    <xs:element name="RppSyncVypisOpravneniPoskytovani" type="RppSyncVypisOpravneniPoskytovaniType"/>
+    <xs:element name="RppSyncVypisOpravneniPoskytovaniResponse" type="RppSyncVypisOpravneniPoskytovaniResponseType"/>
+    <xs:element name="RppAsyncVypisOpravneniPoskytovani" type="RppSyncVypisOpravneniPoskytovaniType"/>
+    <xs:element name="RppSyncVypisSeznamPusobnostiOvm2" type="RppSyncVypisSeznamPusobnostiOvm2Type"/>
+    <xs:element name="RppSyncVypisSeznamPusobnostiOvm2Response" type="RppSyncVypisSeznamPusobnostiOvm2ResponseType"/>
+    <xs:element name="RppAsyncVypisSeznamPusobnostiOvm2" type="RppSyncVypisSeznamPusobnostiOvm2Type"/>
+    <xs:element name="RppSyncVypisOvmSpuu2" type="RppSyncVypisOvmSpuu2Type"/>
+    <xs:element name="RppSyncVypisOvmSpuu2Response" type="RppSyncVypisOvmSpuu2ResponseType"/>
+    <xs:element name="RppAsyncVypisOvmSpuu2" type="RppSyncVypisOvmSpuu2Type"/>
+    <xs:element name="RppSyncVypisUkonNaZadost" type="RppSyncVypisUkonNaZadostType"/>
+    <xs:element name="RppSyncVypisUkonNaZadostResponse" type="RppSyncVypisUkonNaZadostResponseType"/>
+    <xs:element name="RppAsyncVypisUkonNaZadost" type="RppSyncVypisUkonNaZadostType"/>
+    <xs:element name="RppSyncVypisAgendu3" type="RppSyncVypisAgendu3Type"/>
+    <xs:element name="RppSyncVypisAgendu3Response" type="RppSyncVypisAgendu3ResponseType"/>
+    <xs:element name="RppAsyncVypisAgendu3" type="RppSyncVypisAgendu3Type"/>
+    <xs:element name="RppSyncVypisSeznamUdajuAgendy" type="RppSyncVypisSeznamUdajuAgendyType"/>
+    <xs:element name="RppSyncVypisSeznamUdajuAgendyResponse" type="RppSyncVypisSeznamUdajuAgendyResponseType"/>
+    <xs:element name="RppAsyncVypisSeznamUdajuAgendy" type="RppSyncVypisSeznamUdajuAgendyType"/>
+    <xs:element name="RppSyncVypisSluzbuVs" type="RppSyncVypisSluzbuVsType"/>
+    <xs:element name="RppSyncVypisSluzbuVsResponse" type="RppSyncVypisSluzbuVsResponseType"/>
+    <xs:element name="RppAsyncVypisSluzbuVs" type="RppSyncVypisSluzbuVsType"/>
+    <xs:element name="RppSyncVypisSeznamSluzebVs" type="RppSyncVypisSeznamSluzebVsType"/>
+    <xs:element name="RppSyncVypisSeznamSluzebVsResponse" type="RppSyncVypisSeznamSluzebVsResponseType"/>
+    <xs:element name="RppAsyncVypisSeznamSluzebVs" type="RppSyncVypisSeznamSluzebVsType"/>
+    <xs:element name="RppSyncCtiZmenySluzebVs" type="RppSyncCtiZmenySluzebVsType"/>
+    <xs:element name="RppSyncCtiZmenySluzebVsResponse" type="RppSyncCtiZmenySluzebVsResponseType"/>
+    <xs:element name="RppAsyncCtiZmenySluzebVs" type="RppSyncCtiZmenySluzebVsType"/>
+    <xs:element name="RppSyncVypisPusobnostOvm5" type="RppSyncVypisPusobnostOvm5Type"/>
+    <xs:element name="RppSyncVypisPusobnostOvm5Response" type="RppSyncVypisPusobnostOvm5ResponseType"/>
+    <xs:element name="RppAsyncVypisPusobnostOvm5" type="RppSyncVypisPusobnostOvm5Type"/>
+    <xs:element name="RppSyncVypisAgendu5" type="RppSyncVypisAgendu5Type"/>
+    <xs:element name="RppSyncVypisAgendu5Response" type="RppSyncVypisAgendu5ResponseType"/>
+    <xs:element name="RppAsyncVypisAgendu5" type="RppSyncVypisAgendu5Type"/>
+    <xs:element name="RppSyncCtiOpravneni" type="RppSyncCtiOpravneniType"/>
+    <xs:element name="RppSyncCtiOpravneniResponse" type="RppSyncCtiOpravneniResponseType"/>
+    <xs:element name="RppAsyncCtiOpravneni" type="RppSyncCtiOpravneniType"/>
+    <xs:element name="RppSyncCtiNeplatnaOpravneni" type="RppSyncCtiNeplatnaOpravneniType"/>
+    <xs:element name="RppSyncCtiNeplatnaOpravneniResponse" type="RppSyncCtiNeplatnaOpravneniResponseType"/>
+    <xs:element name="RppAsyncCtiNeplatnaOpravneni" type="RppSyncCtiNeplatnaOpravneniType"/>
+    <xs:element name="RppSyncCtiZmenyOpravneni" type="RppSyncCtiZmenyOpravneniType"/>
+    <xs:element name="RppSyncCtiZmenyOpravneniResponse" type="RppSyncCtiZmenyOpravneniResponseType"/>
+    <xs:element name="RppAsyncCtiZmenyOpravneni" type="RppSyncCtiZmenyOpravneniType"/>
+    <xs:element name="RppSyncCtiZmenyAisAgenda" type="RppSyncCtiZmenyAisAgendaType"/>
+    <xs:element name="RppSyncCtiZmenyAisAgendaResponse" type="RppSyncCtiZmenyAisAgendaResponseType"/>
+    <xs:element name="RppAsyncCtiZmenyAisAgenda" type="RppSyncCtiZmenyAisAgendaType"/>
+    <xs:element name="RppSyncCtiZmenyUdajuAgendy" type="RppSyncCtiZmenyUdajuAgendyType"/>
+    <xs:element name="RppSyncCtiZmenyUdajuAgendyResponse" type="RppSyncCtiZmenyUdajuAgendyResponseType"/>
+    <xs:element name="RppAsyncCtiZmenyUdajuAgendy" type="RppSyncCtiZmenyUdajuAgendyType"/>
+    <xs:element name="RppSyncVypisKategoriiOvmSpuu2" type="RppSyncVypisKategoriiOvmSpuu2Type"/>
+    <xs:element name="RppSyncVypisKategoriiOvmSpuu2Response" type="RppSyncVypisKategoriiOvmSpuu2ResponseType"/>
+    <xs:element name="RppAsyncVypisKategoriiOvmSpuu2" type="RppSyncVypisKategoriiOvmSpuu2Type"/>
+    <xs:element name="RppSyncVypisOpravneni2" type="RppSyncVypisOpravneni2Type"/>
+    <xs:element name="RppSyncVypisOpravneni2Response" type="RppSyncVypisOpravneni2ResponseType"/>
+    <xs:element name="RppAsyncVypisOpravneni2" type="RppSyncVypisOpravneni2Type"/>
+    <xs:element name="RppSyncVypisOvmSpuu3" type="RppSyncVypisOvmSpuu3Type"/>
+    <xs:element name="RppSyncVypisOvmSpuu3Response" type="RppSyncVypisOvmSpuu3ResponseType"/>
+    <xs:element name="RppAsyncVypisOvmSpuu3" type="RppSyncVypisOvmSpuu3Type"/>
+    <xs:element name="RppSyncVypisPusobnostOvm6" type="RppSyncVypisPusobnostOvm6Type"/>
+    <xs:element name="RppSyncVypisPusobnostOvm6Response" type="RppSyncVypisPusobnostOvm6ResponseType"/>
+    <xs:element name="RppAsyncVypisPusobnostOvm6" type="RppSyncVypisPusobnostOvm6Type"/>
+    <xs:element name="RppSyncVypisSeznamPusobnostiOvm3" type="RppSyncVypisSeznamPusobnostiOvm3Type"/>
+    <xs:element name="RppSyncVypisSeznamPusobnostiOvm3Response" type="RppSyncVypisSeznamPusobnostiOvm3ResponseType"/>
+    <xs:element name="RppAsyncVypisSeznamPusobnostiOvm3" type="RppSyncVypisSeznamPusobnostiOvm3Type"/>
+    <xs:element name="RppSyncVypisSeznamUdajuAgendy2" type="RppSyncVypisSeznamUdajuAgendy2Type"/>
+    <xs:element name="RppSyncVypisSeznamUdajuAgendy2Response" type="RppSyncVypisSeznamUdajuAgendy2ResponseType"/>
+    <xs:element name="RppAsyncVypisSeznamUdajuAgendy2" type="RppSyncVypisSeznamUdajuAgendy2Type"/>
+    <xs:element name="RppSyncVypisSluzbuVs2" type="RppSyncVypisSluzbuVs2Type"/>
+    <xs:element name="RppSyncVypisSluzbuVs2Response" type="RppSyncVypisSluzbuVs2ResponseType"/>
+    <xs:element name="RppAsyncVypisSluzbuVs2" type="RppSyncVypisSluzbuVs2Type"/>
+    <xs:element name="RppSyncVypisSeznamOpravneni" type="RppSyncVypisSeznamOpravneniType"/>
+    <xs:element name="RppSyncVypisSeznamOpravneniResponse" type="RppSyncVypisSeznamOpravneniResponseType"/>
+    <xs:element name="RppAsyncVypisSeznamOpravneni" type="RppSyncVypisSeznamOpravneniType"/>
+    <xs:element name="RppSyncVypisOpravneniRidici" type="RppSyncVypisOpravneniRidiciType"/>
+    <xs:element name="RppSyncVypisOpravneniRidiciResponse" type="RppSyncVypisOpravneniRidiciResponseType"/>
+    <xs:element name="RppAsyncVypisOpravneniRidici" type="RppSyncVypisOpravneniRidiciType"/>
+    <xs:element name="RppSyncVypisUdajAgendy" type="RppSyncVypisUdajAgendyType"/>
+    <xs:element name="RppSyncVypisUdajAgendyResponse" type="RppSyncVypisUdajAgendyResponseType"/>
+    <xs:element name="RppAsyncVypisUdajAgendy" type="RppSyncVypisUdajAgendyType"/>
+    <xs:element name="RppSyncVypisSeznamAisAgenda" type="RppSyncVypisSeznamAisAgendaType"/>
+    <xs:element name="RppSyncVypisSeznamAisAgendaResponse" type="RppSyncVypisSeznamAisAgendaResponseType"/>
+    <xs:element name="RppAsyncVypisSeznamAisAgenda" type="RppSyncVypisSeznamAisAgendaType"/>
+    <xs:element name="RppSyncVypisSeznamOvmSpuu2" type="RppSyncVypisSeznamOvmSpuu2Type"/>
+    <xs:element name="RppSyncVypisSeznamOvmSpuu2Response" type="RppSyncVypisSeznamOvmSpuu2ResponseType"/>
+    <xs:element name="RppAsyncVypisSeznamOvmSpuu2" type="RppSyncVypisSeznamOvmSpuu2Type"/>
+    <xs:element name="RppSyncVypisAgendu6" type="RppSyncVypisAgendu6Type"/>
+    <xs:element name="RppSyncVypisAgendu6Response" type="RppSyncVypisAgendu6ResponseType"/>
+    <xs:element name="RppAsyncVypisAgendu6" type="RppSyncVypisAgendu6Type"/>
+    <xs:complexType name="RppDotazAbstractType" abstract="true">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz, předek.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="KodSluzby" type="rpp:KodRppSluzbyType"/>
+            <xs:element name="ZadostInfo" type="reg:ZadostInfoType"/>
+            <xs:element name="AutorizaceInfo" type="reg:AutorizaceType" minOccurs="0"/>
+            <xs:element name="MapaAifo" type="reg:MapaAifoType" minOccurs="0"/>
+            <xs:element name="SeznamIdAdres" type="reg:SeznamIdAdresType" minOccurs="0"/>
+            <xs:element name="SeznamIco" type="reg:SeznamIcoType" minOccurs="0"/>
+            <xs:element name="SeznamPrvku" type="reg:SeznamPrvkuType" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute name="verzeZadosti" type="reg:VerzeType"/>
+    </xs:complexType>
+    <xs:complexType name="RppDotazIntAbstractType" abstract="true">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz výhradně interní služby používané ISZR, předek.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="KodSluzby" type="rpp:KodRppSluzbyType"/>
+            <xs:element name="CasZadosti" type="reg:CasovaZnackaType"/>
+            <xs:element name="IszrZadostId" type="reg:IszrZadostIdType"/>
+        </xs:sequence>
+        <xs:attribute name="verzeZadosti" type="reg:VerzeType"/>
+    </xs:complexType>
+    <xs:complexType name="RppDotazResponseAbstractType" abstract="true">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz, předek.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="KodSluzby" type="rpp:KodRppSluzbyType"/>
+            <xs:element name="OdpovedInfo" type="reg:OdpovedInfoType"/>
+            <xs:element name="MapaAifo" type="reg:MapaAifoType" minOccurs="0"/>
+            <xs:element name="SeznamIdAdres" type="reg:SeznamIdAdresType" minOccurs="0"/>
+            <xs:element name="SeznamIco" type="reg:SeznamIcoType" minOccurs="0"/>
+            <xs:element name="SeznamPrvku" type="reg:SeznamPrvkuType" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute name="verzeZadosti" type="reg:VerzeType"/>
+    </xs:complexType>
+    <xs:complexType name="RppDotazIntResponseAbstractType" abstract="true">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz výhradně interní služby používané ISZR, předek.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="KodSluzby" type="rpp:KodRppSluzbyType"/>
+            <xs:element name="CasOdpovedi" type="reg:CasovaZnackaType"/>
+            <xs:element name="Status" type="reg:StatusType"/>
+            <xs:element name="IszrZadostId" type="reg:IszrZadostIdType" minOccurs="0"/>
+            <xs:element name="RegOdpovedId" type="reg:RegOdpovedIdType" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute name="verzeZadosti" type="reg:VerzeType"/>
+    </xs:complexType>
+    <xs:complexType name="RppDotazDataAbstractType" abstract="true">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Obálka pro data dotazu, předek.</xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="verzeSluzby" type="reg:VerzeType"/>
+    </xs:complexType>
+    <xs:complexType name="RppDotazDataResponseAbstractType" abstract="true">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Obálka pro data odpovědi na dotaz, předek.</xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="verzeSluzby" type="reg:VerzeType"/>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisVyuzitiRefUdajuType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P01 - předběžná verze.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncVypisVyuzitiRefUdajuDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisVyuzitiRefUdajuDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P01, obálka pro data - předběžná verze.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppVypisVyuzitiRefUdajuData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisVyuzitiRefUdajuResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P01 - předběžná verze.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVypisVyuzitiRefUdajuDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisVyuzitiRefUdajuDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P01, obálka pro data - předběžná verze.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppVypisVyuzitiRefUdajuDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncCtiZmenyType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P02.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncCtiZmenyDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncCtiZmenyDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P02, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppCtiZmenyData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncCtiZmenyResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P02.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncCtiZmenyDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncCtiZmenyDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P02, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppCtiZmenyDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamAgendType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P03.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncVypisSeznamAgendDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamAgendDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P03, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppVypisSeznamAgendData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamAgendResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P03.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVypisSeznamAgendDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamAgendDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P03, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppVypisSeznamAgendDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisAgenduType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P04.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncVypisAgenduDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisAgenduDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P04, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppVypisAgenduData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisAgenduResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P04.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVypisAgenduDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisAgenduDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P04, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppVypisAgenduDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisRozhodnutiType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P09.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncVypisRozhodnutiDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisRozhodnutiDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P09, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppVypisRozhodnutiData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisRozhodnutiResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P09.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVypisRozhodnutiDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisRozhodnutiDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P09, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppVypisRozhodnutiDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamRozhodnutiType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P10.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncVypisSeznamRozhodnutiDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamRozhodnutiDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P10, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppVypisSeznamRozhodnutiData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamRozhodnutiResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P10.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVypisSeznamRozhodnutiDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamRozhodnutiDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P10, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppVypisSeznamRozhodnutiDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamProcesnichModeluType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P16.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncVypisSeznamProcesnichModeluDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamProcesnichModeluDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P16, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppVypisSeznamProcesnichModeluData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamProcesnichModeluResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P16.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVypisSeznamProcesnichModeluDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamProcesnichModeluDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P16, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppVypisSeznamProcesnichModeluDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisProcesniModelType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P17.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncVypisProcesniModelDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisProcesniModelDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P17, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppVypisProcesniModelData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisProcesniModelResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P17.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVypisProcesniModelDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisProcesniModelDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P17, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppVypisProcesniModelDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamPravnichPredpisuType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P21.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncVypisSeznamPravnichPredpisuDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamPravnichPredpisuDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P21, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppVypisSeznamPravnichPredpisuData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamPravnichPredpisuResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P21.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVypisSeznamPravnichPredpisuDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamPravnichPredpisuDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P21, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppVypisSeznamPravnichPredpisuDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisPravniPredpisType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P22.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncVypisPravniPredpisDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisPravniPredpisDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P22, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppVypisPravniPredpisData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisPravniPredpisResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P22.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVypisPravniPredpisDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisPravniPredpisDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P22, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppVypisPravniPredpisDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamPusobnostiOvmType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P26.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncVypisSeznamPusobnostiOvmDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamPusobnostiOvmDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P26, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppVypisSeznamPusobnostiOvmData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamPusobnostiOvmResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P26.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVypisSeznamPusobnostiOvmDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamPusobnostiOvmDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P26, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppVypisSeznamPusobnostiOvmDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisPusobnostOvmType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P27.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncVypisPusobnostOvmDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisPusobnostOvmDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P27, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppVypisPusobnostOvmData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisPusobnostOvmResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P27.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVypisPusobnostOvmDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisPusobnostOvmDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P27, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppVypisPusobnostOvmDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamSluzebType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P32.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncVypisSeznamSluzebDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamSluzebDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P32, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppVypisSeznamSluzebData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamSluzebResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P32.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVypisSeznamSluzebDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamSluzebDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P32, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppVypisSeznamSluzebDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSluzbuType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P33.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncVypisSluzbuDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSluzbuDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P33, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppVypisSluzbuData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSluzbuResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P33.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVypisSluzbuDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSluzbuDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P33, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppVypisSluzbuDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamSlaType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P37.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncVypisSeznamSlaDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamSlaDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P37, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppVypisSeznamSlaData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamSlaResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P37.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVypisSeznamSlaDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamSlaDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P37, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppVypisSeznamSlaDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSlaType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P38.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncVypisSlaDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSlaDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P38, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppVypisSlaData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSlaResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P38.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVypisSlaDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSlaDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P38, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppVypisSlaDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisOpravneniType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P45.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncVypisOpravneniDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisOpravneniDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P45, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppVypisOpravneniData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisOpravneniResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P45.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVypisOpravneniDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisOpravneniDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P45, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppVypisOpravneniDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncPoskytniKatalogSluzebType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P47.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazIntAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncPoskytniKatalogSluzebDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncPoskytniKatalogSluzebDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P47, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="int:RppPoskytniKatalogSluzebData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncPoskytniKatalogSluzebResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P47.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazIntResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncPoskytniKatalogSluzebDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncPoskytniKatalogSluzebDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P47, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="int:RppPoskytniKatalogSluzebDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncPoskytniMaticiOpravneniKCinnostemType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P501.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazIntAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncPoskytniMaticiOpravneniKCinnostemDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncPoskytniMaticiOpravneniKCinnostemDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P501, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="int2:RppPoskytniMaticiOpravneniKCinnostemData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncPoskytniMaticiOpravneniKCinnostemResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P501.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazIntResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncPoskytniMaticiOpravneniKCinnostemDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncPoskytniMaticiOpravneniKCinnostemDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P501, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="int2:RppPoskytniMaticiOpravneniKCinnostemDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncPoskytniMaticiOpravneniKOvmType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P502.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazIntAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncPoskytniMaticiOpravneniKOvmDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncPoskytniMaticiOpravneniKOvmDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P502, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="int2:RppPoskytniMaticiOpravneniKOvmData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncPoskytniMaticiOpravneniKOvmResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P502.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazIntResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncPoskytniMaticiOpravneniKOvmDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncPoskytniMaticiOpravneniKOvmDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P502, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="int2:RppPoskytniMaticiOpravneniKOvmDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncPoskytniMaticiAisVykonavajiciType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P512.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazIntAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncPoskytniMaticiAisVykonavajiciDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncPoskytniMaticiAisVykonavajiciDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P512, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="int:RppPoskytniMaticiAisVykonavajiciData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncPoskytniMaticiAisVykonavajiciResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P512.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazIntResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncPoskytniMaticiAisVykonavajiciDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncPoskytniMaticiAisVykonavajiciDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P512, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="int:RppPoskytniMaticiAisVykonavajiciDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncPoskytniMaticiUdajuType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P513.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazIntAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncPoskytniMaticiUdajuDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncPoskytniMaticiUdajuDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P513, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="int:RppPoskytniMaticiUdajuData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncPoskytniMaticiUdajuResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P513.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazIntResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncPoskytniMaticiUdajuDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncPoskytniMaticiUdajuDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P513, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="int:RppPoskytniMaticiUdajuDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncPoskytniMaticiSkupinOpravneniType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P514.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazIntAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncPoskytniMaticiSkupinOpravneniDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncPoskytniMaticiSkupinOpravneniDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P514, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="int:RppPoskytniMaticiSkupinOpravneniData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncPoskytniMaticiSkupinOpravneniResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P514.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazIntResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncPoskytniMaticiSkupinOpravneniDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncPoskytniMaticiSkupinOpravneniDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P514, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="int:RppPoskytniMaticiSkupinOpravneniDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncPoskytniMaticiNesprOpravneniType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P515.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazIntAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncPoskytniMaticiNesprOpravneniDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncPoskytniMaticiNesprOpravneniDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P515, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="int:RppPoskytniMaticiNesprOpravneniData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncPoskytniMaticiNesprOpravneniResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P515.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazIntResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncPoskytniMaticiNesprOpravneniDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncPoskytniMaticiNesprOpravneniDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P515, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="int:RppPoskytniMaticiNesprOpravneniDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncCtiEditoraType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P49.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncCtiEditoraDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncCtiEditoraDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P49, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppCtiEditoraData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncCtiEditoraResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P49.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncCtiEditoraDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncCtiEditoraDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P49, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppCtiEditoraDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisVyuzitiRocniType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby E161 - předběžná verze.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncVypisVyuzitiRocniDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisVyuzitiRocniDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby E161, obálka pro data - předběžná verze.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppVypisVyuzitiRocniData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisVyuzitiRocniResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby E161 - předběžná verze.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVypisVyuzitiRocniDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisVyuzitiRocniDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby E161, obálka pro data - předběžná verze.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppVypisVyuzitiRocniDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncProbeType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby E506.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazIntAbstractType"/>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncProbeResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby E506.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazIntResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncProbeDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncProbeDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby E506, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="int:RppProbeDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncCtiZmenyOvmSpuuType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P55.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncCtiZmenyOvmSpuuDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncCtiZmenyOvmSpuuDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P55, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppCtiZmenyOvmSpuuData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncCtiZmenyOvmSpuuResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P55.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncCtiZmenyOvmSpuuDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncCtiZmenyOvmSpuuDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P55, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppCtiZmenyOvmSpuuDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisKategoriiOvmSpuuType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P65.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncVypisKategoriiOvmSpuuDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisKategoriiOvmSpuuDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P65, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppVypisKategoriiOvmSpuuData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisKategoriiOvmSpuuResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P65.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVypisKategoriiOvmSpuuDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisKategoriiOvmSpuuDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P65, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppVypisKategoriiOvmSpuuDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisOvmSpuuType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P61.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncVypisOvmSpuuDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisOvmSpuuDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P61, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppVypisOvmSpuuData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisOvmSpuuResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P61.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVypisOvmSpuuDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisOvmSpuuDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P61, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppVypisOvmSpuuDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamKategoriiOvmSpuuType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P64.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncVypisSeznamKategoriiOvmSpuuDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamKategoriiOvmSpuuDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P64, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppVypisSeznamKategoriiOvmSpuuData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamKategoriiOvmSpuuResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P64.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVypisSeznamKategoriiOvmSpuuDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamKategoriiOvmSpuuDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P64, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppVypisSeznamKategoriiOvmSpuuDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamOvmSpuuType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P60.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncVypisSeznamOvmSpuuDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamOvmSpuuDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P60, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppVypisSeznamOvmSpuuData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamOvmSpuuResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P60.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVypisSeznamOvmSpuuDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamOvmSpuuDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P60, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppVypisSeznamOvmSpuuDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncCtiEditoraOvmSpuuType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P68.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncCtiEditoraOvmSpuuDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncCtiEditoraOvmSpuuDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P68, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppCtiEditoraOvmSpuuData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncCtiEditoraOvmSpuuResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P68.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncCtiEditoraOvmSpuuDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncCtiEditoraOvmSpuuDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P68, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppCtiEditoraOvmSpuuDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamZmenOpravneniType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P57.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncVypisSeznamZmenOpravneniDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamZmenOpravneniDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P57, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppVypisSeznamZmenOpravneniData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamZmenOpravneniResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P57.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVypisSeznamZmenOpravneniDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamZmenOpravneniDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P57, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppVypisSeznamZmenOpravneniDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisOpravneniKonzumaceType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P58.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncVypisOpravneniKonzumaceDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisOpravneniKonzumaceDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P58, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppVypisOpravneniKonzumaceData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisOpravneniKonzumaceResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P58.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVypisOpravneniKonzumaceDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisOpravneniKonzumaceDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P58, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppVypisOpravneniKonzumaceDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisOpravneniPoskytovaniType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P59.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncVypisOpravneniPoskytovaniDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisOpravneniPoskytovaniDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P59, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppVypisOpravneniPoskytovaniData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisOpravneniPoskytovaniResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P59.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVypisOpravneniPoskytovaniDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisOpravneniPoskytovaniDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P59, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppVypisOpravneniPoskytovaniDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamPusobnostiOvm2Type">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P69.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncVypisSeznamPusobnostiOvm2DataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamPusobnostiOvm2DataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P69, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppVypisSeznamPusobnostiOvm2Data"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamPusobnostiOvm2ResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P69.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVypisSeznamPusobnostiOvm2DataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamPusobnostiOvm2DataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P69, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppVypisSeznamPusobnostiOvm2DataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisOvmSpuu2Type">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P71.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncVypisOvmSpuu2DataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisOvmSpuu2DataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P71, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppVypisOvmSpuu2Data"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisOvmSpuu2ResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P71.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVypisOvmSpuu2DataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisOvmSpuu2DataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P71, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppVypisOvmSpuu2DataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisUkonNaZadostType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P73.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncVypisUkonNaZadostDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisUkonNaZadostDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P73, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppVypisUkonNaZadostData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisUkonNaZadostResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P73.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVypisUkonNaZadostDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisUkonNaZadostDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P73, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppVypisUkonNaZadostDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisAgendu3Type">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P72.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncVypisAgendu3DataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisAgendu3DataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P72, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppVypisAgendu3Data"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisAgendu3ResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P72.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVypisAgendu3DataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisAgendu3DataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P72, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppVypisAgendu3DataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamUdajuAgendyType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P80.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncVypisSeznamUdajuAgendyDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamUdajuAgendyDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P80, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppVypisSeznamUdajuAgendyData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamUdajuAgendyResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P80.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVypisSeznamUdajuAgendyDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamUdajuAgendyDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P80, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppVypisSeznamUdajuAgendyDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSluzbuVsType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P84.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncVypisSluzbuVsDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSluzbuVsDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P84, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppVypisSluzbuVsData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSluzbuVsResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P84.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVypisSluzbuVsDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSluzbuVsDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P84, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppVypisSluzbuVsDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamSluzebVsType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P85.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncVypisSeznamSluzebVsDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamSluzebVsDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P85, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppVypisSeznamSluzebVsData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamSluzebVsResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P85.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVypisSeznamSluzebVsDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamSluzebVsDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P85, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppVypisSeznamSluzebVsDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncCtiZmenySluzebVsType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P86.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncCtiZmenySluzebVsDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncCtiZmenySluzebVsDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P86, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppCtiZmenySluzebVsData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncCtiZmenySluzebVsResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P86.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncCtiZmenySluzebVsDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncCtiZmenySluzebVsDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P86, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppCtiZmenySluzebVsDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisAgendu5Type">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P87.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncVypisAgendu5DataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisAgendu5DataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P87, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppVypisAgendu5Data"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisAgendu5ResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P87.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVypisAgendu5DataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisAgendu5DataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P87, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppVypisAgendu5DataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisPusobnostOvm5Type">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P88.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncVypisPusobnostOvm5DataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisPusobnostOvm5DataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P88, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppVypisPusobnostOvm5Data"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisPusobnostOvm5ResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P88.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVypisPusobnostOvm5DataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisPusobnostOvm5DataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P88, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppVypisPusobnostOvm5DataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncCtiOpravneniType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P100.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncCtiOpravneniDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncCtiOpravneniDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P100, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppCtiOpravneniData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncCtiOpravneniResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P100.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncCtiOpravneniDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncCtiOpravneniDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P100, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppCtiOpravneniDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncCtiNeplatnaOpravneniType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P101.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncCtiNeplatnaOpravneniDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncCtiNeplatnaOpravneniDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P101, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppCtiNeplatnaOpravneniData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncCtiNeplatnaOpravneniResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P101.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncCtiNeplatnaOpravneniDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncCtiNeplatnaOpravneniDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P101, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppCtiNeplatnaOpravneniDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncCtiZmenyOpravneniType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P89.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncCtiZmenyOpravneniDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncCtiZmenyOpravneniDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P89, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppCtiZmenyOpravneniData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncCtiZmenyOpravneniResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P89.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncCtiZmenyOpravneniDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncCtiZmenyOpravneniDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P89, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppCtiZmenyOpravneniDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncCtiZmenyAisAgendaType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P90.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncCtiZmenyAisAgendaDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncCtiZmenyAisAgendaDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P90, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppCtiZmenyAisAgendaData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncCtiZmenyAisAgendaResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P90.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncCtiZmenyAisAgendaDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncCtiZmenyAisAgendaDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P90, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppCtiZmenyAisAgendaDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncCtiZmenyUdajuAgendyType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P91.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncCtiZmenyUdajuAgendyDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncCtiZmenyUdajuAgendyDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P91, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppCtiZmenyUdajuAgendyData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncCtiZmenyUdajuAgendyResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P91.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncCtiZmenyUdajuAgendyDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncCtiZmenyUdajuAgendyDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P91 obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppCtiZmenyUdajuAgendyDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisKategoriiOvmSpuu2Type">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P93.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncVypisKategoriiOvmSpuu2DataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisKategoriiOvmSpuu2DataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P93, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppVypisKategoriiOvmSpuu2Data"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisKategoriiOvmSpuu2ResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P93.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVypisKategoriiOvmSpuu2DataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisKategoriiOvmSpuu2DataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P93, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppVypisKategoriiOvmSpuu2DataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisOpravneni2Type">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P94.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncVypisOpravneni2DataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisOpravneni2DataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P94, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppVypisOpravneni2Data"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisOpravneni2ResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P94.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVypisOpravneni2DataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisOpravneni2DataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P94, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppVypisOpravneni2DataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisOvmSpuu3Type">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P95.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncVypisOvmSpuu3DataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisOvmSpuu3DataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P95, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppVypisOvmSpuu3Data"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisOvmSpuu3ResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P95.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVypisOvmSpuu3DataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisOvmSpuu3DataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P95, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppVypisOvmSpuu3DataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisPusobnostOvm6Type">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P96.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncVypisPusobnostOvm6DataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisPusobnostOvm6DataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P96, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppVypisPusobnostOvm6Data"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisPusobnostOvm6ResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P96.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVypisPusobnostOvm6DataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisPusobnostOvm6DataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P96, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppVypisPusobnostOvm6DataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamPusobnostiOvm3Type">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P97.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncVypisSeznamPusobnostiOvm3DataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamPusobnostiOvm3DataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P97, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppVypisSeznamPusobnostiOvm3Data"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamPusobnostiOvm3ResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P97.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVypisSeznamPusobnostiOvm3DataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamPusobnostiOvm3DataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P97, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppVypisSeznamPusobnostiOvm3DataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamUdajuAgendy2Type">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P98.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncVypisSeznamUdajuAgendy2DataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamUdajuAgendy2DataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P98, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppVypisSeznamUdajuAgendy2Data"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamUdajuAgendy2ResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P98.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVypisSeznamUdajuAgendy2DataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamUdajuAgendy2DataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P98, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppVypisSeznamUdajuAgendy2DataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSluzbuVs2Type">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P99.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncVypisSluzbuVs2DataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSluzbuVs2DataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P99, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppVypisSluzbuVs2Data"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSluzbuVs2ResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P99.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVypisSluzbuVs2DataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSluzbuVs2DataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P99, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppVypisSluzbuVs2DataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamOpravneniType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P102.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncVypisSeznamOpravneniDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamOpravneniDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P102, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppVypisSeznamOpravneniData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamOpravneniResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P102.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVypisSeznamOpravneniDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamOpravneniDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P102, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppVypisSeznamOpravneniDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisOpravneniRidiciType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P106.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncVypisOpravneniRidiciDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisOpravneniRidiciDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P106, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppVypisOpravneniRidiciData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisOpravneniRidiciResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P106.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVypisOpravneniRidiciDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisOpravneniRidiciDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P106, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppVypisOpravneniRidiciDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisUdajAgendyType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P103.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncVypisUdajAgendyDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisUdajAgendyDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P103, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppVypisUdajAgendyData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisUdajAgendyResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P103.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVypisUdajAgendyDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisUdajAgendyDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P103, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppVypisUdajAgendyDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamAisAgendaType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P104.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncVypisSeznamAisAgendaDataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamAisAgendaDataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P104, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppVypisSeznamAisAgendaData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamAisAgendaResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P104.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVypisSeznamAisAgendaDataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamAisAgendaDataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P104, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppVypisSeznamAisAgendaDataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamOvmSpuu2Type">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P105.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncVypisSeznamOvmSpuu2DataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamOvmSpuu2DataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P105, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppVypisSeznamOvmSpuu2Data"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamOvmSpuu2ResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P105.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVypisSeznamOvmSpuu2DataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisSeznamOvmSpuu2DataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P105, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppVypisSeznamOvmSpuu2DataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisAgendu6Type">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P92.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazAbstractType">
+                <xs:sequence>
+                    <xs:element name="Dotaz" type="RppSyncVypisAgendu6DataType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisAgendu6DataType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Dotaz služby P92, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataAbstractType">
+                <xs:sequence>
+                    <xs:element ref="dot:RppVypisAgendu6Data"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisAgendu6ResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď služby P92.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazResponseAbstractType">
+                <xs:sequence>
+                    <xs:element name="RppOdpoved" type="RppSyncVypisAgendu6DataResponseType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RppSyncVypisAgendu6DataResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Odpověď na dotaz služby P92, obálka pro data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="RppDotazDataResponseAbstractType">
+                <xs:sequence minOccurs="0">
+                    <xs:element ref="dot:RppVypisAgendu6DataResponse"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRuianCtiPrvekObec2:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRuianCtiPrvekObec2:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRuianCtiPrvekObec2:v1"
+	xmlns:e250h="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekObec2:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRuianCtiPrvekObec2">
+
+	<wsdl:documentation>Služba E250h externího rozhraní - Načtení obce z RUIAN. RUIAN služba, operace ctiObec.</wsdl:documentation>
+	
+	<!-- Výchozí verze 2.0.0, 6.10.2020 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRuianCtiPrvekObec2:v1" schemaLocation="../xsd/IszrRuianCtiPrvekObec2.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrRuianCtiPrvekObec2">
+		<wsdl:part name="parametry" element="e250h:RuianCtiPrvekObec2"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRuianCtiPrvekObec2Response">
+		<wsdl:part name="vysledek" element="e250h:RuianCtiPrvekObec2Response"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRuianCtiPrvekObec2PortType">
+		<wsdl:operation name="IszrRuianCtiPrvekObec2">
+			<wsdl:input message="tns:IszrRuianCtiPrvekObec2"/>
+			<wsdl:output message="tns:IszrRuianCtiPrvekObec2Response"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRuianCtiPrvekObec2Binding" type="tns:IszrRuianCtiPrvekObec2PortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRuianCtiPrvekObec2">
+			<soap:operation soapAction="IszrRuianCtiPrvekObec2"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRuianCtiPrvekObec2Service">
+		<wsdl:port name="IszrRuianCtiPrvekObec2PortService" binding="tns:IszrRuianCtiPrvekObec2Binding">
+			<soap:address location="IszrRuianCtiPrvekObec2"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

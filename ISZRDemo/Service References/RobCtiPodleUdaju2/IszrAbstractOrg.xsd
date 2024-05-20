@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" xmlns:or="urn:cz:isvs:org:schemas:OrgRozhrani:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" version="1.2.1" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="IszrAbstract.xsd" />
+  <xs:import schemaLocation="../../RegTypy.xsd" namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" />
+  <xs:import schemaLocation="ref/OrgStatus.xsd" namespace="urn:cz:isvs:org:schemas:OrgRozhrani:v1" />
+  <xs:annotation>
+    <xs:documentation xml:lang="cs">Návrh XML schématu s definicemi abstraktních komplexních typů ISZR. Toto schéma obsahuje definice datových prvků, používaných pro dotazy.</xs:documentation>
+  </xs:annotation>
+  <xs:complexType name="IszrOdpovedAifoStAbstractType" abstract="true">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Univerzální odpověd na žádost se seznamem AIFO a StatusOrg, obálka pro data.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="abs:IszrOdpovedAbstractType">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="MapaAifo" type="reg:MapaAifoType" />
+          <xs:element minOccurs="0" name="OrgOdpoved">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="OrgCtiAifoDataResponse">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element ref="or:OrgStatus" />
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="IszrOdpovedAifoStIdAdrAbstractType" abstract="true">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Univerzální odpověd na žádost se seznamem AIFO, StatusOrg a ID adres, obálka pro data.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="abs:IszrOdpovedAbstractType">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="MapaAifo" type="reg:MapaAifoType" />
+          <xs:element minOccurs="0" name="SeznamIdAdres" type="reg:SeznamIdAdresType" />
+          <xs:element minOccurs="0" name="OrgOdpoved">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="OrgCtiAifoDataResponse">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element ref="or:OrgStatus" />
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="IszrOdpovedAifoStIcoAbstractType" abstract="true">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Univerzální odpověd na žádost se seznamem AIFO, StatusOrg a seznamem ICO, obálka pro data.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="abs:IszrOdpovedAbstractType">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="MapaAifo" type="reg:MapaAifoType" />
+          <xs:element minOccurs="0" name="SeznamIco" type="reg:SeznamIcoType" />
+          <xs:element minOccurs="0" name="OrgOdpoved">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="OrgCtiAifoDataResponse">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element ref="or:OrgStatus" />
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="IszrOdpovedAifoStIcoPrvekAbstractType" abstract="true">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Univerzální odpověd na žádost se seznamem AIFO, StatusOrg, seznamem ICO a seznamem prvku RUIAN, obálka pro data.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="abs:IszrOdpovedAbstractType">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="MapaAifo" type="reg:MapaAifoType" />
+          <xs:element minOccurs="0" name="SeznamIco" type="reg:SeznamIcoType" />
+          <xs:element minOccurs="0" name="SeznamPrvku" type="reg:SeznamPrvkuType" />
+          <xs:element minOccurs="0" name="OrgOdpoved">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="OrgCtiAifoDataResponse">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element ref="or:OrgStatus" />
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="IszrOdpovedAifoStIdAdrIcoPrvekAbstractType" abstract="true">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Univerzální odpověd na žádost se seznamem AIFO, StatusOrg, seznamem ID adres, seznamem ICO a seznamem prvku RUIAN, obálka pro data.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="abs:IszrOdpovedAbstractType">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="MapaAifo" type="reg:MapaAifoType" />
+          <xs:element minOccurs="0" name="SeznamIdAdres" type="reg:SeznamIdAdresType" />
+          <xs:element minOccurs="0" name="SeznamIco" type="reg:SeznamIcoType" />
+          <xs:element minOccurs="0" name="SeznamPrvku" type="reg:SeznamPrvkuType" />
+          <xs:element minOccurs="0" name="OrgOdpoved">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="OrgCtiAifoDataResponse">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element ref="or:OrgStatus" />
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="IszrOdpovedAifoStIdAdrIcoAbstractType" abstract="true">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Univerzální odpověd na žádost se seznamem AIFO, StatusOrg, seznamem ID adres, seznamem ICO, obálka pro data.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="abs:IszrOdpovedAbstractType">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="MapaAifo" type="reg:MapaAifoType" />
+          <xs:element minOccurs="0" name="SeznamIdAdres" type="reg:SeznamIdAdresType" />
+          <xs:element minOccurs="0" name="SeznamIco" type="reg:SeznamIcoType" />
+          <xs:element minOccurs="0" name="OrgOdpoved">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="OrgCtiAifoDataResponse">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element ref="or:OrgStatus" />
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>

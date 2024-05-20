@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:VyhledejKraj:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:VyhledejKraj:v1" xmlns:vyhKr="urn:cz:isvs:ruian:schemas:VyhledejKraj:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:krPodm="urn:cz:isvs:ruian:schemas:KrajPodminka:v1" xmlns:krPolBase="urn:cz:isvs:ruian:schemas:KrajPolozkyBase:v1" xmlns:kr="urn:cz:isvs:ruian:schemas:Kraj:v1" elementFormDefault="qualified" version="0.40.0">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:Kraj:v1" schemaLocation="../../../ruian/xsd/prvky/Kraj.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:KrajPolozkyBase:v1" schemaLocation="../../../ruian/xsd/vyhledej/KrajPolozkyBase.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:KrajPodminka:v1" schemaLocation="../../../ruian/xsd/vyhledej/KrajPodminka.xsd"/>
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../RegTypy.xsd"/>
+	<xs:complexType name="VyhledejKrajRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na vyhledani kraje</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Dotaz" type="VyhledejKrajDotazType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VyhledejKrajResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved na vyhledani kraje</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Kraje" type="KrajSeznamType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VyhledejKrajDotazType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Parametry kraje</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Podminka" type="krPodm:KrajPodminkaType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="PozadovaneUdaje" type="krPolBase:KrajPolozkyBaseType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="KrajSeznamType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam kraju</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kraj" type="kr:KrajType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="VyhledejKrajRequest" type="vyhKr:VyhledejKrajRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na vyhledani kraje</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="VyhledejKrajResponse" type="vyhKr:VyhledejKrajResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved na vyhledani kraje</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

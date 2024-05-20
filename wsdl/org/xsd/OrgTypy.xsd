@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Verze 1.0, 30.9.2011: Implementace procesů pro fázi BASE -->
+<!-- Verze 1.1, 29.2.2012: Odstraněna diakritika a překlepy ve výčtu OrgAplikacniKodType -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:rt="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns="urn:cz:isvs:org:schemas:OrgTypy:v1" targetNamespace="urn:cz:isvs:org:schemas:OrgTypy:v1" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<!-- import zakladniho souboru RegTypy.xsd -->
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:simpleType name="PrirozeneCisloType">
+		<xs:restriction base="xs:int">
+			<xs:minInclusive value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CLRType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Datový typ pro posílání Certificate revocation listu.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="rt:NonEmptyStringType"/>
+	</xs:simpleType>
+	<xs:simpleType name="PlatformaType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Detailní popis platformy, na které běží AIS, výčtový typ.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Windows"/>
+			<xs:enumeration value="Unix"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="IdSaType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Kód super agendy, skupiny, podle které se generují AIFO.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:int"/>
+	</xs:simpleType>
+	<xs:simpleType name="CelyAisType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Příznak, zda se požadavek vztahuje na celý AIS a tedy na všechny agendy, které zpracovává.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:boolean"/>
+	</xs:simpleType>
+	<xs:simpleType name="VstupniAifoType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Příznak, zda se údaj vztahuje ke vstupnímu AIFO, nebo k výstupnímu AIFO. True - vstupní..</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:boolean"/>
+	</xs:simpleType>
+	<xs:simpleType name="OrgAifoStatusDetailType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Výčet možných stavů AIFO.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="AIFO KOMPROMITOVANO">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">AIFO není platné. Bylo kompromitováno.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="AIFO ZNEPLATNENO">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">AIFO není platné. Bylo zneplatněno.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ZMENA ALGORITMU AIFO">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">AIFO není platné. Byl změněn algoritmus generování AIFO.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OSOBA SPOJENA">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">AIFO není platné. Osoba byla spojena do nové identity.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OSOBA ROZDELENA">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">AIFO není platné. Osoba byla rozdělena do více nových identit.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="AIFO NENALEZENO">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">AIFO nebylo nalezeno nebo není evidováno v evidenci AIS / agendy.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="OrgAplikacniKodType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Výčet možných aplikačních chyb.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Cislo davky neni platne"/>
+			<xs:enumeration value="Nenalezeno vstupni AIFO "/>
+			<xs:enumeration value="Nenalezen AIS zadatele"/>
+			<xs:enumeration value="Nenalezena agenda zadatele"/>
+			<xs:enumeration value="AIS nezpracovava agendu"/>
+			<xs:enumeration value="Nenalezeno ID predchoziho pozadavku"/>
+			<xs:enumeration value="Nenalezeno cilove AIFO "/>
+			<xs:enumeration value="Nenalezen cilovy AIS"/>
+			<xs:enumeration value="Nenalezena cilova agenda"/>
+			<xs:enumeration value="Knihovna je zastarala"/>
+			<xs:enumeration value="Platnost knihovny se blizi konci"/>
+			<xs:enumeration value="Nelze desifrovat dynamizovane AIFO"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="DllKnihovnaType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Binární soubor obsahující šifrovací (dynamizační) knihovnu.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="rt:BinarniDataType"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="CertifikatType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Binární soubor obsahující certifikát s veřejnou částí klíče.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="rt:BinarniDataType"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="OrgSifrovaniType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Nastavení pro šifrování AIFO (dynamizaci) mezi ORG a AIS.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="SifrAIS-ORG" type="xs:boolean"/>
+			<xs:element name="SifrORG-AIS" type="xs:boolean"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="KnihovnaType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Obsahuje všechny potřebné informace pro výměnu šifrovacích knihoven.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DllKnihovna" type="DllKnihovnaType" minOccurs="0"/>
+			<xs:element name="CisloKnihovny" type="PrirozeneCisloType"/>
+			<xs:element name="Platforma" type="PlatformaType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SeznamCertifikatuType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam certifikátů obsahujících veřejný klíč, které se vztahují k jednomu AIS.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence maxOccurs="unbounded">
+			<xs:element name="Certifikat" type="CertifikatType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="HranyType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam dvojic s odkazy na AIFO, které tvoří kostru orientovaného grafu pro účely rekonstrukce rodokmenu AIFO.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Hrana" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Zdroj" type="rt:LokalniAifoType"/>
+						<xs:element name="Cil" type="rt:LokalniAifoType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgDavkaType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Hlavička identifikující dávku AIFO.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CisloDavky" type="PrirozeneCisloType"/>
+			<xs:element name="PocetDavek" type="PrirozeneCisloType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgAifoStatusType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Chybové stavy pro vybrané AIFO.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="LokalniAifo" type="rt:LokalniAifoType"/>
+			<xs:element name="VstupniAifo" type="VstupniAifoType"/>
+			<xs:element name="OrgAifoStatusDetail" type="OrgAifoStatusDetailType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="OrgStatusDetailType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Aplikační chyby zpracování v ORG.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="DAVKA NEPLATNA">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Číslo dávky není platné.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NENALEZENA ZDROJ AGENDA/AIS">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Nenalezena kombinace zdrojového AIS a agendy.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NENALEZENA CIL AGENDA/AIS">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Nenalezena kombinace cílového AIS a agendy.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NENALEZENO ID ZADOSTI">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Nenalezeno ID původní žádosti, na které se odkazuje PredchoziZadostId.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ZAZNAM NALEZEN">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Záznam nalezen.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ZAZNAM NENALEZEN">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Záznam nenalezen.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SKUPINA NEEXISTUJE">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód skupiny nebyl nalezen.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="REGISTRACE SKUPINY NEDOKONCENA">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Registrace skupiny nebyla dokončena, chybí vygenerování klíčů pro generování AIFO.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="VNITRNI CHYBA">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Vnitřní chyba systému IS ORG.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PREKROCENY KOMPROMITACE">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Překročen počet povolených kompromitací v tomto dni.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NEEXISTUJI KLICE">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Skupina nemá vygenerovány klíče pro generování AIFO.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="STAV NEROZPOZNAN">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Aktuální stav nebyl rozpoznán.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CAS NESPECIFIKOVAN">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Časové omezení není plně specifikováno.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DYN NELZE AKTIVOVAT">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Nelze aktivovat. Je povoleno šifrování komunikace, ale AIS nemá přiřazenu knihovnu.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NELZE DESIFROVAT">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Nelze dekódovat dynamizované AIFO. Zkontrolujte si používanou knihovnu nebo aktualizujte veřejný certifikát ORG.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="STARA KNIHOVNA">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Používaná knihovna je zastaralá, z bezpečnostních důvodů nelze dekódovat.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="UPOZORNENI KNIHOVNY">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Používaná knihovna se blíží konci platnosti. Doporučujeme přejít na novější verzi.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DYN CAS NEPLATNY">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Časový údaj ve zprávě s dynamizovaným AIFO je mimo přípustnou toleranci.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="KNIHOVNA NENALEZENA">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Požadovaná nová knihovna v požadavku nebyla nalezena.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="KNIHOVNU NELZE AKTIVOVAT">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Knihovnu nelze z bezpečnostních důvodů aktivovat. Je potřeba použít novější verzi.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="POUZE SIFROVANE AIFO">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Obdrženo šifrované AIFO. Agenda nevyužívá šifrování směrem na IS ORG.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="POUZE NESIFROVANE AIFO">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Obdrženo otevřené AIFO. Agenda využívá šifrování směrem na IS ORG.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="OrgStatusType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Aplikační část ORGu.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OrgAifoStatus" type="OrgAifoStatusType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="OrgStatusDetail" type="OrgStatusDetailType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgAgendaAisType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">
+        Pro účely definice zdrojového nebo cílového AIS a agendy.
+        Podle procesu je zde uložena definice, na koho se má AIFO převést,
+        nebo čí AIFo je dodáno.
+      </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Agenda" type="rt:KodAgendyType"/>
+			<xs:element name="AIS" type="rt:KodAisType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgOmezeniType">
+		<xs:sequence>
+			<xs:element name="DatumOd" type="xs:dateTime"/>
+			<xs:element name="DatumDo" type="xs:dateTime"/>
+			<xs:element name="PocetZaznamu" type="rt:KladneCeleCisloType"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

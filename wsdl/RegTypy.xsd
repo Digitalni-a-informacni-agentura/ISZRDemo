@@ -1,0 +1,972 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+  targetNamespace="urn:cz:isvs:reg:schemas:RegTypy:v1"
+  xmlns="urn:cz:isvs:reg:schemas:RegTypy:v1"
+  xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+  xmlns:xop="http://www.w3.org/2004/08/xop/include"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  elementFormDefault="qualified"
+  attributeFormDefault="unqualified"
+  version="1.1.1">
+
+  <xs:annotation>
+    <xs:documentation xml:lang="cs">Společné datové typy.</xs:documentation>
+  </xs:annotation>
+
+  <!-- Vývojové verze 0.0.1 - 0.0.36, 1.10.2009 - 28.3.2011, 
+       jiri.nemec@i.cz
+       vladimir.hudec@i.cz,
+       ludmila.kotlarova@i.cz,
+       petr-rousar@asseco-ce.com
+  -->
+  <!-- Vývojová verze 0.1.0, 30.04.2011 konsolidace pro ISZR / AutoCont -->
+  <!-- Vývojová verze 0.1.1, 30.04.2011 ales.teply@autocont.cz -->
+  <!-- Vývojová verze 0.1.2, 10.06.2011 pavel.odstrcil@autocont.cz -->
+  <!-- Vývojová verze 0.1.3, 10.06.2011 ales.teply@autocont.cz -->    
+  <!-- Vývojová verze 0.1.4, 14.06.2011 pavel.odstrcil@autocont.cz -->
+  <!-- Vyvojova verze 0.1.5, 17.06.2011 pavel.odstrcil@autocont.cz -->
+  <!-- Vyvojova verze 0.1.6, 20.06.2011 ales.teply@autocont.cz -->
+  <!-- Vyvojova verze 0.1.7, 20.06.2011 pavel.odstrcil@autocont.cz -->
+  <!-- Vyvojova verze 0.1.8, 27.06.2011 pavel.odstrcil@autocont.cz -->
+  <!-- Vyvojova verze 0.1.9, 29.06.2011 pavel.odstrcil@autocont.cz, vladimir.hudec@i.cz -->
+  <!-- Vyvojova verze 0.1.10, 09.07.2011 pavel.odstrcil@autocont.cz -->
+  <!-- Uvolnena verze 0.1.11, 13.07.2011 pavel.odstrcil@autocont.cz, ales.teply@autocont.cz -->
+  <!-- Vyvojova verze 0.1.12, 19.07.2011 pavel.odstrcil@autocont.cz -->
+  <!-- Vyvojova verze 0.1.13, 18.08.2011 vladimir.hudec@i.cz -->
+  <!-- Vyvojova verze 0.1.14, 19.08.2011 vladimir.hudec@i.cz -->
+  <!-- Vyvojova verze 0.1.15, 24.08.2011 pavel.odstrcil@autocont.cz -->
+  <!-- Vyvojova verze 0.1.16, 01.09.2011 kolektiv autoru -->
+  <!-- Verze pro revizi 0.9.1, 02.09.2011 pavel.odstrcil@autocont.cz -->
+  <!-- Verze pro revizi 0.9.2, 02.09.2011 vladimir.hudec@i.cz -->
+  <!-- Finalni 1.0.0, 05.09.2011 pavel.odstrcil@autocont.cz -->
+  <!-- Verze pro revizi 1.0.1, 15.09.2011 ales.teply@autocont.cz -->
+  <!-- Verze pro revizi 1.0.2, 11.10.2011 ales.teply@autocont.cz -->
+  <!-- Verze pro revizi 1.0.3, 17.10.2011 vladimir.hudec@i.cz -->
+  <!-- Verze pro revizi 1.0.4, 10.11.2011, Jakub.Faryad@i.cz -->
+  <!-- Verze pro revizi 1.0.5, 16.12.2011, ales.teply@autocont.cz, přidán SeznamPrvkuType -->
+  <!-- Verze pro revizi 1.0.6, 31.01.2012, vladimir.hudec@i.cz, přidán ZmenyProDS -->
+  <!-- Verze pro revizi 1.0.7, 06.02.2012, ales.teply@autocont.cz, oprava PrevniPredpisyOpravneni, AifoZdrojNenelezeno; MapaAifo - do elementu GlobalniAifo pridany nepovinne atributy Agenda, Ais -->
+  <!-- Verze pro revizi 1.0.8, 06.02.2012, pavel.odstrcil@autocont.cz, doplnen typ NonEmptyLineStringType -->
+  <!-- Verze pro revizi 1.0.9, 07.02.2012, ales.teply@autocont.cz, přidáno enumeration "Ico" do typu RosUdajType -->
+  <!-- Verze pro revizi 1.0.10, 10.02.2012, ales.teply@autocont.cz, atributy agenda, ais přesunuty do PrevodAifo -->
+  <!-- Verze pro revizi 1.0.11, 05.03.2012, ales.teply@autocont.cz, VysledekSubKodType - přidány 2 kódy -->
+  <!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+  <!-- Verze pro revizi 1.1.1, 02.05.2012, ales.teply@autocont.cz, doplneni xml:lang, AisSeznamUdajuAbstract -->
+  <!-- AutoCont CZ a.s. -->
+
+  <xs:import namespace="http://www.w3.org/2004/08/xop/include" schemaLocation="XopInclude.xsd"/>
+
+  <xs:element name="AisSeznamUdajuAbstract" abstract="true"/>
+  <xs:element name="AisSeznamUdaju" type="AisSeznamUdajuType" substitutionGroup="AisSeznamUdajuAbstract"/>  
+
+  <xs:simpleType name="IdentifikatorType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Neprázdný řetězec bez mezer - token jako základ dalších identifikátorů.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:NMTOKEN">
+      <xs:minLength value="1"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="UuidType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">UUID - 36 znaku, AAAAAAAA-BBBB-CCCC-DDDD-EEEEEEEEEEEE - základ dalších identifikátorů.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="NonEmptyStringType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Neprázdný řetězec jako základ dat, kde není akceptován prázdný údaj.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+      <xs:pattern value=".*[^\s].*"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="NonEmptyNormStringType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Neprázdný řetězec jako základ dat, kde není akceptován prázdný údaj a nejsou akceptovány prázdne znaky na začátku a konci.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[\S]+.*[\S]+"/>
+      <xs:pattern value="[\S]{1}"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="NonEmptyLineStringType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Neprázdný řetězec (i víceřádkový) jako základ dat, kde není akceptován prázdný údaj.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+      <xs:pattern value="[\S\s]*[^\s][\S\s]*"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="KladneCeleCisloType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Kladné celé číslo</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base ="xs:int">
+      <xs:minInclusive value="0"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AgendaZadostIdType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">UUID žádosti, který byl vygenerován v AIS.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="UuidType"/>
+  </xs:simpleType>
+  <xs:simpleType name="IszrZadostIdType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">UUID žádosti, který byl vygenerován v ISZR.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="UuidType"/>
+  </xs:simpleType>
+  <xs:simpleType name="RegOdpovedIdType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">UUID odpovědi (zejména pro asynchronní služby), který byl vygenerován v registru.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="UuidType"/>
+  </xs:simpleType>
+  <xs:simpleType name="KodAgendyType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Kód agendy.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="IdentifikatorType">
+      <xs:maxLength value="15"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="KodOvmType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Kód OVM.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="IdentifikatorType">
+      <xs:maxLength value="36"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="KodAisType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Kód AIS.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int">
+      <xs:minInclusive value="1"/>
+      <xs:maxInclusive value="9999999"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="KodSluzbyType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Kód služby. (Exxx)</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="IdentifikatorType">
+      <xs:maxLength value="15"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="NazevSluzbyType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Název služby, obecný, v jednotlivých registrech je to výčtový typ.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="IdentifikatorType">
+      <xs:maxLength value="50"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AifoType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Agendový identifikátor fyzické osoby 24byte jako base64.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:base64Binary">
+      <xs:length value="17"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AgendovaRoleType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Identifikátor RPP role.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="IdentifikatorType">
+      <xs:maxLength value="15"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="IcoType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Identifikační číslo organizace.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int">
+      <xs:minInclusive value="1"/>
+      <xs:maxInclusive value="99999999"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="IcpType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Identifikační číslo provozovny.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:long">
+      <xs:minInclusive value="1000000000"/>
+      <xs:maxInclusive value="9999999999"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="KodAdresniMistoType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Identifikátor adresního místa v RUAIN.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int">
+      <xs:minExclusive value="0"/>
+      <xs:maxExclusive value="999999999"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AdresniLokalitaType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Identifikátor adresní jednotky (obec nebo pražský obvod) v RUAIN.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int">
+      <xs:minExclusive value="1"/>
+      <xs:maxExclusive value="999999"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TypAdresniLokalityType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Typ adresní lokality (obec nebo pražský obvod).</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="OB">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Obec</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MP">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Městský obvod v hlavním městě Praze (MOP).</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="KodStatType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Kód státu dle číselníku zemí http://www.czso.cz/csu/klasifik.nsf/i/ciselnik_zemi_%28czem%29. </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int">
+      <xs:totalDigits value="3"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="DatovaSchrankaIdType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Identifikátor datové schránky.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="NonEmptyStringType">
+      <xs:maxLength value="7"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TypDatoveSchrankyType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Typ datové schránky.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int"/>
+  </xs:simpleType>
+  <xs:complexType name="DatovaSchrankaType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">
+        Identifikátor datové schránky rozšířený o typ datové schránky. 
+      </xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="DatovaSchrankaIdType">
+        <xs:attribute name="typ" type="TypDatoveSchrankyType" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="SubjektType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Označení subjektu, pro jehož účely se údaje využívají (zpravidla OVM).</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="NonEmptyStringType">
+      <xs:maxLength value="65"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="UzivatelType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Uživatelské jméno fyzické osoby vykonávající agendu.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="NonEmptyStringType">
+      <xs:maxLength value="100"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="DuvodUcelType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Důvod a účel dotazu nebo žádosti (většinou jenom ROB).</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="NonEmptyStringType">
+      <xs:maxLength value="255"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="CasovaZnackaType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Časová značka záznamů v žádosti nebo dotazu a odpovědi (do úrovně milisekund).</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:dateTime"/>
+  </xs:simpleType>
+  <xs:simpleType name="VerzeType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Verze XML dokumentu (SOAP zprávy, tedy žádosti nebo dotazu a odpovědi).</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="\d{1,3}\.\d{1,3}\.\d{1,3}"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="StavType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Stav indikující správnost nebo nesprávnost údaje.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="spravny"/>
+      <xs:enumeration value="nespravny"/>
+      <xs:enumeration value="nedefinovany"/>
+      <xs:enumeration value="nespravnyTvar"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- hlavicka kazde zadosti -->
+  <xs:complexType name="ZadostInfoType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Společná hlavička všech žádostí nebo dotazů (webových služeb).</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="CasZadosti" type="CasovaZnackaType"/>
+      <xs:element name="Agenda" type="KodAgendyType"/>
+      <xs:element name="AgendovaRole" type="AgendovaRoleType"/>
+      <xs:element name="Ovm" type="KodOvmType"/>
+      <xs:element name="Ais" type="KodAisType" minOccurs="0"/>
+      <xs:element name="Subjekt" type="SubjektType" minOccurs="0"/>
+      <xs:element name="Uzivatel" type="UzivatelType" minOccurs="0"/>
+      <xs:element name="DuvodUcel" type="DuvodUcelType" minOccurs="0"/>
+      <xs:element name="AgendaZadostId" type="AgendaZadostIdType"/>
+      <xs:element name="PredchoziZadostId" type="AgendaZadostIdType" minOccurs="0"/>
+      <xs:element name="IszrZadostId" type="IszrZadostIdType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!-- hlavicka kazde odpovedi a jeji typy -->
+  <xs:simpleType name="VysledekPopisType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Aplikační status provedení požadované operace - upřesnění.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="1024"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="VysledekKodType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Kód výsledku, výčtový typ indikující v zásadě OK a CHYBA.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="OK"/>
+      <xs:enumeration value="CHYBA"/>
+      <xs:enumeration value="VAROVANI"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="VysledekSubKodType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Detailní kód výsledku, výčtový typ nebo odkaz na popis.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="PREKROCEN CAS">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Je překročen čas pro zpracování (podle konfigurace nebo autorizačního omezení).</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PREKROCEN SEZNAM">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Je překročena velikost výstupního seznamu (podle konfigurace nebo autorizačního omezení).</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NENI OPRAVNENI EGON">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Není oprávnění k požadované eGON službě.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NENI OPRAVNENI">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Není oprávnění k požadované interní službě, rozhodnutí základního registru.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="AIFO NEEXISTUJE">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">AIFO není k dispozici (neexistuje nebo odepřen přístup).</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="AIFO ZRUSENO">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">AIFO není k dispozici (je zrušeno).</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ZIFO ZRUSENO">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">ZIFO není k dispozici (je zrušeno).</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ADRESA NEEXISTUJE">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Adresa (adresní bod nebo lokalita) není k dispozici.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ADRESA SMAZANA">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Adresa (adresní bod nebo lokalita) je smazána.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="JENOM ASYNC">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Služba je implementována jenom nebo provozována dočasně asynchronně.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MIMO PORADI">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Chyba serializace zpracování (chybí nebo chybové předešlé zpracování).</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NEPLATNY CAS">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Čas dotazu je mimo povolenou toleranci (podle konfigurace) - též mimo rozsah vstupní fronty.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="STARSI VERZE">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Verze (SOAP) dotazu/žádosti se liší minoritně od současné verze služeb.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NEPLATNA VERZE">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Verze (SOAP) dotazu/žádosti se liší majoritně od současné verze služeb.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DUPLICITNI ZADOST">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Identifikátor žádosti (AIS nebo ISZR) byl přiřazen žádosti v minulosti.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NENI IMPLEMENTOVANO">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Služba není implementována.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NENI K DISPOZICI">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Služba není dočasně k dispozici.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NENALEZENO">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Při dotazu do výstupní fronty asynchronních požadavků nebyl výsledek nalezen.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PROBIHA ZPRACOVANI">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Při dotazu do výstupní fronty asynchronních požadavků dosud nebyl výsledek zpracován.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NEVALIDNI DATA">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Data nejsou validní podle XSD dokumentů nebo aplikační logiky.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NEVALIDNI ZADOST">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Kód služby neodpovídá XML struktuře žádosti.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>     
+      <xs:enumeration value="APLIKACNI CHYBA">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">V průběhu aplikačního zpracování se vyskytla chyba. Chyba je blíže specifikována v aplikační části webové zprávy.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CHYBA VOLANI REGISTRU">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Při volání služby registru došlo k chybě.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CHYBA VOLANI AIS">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Při volání služby spolupracujícího AIS došlo k chybě (spolupracující AIS = AIS poskytující služby ISZR).</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SPECIFIKACE V POPISU">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Chyba je blíže specifikována v popisu.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="SystemType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Původce nebo příjemce zprávy: ISZR, registry, agendy, AIS.</xs:documentation>
+    </xs:annotation>
+    <xs:choice>
+      <xs:element name="Agenda" type="KodAgendyType"/>
+      <xs:element name="Ais" type="KodAisType"/>
+      <xs:element name="Registr">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="ISZR"/>
+            <xs:enumeration value="RPP"/>
+            <xs:enumeration value="ROB"/>
+            <xs:enumeration value="ROS"/>
+            <xs:enumeration value="RUIAN"/>
+            <xs:enumeration value="ORG"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="StatusType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Systémový status provedení požadované operace (volání webové služby).</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="VysledekKod" type="VysledekKodType"/>
+      <xs:element name="VysledekDetail" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="VysledekSubKod" type="VysledekSubKodType"/>
+            <xs:element name="VysledekPopis" type="VysledekPopisType" minOccurs="0"/>
+            <xs:element name="Puvodce" type="SystemType" minOccurs="0"/>
+            <xs:element name="Prijemce" type="SystemType" minOccurs="0"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OdpovedInfoType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Společná hlavička všech odpovědí (webových služeb).</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="CasOdpovedi" type="CasovaZnackaType"/>
+      <xs:element name="Status" type="StatusType"/>
+      <xs:element name="AgendaZadostId" type="AgendaZadostIdType"/>
+      <xs:element name="IszrZadostId" type="IszrZadostIdType" minOccurs="0"/>
+      <xs:element name="RegOdpovedId" type="RegOdpovedIdType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!-- autorizacni informace -->
+  <xs:simpleType name="RobUdajType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Názvy datových položek, jež jsou uložena v ROB.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="AdresaPobytu"/>
+      <xs:enumeration value="Aifo"/>
+      <xs:enumeration value="Bok"/>
+      <xs:enumeration value="DatovaSchranka"/>
+      <xs:enumeration value="DatumNarozeni"/>
+      <xs:enumeration value="DatumUmrti"/>
+      <xs:enumeration value="DatumPravniMociUmrti"/>
+      <xs:enumeration value="Doklad"/>
+      <xs:enumeration value="DorucovaciAdresa"/>
+      <xs:enumeration value="Editor"/>
+      <xs:enumeration value="Jmeno"/>
+      <xs:enumeration value="MistoNarozeni"/>
+      <xs:enumeration value="MistoUmrti"/>
+      <xs:enumeration value="Obcanstvi"/>
+      <xs:enumeration value="VyuzitiPoskytnuti"/>
+      <xs:enumeration value="Prijmeni"/>
+      <xs:enumeration value="TypOsoby"/>
+      <xs:enumeration value="Zmeny"/>
+      <xs:enumeration value="Znepristupneni"/>
+      <xs:enumeration value="PoskytnutiVyuziti"/>
+      <xs:enumeration value="PoskytnutiPoskytnuti"/>
+      <xs:enumeration value="PotlaceniZnepristupneni"/>
+      <xs:enumeration value="ZnepristupniLog"/>
+      <xs:enumeration value="ZmenyProDS"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="RobSeznamUdajuType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Seznam názvů datových položek, jež jsou uložena v ROB.</xs:documentation>
+    </xs:annotation>
+    <xs:list itemType="RobUdajType"/>
+  </xs:simpleType>
+  <xs:simpleType name="RosUdajType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Názvy datových položek, jež jsou uložena v ROS.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="DatovaSchranka"/>
+      <xs:enumeration value="ObchodniNazev"/>
+      <xs:enumeration value="PravniForma"/>
+      <xs:enumeration value="PravniStav"/>
+      <xs:enumeration value="FyzickaOsoba"/>
+      <xs:enumeration value="AdresaSidla"/>
+      <xs:enumeration value="Provozovny"/>
+      <xs:enumeration value="StatutarniOrgany"/>
+      <xs:enumeration value="DatumVznikuOpravneni"/>
+      <xs:enumeration value="DatumZanikuOpravneni"/>
+      <xs:enumeration value="Ico"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="RosSeznamUdajuType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Seznam názvů datových položek, jež jsou uložena v ROS.</xs:documentation>
+    </xs:annotation>
+    <xs:list itemType="RosUdajType"/>
+  </xs:simpleType>
+  <xs:simpleType name="RppUdajPravaType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Názvy datových položek, jež jsou uložena v RPP.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Ovm"/>
+      <xs:enumeration value="PravniPredpis"/>
+      <xs:enumeration value="IdentifikatorOsob"/>
+      <xs:enumeration value="IdentifikatorObjektu"/>
+      <xs:enumeration value="Agenda"/>
+      <xs:enumeration value="VymezeniPravaPovinnosti"/>
+      <xs:enumeration value="DatumNabyti"/>
+      <xs:enumeration value="OpravneneRole"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="RppSeznamUdajuPravaType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Seznam názvů datových položek, jež jsou uložena v RPP.</xs:documentation>
+    </xs:annotation>
+    <xs:list itemType="RppUdajPravaType"/>
+  </xs:simpleType>
+  <xs:simpleType name="RppUdajAgendyType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Názvy datových položek, jež jsou uložena v RPP.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NazevAgendy"/>
+      <xs:enumeration value="KodAgendy"/>
+      <xs:enumeration value="PravniPredpisAgendy"/>
+      <xs:enumeration value="Cinnosti"/>
+      <xs:enumeration value="OhlasenaOvm"/>
+      <xs:enumeration value="Ohlasovatel"/>
+      <xs:enumeration value="RegistrovanaOvm"/>
+      <xs:enumeration value="VycetZrAis"/>
+      <xs:enumeration value="VycetRoli"/>
+      <xs:enumeration value="RozsahOpravneniZr"/>
+      <xs:enumeration value="RozsahOpravneniAis"/>
+      <xs:enumeration value="PravniPredpisyOpravneni"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="RppSeznamUdajuAgendyType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Seznam názvů datových položek, jež jsou uložena v RPP.</xs:documentation>
+    </xs:annotation>
+    <xs:list itemType="RppUdajAgendyType"/>
+  </xs:simpleType>
+  <xs:simpleType name="AisSeznamUdajuType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Seznam názvů datových položek, jež jsou uložena v AIS.</xs:documentation>
+    </xs:annotation>
+    <xs:list itemType="AisUdajType"/>
+  </xs:simpleType>
+  <xs:simpleType name="AisUdajType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Názvy datových položek, jež jsou uloženy v AiS.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="NonEmptyNormStringType"/>
+  </xs:simpleType>
+  <xs:simpleType name="MaximalniPocetType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Maximální počet záznamů, jež je možno poskytnout.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base ="xs:int">
+      <xs:minInclusive value="1"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="AutorizaceType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Společná hlavička autorizačních omezení, k roli předává RPP.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="MaximalniPocetZaznamu" type="MaximalniPocetType" minOccurs="0"/>
+      <!-- Následující seznam je průnikem povolených a požadovaných položek referenčních dat -->
+      <xs:element name="SeznamUdaju">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="RobSeznamUdaju" type="RobSeznamUdajuType" minOccurs="0"/>
+            <xs:element name="RosSeznamUdaju" type="RosSeznamUdajuType" minOccurs="0"/>
+            <xs:element name="RppSeznamUdajuAgendy" type="RppSeznamUdajuAgendyType" minOccurs="0"/>
+            <xs:element name="RppSeznamUdajuPrava" type="RppSeznamUdajuPravaType" minOccurs="0"/>
+            <xs:element ref="AisSeznamUdajuAbstract" minOccurs="0"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <!-- prevodnik mezi globalnimi a lokalnimi identifikatory -->
+  <xs:complexType name="LokalniAifoType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Lokální identifikátor AIFO. Klíč typu integer.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base ="xs:int">
+        <xs:attribute name="prevodAifoStatus" type="PrevodAifoStatusType" >
+          <xs:annotation>
+            <xs:documentation xml:lang="cs">Informace o výsledku převodu v ORG, pokud se nepodařilo přeložit.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="stavOvereniAifo" type="xs:boolean">
+          <xs:annotation>
+            <xs:documentation xml:lang="cs">Existence AIFO se má ověřit v ROB.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="GlobalniAifoType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Agendový identifikátor fyzické osoby. UUID doplněné o potřebné atributy.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="AifoType"/>
+  </xs:simpleType>
+  <xs:complexType name="PrevodAifoType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">
+        Převodník mezi lokálními a globálními AIFO.
+        Slouží pro: převod v ORG, kontrolu existence v ROB a načtení dat z ROB.
+        Pokud nejsou použity atributy, dojde jenom k překladu v ORG.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="LokalniAifo" type="LokalniAifoType"/>
+      <xs:element name="GlobalniAifo" type="GlobalniAifoType" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="agenda" type="KodAgendyType" >
+      <xs:annotation>
+        <xs:documentation xml:lang="cs">Které agendě hodnota AIFO náleží.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="ais" type="KodAisType">
+      <xs:annotation>
+        <xs:documentation xml:lang="cs">Kterému AIS hodnota AIFO náleží.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="MapaAifoType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Seznam všech AIFO převodníků.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:choice>
+        <xs:element name="PrevodAifo" type="PrevodAifoType" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:choice>
+    </xs:sequence>
+    <xs:attribute name="lokalniAifoOd" type="KladneCeleCisloType" >
+      <xs:annotation>
+        <xs:documentation xml:lang="cs">
+          Na vstupu pro ZR: od jakého čísla má odpovidajíci registr vracet lokální AIFO.
+          Na výstupu ze ZR: do jakého čísla registr použil lokální AIFO.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="nacistData" type="xs:boolean" >
+      <xs:annotation>
+        <xs:documentation xml:lang="cs">Data se mají načíst z ROB.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="SeznamIdAdresType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">
+        Seznam všech identifikátorů adres. 
+        Slouží pro: kontrolu existence v RUIAN a načtení dat z RUIAN.
+        Pokud nejsou použity atributy, dojde k ověření dat v RUAIN.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="AdresniMisto" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="KodAdresniMistoType">
+              <xs:attribute name="stavOvereniPrvku" type="StavOvereniPrvkuRuianType">
+                <xs:annotation>
+                  <xs:documentation xml:lang="cs">Informace o výsledku načtení v RUIAN, pokud se nepodařilo načíst.</xs:documentation>
+                </xs:annotation>
+              </xs:attribute>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="AdresniLokalita" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="AdresniLokalitaType">
+              <xs:attribute name="stavOvereniPrvku" type="StavOvereniPrvkuRuianType">
+                <xs:annotation>
+                  <xs:documentation xml:lang="cs">Informace o výsledku načtení v RUIAN, pokud se nepodařilo načíst.</xs:documentation>
+                </xs:annotation>
+              </xs:attribute>
+              <xs:attribute name="typPrvku" type="TypAdresniLokalityType" default="OB">
+                <xs:annotation>
+                  <xs:documentation xml:lang="cs">Typ adresní lokality (obec nebo pražský obvod).</xs:documentation>
+                </xs:annotation>
+              </xs:attribute>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="nacistData" type="xs:boolean">
+      <xs:annotation>
+        <xs:documentation xml:lang="cs">Data se mají načíst z RUIAN.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="SeznamIcoType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">
+        Seznam všech identifikátorů osob
+        Slouží pro: kontrolu existence v ROS
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Ico" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="IcoType">
+              <xs:attribute name="stavOvereniIco" type="xs:boolean">
+                <xs:annotation>
+                  <xs:documentation xml:lang="cs">Zda byla existence ověřena v ROS.</xs:documentation>
+                </xs:annotation>
+              </xs:attribute>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="PrevodAifoStatusType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Chyby převodu AIFO v ORG pro při překladu v ORG.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="AifoZdrojNenalezeno">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Zdrojové AIFO nebylo nalezeno</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="AifoZdrojNeplatne">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Zdrojové AIFO není platné. Pro převod není důležité, zda bylo sloučeno, zrušeno apod.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="AifoCilNeexistuje">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Cílové AIFO nebylo nalezeno.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="AifoCilNeplatne">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Cílové AIFO není platné. Pro převod není důležité, zda bylo sloučeno, zrušeno apod.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="StavOvereniPrvkuRuianType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Stav adresního prvku v RUIAN pro ověření / načtení z RUIAN.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="existuje"/>
+      <xs:enumeration value="nenalezen"/>
+      <xs:enumeration value="zrusen"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="TypPrvkuRuianType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Typy referenčního údaje RUIAN</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="PA">
+        <xs:annotation>
+           <xs:documentation xml:lang="cs">Pozemek v podobě parcely</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SO">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Stavební objekt</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="AD">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Adresní místo</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="IdentifikatorRuianType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Identifikátor prvku RUIAN včetně jeho typu.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="KodPrvku" type="IdentifikatorType"/>
+      <xs:element name="TypPrvku" type="TypPrvkuRuianType"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="SeznamPrvkuType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Seznam identifikátorů RUIAN neuvedených v SeznamIdAdres. Slouží pro kontrolu existence v RUIAN.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="OdkazRuian" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:complexContent>
+            <xs:extension base="IdentifikatorRuianType">
+              <xs:attribute name="stavOvereniPrvku" type="StavOvereniPrvkuRuianType">
+                <xs:annotation>
+                  <xs:documentation xml:lang="cs">Informace o výsledku načtení v RUIAN, pokud se nepodařilo načíst.</xs:documentation>
+                </xs:annotation>
+              </xs:attribute>
+            </xs:extension>
+          </xs:complexContent>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- ISZR -->
+  
+  <xs:simpleType name="MetodaKompreseType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Metoda komprese dat.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="zadna"/>
+      <xs:enumeration value="gzip"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="BinarniDataType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Binární data MTOM/XOP.</xs:documentation>
+    </xs:annotation>
+    <xs:choice>
+      <xs:element name="Base64Data" type="xs:base64Binary"/>
+      <xs:element name="Include" type="xop:Include"/>
+    </xs:choice>
+  </xs:complexType>
+  
+  <xs:complexType name="KomprimovanaDataType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Komprimovaná data MTOM/XOP.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="BinarniDataType">
+        <xs:attribute name="metoda" type="MetodaKompreseType" use="required"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="AsyncDotazDataResponseType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Univerzální asynchronní odpověd na dotaz.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:any namespace="##any" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>

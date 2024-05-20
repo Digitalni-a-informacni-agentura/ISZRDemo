@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xs:schema
+  targetNamespace="urn:cz:isvs:aisc:schemas:AiscDotazyData:v1"
+  xmlns:d="urn:cz:isvs:aisc:schemas:AiscDotazyData:v1"
+  xmlns:t="urn:cz:isvs:aisc:schemas:AiscTypy:v1"
+  xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  elementFormDefault="qualified"
+  attributeFormDefault="unqualified"
+  version="1.2.0"
+>
+
+  <xs:annotation>
+    <xs:documentation xml:lang="cs">Návrh XML schématu s definicemi dat pro dotazování AISC.</xs:documentation>
+  </xs:annotation>
+
+  <!-- Vývojová verze 0.0.1, 03.06.2012, David Matějček -->
+  <!-- Vývojová verze 0.1.0, 08.07.2012, David Matějček -->
+  <!-- Verze 0.1.1, 17.08.2012, Marian Bouček -->
+  <!-- Verze pro revizi 0.1.2, 20.08.2012, Aleš Teplý, ZadostAbstractType-změna AutorizaceInfo, AiscCtiPodleUdajuDataResponseType-Osoba misto Osoby -->
+  <!-- Verze 0.2.0, 28.08.2012, David Matějček, dopněn AiscUdajType a AiscSeznamUdaju, v datech LokalniAifoType, SeznamOsob -->
+  <!-- Verze 0.3.0, 24.09.2012, Aleš Teplý, doplněn TypPorovnani  -->
+  <!-- Verze 0.4.0, 2.10.2012, David Matějček, dopněn TypPorovnani na žádost p. Teplého bez závislosti na schema ROB -->
+  <!-- Verze 0.5.0, 15.10.2012, Marian Bouček, přehození pořadí OdpovedInfo a MapaAifo v odpovědi -->
+  <!-- Verze 0.6.0, 26.10.2012, Marian Bouček, doplnění tagu CisOsoba do SeznamuOsob -->
+  <!-- Verze 0.6.1, 01.11.2012, David Matějček, SeznamOsob je nepovinný -->
+  <!-- Verze 0.6.2, 30.01.2013, David Matějček, přidání znepristupniLog -->
+  <!-- Verze 1.0.0, xx.xx.2013, Přeznačení verze v ostrém provozu -->
+  <!-- Verze 1.1.0, 24.02.2014, Jan Hadaš, přidání AiscCtiZmeny -->
+  <!-- Verze 1.1.1, 10.03.2014, David Matějček, AiscCtiZmeny - ZmenaCas v odpovědi je nepovinná -->
+  <!-- Verze 1.2.0, 05.11.2012, Aleš Teplý, AiscCtiAifoDataType:TypOvm jako povinný -->
+  <!-- Verze 1.3.0, 18.10.2017, Martin Štulc, adresaUradu -->
+
+  <xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd" />
+  <xs:import namespace="urn:cz:isvs:aisc:schemas:AiscTypy:v1" schemaLocation="AiscTypy.xsd" />
+
+  <xs:element name="AiscCtiAifoData" type="d:AiscCtiAifoDataType" />
+  <xs:element name="AiscCtiAifoDataResponse" type="d:AiscCtiAifoDataResponseType" />
+  <xs:element name="AiscCtiPodleUdajuData" type="d:AiscCtiPodleUdajuDataType" />
+  <xs:element name="AiscCtiPodleUdajuDataResponse" type="d:AiscCtiPodleUdajuDataResponseType" />
+
+  <xs:complexType name="ZadostAbstractType" abstract="true">
+    <xs:sequence>
+      <xs:element name="ZadostInfo" type="reg:ZadostInfoType" />
+      <xs:element name="AutorizaceInfo" type="reg:AutorizaceType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AiscCtiDataAbstractType" abstract="true">
+    <xs:attribute name="znepristupniLog" type="xs:boolean" default="false" />
+  </xs:complexType>
+
+  <xs:complexType name="AiscCtiAifoDataType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Čtení údajů podle AIFO, dotaz.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="d:AiscCtiDataAbstractType">
+        <xs:sequence>
+          <xs:element name="Aifo" type="reg:LokalniAifoType" />
+          <xs:element name="TypOvm" type="t:TypOvm" minOccurs="0" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="AiscCtiAifoDataResponseType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Čtení údajů podle AIFO, odpověď.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="d:AiscDotazyDataResponseType">
+        <xs:sequence>
+          <xs:element name="Osoba" type="t:OsobaCis" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="AiscCtiPodleUdajuDataType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Čtení údajů, dotaz.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="d:AiscCtiDataAbstractType">
+        <xs:sequence>
+          <xs:element name="RodneCislo" type="t:RodneCislo" minOccurs="0" />
+          <xs:element name="Jmeno" type="t:Text" minOccurs="0" />
+          <xs:element name="Prijmeni" type="t:Text" minOccurs="0" />
+          <xs:element name="RodnePrijmeni" type="t:Text" minOccurs="0" />
+          <xs:element name="Pohlavi" type="t:Pohlavi" minOccurs="0" />
+          <xs:element name="DatumNarozeni" type="d:DatumNarozeni" minOccurs="0" />
+          <xs:element name="TypOvm" type="t:TypOvm" minOccurs="0" />
+        </xs:sequence>
+        <xs:attribute name="typPorovnani" type="d:TypPorovnaniType" default="diakritika"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="AiscCtiPodleUdajuDataResponseType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Čtení údajů, odpověď.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="d:AiscDotazyDataResponseType">
+        <xs:sequence>
+          <xs:element name="SeznamOsob" type="d:SeznamOsob" minOccurs="0" />
+        </xs:sequence>
+        <xs:attribute name="detail" type="xs:boolean" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SeznamOsob">
+     <xs:annotation>
+       <xs:documentation xml:lang="cs">Seznam osob.</xs:documentation>
+     </xs:annotation>
+     <xs:sequence>
+       <xs:element name="OsobaCis" type="t:OsobaCis" minOccurs="1" maxOccurs="unbounded"/>
+     </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="DatumNarozeni">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Parametr datum narození. Lze zadat alternativně datum,
+        rok, nebo rok a měsíc.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:choice minOccurs="1">
+      <xs:element name="Datum" type="t:Datum" minOccurs="0" />
+      <xs:sequence>
+        <xs:element name="Rok" type="xs:int" minOccurs="1" />
+        <xs:element name="Mesic" type="xs:int" minOccurs="0" />
+      </xs:sequence>
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:simpleType name="TypPorovnaniType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Indikátor, jaký typ porovnání hledaných dat vůči DB
+        je nutno použít.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="striktni">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Respektování diakritiky a velikosti písmen.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="diakritika">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Respektování diakritiky bez ohledu na velikost
+            písmen.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ascii">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Nerespektování diakritiky a velikosti písmen.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="asciiAnyOrder">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Nerespektování diakritiky a pořadí slov ve jménech.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:element name="AiscSeznamUdaju" type="d:AiscSeznamUdajuType" substitutionGroup="reg:AisSeznamUdajuAbstract" />
+
+  <xs:simpleType name="AiscSeznamUdajuType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Seznam názvů datových položek, jež jsou uloženy v AIS CIS.</xs:documentation>
+    </xs:annotation>
+    <xs:list itemType="d:AiscUdajType"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="AiscUdajType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Názvy datových položek, jež jsou uložena v AIS CIS.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="reg:AisUdajType">
+      <xs:enumeration value="Aifo"/>
+      <xs:enumeration value="RodneCislo"/>
+      <xs:enumeration value="Jmeno"/>
+      <xs:enumeration value="Prijmeni"/>
+      <xs:enumeration value="RodnePrijmeni"/>
+      <xs:enumeration value="OstatniJmena"/>
+      <xs:enumeration value="StatniPrislusnost"/>
+      <xs:enumeration value="DatumNarozeni"/>
+      <xs:enumeration value="MistoNarozeni"/>
+      <xs:enumeration value="DatumUmrti"/>
+      <xs:enumeration value="MistoUmrti"/>
+      <xs:enumeration value="Pohlavi"/>
+      <xs:enumeration value="AdresaPobytu"/>
+      <xs:enumeration value="TypPobytu"/>
+      <xs:enumeration value="PovoleniPobytu"/>
+      <xs:enumeration value="SkutecnyPobyt"/>
+      <xs:enumeration value="PravniZpusobilost"/>
+      <xs:enumeration value="Vyhosteni"/>
+      <xs:enumeration value="RodinnyStav"/>
+      <xs:enumeration value="MistoManzelstviPartnerstvi"/>
+      <xs:enumeration value="Partner"/>
+      <xs:enumeration value="Matka"/>
+      <xs:enumeration value="Otec"/>
+      <xs:enumeration value="DorucovaciAdresa"/>
+      <xs:enumeration value="Osvojeni"/>
+      <xs:enumeration value="UkonceniManzelstviPartnerstvi"/>
+      <xs:enumeration value="ObcanstviPartnera"/>
+      <xs:enumeration value="Deti"/>
+      <xs:enumeration value="DetiMistoNarozeni"/>
+      <xs:enumeration value="DetiObcanstvi"/>
+      <xs:enumeration value="RodiceObcanstvi"/>
+      <xs:enumeration value="ZakonnyZastupce"/>
+      <xs:enumeration value="OsvojeneDeti"/>
+      <xs:enumeration value="OsobyDlePismeneU"/>
+      <xs:enumeration value="ZivyMrtvy"/>
+      <xs:enumeration value="DrivejsiJmenaPrijmeni"/>
+      <xs:enumeration value="DrivejsiRodnaCisla"/>
+      <xs:enumeration value="ZmenaPohlavi"/>
+      <xs:enumeration value="PredchoziMistaPobytu"/>
+      <xs:enumeration value="PredchoziManzelstviPartnerstvi"/>
+      <xs:enumeration value="StatniIntegracniProgram"/>
+      <xs:enumeration value="ZnepristupniLog"/>
+      <xs:enumeration value="AdresaUradu"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="OdpovedAbstractType" abstract="true">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Univerzální odpověd na žádost, obálka pro data.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="OdpovedInfo" type="reg:OdpovedInfoType"/>
+      <xs:element name="MapaAifo" type="reg:MapaAifoType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AiscDotazyDataResponseType" abstract="true">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Společný předek všech odpovědí na dotazy AISC.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="AiscAplikacniStatus" type="d:AiscAplikacniStatusType" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AiscAplikacniStatusType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">
+        Aplikační chyba, doplnění k StatusType ze systémové části zprávy, odpověď.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="VysledekAiscKodType" type="reg:VysledekKodType" />
+      <xs:element name="VysledekDetail" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="VysledekSubKod" type="d:VysledekSubKodAiscType" />
+            <xs:element name="VysledekPopis" type="reg:VysledekPopisType" minOccurs="0" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- chyby a varování -->
+  <xs:simpleType name="VysledekSubKodAiscType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Detailní kód výsledku, výčtový typ.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <!-- VAROVÁNÍ -->
+      <xs:enumeration value="OSOBA_NENALEZENA">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Nenalezena žádná osoba.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PREKROCEN_LIMIT">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Překročen limit na počet vrácených záznamů.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+
+      <!-- CHYBA -->
+      <xs:enumeration value="NEPOVOLENY_PARAMETR">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Nepovolený parametr.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CHYBNY_PARAMETR">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Chybný parametr.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TYPOVM_CHYBI">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Požadován parametr typ OVM.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TYPOVM_NESPRAVNY">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Nesprávné zadání parametru typ OVM.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NEOCEKAVANA_CHYBA">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Neočekávaná chyba aplikace.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CHYBA_DATABAZE">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">Chyba připojení do databáze.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

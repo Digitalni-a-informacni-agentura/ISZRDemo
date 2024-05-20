@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:ZmenCiselnikIsui:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:ZmenCiselnikIsui:v1" xmlns:zcui="urn:cz:isvs:ruian:schemas:ZmenCiselnikIsui:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:zt="urn:cz:isvs:ruian:schemas:ZmenaTypy:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" elementFormDefault="qualified" version="0.40.1">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../ruian/xsd/typy/CommonTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenaTypy:v1" schemaLocation="../../../ruian/xsd/typy/ZmenaTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../RegTypy.xsd"/>
+	<xs:simpleType name="VyznamType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Vyznam</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="240"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="ZmenCiselnikISUIRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na zmenu ciselniku z ISUI</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Dotaz" type="EditaceCiselnikuISUIType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ZmenCiselnikISUIRequest" type="zcui:ZmenCiselnikISUIRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na zmenu ciselniku z ISUI</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="EditaceCiselnikuISUIType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Editace ciselniku z ISUI</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="CharakterZsj" type="zt:CiselnikType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="DruhKonstrukce" type="zt:CiselnikType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PropojeniKanalizace" type="zt:CiselnikType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PripojeniPlynu" type="zt:CiselnikType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PripojeniVody" type="zt:CiselnikType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="VybaveniVytahem" type="zt:CiselnikType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ZpusobVytapeni" type="zt:CiselnikType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="TypPrvkuPrehledMap" type="CiselnikTypPrvkuPrehledMapType" minOccurs="0" maxOccurs="1"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="ZmenCiselnikISUIResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved na zmeny ciselniku ISUI</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ZmenCiselnikISUIResponse" type="zcui:ZmenCiselnikISUIResponseType"/>
+	<xs:complexType name="PolozkaCiselnikuTPPMType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Položka číselníku typu prvku přehledových map</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod10Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Nazev" type="base:Nazev255Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="ZkracenyNazev" type="base:Nazev50Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Popis" type="base:Text4000Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Poradi" type="com:PoradiType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="ZacatekPlatnosti" type="base:DatumCasType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="KonecPlatnosti" type="base:DatumCasType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Symbologie" type="com:SymbologieType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Vyznam" type="VyznamType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CiselnikTypPrvkuPrehledMapType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Ciselnik typ prvku prehledu map</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Polozka" type="PolozkaCiselnikuTPPMType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

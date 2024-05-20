@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:iszr:schemas:IszrRppVypisAgendu3:v1" xmlns:e229="urn:cz:isvs:iszr:schemas:IszrRppVypisAgendu3:v1" xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" xmlns:pdo="urn:cz:isvs:rpp:schemas:RppDotazyData:v1" xmlns:crob="urn:cz:isvs:ruian:schemas:CtiProRob:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="urn:cz:isvs:iszr:schemas:IszrRppVypisAgendu3:v1" targetNamespace="urn:cz:isvs:iszr:schemas:IszrRppVypisAgendu3:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.4.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E229 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vytvoření nové služby pro výpis údajů agendy. Služba na základě předaných dat vypíše Agendu včetně nových údajů plynoucích ze zák 251 a novely 111/2009, verze 1.3.3, 12.7.2018 Aleš Teplý -->
+	<!-- Verze po revizi 1.3.4, 15.10.2021, Aleš Teplý, AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- Verze po revizi 1.4.0, 25.5.2022, Aleš Teplý, Response - AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rpp:schemas:RppDotazyData:v1" schemaLocation="../../rpp/xsd/RppDotazyData.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiProRob:v1" schemaLocation="ref/RuianCtiProRob.xsd"/>
+	<xs:element name="RppVypisAgendu3" type="RppVypisAgendu3Type"/>
+	<xs:element name="RppVypisAgendu3Response" type="RppVypisAgendu3ResponseType"/>
+	<xs:complexType name="RppVypisAgendu3Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E229 externího rozhraní - typ pro žádost. RPP služba P72.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RppVypisAgendu3Data" type="pdo:RppVypisAgendu3DataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RppVypisAgendu3ResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E229 externího rozhraní - typ pro odpověď. RPP služba P72.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="RppOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RppVypisAgendu3DataResponse" type="pdo:RppVypisAgendu3DataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

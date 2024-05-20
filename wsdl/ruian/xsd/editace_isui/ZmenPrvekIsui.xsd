@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:ZmenPrvekIsui:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:ZmenPrvekIsui:v1" xmlns:zpui="urn:cz:isvs:ruian:schemas:ZmenPrvekIsui:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:zst="urn:cz:isvs:ruian:schemas:ZmenStat:v1" xmlns:zrs="urn:cz:isvs:ruian:schemas:ZmenRegion:v1" xmlns:zkr="urn:cz:isvs:ruian:schemas:ZmenKraj:v1" xmlns:zvc="urn:cz:isvs:ruian:schemas:ZmenVusc:v1" xmlns:zok="urn:cz:isvs:ruian:schemas:ZmenOkres:v1" xmlns:zop="urn:cz:isvs:ruian:schemas:ZmenOrp:v1" xmlns:zpu="urn:cz:isvs:ruian:schemas:ZmenPou:v1" xmlns:zob="urn:cz:isvs:ruian:schemas:ZmenObec:v1" xmlns:zsp="urn:cz:isvs:ruian:schemas:ZmenSpravniObvod:v1" xmlns:zmp="urn:cz:isvs:ruian:schemas:ZmenMop:v1" xmlns:zmc="urn:cz:isvs:ruian:schemas:ZmenMomc:v1" xmlns:zco="urn:cz:isvs:ruian:schemas:ZmenCastObce:v1" xmlns:zkuui="urn:cz:isvs:ruian:schemas:ZmenKatastralniUzemiIsui:v1" xmlns:zzj="urn:cz:isvs:ruian:schemas:ZmenZsj:v1" xmlns:zul="urn:cz:isvs:ruian:schemas:ZmenUlice:v1" xmlns:zso="urn:cz:isvs:ruian:schemas:ZmenStaebniObjekt:v1" xmlns:zad="urn:cz:isvs:ruian:schemas:ZmenAdresniMisto:v1" xmlns:zpo="urn:cz:isvs:ruian:schemas:ZmenAdresniPosta:v1" xmlns:ztea="urn:cz:isvs:ruian:schemas:ZmenDetailniTea:v1" xmlns:zdul="urn:cz:isvs:ruian:schemas:ZmenDefCaraUlice:v1" xmlns:zvuc="urn:cz:isvs:ruian:schemas:ZmenDefBodVuc:v1" xmlns:zdso="urn:cz:isvs:ruian:schemas:ZmenDefBodStavebniObjekt:v1" xmlns:zdam="urn:cz:isvs:ruian:schemas:ZmenDefBodAdresniMisto:v1" xmlns:zhob="urn:cz:isvs:ruian:schemas:ZmenHraniceObec:v1" xmlns:zhmc="urn:cz:isvs:ruian:schemas:ZmenHraniceMomc:v1" xmlns:zpzj="urn:cz:isvs:ruian:schemas:ZmenPolygonyZsj:v1" xmlns:zpmc="urn:cz:isvs:ruian:schemas:ZmenPolygonyMomc:v1" xmlns:zgob="urn:cz:isvs:ruian:schemas:ZmenGenHranObec:v1" xmlns:znui="urn:cz:isvs:ruian:schemas:ZmenNespravnostIsui:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" elementFormDefault="qualified" version="0.40.1">
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenNespravnostIsui:v1" schemaLocation="../../../ruian/xsd/editace_isui/ZmenNespravnostIsui.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenGenHranObec:v1" schemaLocation="../../../ruian/xsd/editace_isui/ZmenGenHranObec.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenPolygonyMomc:v1" schemaLocation="../../../ruian/xsd/editace_isui/ZmenPolygonyMomc.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenPolygonyZsj:v1" schemaLocation="../../../ruian/xsd/editace_isui/ZmenPolygonyZsj.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenHraniceMomc:v1" schemaLocation="../../../ruian/xsd/editace_isui/ZmenHraniceMomc.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenHraniceObec:v1" schemaLocation="../../../ruian/xsd/editace_isui/ZmenHraniceObec.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenDefBodAdresniMisto:v1" schemaLocation="../../../ruian/xsd/editace_isui/ZmenDefBodAdresniMisto.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenDefBodStavebniObjekt:v1" schemaLocation="../../../ruian/xsd/editace_isui/ZmenDefBodStavebniObjekt.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenDefBodVuc:v1" schemaLocation="../../../ruian/xsd/editace_isui/ZmenDefBodVuc.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenDefCaraUlice:v1" schemaLocation="../../../ruian/xsd/editace_isui/ZmenDefCaraUlice.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenDetailniTea:v1" schemaLocation="../../../ruian/xsd/editace_isui/ZmenDetailniTea.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenAdresniPosta:v1" schemaLocation="../../../ruian/xsd/editace_isui/ZmenAdresniPosta.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenAdresniMisto:v1" schemaLocation="../../../ruian/xsd/editace_isui/ZmenAdresniMisto.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenStaebniObjekt:v1" schemaLocation="../../../ruian/xsd/editace_isui/ZmenStavebniObjekt.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenUlice:v1" schemaLocation="../../../ruian/xsd/editace_isui/ZmenUlice.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenZsj:v1" schemaLocation="../../../ruian/xsd/editace_isui/ZmenZsj.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenKatastralniUzemiIsui:v1" schemaLocation="../../../ruian/xsd/editace_isui/ZmenKatastralniUzemiIsui.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenCastObce:v1" schemaLocation="../../../ruian/xsd/editace_isui/ZmenCastObce.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenMomc:v1" schemaLocation="../../../ruian/xsd/editace_isui/ZmenMomc.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenMop:v1" schemaLocation="../../../ruian/xsd/editace_isui/ZmenMop.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenSpravniObvod:v1" schemaLocation="../../../ruian/xsd/editace_isui/ZmenSpravniObvod.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenObec:v1" schemaLocation="../../../ruian/xsd/editace_isui/ZmenObec.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenPou:v1" schemaLocation="../../../ruian/xsd/editace_isui/ZmenPou.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenOrp:v1" schemaLocation="../../../ruian/xsd/editace_isui/ZmenOrp.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenOkres:v1" schemaLocation="../../../ruian/xsd/editace_isui/ZmenOkres.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenVusc:v1" schemaLocation="../../../ruian/xsd/editace_isui/ZmenVusc.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenKraj:v1" schemaLocation="../../../ruian/xsd/editace_isui/ZmenKraj.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenRegion:v1" schemaLocation="../../../ruian/xsd/editace_isui/ZmenRegion.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenStat:v1" schemaLocation="../../../ruian/xsd/editace_isui/ZmenStat.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../ruian/xsd/typy/CommonTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:complexType name="ZmenPrvkyISUIOdpovedType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved na zmenu prvku ISUI</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PlatiOd" type="base:DatumCasType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="IdTransakce" type="com:IdTransakceType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="GlobalniIdNavrhuZmeny" type="com:IdNavrhuZmenyType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ZmenPrvkyISUIRequest" type="zpui:ZmenPrvkyISUIRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na zmeny prvku ISUI</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ZmenPrvkyISUIResponse" type="zpui:ZmenPrvkyISUIResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved na zmenu prvku ISUI</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="PrvekEditaceISUIType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Editace prvku z ISUI</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="TypPrvku" type="TypPrvkuISUIType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="TypZmeny" type="com:TypZmenyPrvkuType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Stat" type="zst:StatZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="RegionSoudrznosti" type="zrs:RegionSoudrznostiZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Kraj" type="zkr:KrajZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Vusc" type="zvc:VuscZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Okres" type="zok:OkresZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Orp" type="zop:OrpZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Pou" type="zpu:PouZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Obec" type="zob:ObecZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="SpravniObvod" type="zsp:SpravniObvodZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Mop" type="zmp:MopZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Momc" type="zmc:MomcZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="CastObce" type="zco:CastObceZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="KatastralniUzemi" type="zkuui:KatastralniUzemiISUIZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Zsj" type="zzj:ZsjZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Ulice" type="zul:UliceZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="StavebniObjekt" type="zso:StavebniObjektZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="AdresniMisto" type="zad:AdresniMistoZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="AdresniPosta" type="zpo:AdresniPostaZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="DetailTEA" type="ztea:DetailTEAZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="DefinicniCaraUlice" type="zdul:DefinicniCaraUliceZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="DefinicniBodVuc" type="zvuc:DefinicniBodVucZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="DefinicniBodStavebniObjekt" type="zdso:DefinicniBodSOZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="DefinicniBodAdresniMisto" type="zdam:DefinicniBodAdmZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="HraniceObec" type="zhob:HraniceObecZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="HraniceMomc" type="zhmc:HraniceMomcZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PolygonyZsj" type="zpzj:PolygonyZsjZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PolygonyMomc" type="zpmc:PolygonyMomcZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="GenHraniceObec" type="zgob:GenHraniceObecZmenaType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="EditaceISUIType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Editace z ISUI</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="GlobalniIdNavrhuZmeny" type="com:IdNavrhuZmenyType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="TypEditace" type="com:TypEditaceType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Prvky" type="PrvekListEditaceISUIType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Nespravnosti" type="znui:NespravnostListISUIType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PrvekListEditaceISUIType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam editovanych prvku z ISUI</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Prvek" type="PrvekEditaceISUIType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="TypPrvkuISUIType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Typ prvku ISUI</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ST">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Území státu</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="RS">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Území regionu soudržnosti</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="KR">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Území kraje</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="VC">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Území vyššího územni samosprávného celku</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OK">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Území okresu</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OP">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Správní obvod obce s rozšířenou působností</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PU">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Správní obvod obce s pověřeným obecním úřadem</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OB">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Území obce, území vojenského újezdu</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SP">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Správní obvod v hlavním městě Praze</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MP">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Území městského obvodu v hlavním městě Praze</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MC">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Území městského obvodu nebo městské části územně členěného statutárního města</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CO">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Část obce</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="KU">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Katastrální území</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ZJ">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Území základní sídelní jednotky</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="UL">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Ulice nebo jiné veřejné prostranství</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SO">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Stavební objekt</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="AD">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Adresní místo</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PO">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Adresní pošta</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="TEA">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Detailní technicko ekonomické atributy</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DUL">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Definiční čára ulice</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DUC">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Definiční bod přehledové mapy pro vyšší územní celky a ZSJ.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DSO">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Definiční bod stavebního objektu</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DAM">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Definiční bod adresního místa</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="HOB">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Hranice pro vyšší územní celky</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="HMC">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Hranice městského obvodu nebo městské části územně členěného statutárního města</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PZJ">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Polygony území základní sídelní jednotky</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PMC">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Polygony území městského obvodu nebo městské části územně členěného statutárního města</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="GOB">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Generalizované hranice pro vyšší územní celky a ZSJ.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="ZmenPrvkyISUIRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na zmeny prvku ISUI</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Dotaz" type="EditaceISUIType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ZmenPrvkyISUIResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved na zmenu prvku ISUI</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Odpoved" type="ZmenPrvkyISUIOdpovedType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRppVypisPravniPredpis:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRppVypisPravniPredpis:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRppVypisPravniPredpis:v1"
+	xmlns:e125="urn:cz:isvs:iszr:schemas:IszrRppVypisPravniPredpis:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRppVypisPravniPredpis">
+
+	<wsdl:documentation>Služba E125 externího rozhraní - poskytnutí referenčního údaje o právním předpisu - RPP služba P22.</wsdl:documentation>
+	
+	<!-- Katalog.7.4 verze 1.4.0, 29.10.2012 Aleš Teplý -->
+	<!-- Verze po revizi 1.4.1, 15.10.2021, Aleš Teplý, AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- Verze po revizi 1.5.0, 25.5.2022, Aleš Teplý, Response - AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- AutoCont CZ a.s. -->
+	
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRppVypisPravniPredpis:v1" schemaLocation="../xsd/IszrRppVypisPravniPredpis.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="IszrRppVypisPravniPredpis">
+		<wsdl:part name="parametry" element="e125:RppVypisPravniPredpis"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRppVypisPravniPredpisResponse">
+		<wsdl:part name="vysledek" element="e125:RppVypisPravniPredpisResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRppVypisPravniPredpisPortType">
+		<wsdl:operation name="IszrRppVypisPravniPredpis">
+			<wsdl:input message="tns:IszrRppVypisPravniPredpis"/>
+			<wsdl:output message="tns:IszrRppVypisPravniPredpisResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRppVypisPravniPredpisBinding" type="tns:IszrRppVypisPravniPredpisPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRppVypisPravniPredpis">
+			<soap:operation soapAction="IszrRppVypisPravniPredpis"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRppVypisPravniPredpisService">
+		<wsdl:port name="IszrRppVypisPravniPredpisPortService" binding="tns:IszrRppVypisPravniPredpisBinding">
+			<soap:address location="IszrRppVypisPravniPredpis"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

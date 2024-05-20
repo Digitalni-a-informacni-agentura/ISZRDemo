@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrAiscCtiPodleUdaju2:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrAiscCtiPodleUdaju2:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrAiscCtiPodleUdaju2:v1"
+	xmlns:e174="urn:cz:isvs:iszr:schemas:IszrAiscCtiPodleUdaju2:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrAiscCtiPodleUdaju2">
+
+	<wsdl:documentation>Služba e174 externího rozhraní - Služba umožňuje provést hledání v AIS EO podle jména, příjmení, rodného příjmení, data narození a rodného čísla. Služba vrací AIFO a příznak, zda bylo AIFO ověřeno v ROB (služba AIS EO C02).</wsdl:documentation>
+
+	<!-- Výchozí verze 1.0.0, 4.8.2019, ales.teply@autocont.cz -->
+	<!-- Verze po revizi 1.1.0, 26.11.2019, Aleš Teplý, změna Response: odebrána nepovinná odpověď RobCtiAifo, přidána  nepovinná odpověď RobCtiHromadneAifo -->
+	<!-- Verze po revizi 1.1.1, 14.10.2020, Aleš Teplý, RuianCtiProRobDataResponse v1 i v2-->
+	<!-- Verze po revizi 1.2.0, 13.8.2021, Aleš Teplý, rozšíření struktury Response ROB v2.0.0, aplikačně zatím omezeno na kompatibilitu s ROB v1.0.9 -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrAiscCtiPodleUdaju2:v1" schemaLocation="../xsd/IszrAiscCtiPodleUdaju2.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="IszrAiscCtiPodleUdaju2">
+		<wsdl:part name="parametry" element="e174:AiscCtiPodleUdaju2"/>
+	</wsdl:message>
+	<wsdl:message name="IszrAiscCtiPodleUdaju2Response">
+		<wsdl:part name="vysledek" element="e174:AiscCtiPodleUdaju2Response"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrAiscCtiPodleUdaju2PortType">
+		<wsdl:operation name="IszrAiscCtiPodleUdaju2">
+			<wsdl:input message="tns:IszrAiscCtiPodleUdaju2"/>
+			<wsdl:output message="tns:IszrAiscCtiPodleUdaju2Response"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrAiscCtiPodleUdaju2Binding" type="tns:IszrAiscCtiPodleUdaju2PortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrAiscCtiPodleUdaju2">
+			<soap:operation soapAction="IszrAiscCtiPodleUdaju2"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrAiscCtiPodleUdaju2Service">
+		<wsdl:port name="IszrAiscCtiPodleUdaju2PortService" binding="tns:IszrAiscCtiPodleUdaju2Binding">
+			<soap:address location="IszrAiscCtiPodleUdaju2"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekUlice:v1" 
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekUlice:v1" 
+	xmlns:e34q="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekUlice:v1" 
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:vyhUl="urn:cz:isvs:ruian:schemas:VyhledejUlice:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified" 
+	version="1.1.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E34q externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	
+	<!-- Vývojová verze 0.0.1, 22.07.2011, Pavel Kirchner -->
+	<!-- Vývojová verze 0.0.2, 28.07.2011, Pavel Kirchner, převzetí datového elementu Response pomocí ref (deklaruje AC) -->
+	<!-- Fixovaná verze 1.0.0, 25.10.2011, Aleš Teplý -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:VyhledejUlice:v1" schemaLocation="ref/RuianVyhledejPrvekUlice.xsd"/>
+	
+	<xs:element name="RuianVyhledejPrvekUlice" type="RuianVyhledejPrvekUliceType"/>
+	<xs:element name="RuianVyhledejPrvekUliceResponse" type="RuianVyhledejPrvekUliceResponseType"/>
+	
+	<xs:complexType name="RuianVyhledejPrvekUliceType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E34q externího rozhraní - žádost. Vyhledání Ulice z RUIAN. RUIAN služba A03, operace VyhledejUlice.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+		 						<xs:element name="RuianVyhledejPrvekUliceData" type="vyhUl:VyhledejUliceDotazType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="RuianVyhledejPrvekUliceResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E34q externího rozhraní - odpověď. Vyhledání Ulice z RUIAN. RUIAN služba A03, operace VyhledejUlice.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="RuianOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianVyhledejPrvekUliceDataResponse">
+									<xs:complexType>
+										<xs:sequence>
+										  <xs:element ref="vyhUl:Ulice"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

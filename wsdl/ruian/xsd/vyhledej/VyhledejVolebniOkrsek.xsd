@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:VyhledejVolebniOkrsek:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:VyhledejVolebniOkrsek:v1" xmlns:vyhVO="urn:cz:isvs:ruian:schemas:VyhledejVolebniOkrsek:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:voPodm="urn:cz:isvs:ruian:schemas:VolebniOkrsekPodminka:v1" xmlns:voPolBase="urn:cz:isvs:ruian:schemas:VolebniOkrsekPolozkyBase:v1" xmlns:vo="urn:cz:isvs:ruian:schemas:VolebniOkrsek:v1" elementFormDefault="qualified" version="2.0.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Vyhledání Volebního okrsku</xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:VolebniOkrsek:v1" schemaLocation="../../../ruian/xsd/prvky/VolebniOkrsek.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:VolebniOkrsekPolozkyBase:v1" schemaLocation="../../../ruian/xsd/vyhledej/VOPolozkyBase.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:VolebniOkrsekPodminka:v1" schemaLocation="../../../ruian/xsd/vyhledej/VolebniOkrsekPodminka.xsd"/>
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../RegTypy.xsd"/>
+	<xs:element name="VyhledejVolebniOkrsekRequest" type="vyhVO:VyhledejVolebniOkrsekRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na vyhledání volebního okrsku.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="VyhledejVolebniOkrsekRequestType">
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Dotaz" type="VyhledejVolebniOkrsekDotazType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VyhledejVolebniOkrsekDotazType">
+		<xs:sequence>
+			<xs:element name="Podminka" type="voPodm:VolebniOkrsekPodminkaType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="PozadovaneUdaje" type="voPolBase:VolebniOkrsekPolozkyBaseType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="VyhledejVolebniOkrsekResponse" type="vyhVO:VyhledejVolebniOkrsekResponseType"/>
+	<xs:complexType name="VyhledejVolebniOkrsekResponseType">
+		<xs:sequence minOccurs="0" maxOccurs="1">
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="VolebniOkrsek" type="VolebniOkrsekSeznamType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VolebniOkrsekSeznamType">
+		<xs:sequence>
+			<xs:element name="VolebniOkrsek" type="vo:VolebniOkrsekType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

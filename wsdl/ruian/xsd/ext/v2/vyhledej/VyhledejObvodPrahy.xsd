@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:VyhledejObvodPrahy:v2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:VyhledejObvodPrahy:v2" xmlns:vyhMp="urn:cz:isvs:ruian:schemas:VyhledejObvodPrahy:v2" xmlns:mp="urn:cz:isvs:ruian:schemas:ObvodPrahy:v2" xmlns:mpPodm="urn:cz:isvs:ruian:schemas:ObvodPrahyPodminka:v2" xmlns:mpPolBase="urn:cz:isvs:ruian:schemas:ObvodPrahyPolozkyBase:v2" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" elementFormDefault="qualified" version="2.0.0">
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ObvodPrahyPolozkyBase:v2" schemaLocation="ObvodPrahyPolozkyBase.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ObvodPrahyPodminka:v2" schemaLocation="ObvodPrahyPodminka.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ObvodPrahy:v2" schemaLocation="../prvky/ObvodPrahy.xsd"/>
+	<xs:complexType name="ObvodPrahySeznamType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam obvodů Prahy</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ObvodPrahy" type="mp:ObvodPrahyType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VyhledejObvodPrahyDotazType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Parametry obvodu Prahy</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Podminka" type="mpPodm:ObvodPrahyPodminkaType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="PozadovaneUdaje" type="mpPolBase:ObvodPrahyPolozkyBaseType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="VyhledejObvodPrahyRequest" type="vyhMp:VyhledejObvodPrahyRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na vyhledání obvodu Prahy</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="VyhledejObvodPrahyRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na vyhledání obvodu Prahy</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Dotaz" type="VyhledejObvodPrahyDotazType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="VyhledejObvodPrahyResponse" type="vyhMp:VyhledejObvodPrahyResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpověď vyhledání obvodu Prahy</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="VyhledejObvodPrahyResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpověď vyhledání obvodu Prahy</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="ObvodyPrahy" type="ObvodPrahySeznamType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

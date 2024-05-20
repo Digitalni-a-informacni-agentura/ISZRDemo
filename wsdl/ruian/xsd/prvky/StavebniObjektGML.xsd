@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:StavebniObjektGML:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:StavebniObjektGML:v1" xmlns:soGml="urn:cz:isvs:ruian:schemas:StavebniObjektGML:v1" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:so="urn:cz:isvs:ruian:schemas:StavebniObjekt:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:pa="urn:cz:isvs:ruian:schemas:Parcela:v1" xmlns:co="urn:cz:isvs:ruian:schemas:CastObce:v1" xmlns:mc="urn:cz:isvs:ruian:schemas:Momc:v1" elementFormDefault="qualified" version="0.40.2">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Aplikační schéma StavebniObjektGML obsahuje prvek typu: Stavební objekt, včetně geometrie. </xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../ruian/xsd/typy/CommonTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:StavebniObjekt:v1" schemaLocation="../../../ruian/xsd/prvky/StavebniObjekt.xsd"/>
+	<xs:import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../../common/gml/3.2.1/gml.xsd"/>
+	<xs:complexType name="DetailniTEASeznamType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam detailnich technickoekonomickych atributu (TEA)</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DetailTEA" type="DetailTEAType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DetailTEAType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Detailni tecnickoekonomicke atributy (TEA)</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod8Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="PlatiOd" type="base:DatumCasType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Nespravny" type="com:NespravnyType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="GlobalniIdNavrhuZmeny" type="com:IdNavrhuZmenyType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="DruhKonstrukceKod" type="base:Kod4Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PocetBytu" type="com:PocetBytuType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PocetPodlazi" type="com:PocetPodlaziType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PripojeniKanalizaceKod" type="base:Kod4Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PripojeniPlynKod" type="base:Kod4Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PripojeniVodovodKod" type="base:Kod4Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ZpusobVytapeniKod" type="base:Kod4Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="AdresniMistoKod" type="base:Kod9SeznamType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="StavebniObjekt" type="soGml:StavebniObjektGMLType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Prvek představuje stavební objekt.
+Prvek rozšiřuje gml:AbstractFeatureType a obsahuje geometrii. 	</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="StavebniObjektGMLType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Prvek Stavební objekt jako rozšíření gml:AbstractFeatureType.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="gml:AbstractFeatureType">
+				<xs:sequence>
+					<xs:group ref="so:StavebniObjektGroup" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="PlatiOd" type="base:DatumCasType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="GlobalniIdNavrhuZmeny" type="com:IdNavrhuZmenyType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="IdTransakce" type="com:IdTransakceType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="IsknBudovaId" type="base:Id18Type" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="Dokonceni" type="base:DatumCasType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="DruhKonstrukceKod" type="base:Kod4Type" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="ObestavenyProstor" type="com:ObestavenyProstorType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="PocetBytu" type="com:PocetBytuType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="PocetPodlazi" type="com:PocetPodlaziType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="PodlahovaPlocha" type="com:PodlahovaPlochaType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="PripojeniKanalizaceKod" type="base:Kod4Type" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="PripojeniPlynKod" type="base:Kod4Type" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="PripojeniVodovodKod" type="base:Kod4Type" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="VybaveniVytahemKod" type="base:Kod4Type" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="ZastavenaPlocha" type="com:ZastavenaPlochaType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="ZpusobVytapeniKod" type="base:Kod4Type" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="ZpusobVyuzitiKod" type="base:Kod4Type" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="ZpusobOchrany" type="com:ZpusobOchranySeznamType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="DetailniTEA" type="DetailniTEASeznamType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="Geometrie" type="GeometrieStavebniObjektType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="NespravneUdaje" type="com:NespravnyUdajListType" minOccurs="0" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="GeometrieStavebniObjektType">
+		<xs:sequence>
+			<xs:element name="DefinicniBod" type="gml:PointPropertyType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Geometrie definičního bodu prvku.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Hranice" type="HraniceStavebniObjektType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Geometrie hranice prvku.			</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="HraniceStavebniObjektType">
+		<xs:complexContent>
+			<xs:extension base="gml:MultiSurfacePropertyType">
+				<xs:sequence>
+					<xs:element name="StupenGeneralizace" type="com:StupenGeneralizaceType" minOccurs="1" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

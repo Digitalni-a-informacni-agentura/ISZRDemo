@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:aisecd:schemas:AisEcdMediaCtiPodleUdaju:v1" 
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:aisse="urn:cz:isvs:aisse:schemas:AisSeTypy:v1" 
+           xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" 
+           targetNamespace="urn:cz:isvs:aisecd:schemas:AisEcdMediaCtiPodleUdaju:v1"
+           elementFormDefault="qualified" 
+           attributeFormDefault="unqualified" 
+           version="1.0.0">
+    <xs:annotation>
+        <xs:documentation xml:lang="cs">Definice prvků pro AIS EOP pro službu AisEcdMediaCtiPodleUdaju.</xs:documentation>
+    </xs:annotation>
+        
+    <!-- Úvodní verze pro atomické media služby AIS ECD pro ZR v.1.0.0, 23.06.2017, KOMIX: Libor Málek, Jan Štastný, Andrea Vataščinová  -->
+       
+    <xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd" />
+    <xs:import namespace="urn:cz:isvs:aisse:schemas:AisSeTypy:v1" schemaLocation="../../aisse/xsd/AisSeTypy.xsd" />
+
+    <xs:element name="AisEcdMediaSyncCtiPodleUdaju" type="AisEcdMediaCtiPodleUdajuType" />
+    <xs:element name="AisEcdMediaSyncCtiPodleUdajuResponse" type="AisEcdMediaCtiPodleUdajuResponseType" />
+
+    <xs:complexType name="AisEcdMediaCtiPodleUdajuType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Synchronní dotaz.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="ZadostInfo" type="reg:ZadostInfoType" />
+            <xs:element name="AutorizaceInfo" type="reg:AutorizaceType" minOccurs="0" />
+            <xs:element name="MapaAifo" type="reg:MapaAifoType" minOccurs="0" />
+            <xs:element name="SeznamIdAdres" type="reg:SeznamIdAdresType" minOccurs="0" />
+            <xs:element name="Dotaz" type="aisse:AisEcdMediaCtiPodleUdajuDataType" />
+        </xs:sequence>
+        <xs:attribute name="verzeZadosti" type="reg:VerzeType" />
+    </xs:complexType>
+
+    <xs:complexType name="AisEcdMediaCtiPodleUdajuResponseType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">Synchronní odpověd na dotaz.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" />
+            <xs:element name="MapaAifo" type="reg:MapaAifoType" minOccurs="0" />
+            <xs:element name="SeznamIdAdres" type="reg:SeznamIdAdresType" minOccurs="0" />
+            <xs:element name="EcdOdpoved" type="AisMediaDataResponseType" minOccurs="0" >		
+                <xs:annotation>
+                    <xs:documentation xml:lang="cs">Odpověd na dotaz - data AIS ECD.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="verzeZadosti" type="reg:VerzeType" />
+    </xs:complexType>
+
+	<xs:complexType name="AisMediaDataResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpověd na dotaz - data AIS ECD.</xs:documentation>
+		</xs:annotation>		
+                    <xs:sequence>
+			<xs:element name="EcdOdpovedV1" type="aisse:AisMediaDataResponseTypeV1" minOccurs="0" />
+                    </xs:sequence>    
+	</xs:complexType>
+</xs:schema>
+

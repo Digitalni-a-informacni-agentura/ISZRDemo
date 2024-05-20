@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:ZmenUcelovyPrvek:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:ZmenUcelovyPrvek:v1" xmlns:zup="urn:cz:isvs:ruian:schemas:ZmenUcelovyPrvek:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:zt="urn:cz:isvs:ruian:schemas:ZmenaTypy:v1" elementFormDefault="qualified" version="1.0.1">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenaTypy:v1" schemaLocation="../../../ruian/xsd/typy/ZmenaTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../typy/BaseTypy.xsd"/>
+	<xs:complexType name="UcelovyPrvekZmenaType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Změna účelového prvku</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod9Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="ExterniId" type="base:Nazev50Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Nazev" type="zt:Nazev50ZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Popis" type="zt:Text2000ZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="TypUUPKod" type="zt:Kod4ZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="SubtypKod" type="zt:Kod4ZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="DatumVzniku" type="zt:DatumCasZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="StavUUPKod" type="zt:Kod4ZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ZpusobVymezeniKod" type="zt:Kod4ZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PresnostVymezeni" type="zt:PresnostVytyceniZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PlatiOd" type="zt:DatumCasZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="GlobalniIdNavrhuZmeny" type="zt:IdNavrhuZmenyZmenaType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="ZmenaGrafiky" type="zt:ZmenaGrafikyZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Nespravny" type="zt:NespravnyZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ZmenaDetailu" type="zt:ZmenaDetailuZmenaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Cislo" type="zt:Nazev50ZmenaType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

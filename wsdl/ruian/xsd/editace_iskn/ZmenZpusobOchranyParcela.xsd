@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:ZmenZpusobOchranyParcela:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:ZmenZpusobOchranyParcela:v1" xmlns:zzpa="urn:cz:isvs:ruian:schemas:ZmenZpusobOchranyParcela:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:zt="urn:cz:isvs:ruian:schemas:ZmenaTypy:v1" elementFormDefault="qualified" version="0.40.0">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:ZmenaTypy:v1" schemaLocation="../../../ruian/xsd/typy/ZmenaTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:complexType name="ZpusobOchranyParcelaZmenaType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Zmena zpusobu ochrany parcely</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ParcelaId" type="base:Id18Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="ZpusobOchranyKod" type="zt:Kod4ZmenaType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="RizeniId" type="zt:IdRizeniZmenaType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:VyhledejAdresa:v2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:VyhledejAdresa:v2" xmlns:vyhAdresa="urn:cz:isvs:ruian:schemas:VyhledejAdresa:v2" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" elementFormDefault="qualified" version="2.0.0">
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../typy/BaseTypy.xsd"/>
+	<xs:complexType name="AdresaSeznamType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam adres ve formatu polozek</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Adresa" type="AdresaType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AdresaType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Adresa ve formatu polozek</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OkresKod" type="base:Kod4Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="OkresNazev" type="base:Nazev32Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ObecKod" type="base:Kod6Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ObecNazev" type="base:Nazev48Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="CastObceKod" type="base:Kod6Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="CastObceNazev" type="base:Nazev48Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="UliceKod" type="base:Kod7Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="UliceNazev" type="base:Nazev48Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PostaKod" type="base:Kod5Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PostaNazev" type="base:Nazev48Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="StavebniObjektKod" type="base:Kod9Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="AdresniMistoKod" type="reg:KodAdresniMistoType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="TypCislaDomovnihoKod" type="base:Kod1Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="CisloDomovni" type="base:Kod4Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="CisloOrientacni" type="base:Kod3Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="CisloOrientacniPismeno" type="base:Kod1TextType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VyhledejAdresuDotazType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Porametry dotazu vyhledani adresy</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Podminka" type="VyhledejAdresuPodminkaType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VyhledejAdresuPodminkaType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Adresa ve formatu polozek</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ObecNazev" type="base:Nazev48Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="CastObceNazev" type="base:Nazev48Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="UliceNazev" type="base:Nazev48Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PostaNazev" type="base:Nazev48Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PostaKod" type="base:Kod5Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="TypCislaDomovnihoKod" type="base:Kod1Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="CisloDomovni" type="base:Kod4Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="CisloOrientacni" type="base:Kod3Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="CisloOrientacniPismeno" type="base:Kod1TextType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="VyhledejAdresuRequest" type="vyhAdresa:VyhledejAdresuRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Typ dotazu vyhledavani adresy</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="VyhledejAdresuRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Typ dotazu vyhledavani adresy</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Dotaz" type="VyhledejAdresuDotazType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="VyhledejAdresuResponse" type="vyhAdresa:VyhledejAdresuResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Typ odpovedi vyhledavani adresy</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="VyhledejAdresuResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Typ odpovedi vyhledavani adresy</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Adresy" type="AdresaSeznamType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrTypy:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrTypy:v1"
+	xmlns:iszr="urn:cz:isvs:iszr:schemas:IszrTypy:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.1.1">
+
+	<xs:annotation>
+			<xs:documentation xml:lang="cs">XML schéma s definicemi společných datových prvků ISZR.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vývojová verze 0.1.0, 14.10.2011, Pavel Odstrčil -->
+	<!-- Vývojová verze 0.1.1, 26.10.2011 Aleš Teplý, formální úpravy -->
+	<!-- Vývojová verze 0.1.2, 12.12.2011 Aleš Teplý, rozšíření VysledekSubKodIszrType -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- Verze pro revizi 1.1.1, 14.05.2012 Aleš Teplý, FormularDataType - povolení zakázaných znaků x0A a x0D -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd" />
+
+	<xs:simpleType name="CiselnikKodType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Kód číselníku poskytovaného ISZR.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="reg:IdentifikatorType">
+			<xs:maxLength value="50"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="CiselnikPopisType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Textový popis číselníku poskytovaného ISZR.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="reg:NonEmptyStringType">
+			<xs:maxLength value="500"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="SouborCiselnikuFormatType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Formát číselníku, popis, v jakém formátu je číselník k dispozici, informace o dokumentaci apod..</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="reg:NonEmptyStringType">
+			<xs:maxLength value="1000"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="FormularDataType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">XML data pro formulář.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="reg:NonEmptyLineStringType"/>
+	</xs:simpleType>
+
+	<xs:simpleType name="ManualniZpracovaniType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Příznak, zda při chybě předávat k manuálnímu zpracování.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:boolean"/>
+	</xs:simpleType>
+
+	<!-- chyby -->
+	<xs:simpleType name="VysledekSubKodIszrType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Detailní kód výsledku, výčtový typ.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="CHYBA KOD CISELNIKU">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Nenalezen kód číselníku.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CHYBA FORMULARE">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Formulář není validní nebo nebyl rozpoznán.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CHYBA DAT FORMULARE">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Formulář není správně vyplněn.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CHYBA REKLAMACE">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Žádost o reklamaci nebylo možné realizovat.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CERTIFIKAT NENALEZEN">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Nebylo nalezeno zadané sériové číslo certifikátu.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NEPODPOROVANO">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Požadovaná funkce neni podporována, například manuální zpracování.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SPECIFIKACE V POPISU">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Detailní popis uveden v popisu.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:complexType name="IszrAplikacniStatusType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Aplikační chyba, doplnění k StatusType ze systémové části zprávy, odpověď.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="VysledekIszrKodType" type="reg:VysledekKodType" />
+			<xs:element name="VysledekDetail" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="VysledekSubKod" type="VysledekSubKodIszrType" />
+						<xs:element name="VysledekPopis" type="reg:VysledekPopisType" minOccurs="0" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>	
+	
+	<xs:complexType name="CiselnikData">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Obsah číselníku.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Typ" type="reg:NonEmptyStringType"/>
+			<xs:any namespace="##any" processContents="lax"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="SouborCiselnikuInfoType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Informace o číselníku poskytovaném ISZR.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="KodCiselniku" type="CiselnikKodType" />
+			<xs:element name="Verze" type="reg:VerzeType"/>
+			<xs:element name="DatumZmeny" type="reg:CasovaZnackaType"/>
+			<xs:element name="Popis" type="CiselnikPopisType"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="SouborCiselnikuType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Definice číselníku poskytovaného prostřednictvím ISZR. Číselník je předán jako odkaz na URL nebo přímo obsah číselníku.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Info" type="SouborCiselnikuInfoType"/>
+			<xs:element name="Format" type="SouborCiselnikuFormatType"/>
+			<xs:choice>
+				<xs:element name="UmisteniURL" type="xs:anyURI"/>
+				<xs:element name="Data" type="CiselnikData"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+
+  <xs:complexType name="BinarniDokumentType">
+    <xs:annotation>
+      <xs:documentation xml:lang="cs">Binární dokument base64 nebo MTOM/XOP.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="reg:BinarniDataType"/>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>

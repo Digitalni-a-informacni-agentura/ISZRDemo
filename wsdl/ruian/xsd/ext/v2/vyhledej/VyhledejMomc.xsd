@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:VyhledejMomc:v2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:VyhledejMomc:v2" xmlns:vyhMc="urn:cz:isvs:ruian:schemas:VyhledejMomc:v2" xmlns:mc="urn:cz:isvs:ruian:schemas:Momc:v2" xmlns:mcPodm="urn:cz:isvs:ruian:schemas:MomcPodminka:v2" xmlns:mcPolBase="urn:cz:isvs:ruian:schemas:MomcPolozkyBase:v2" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" elementFormDefault="qualified" version="2.0.0">
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:MomcPolozkyBase:v2" schemaLocation="MomcPolozkyBase.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:MomcPodminka:v2" schemaLocation="MomcPodminka.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:Momc:v2" schemaLocation="../prvky/Momc.xsd"/>
+	<xs:complexType name="MomcSeznamType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam MOMC</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Momc" type="mc:MomcType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VyhledejMomcDotazType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Parametry MOMC</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Podminka" type="mcPodm:MomcPodminkaType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="PozadovaneUdaje" type="mcPolBase:MomcPolozkyBaseType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="VyhledejMomcRequest" type="vyhMc:VyhledejMomcRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na vyhledani MOMC</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="VyhledejMomcRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na vyhledani MOMC</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Dotaz" type="VyhledejMomcDotazType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="VyhledejMomcResponse" type="vyhMc:VyhledejMomcResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved vyhledani MOMC</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="VyhledejMomcResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved vyhledani MOMC</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Momc" type="MomcSeznamType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

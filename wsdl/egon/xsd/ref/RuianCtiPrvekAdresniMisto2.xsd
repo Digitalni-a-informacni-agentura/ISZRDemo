@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+	targetNamespace="urn:cz:isvs:ruian:schemas:CtiAdresniMisto:v2" 
+	xmlns="urn:cz:isvs:ruian:schemas:CtiAdresniMisto:v2" 
+	xmlns:ctiAd="urn:cz:isvs:ruian:schemas:CtiAdresniMisto:v2"
+	xmlns:adGml="urn:cz:isvs:ruian:schemas:AdresniMistoGML:v2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified" 
+	version="2.0.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Rozšíření CtiAdresniMisto, definice potřebného elementu v namespace RUIAN.</xs:documentation>
+	</xs:annotation>
+	
+	<!-- Výchozí verze 2.0.0, 6.10.2020 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:AdresniMistoGML:v2" schemaLocation="../../../ruian/xsd/ext/v2/prvky/AdresniMistoGML.xsd"/>
+
+	<xs:element name="AdresniMisto" type="adGml:AdresniMistoGMLType"/>
+
+</xs:schema>

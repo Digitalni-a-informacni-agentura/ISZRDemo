@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekSpravniObvod:v1" 
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekSpravniObvod:v1" 
+	xmlns:e34n="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejPrvekSpravniObvod:v1" 
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:vyhSp="urn:cz:isvs:ruian:schemas:VyhledejSpravniObvod:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified" 
+	version="1.1.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E34n externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+	
+	<!-- Vývojová verze 0.0.1, 22.07.2011, Pavel Kirchner -->
+	<!-- Vývojová verze 0.0.2, 28.07.2011, Pavel Kirchner, převzetí datového elementu Response pomocí ref (deklaruje AC) -->
+	<!-- Fixovaná verze 1.0.0, 25.10.2011, Aleš Teplý -->
+	<!-- Katalog.7 verze 1.1.0, 14.03.2012 Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:VyhledejSpravniObvod:v1" schemaLocation="ref/RuianVyhledejPrvekSpravniObvod.xsd"/>
+	
+	<xs:element name="RuianVyhledejPrvekSpravniObvod" type="RuianVyhledejPrvekSpravniObvodType"/>
+	<xs:element name="RuianVyhledejPrvekSpravniObvodResponse" type="RuianVyhledejPrvekSpravniObvodResponseType"/>
+	
+	<xs:complexType name="RuianVyhledejPrvekSpravniObvodType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E34n externího rozhraní - žádost. Vyhledání správní obvod z RUIAN. RUIAN služba A03, operace VyhledejSpravniObvod.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+		 						<xs:element name="RuianVyhledejPrvekSpravniObvodData" type="vyhSp:VyhledejSpravniObvodDotazType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="RuianVyhledejPrvekSpravniObvodResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E34n externího rozhraní - odpověď. Vyhledání správní obvod z RUIAN. RUIAN služba A03, operace VyhledejSpravniObvod.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="RuianOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RuianVyhledejPrvekSpravniObvodDataResponse">
+									<xs:complexType>
+										<xs:sequence>
+										  <xs:element ref="vyhSp:SpravniObvody"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

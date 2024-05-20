@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:iszr:schemas:IszrRobVypisSouhlasuPoskytnutiTretiOsobe:v1" xmlns:e224="urn:cz:isvs:iszr:schemas:IszrRobVypisSouhlasuPoskytnutiTretiOsobe:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" xmlns:rod="urn:cz:isvs:rob:schemas:RobDotazyData:v1" xmlns:i27="urn:cz:isvs:iszr:schemas:IszrDataRobVypisSouhlasuPoskytnutiTretiOsobe:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:cz:isvs:iszr:schemas:IszrRobVypisSouhlasuPoskytnutiTretiOsobe:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Výpis souhlasů z ROB pro DS třetí strany, do které se při změně mají údaje odeslat. Služba E224 externího rozhraní.</xs:documentation>
+	</xs:annotation>
+	<!-- Novela zákona o ZR, nova sluzba, 6..3.2017 Pavel Odstrčil -->
+	<!-- AutoCont CZ a.s. -->
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstractOrg.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rob:schemas:RobDotazyData:v1" schemaLocation="../../rob/xsd/RobDotazyData.xsd"/>
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrDataRobVypisSouhlasuPoskytnutiTretiOsobe:v1" schemaLocation="../../iszr/xsd/IszrDataRobVypisSouhlasuPoskytnutiTretiOsobe.xsd"/>
+	<xs:element name="RobVypisSouhlasuPoskytnutiTretiOsobe" type="RobVypisSouhlasuPoskytnutiTretiOsobeType"/>
+	<xs:element name="RobVypisSouhlasuPoskytnutiTretiOsobeResponse" type="RobVypisSouhlasuPoskytnutiTretiOsobeResponseType"/>
+	<xs:complexType name="RobVypisSouhlasuPoskytnutiTretiOsobeType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Výpis souhlasů z ROB pro DS třetí strany, do které se při změně mají údaje odeslat..</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RobVypisSouhlasuPoskytnutiTretiOsobeData" type="rod:RobVypisSouhlasuPoskytnutiTretiOsobeDataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RobVypisSouhlasuPoskytnutiTretiOsobeResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Výpis souhlasů z ROB pro DS třetí strany, do které se při změně mají údaje odeslat, odpověď.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAifoStAbstractType">
+				<xs:sequence>
+					<xs:element name="RobOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RobVypisSouhlasuPoskytnutiTretiOsobeDataResponse" type="rod:RobVypisSouhlasuPoskytnutiTretiOsobeDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="IszrOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="IszrVypisSouhlasuPoskytnutiTretiOsobeDataResponse" type="i27:IszrVypisSouhlasuPoskytnutiTretiOsobeDataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

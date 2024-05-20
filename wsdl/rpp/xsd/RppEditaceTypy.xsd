@@ -1,0 +1,745 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:cz:isvs:rpp:schemas:RppEditaceTypy:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:rpp="urn:cz:isvs:rpp:schemas:RppTypy:v1" targetNamespace="urn:cz:isvs:rpp:schemas:RppEditaceTypy:v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.1">
+    <xs:annotation>
+        <xs:documentation xml:lang="cs">Návrh XML schématu s definicemi společných datových prvků IS RPP.
+          Toto schéma obsahuje definice základních datových prvků používaných pro editační dotazy a odpovědi
+          do registru práv a povinností (RPP).
+        </xs:documentation>
+    </xs:annotation>
+    <!-- Verze 1.0.0, 6.2.2012 -->
+    <!-- Verze 1.0.1, 23.2.2012 -->
+    <xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../RegTypy.xsd"/>
+    <xs:import namespace="urn:cz:isvs:rpp:schemas:RppTypy:v1" schemaLocation="RppTypy.xsd"/>
+    <xs:simpleType name="NazevCiselnikuType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Název číselníku, výčtový typ.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="UDAJ AIS">
+                <xs:annotation/>
+            </xs:enumeration>
+            <xs:enumeration value="INFORMACNI SYSTEM">
+                <xs:annotation/>
+            </xs:enumeration>
+            <xs:enumeration value="ORGAN VEREJNE MOCI">
+                <xs:annotation/>
+            </xs:enumeration>
+            <xs:enumeration value="TYP OVM">
+                <xs:annotation/>
+            </xs:enumeration>
+            <xs:enumeration value="OVM TYP OVM">
+                <xs:annotation/>
+            </xs:enumeration>
+            <xs:enumeration value="MNOZINA VYBERU">
+                <xs:annotation/>
+            </xs:enumeration>
+            <xs:enumeration value="TYP SLUZBY">
+                <xs:annotation/>
+            </xs:enumeration>
+            <xs:enumeration value="KATEGORIE SLUZBY">
+                <xs:annotation/>
+            </xs:enumeration>
+            <xs:enumeration value="REZIM SLUZBY">
+                <xs:annotation/>
+            </xs:enumeration>
+            <xs:enumeration value="TYP ODPOVEDI">
+                <xs:annotation/>
+            </xs:enumeration>
+            <xs:enumeration value="ZPUSOB INICIALIZACE">
+                <xs:annotation/>
+            </xs:enumeration>
+            <xs:enumeration value="POVAHA OPERACE">
+                <xs:annotation/>
+            </xs:enumeration>
+            <xs:enumeration value="METRIKA">
+                <xs:annotation/>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="TypOperaceType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Typ operace, výčtový typ.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="1"/>
+            <xs:enumeration value="I">
+                <xs:annotation>
+                    <xs:documentation>Insert</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="U">
+                <xs:annotation>
+                    <xs:documentation>Update</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="R">
+                <xs:annotation>
+                    <xs:documentation>Read</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="T">
+                <xs:annotation>
+                    <xs:documentation>Insert + Update ve společné transakci</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="TypInformacnihoSystemuType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Typ informačního systému, výčtový typ.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="10"/>
+            <xs:enumeration value="ZR">
+                <xs:annotation>
+                    <xs:documentation>Základní registr</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="AIS">
+                <xs:annotation>
+                    <xs:documentation>Agendový informační systém</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="CASTIS">
+                <xs:annotation>
+                    <xs:documentation>Část informačního systému</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="SubTypInformacnihoSystemuType">
+        <xs:annotation>
+            <xs:documentation xml:lang="cs">
+                Subtyp informačního systému, výčtový typ.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="10"/>
+            <xs:enumeration value="ROS">
+                <xs:annotation>
+                    <xs:documentation>Základní registr ROS</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ROB">
+                <xs:annotation>
+                    <xs:documentation>Základní registr ROB</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="RUIAN">
+                <xs:annotation>
+                    <xs:documentation>Základní registr RUIAN</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="RPP1">
+                <xs:annotation>
+                    <xs:documentation>Základní registr RPP1 - RppUdajPrava (rozhodnutí)</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="RPP2">
+                <xs:annotation>
+                    <xs:documentation>Základní registr RPP2 - RppUdajAgendy (agendy a působnosti)</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="SluzbaEditAbstractType" abstract="true">
+        <xs:annotation>
+            <xs:documentation>
+                Služba v editačním dotazu, předek.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="rpp:SluzbaAbstractType">
+                <xs:sequence>
+                    <xs:element name="Nazev" type="reg:NazevSluzbyType"/>
+                    <xs:element name="DatumPlatnostiOd" type="rpp:DatumPlatnostiOdType"/>
+                    <xs:element name="DatumPlatnostiDo" type="rpp:DatumPlatnostiDoType" minOccurs="0"/>
+                    <xs:element name="Popis" type="rpp:PopisSluzbyType"/>
+                    <xs:element name="Endpoint" type="rpp:EndpointSluzbyType"/>
+                    <xs:element name="Pozastaveni" type="xs:boolean"/>
+                    <xs:element name="DuvodPozastaveni" type="rpp:DuvodPozastaveniSluzbyType" minOccurs="0"/>
+                    <xs:element name="VstupniParametryPopis" type="rpp:PopisVstupnichParametruSluzbyType"/>
+                    <xs:element name="VystupniParametryPopis" type="rpp:PopisVystupnichParametruSluzbyType"/>
+                    <xs:element name="MaxDobaSync" type="rpp:MaxDobaSluzbySyncType" minOccurs="0"/>
+                    <xs:element name="MaxDobaAsync" type="rpp:MaxDobaSluzbyAsyncType" minOccurs="0"/>
+                    <xs:element name="Priorizace" type="xs:boolean"/>
+                    <xs:element name="AktivniRezim" type="xs:boolean" minOccurs="0"/>
+                    <xs:element name="PocetOdeslani" type="rpp:PocetOdeslaniSluzbyType" minOccurs="0"/>
+                    <xs:element name="CasOpakovani" type="rpp:CasOpakovaniSluzbyType" minOccurs="0"/>
+                    <xs:element name="MaxPocetVstup" type="rpp:MaxPocetVstupSluzbyType" minOccurs="0"/>
+                    <xs:element name="MaxPocetVystup" type="rpp:MaxPocetVystupSluzbyType"/>
+                    <xs:element name="Strankovani" type="xs:boolean"/>
+                    <xs:element name="NazevTypuSluzby" type="rpp:NazevTypuSluzbyType"/>
+                    <xs:element name="NazevKategorieSluzby" type="rpp:NazevKategorieSluzbyType"/>
+                    <xs:element name="NazevRezimuSluzby" type="rpp:NazevRezimuSluzbyType"/>
+                    <xs:element name="NazevZpusobuInicializace" type="rpp:NazevZpusobuInicializaceType"/>
+                    <xs:element name="NazevPovahyOperace" type="rpp:NazevPovahyOperaceType"/>
+                    <xs:element name="NazevMnozinyVyberu" type="rpp:NazevMnozinyVyberuType"/>
+                    <xs:element name="NazevTypuOdpovedi" type="rpp:NazevTypuOdpovediType"/>
+                    <xs:element name="TypVazbyKCinnosti" type="rpp:TypVazbyKCinnostiType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="PravniPredpisEditAbstractType" abstract="true">
+        <xs:annotation>
+            <xs:documentation>
+                Identifikace právního předpisu v editačním dotazu, předek pro dotazy.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="CisloPravnihoPredpisu" type="rpp:CisloPravnihoPredpisuType" minOccurs="0"/>
+            <xs:element name="RokPravnihoPredpisu" type="rpp:RokPravnihoPredpisuType" minOccurs="0"/>
+            <xs:element name="NazevPravnihoPredpisu" type="rpp:NazevPravnihoPredpisuType" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="RozhodnutiEditAbstractType" abstract="true">
+        <xs:annotation>
+            <xs:documentation>
+                Údaje identifikace rozhodnutí v editačním dotazu, předek pro dotazy.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Identifikator" type="rpp:IdentifikatorRozhodnutiType"/>
+            <xs:element name="KodProvadejiciAgendy" type="reg:KodAgendyType"/>
+            <xs:element name="KodRozhodujicihoOvm" type="reg:KodOvmType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="MetrikaSlaEditType">
+        <xs:annotation>
+            <xs:documentation>
+                Metrika SLA v editačním dotazu.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Nazev" type="rpp:NazevMetrikyType"/>
+            <xs:element name="Hodnota" type="rpp:HodnotaMetrikyType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="CinnostAgendySluzbyEditType">
+        <xs:annotation>
+            <xs:documentation>
+                Činnost agendy ve vztahu ke službě v editačním dotazu.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="KodCinnostiAgendy" type="rpp:KodCinnostiAgendyType"/>
+            <xs:element name="KodSluzby" type="reg:KodSluzbyType"/>
+            <xs:element name="VerzeSluzby" type="rpp:VerzeSluzbyType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="UdajAisSluzbyEditType">
+        <xs:annotation>
+            <xs:documentation>
+                Údaj AIS ve vztahu ke službě v editačním dotazu.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="rpp:UdajAisOpravneniAisType"/>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="SeznamUdajuAisSluzbyEditType">
+        <xs:annotation>
+            <xs:documentation>
+                Seznam údajů AIS ve vztahu ke službě v editačním dotazu.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="UdajAisSluzby" type="UdajAisSluzbyEditType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="IsEditType">
+        <xs:annotation>
+            <xs:documentation>
+                Informační systém v editačním dotazu.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Kod" type="reg:KodAisType"/>
+            <xs:element name="Souhlas" type="xs:boolean" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="KodAisAgendyEditStavType">
+        <xs:annotation>
+            <xs:documentation>
+                Kód agendového informačního systém ve vztahu k agendě včetně stavu vazby v editačním dotazu.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="reg:KodAisType">
+                <xs:attribute name="stav" type="rpp:StavRppType" use="required"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="CinnostAgendyEditType">
+        <xs:annotation>
+            <xs:documentation>
+                Činnost agendy ve vztahu k agendě v editačním dotazu.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="rpp:CinnostAgendyAbstractType">
+                <xs:sequence>
+                    <xs:element name="SeznamPovolenychNazvuTypuOvm" type="rpp:SeznamNazvuTypuOvmType" minOccurs="0"/>
+                    <xs:element name="SeznamPovolenychOvm" type="SeznamKoduOvmEditType" minOccurs="0"/>
+                    <xs:element name="SeznamOpravneni" type="SeznamOpravneniAisEditType" minOccurs="0"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="SeznamCinnostiAgendyEditType">
+        <xs:annotation>
+            <xs:documentation>
+                Seznam činností agendy.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="CinnostAgendy" type="CinnostAgendyEditType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="OpravneniAisEditType">
+        <xs:annotation>
+            <xs:documentation>
+                Oprávnění přístupu k AIS v editačním dotazu.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="rpp:OpravneniAisAbstractType">
+                <xs:sequence>
+                    <xs:element name="KodAis" type="reg:KodAisType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="SeznamOpravneniAisEditType">
+        <xs:annotation>
+            <xs:documentation>
+                Seznam oprávnění AIS v editačním dotazu.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Opravneni" type="OpravneniAisEditType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="CinnostAgendyPusobnostiEditType">
+        <xs:annotation>
+            <xs:documentation>
+                Činnost agendy ve vztahu k působnosti v editačním dotazu.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Kod" type="rpp:KodCinnostiAgendyType"/>
+            <xs:element name="PocetUvazku" type="rpp:PocetUvazkuType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SeznamCinnostiAgendyPusobnostiEditType">
+        <xs:annotation>
+            <xs:documentation>
+                Seznam činností agendy působnosti v editačním dotazu.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="CinnostAgendyPusobnosti" type="CinnostAgendyPusobnostiEditType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SeznamKoduOvmEditType">
+        <xs:annotation>
+            <xs:documentation>
+                Seznam kódů OVM v editačním dotazu.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="KodOvm" type="reg:KodOvmType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="PravoPovinnostEditType">
+        <xs:annotation>
+            <xs:documentation>
+                Údaje o právu povinnosti v editačním dotazu.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="rpp:PravoPovinnostType">
+                <xs:sequence>
+                    <xs:element name="SeznamIdentifikatoruReferencnihoUdaje">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="IdentifikatorReferencnihoUdaje" type="rpp:IdentifikatorReferencnihoUdajeType" maxOccurs="unbounded"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="InformacniSystemEditType">
+        <xs:annotation>
+            <xs:documentation>
+                Informační systém v editačním dotazu nebo odpovědi správy číselníků.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="rpp:InformacniSystemAbstractType">
+                <xs:sequence>
+                    <xs:element name="KodOvm" type="reg:KodOvmType"/>
+                    <xs:element name="Typ" type="TypInformacnihoSystemuType"/>
+                    <xs:element name="SubTyp" type="SubTypInformacnihoSystemuType" minOccurs="0"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="UdajAisEditType">
+        <xs:annotation>
+            <xs:documentation>
+                Údaj AIS v editačním dotazu nebo odpovědi správy číselníků.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Nazev" type="rpp:NazevUdajeAisType"/>
+            <xs:element name="KodInformacnihoSystemu" type="reg:KodAisType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="MetrikaEditType">
+        <xs:annotation>
+            <xs:documentation>
+                Metrika v editačním dotazu nebo odpovědi správy číselníků.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Nazev" type="rpp:NazevMetrikyType"/>
+            <xs:element name="Jednotka" type="rpp:NazevJednotkyMetrikyType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="OvmEditType">
+        <xs:annotation>
+            <xs:documentation>
+                OVM v editačním dotazu nebo odpovědi správy číselníků.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="rpp:OvmType">
+                <xs:sequence>
+                    <xs:element name="Ico" type="reg:IcoType" minOccurs="0"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="SeznamyPolozekCiselnikuType">
+        <xs:annotation>
+            <xs:documentation>
+                Seznam seznamů položek číselníků pro operace insert a read.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:choice>
+            <xs:element name="SeznamUdajuAis">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="UdajAis" type="UdajAisEditType" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="SeznamNazvuTypuOvm">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="NazevTypuOvm" type="rpp:NazevTypuOvmType" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="SeznamNazvuMnozinyVyberu">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="NazevMnozinyVyberu" type="rpp:NazevMnozinyVyberuType" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="SeznamNazvuTypuSluzby">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="NazevTypuSluzby" type="rpp:NazevTypuSluzbyType" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="SeznamNazvuKategorieSluzby">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="NazevKategorieSluzby" type="rpp:NazevKategorieSluzbyType" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="SeznamNazvuRezimuSluzby">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="NazevRezimuSluzby" type="rpp:NazevRezimuSluzbyType" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="SeznamNazvuTypuOdpovedi">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="NazevTypuOdpovedi" type="rpp:NazevTypuOdpovediType" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="SeznamNazvuZpusobuInicializace">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="NazevZpusobuInicializace" type="rpp:NazevZpusobuInicializaceType" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="SeznamNazvuPovahyOperace">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="NazevPovahyOperace" type="rpp:NazevPovahyOperaceType" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="SeznamMetrik">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Metrika" type="MetrikaEditType" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="SeznamNazvuPovolenychTypuOvmOvm">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="NazevPovolenehoTypuOvmOvm" maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="NazevTypuOvm" type="rpp:NazevTypuOvmType"/>
+                                    <xs:element name="KodOvm" type="reg:KodOvmType"/>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="SeznamInformacnichSystemu">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="InformacniSystem" type="InformacniSystemEditType" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="SeznamOvm">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Ovm" type="OvmEditType" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="SeznamyPolozekCiselnikuOperaceUType">
+        <xs:annotation>
+            <xs:documentation>
+                Seznam seznamů položek číselníků pro update.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:choice>
+            <xs:element name="SeznamUdajuAis">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="UdajAisOperaceU" maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="UdajAisPuvodni" type="UdajAisEditType"/>
+                                    <xs:element name="UdajAisNovy" type="UdajAisEditType"/>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="SeznamNazvuTypuOvm">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="NazevTypuOvmOperaceU" maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="NazevTypuOvmPuvodni" type="rpp:NazevTypuOvmType"/>
+                                    <xs:element name="NazevTypuOvmNovy" type="rpp:NazevTypuOvmType"/>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="SeznamNazvuMnozinyVyberu">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="NazevMnozinyVyberuOperaceU" maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="NazevMnozinyVyberuPuvodni" type="rpp:NazevMnozinyVyberuType"/>
+                                    <xs:element name="NazevMnozinyVyberuNovy" type="rpp:NazevMnozinyVyberuType"/>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="SeznamNazvuTypuSluzby">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="NazevTypuSluzbyOperaceU" maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="NazevTypuSluzbyPuvodni" type="rpp:NazevTypuSluzbyType"/>
+                                    <xs:element name="NazevTypuSluzbyNovy" type="rpp:NazevTypuSluzbyType"/>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="SeznamNazvuKategorieSluzby">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="NazevKategorieSluzbyOperaceU" maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="NazevKategorieSluzbyPuvodni" type="rpp:NazevKategorieSluzbyType"/>
+                                    <xs:element name="NazevKategorieSluzbyNovy" type="rpp:NazevKategorieSluzbyType"/>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="SeznamNazvuRezimuSluzby">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="NazevRezimuSluzbyOperaceU" maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="NazevRezimuSluzbyPuvodni" type="rpp:NazevRezimuSluzbyType"/>
+                                    <xs:element name="NazevRezimuSluzbyNovy" type="rpp:NazevRezimuSluzbyType"/>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="SeznamNazvuTypuOdpovedi">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="NazevTypuOdpovediOperaceU" maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="NazevTypuOdpovediPuvodni" type="rpp:NazevTypuOdpovediType"/>
+                                    <xs:element name="NazevTypuOdpovediNovy" type="rpp:NazevTypuOdpovediType"/>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="SeznamNazvuZpusobuInicializace">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="NazevZpusobuInicializaceOperaceU" maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="NazevZpusobuInicializacePuvodni" type="rpp:NazevZpusobuInicializaceType"/>
+                                    <xs:element name="NazevZpusobuInicializaceNovy" type="rpp:NazevZpusobuInicializaceType"/>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="SeznamNazvuPovahyOperace">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="NazevPovahyOperaceOperaceU" maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="NazevPovahyOperacePuvodni" type="rpp:NazevPovahyOperaceType"/>
+                                    <xs:element name="NazevPovahyOperaceNovy" type="rpp:NazevPovahyOperaceType"/>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="SeznamMetrik">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="MetrikaOperaceU" maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="NazevMetrikyPuvodni" type="rpp:NazevMetrikyType"/>
+                                    <xs:element name="MetrikaNova" type="MetrikaEditType"/>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="SeznamNazvuPovolenychTypuOvmOvm">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="NazevPovolenehoTypuOvmOvmOperaceU" maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="NazevPovolenehoTypuOvmOvmPuvodni">
+                                        <xs:complexType>
+                                            <xs:sequence>
+                                                <xs:element name="NazevTypuOvm" type="rpp:NazevTypuOvmType"/>
+                                                <xs:element name="KodOvm" type="reg:KodOvmType"/>
+                                            </xs:sequence>
+                                        </xs:complexType>
+                                    </xs:element>
+                                    <xs:element name="NazevPovolenehoTypuOvmOvmNovy">
+                                        <xs:complexType>
+                                            <xs:sequence>
+                                                <xs:element name="NazevTypuOvm" type="rpp:NazevTypuOvmType"/>
+                                                <xs:element name="KodOvm" type="reg:KodOvmType"/>
+                                            </xs:sequence>
+                                        </xs:complexType>
+                                    </xs:element>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="SeznamInformacnichSystemu">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="InformacniSystemOperaceU" maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="KodInformacnihoSystemuPuvodni" type="reg:KodAisType"/>
+                                    <xs:element name="InformacniSystemNovy" type="InformacniSystemEditType"/>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="SeznamOvm">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="OvmOperaceU" maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="KodOvmPuvodni" type="reg:KodOvmType"/>
+                                    <xs:element name="OvmNovy" type="OvmEditType"/>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:choice>
+    </xs:complexType>
+</xs:schema>

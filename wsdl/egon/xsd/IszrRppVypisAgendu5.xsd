@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	targetNamespace="urn:cz:isvs:iszr:schemas:IszrRppVypisAgendu5:v1"
+	xmlns="urn:cz:isvs:iszr:schemas:IszrRppVypisAgendu5:v1"
+	xmlns:e260="urn:cz:isvs:iszr:schemas:IszrRppVypisAgendu5:v1"
+	xmlns:abs="urn:cz:isvs:iszr:schemas:IszrAbstract:v1"
+	xmlns:pdo="urn:cz:isvs:rpp:schemas:RppDotazyData:v1"
+	xmlns:crob="urn:cz:isvs:ruian:schemas:CtiProRob:v1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:ns1="urn:cz:isvs:iszr:schemas:IszrRppVypisAgendu5:v1"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	version="1.11.0">
+
+	<xs:annotation>
+		<xs:documentation xml:lang="cs">Návrh XML schématu s definicemi datových prvků ISZR. Služba E260 externího rozhraní - dotaz a odpověď.</xs:documentation>
+	</xs:annotation>
+
+	<!-- Vytvoření nové verze služby pro výpis údajů agendy, RPP 1.10.1, 12.10.2020, Aleš Teplý -->
+	<!-- Verze po revizi 1.10.2, 15.10.2021, Aleš Teplý, AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- Verze po revizi 1.11.0, 25.5.2022, Aleš Teplý, Response - AplikacniStatus - VysledekSubKod - upraveno a rozšířeno enumeration -->
+	<!-- AutoCont CZ a.s. -->
+
+	<xs:import namespace="urn:cz:isvs:iszr:schemas:IszrAbstract:v1" schemaLocation="IszrAbstract.xsd"/>
+	<xs:import namespace="urn:cz:isvs:rpp:schemas:RppDotazyData:v1" schemaLocation="../../rpp/xsd/RppDotazyData.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CtiProRob:v1" schemaLocation="ref/RuianCtiProRob.xsd"/>
+	<xs:element name="RppVypisAgendu5" type="RppVypisAgendu5Type"/>
+	<xs:element name="RppVypisAgendu5Response" type="RppVypisAgendu5ResponseType"/>
+	<xs:complexType name="RppVypisAgendu5Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E260 externího rozhraní - typ pro žádost. RPP služba P82.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrZadostAbstractType">
+				<xs:sequence>
+					<xs:element name="Zadost">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RppVypisAgendu5Data" type="pdo:RppVypisAgendu5DataType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RppVypisAgendu5ResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Služba E260 externího rozhraní - typ pro odpověď. RPP služba P82.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="abs:IszrOdpovedAbstractType">
+				<xs:sequence>
+					<xs:element name="RppOdpoved" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="RppVypisAgendu5DataResponse" type="pdo:RppVypisAgendu5DataResponseType"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

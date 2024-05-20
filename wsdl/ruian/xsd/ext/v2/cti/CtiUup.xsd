@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:CtiUup:v2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:CtiUup:v2" xmlns:ctiUp="urn:cz:isvs:ruian:schemas:CtiUup:v2" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" xmlns:upGml="urn:cz:isvs:ruian:schemas:UupGML:v2" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:upPol="urn:cz:isvs:ruian:schemas:UupPolozky:v2" elementFormDefault="qualified" version="2.1.0">
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:UupPolozky:v2" schemaLocation="UupPolozky.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../typy/BaseTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:UupGML:v2" schemaLocation="../prvky/UupGML.xsd"/>
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../../../RegTypy.xsd"/>
+	<xs:complexType name="CtiUupResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpověd na poažadavek načtení účelového prvku</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="UcelovyPrvek" type="upGml:UupGMLType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="CtiUupRequest" type="ctiUp:CtiUupRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na načtení informací o účelovém prvku.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="CtiUupRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na načtení informací o účelovém prvku.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Standardní hlavička dotazu.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Dotaz" type="CtiUupDotazType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Parametry dotazu.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="CtiUupResponse" type="ctiUp:CtiUupResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpověď na načtení účelového prvku</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="CtiUupDotazType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Parametry dotazu na informace o účelovém prvku. Pokud není zadán údaj Kod, musí být zadány údaje TypUUPKod i ExterniID.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Kod" type="base:Kod9Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Kód účelového prvku.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TypUUPKod" type="base:Kod4Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ExterniID" type="base:Nazev50Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PozadovaneUdaje" type="upPol:UupPolozkyType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Seznam požadovaných údajů.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

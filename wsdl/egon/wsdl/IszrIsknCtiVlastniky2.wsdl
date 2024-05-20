@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions 
+	targetNamespace="urn:cz:isvs:iszr:services:IszrIsknCtiVlastniky2:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrIsknCtiVlastniky2:v1" 
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrIsknCtiVlastniky2:v1" 
+	xmlns:e238="urn:cz:isvs:iszr:schemas:IszrIsknCtiVlastniky2:v1" 
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" 
+	name="IszrIsknCtiVlastniky2">
+
+	<wsdl:documentation>Služba E238 externího rozhraní.</wsdl:documentation>
+	<!-- Verze 1.0.0, 10.01.2019, AC -->
+	<!-- AutoCont CZ a.s. -->
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrIsknCtiVlastniky2:v1" schemaLocation="../xsd/IszrIsknCtiVlastniky2.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="IszrIsknCtiVlastniky2">
+		<wsdl:part name="parametry" element="e238:IsknCtiVlastniky2"/>
+	</wsdl:message>
+	<wsdl:message name="IszrIsknCtiVlastniky2Response">
+		<wsdl:part name="vysledek" element="e238:IsknCtiVlastniky2Response"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrIsknCtiVlastniky2PortType">
+		<wsdl:operation name="IszrIsknCtiVlastniky2">
+			<wsdl:input message="IszrIsknCtiVlastniky2"/>
+			<wsdl:output message="IszrIsknCtiVlastniky2Response"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrIsknCtiVlastniky2Binding" type="tns:IszrIsknCtiVlastniky2PortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrIsknCtiVlastniky2">
+			<soap:operation soapAction="IszrIsknCtiVlastniky2"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrIsknCtiVlastniky2Service">
+		<wsdl:port name="IszrIsknCtiVlastniky2PortService" binding="tns:IszrIsknCtiVlastniky2Binding">
+			<soap:address location="IszrIsknCtiVlastniky2"/>
+		</wsdl:port>
+	</wsdl:service>	
+
+</wsdl:definitions>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:e278="urn:cz:isvs:iszr:schemas:IszrRobCtiPodleUdaju2:v1" xmlns:tns="urn:cz:isvs:iszr:services:IszrRobCtiPodleUdaju2:v1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns="urn:cz:isvs:iszr:services:IszrRobCtiPodleUdaju2:v1" name="IszrRobCtiPodleUdaju2" targetNamespace="urn:cz:isvs:iszr:services:IszrRobCtiPodleUdaju2:v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation>Služba E278.</wsdl:documentation>
+  <wsdl:types>
+    <xsd:schema>
+      <xsd:import schemaLocation="../xsd/IszrRobCtiPodleUdaju2.xsd" namespace="urn:cz:isvs:iszr:schemas:IszrRobCtiPodleUdaju2:v1" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IszrRobCtiPodleUdaju2">
+    <wsdl:part name="parametry" element="e278:RobCtiPodleUdaju2" />
+  </wsdl:message>
+  <wsdl:message name="IszrRobCtiPodleUdaju2Response">
+    <wsdl:part name="vysledek" element="e278:RobCtiPodleUdaju2Response" />
+  </wsdl:message>
+  <wsdl:portType name="IszrRobCtiPodleUdaju2PortType">
+    <wsdl:operation name="IszrRobCtiPodleUdaju2">
+      <wsdl:input message="tns:IszrRobCtiPodleUdaju2" />
+      <wsdl:output message="tns:IszrRobCtiPodleUdaju2Response" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="IszrRobCtiPodleUdaju2Binding" type="tns:IszrRobCtiPodleUdaju2PortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="IszrRobCtiPodleUdaju2">
+      <soap:operation soapAction="IszrRobCtiPodleUdaju2" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="IszrRobCtiPodleUdaju2Service">
+    <wsdl:port name="IszrRobCtiPodleUdaju2PortService" binding="tns:IszrRobCtiPodleUdaju2Binding">
+      <soap:address location="IszrRobCtiPodleUdaju2" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

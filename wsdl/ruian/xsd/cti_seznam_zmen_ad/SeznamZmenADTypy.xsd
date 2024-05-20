@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:cz:isvs:ruian:schemas:SeznamZmenADTypy:v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cz:isvs:ruian:schemas:SeznamZmenADTypy:v1" xmlns:szmead="urn:cz:isvs:ruian:schemas:SeznamZmenADTypy:v1" xmlns:base="urn:cz:isvs:ruian:schemas:BaseTypy:v1" xmlns:com="urn:cz:isvs:ruian:schemas:CommonTypy:v1" xmlns:reg="urn:cz:isvs:reg:schemas:RegTypy:v1" elementFormDefault="qualified" version="1.0.0">
+	<xs:import namespace="urn:cz:isvs:reg:schemas:RegTypy:v1" schemaLocation="../../../RegTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:CommonTypy:v1" schemaLocation="../../../ruian/xsd/typy/CommonTypy.xsd"/>
+	<xs:import namespace="urn:cz:isvs:ruian:schemas:BaseTypy:v1" schemaLocation="../../../ruian/xsd/typy/BaseTypy.xsd"/>
+	<xs:complexType name="CtiSeznamZmenADVerzeType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Verze nacitani seznamu zmen</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="DatumOd" type="base:DatumCasType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="IdTransakce" type="com:IdTransakceType" minOccurs="1" maxOccurs="1"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:element name="CtiSeznamZmenADRequest" type="szmead:CtiSeznamZmenADRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Dotaz na seznam změn adresního místa.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="ZmenaADSeznamType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam zmen</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Zmena" type="ZmenaADType" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ZmenaADType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Zmena</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PrvekId" type="base:Id18Type" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="IdTranskace" type="com:IdTransakceType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="DatumZmeny" type="base:DatumCasType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="TypZmeny" type="com:TypZmenyPrvkuType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CtiSeznamZmenADRequestType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Typ dotazu na seznam změn adresního místa.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ZadostInfo" type="reg:ZadostInfoType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Hlavička žádosti.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Dotaz" type="CtiSeznamZmenADDotazType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Obsah dotazu.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CtiSeznamZmenADDotazType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Parametry dotazu seznamu zmen adresního místa.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Zacatek" type="CtiSeznamZmenADVerzeType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Začátek dat seznamu změn.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OmezeniNaZmenuAtributu" type="AtributSeznamADType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Omezení na seznam atributů změn AD.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CtiSeznamZmenADOdpovedType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved nacitani seznamu zmen adresnich mist.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Zacatek" type="CtiSeznamZmenADVerzeType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Začátek transakcí.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Konec" type="CtiSeznamZmenADVerzeType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Konec transakcí.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ExistujiDalsiZmeny" type="ExistujiDalsiDataType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Informace zda existují další záznamy.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Zmeny" type="ZmenaADSeznamType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="cs">Seznam změn adresních míst.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CtiSeznamZmenADResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Typ odpoved precteni seznamu zmen adresnich mist. </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OdpovedInfo" type="reg:OdpovedInfoType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Odpoved" type="CtiSeznamZmenADOdpovedType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="CtiSeznamZmenADResponse" type="szmead:CtiSeznamZmenADResponseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Odpoved přečtení seznamu změn adresních míst.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="AtributSeznamADType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Seznam atributů změn adresního místa.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Atribut" type="com:ZmenaAtributuADType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="ExistujiDalsiDataType">
+		<xs:annotation>
+			<xs:documentation xml:lang="cs">Priznak, existuji-li dalsi data</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:boolean"/>
+	</xs:simpleType>
+	<xs:complexType name="ListDruhZmenyType">
+		<xs:sequence>
+			<xs:element name="TypZmeny" type="com:TypZmenyPrvkuType" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

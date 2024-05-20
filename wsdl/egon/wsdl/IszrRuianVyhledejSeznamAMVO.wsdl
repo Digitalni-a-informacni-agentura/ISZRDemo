@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="urn:cz:isvs:iszr:services:IszrRuianVyhledejSeznamAMVO:v1"
+	xmlns="urn:cz:isvs:iszr:services:IszrRuianVyhledejSeznamAMVO:v1"
+	xmlns:tns="urn:cz:isvs:iszr:services:IszrRuianVyhledejSeznamAMVO:v1"
+	xmlns:e170="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejSeznamAMVO:v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	name="IszrRuianVyhledejSeznamAMVO">
+
+	<wsdl:documentation>Služba E170 externího rozhraní - Vyhledání adresních míst - RUIAN služba A06.</wsdl:documentation>
+	
+	<!-- Vývojová verze 1.4.4, 25.10.2013, Aleš Teplý -->
+	<!-- AutoCont CZ a.s. -->
+	
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:cz:isvs:iszr:schemas:IszrRuianVyhledejSeznamAMVO:v1" schemaLocation="../xsd/IszrRuianVyhledejSeznamAMVO.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IszrRuianVyhledejSeznamAMVO">
+		<wsdl:part name="parametry" element="e170:RuianVyhledejSeznamAMVO"/>
+	</wsdl:message>
+	<wsdl:message name="IszrRuianVyhledejSeznamAMVOResponse">
+		<wsdl:part name="vysledek" element="e170:RuianVyhledejSeznamAMVOResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="IszrRuianVyhledejSeznamAMVOPortType">
+		<wsdl:operation name="IszrRuianVyhledejSeznamAMVO">
+			<wsdl:input message="tns:IszrRuianVyhledejSeznamAMVO"/>
+			<wsdl:output message="tns:IszrRuianVyhledejSeznamAMVOResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IszrRuianVyhledejSeznamAMVOBinding" type="tns:IszrRuianVyhledejSeznamAMVOPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="IszrRuianVyhledejSeznamAMVO">
+			<soap:operation soapAction="IszrRuianVyhledejSeznamAMVO"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IszrRuianVyhledejSeznamAMVOService">
+		<wsdl:port name="IszrRuianVyhledejSeznamAMVOPortService" binding="tns:IszrRuianVyhledejSeznamAMVOBinding">
+			<soap:address location="IszrRuianVyhledejSeznamAMVO"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
